@@ -13,7 +13,7 @@ const Train = () => {
                 <h2 className="inline-block text-2 font-semibold text-primary mr-2 mb-4">TRAIN </h2>
                 <h3 className="inline-block text-1.125 font-semibold ">  by Meloroids</h3>
                 <p className="text-0.875 mb-4">Lorem ipsum dolor sit amet consectetur. Euismod mattis proin rutrum vulputate mi. Enim nullam ipsum donec sed ornare vitae diam ut et. Tempus quis interdum quis scelerisque leo condimentum sed nulla.</p>
-                <Link href='/train'><BtnPrimary buttonText='Get'></BtnPrimary></Link>
+                <Link href='/train'><BtnPrimary buttonText='Get started'></BtnPrimary></Link>
             </div>
             <img
                 src={background}
