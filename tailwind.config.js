@@ -6,9 +6,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)']
+      },
       colors: {
-        primary: '#CA69F9',
-        secondary: '#423D47',
+        primary: '#BB39FA',
+        secondary: '#C9ABD9',
         tertiary: '#EFECF0',
         white: '#ffffff',
         light: '#',
@@ -28,6 +31,7 @@ module.exports = {
       1.5: ['1.5rem'],
       2: ['2rem'],
       2.5: ['2.5rem'],
+
     },
     
    
