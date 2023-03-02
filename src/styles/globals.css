@@ -24,3 +24,16 @@ p {
         width: 64rem;
     }
 }
+
+.pull-out {
+    animation: pull-out 200ms ease-out ;
+}
+
+@keyframes pull-out {
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 50%;
+    }
+}

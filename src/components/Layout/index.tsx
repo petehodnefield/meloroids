@@ -26,7 +26,7 @@ export default function Layout({ children, ...props }: Props) {
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
             />
-            <main className='min-h-screen'>{children}</main>
+            <main onClick={() => setIsOpen(false)} className='min-h-screen'>{children}</main>
             <Footer />
         </>
     )

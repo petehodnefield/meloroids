@@ -1,6 +1,6 @@
 import React from 'react'
 import FullHeader from './FullHeader';
-
+import HamburgerMenu from './HamburgerMenu';
 import MobileHeader from './MobileHeader';
 
 interface NavProps {
@@ -14,7 +14,7 @@ const Header = ({ navSelected, setNavSelected, isOpen, setIsOpen }: NavProps) =>
 
 
     return (
-        <div className='lg:w-full lg:flex lg:justify-center bg-primary'>
+        <div className='relative lg:w-full lg:flex lg:justify-center bg-primary'>
             <MobileHeader
                 setIsOpen={setIsOpen}
                 isOpen={isOpen}
@@ -23,6 +23,11 @@ const Header = ({ navSelected, setNavSelected, isOpen, setIsOpen }: NavProps) =>
                 navSelected={navSelected}
                 setNavSelected={setNavSelected}
             ></FullHeader>
+
+            {isOpen ? <HamburgerMenu
+                setIsOpen={setIsOpen}
+            /> : ''}
+
         </div>
     )
 }
