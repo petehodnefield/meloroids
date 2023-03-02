@@ -18,7 +18,7 @@ module.exports = {
         medium: '#999999',
         dark: '#2c2c2c',
         black: '#111111',
-        light: '#',
+        light: '#e1e1e1',
       }
     },
     fontSize: {
@@ -33,6 +33,9 @@ module.exports = {
       2.5: ['2.5rem'],
 
     },
+    maxWidth: {
+      xxs: ['16rem']
+    }
     
    
   },

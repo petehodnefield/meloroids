@@ -3,14 +3,16 @@
 
 import BtnDarkPill from "@/components/Buttons/BtnDarkPill"
 import BtnPrimary from "@/components/Buttons/BtnPrimary"
+import Testimonial from "@/components/Home/Testimonial"
+import ThreeSteps from "@/components/Home/ThreeSteps"
 import Link from "next/link"
 export default function Home() {
 
   return (
     <>
-      <article className="px-6">
+      <article >
         {/* First text section */}
-        <section className="flex flex-col items-center justify-center text-center pt-10 pb-8">
+        <section className="flex flex-col items-center justify-center text-center pt-10 pb-8 px-6">
           <h1 className="text-2.5 font-semibold mb-4">Become a <span className="text-primary"> <br />literate</span> producer.</h1>
           <div>
             <h2 className="text-primary text-1.125 font-semibold  mb-4">Gain an unfair advantage</h2>
@@ -20,10 +22,10 @@ export default function Home() {
         </section>
 
         {/* Studio image */}
-        <div className="w-full h-40 bg-cover rounded	" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80)` }} />
+        <div className="w-full h-40 bg-cover rounded	px-6 box-border" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80)` }} />
 
         {/* Second text section */}
-        <section className="pt-7 pb-12 flex flex-col items-center">
+        <section className="pt-7 pb-12 flex flex-col items-center px-6">
           <h2 className="text-2 font-semibold mb-3">
             With Meloroids, you will <span className="text-primary">finally begin to understand music theory</span>
           </h2>
@@ -42,7 +44,8 @@ export default function Home() {
           <BtnPrimary buttonText="How it works" />
         </section>
 
-
+        <Testimonial />
+        <ThreeSteps />
       </article>
     </>
   )
