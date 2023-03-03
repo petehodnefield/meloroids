@@ -3,6 +3,7 @@
 
 import BtnDarkPill from "@/components/Buttons/BtnDarkPill"
 import BtnPrimary from "@/components/Buttons/BtnPrimary"
+import ArtistTarget from "@/components/Home/ArtistTarget"
 import Testimonial from "@/components/Home/Testimonial"
 import ThreeCards from "@/components/Home/ThreeCards"
 import ThreeSteps from "@/components/Home/ThreeSteps"
@@ -48,6 +49,7 @@ export default function Home() {
         <Testimonial />
         <ThreeSteps />
         <ThreeCards />
+        <ArtistTarget />
       </article>
     </>
   )
