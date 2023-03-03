@@ -13,6 +13,7 @@ module.exports = {
         primary: '#BB39FA',
         secondary: '#C9ABD9',
         tertiary: '#EFECF0',
+        quad: '#423D47',
         white: '#ffffff',
         light: '#',
         medium: '#999999',

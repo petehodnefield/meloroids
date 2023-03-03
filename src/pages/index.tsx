@@ -4,6 +4,7 @@
 import BtnDarkPill from "@/components/Buttons/BtnDarkPill"
 import BtnPrimary from "@/components/Buttons/BtnPrimary"
 import Testimonial from "@/components/Home/Testimonial"
+import ThreeCards from "@/components/Home/ThreeCards"
 import ThreeSteps from "@/components/Home/ThreeSteps"
 import Link from "next/link"
 export default function Home() {
@@ -46,6 +47,7 @@ export default function Home() {
 
         <Testimonial />
         <ThreeSteps />
+        <ThreeCards />
       </article>
     </>
   )
