@@ -3,7 +3,7 @@ import React from 'react'
 import peterTestimonial from '../../../public/assets/images/peter-headshot.jpg'
 const Testimonial = () => {
     return (
-        <article className='bg-light flex flex-col items-center px-6 pb-4 py-6'>
+        <article className='bg-light flex flex-col items-center px-6 pb-4 py-6 md:px-20'>
             <div className='h-12 w-12 mb-3'>
                 <Image
                     src={peterTestimonial}

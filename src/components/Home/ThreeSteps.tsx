@@ -3,11 +3,11 @@ import React from 'react'
 
 const ThreeSteps = () => {
     return (
-        <section className='bg-dark text-white flex flex-col items-center pt-12 pb-14'>
+        <section id='threeSteps' className='bg-dark text-white flex flex-col items-center pt-12 pb-20 md:px-8'>
             <h2 className='text-1.5 font-semibold mb-6'>3 Steps to Killer Melodies:</h2>
-            <div className='flex flex-col items-center'>
+            <div className='grid grid-rows-3	grid-cols-1	 md:grid-cols-3	md:grid-rows-1 gap-y-8 md:gap-x-2'>
                 {/* Step 1 */}
-                <div className='flex flex-col items-center max-w-xxs text-center	pb-8'>
+                <div className='flex flex-col items-center max-w-xxs text-center	'>
                     <h3 className='text-1.125 font-semibold mb-2' >Step 1: <span className='text-primary italic'>Choose a genre</span></h3>
                     <div className='h-48 w-40 mb-4'>
                         <img
@@ -16,10 +16,10 @@ const ThreeSteps = () => {
                             className='h-full w-full rounded'
                         />
                     </div>
-                    <p className='text-0.875'>Meloroids comes equipped with different genres, ranging from pop punk to dark.</p>
+                    <p className='text-0.875 '>Meloroids comes equipped with different genres, ranging from pop punk to dark.</p>
                 </div>
                 {/* Step 2 */}
-                <div className='flex flex-col items-center max-w-xxs text-center	pb-8'>
+                <div className='flex flex-col items-center max-w-xxs text-center	'>
                     <h3 className='text-1.125 font-semibold mb-2' >Step 2: <span className='text-primary italic'>Choose parameters</span></h3>
                     <div className='h-48 w-40 mb-4'>
                         <img

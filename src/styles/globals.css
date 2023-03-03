@@ -21,6 +21,21 @@ p {
     line-height: 150%;
 }
 
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    gap: 2rem;
+}
+
+@media screen and (min-width: 900px) {
+    .cards-grid {
+        grid-template-columns: repeat(3, 16rem);
+        grid-template-rows: repeat(1, 1fr);
+        justify-content: center;
+    }
+}
 @media screen and (min-width: 1280px) {
     .header-w {
         width: 64rem;
