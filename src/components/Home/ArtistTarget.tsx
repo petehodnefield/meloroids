@@ -1,6 +1,5 @@
-import Image from 'next/image'
 import React from 'react'
-import artistTargetImg from '../../../public/assets/images/artist-target.png'
+import Link from 'next/link'
 import BtnDark from '../Buttons/BtnDark'
 const ArtistTarget = () => {
     return (
@@ -26,7 +25,9 @@ const ArtistTarget = () => {
                         <p className='text-1 mb-5'>With Artist Target, you can experiment with different melodies and harmonies while also learning how to emulate the sound of your favorite artists. Whether you're an experienced musician or just starting out, our feature is a fun and effective way to improve your songwriting skills.</p>
                         <p className='text-1'><span className='italic font-semibold'>Here's how it works: </span>simply select an artist from our database, and Artist Target will analyze the song's key, tempo, and other parameters. Then, it's up to you to write a melody that matches those same parameters.</p>
                     </div>
-                    <BtnDark buttonText='Join the waitlist' />
+                    <Link href='/signup'>
+                        <BtnDark buttonText='Join the waitlist' />
+                    </Link>
                 </div>
                 {/* Train img SMALL */}
                 <img

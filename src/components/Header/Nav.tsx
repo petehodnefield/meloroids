@@ -16,10 +16,10 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
     return (
         <nav>
             <ul className='flex gap-6 items-center text-white'>
-                <li className={`${liStyle} ${navSelected === 'about' ? selectedNavItem : ''}`}>
+                <li className={`${liStyle} ${navSelected === 'home' ? selectedNavItem : ''}`}>
                     <Link
-                        onClick={() => setNavSelected('about')}
-                        href='/about'>About
+                        onClick={() => setNavSelected('home')}
+                        href='/'>Home
                     </Link>
                 </li>
                 <li className={`${liStyle}  ${navSelected === 'train' ? selectedNavItem : ''}`}>
@@ -28,12 +28,7 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
                         href='/train'>Train
                     </Link>
                 </li>
-                <li className={`${liStyle}  ${navSelected === 'chords' ? selectedNavItem : ''}`}>
-                    <Link
-                        onClick={() => setNavSelected('chords')}
-                        href='/chords'>Chords
-                    </Link>
-                </li>
+
                 <li className={`${liStyle}  ${navSelected === 'login' ? selectedNavItem : ''}  `}>
                     <Link
                         onClick={() => setNavSelected('login')}
