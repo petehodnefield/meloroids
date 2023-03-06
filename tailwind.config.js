@@ -2,9 +2,19 @@
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-
   ],
   theme: {
+    fontSize: {
+      0.625: ['0.625rem'],
+      0.75: ['0.75rem'],
+      0.75: ['0.75rem'],
+      0.875: ['0.875rem'],
+      1: ['1rem'],
+      1.125: ['1.125rem'],
+      1.5: ['1.5rem'],
+      2: ['2rem'],
+      2.5: ['2.5rem'],
+    },
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)']
@@ -20,27 +30,18 @@ module.exports = {
         dark: '#2c2c2c',
         black: '#111111',
         light: '#e1e1e1',
-      }
+      },
+      maxWidth: {
+        xxxs: ['12rem'],
+        xxs: ['16rem'],
+        '660': '660px',
+        '58': '58rem',
+        '70': '70rem'
+      },
+      spacing: {
+        88: '22rem'
+      },
     },
-    fontSize: {
-      0.625: ['0.625rem'],
-      0.75: ['0.75rem'],
-      0.75: ['0.75rem'],
-      0.875: ['0.875rem'],
-      1: ['1rem'],
-      1.125: ['1.125rem'],
-      1.5: ['1.5rem'],
-      2: ['2rem'],
-      2.5: ['2.5rem'],
-
-    },
-    maxWidth: {
-      xxxs: ['12rem'],
-      xxs: ['16rem']
-    },
-   
-    
-   
   },
   plugins: [],
 }

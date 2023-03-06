@@ -3,7 +3,7 @@ import React from 'react'
 
 const ThreeSteps = () => {
     return (
-        <section id='threeSteps' className='bg-dark text-white flex flex-col items-center pt-12 pb-20 md:px-8'>
+        <section id='threeSteps' className='w-full bg-dark text-white flex flex-col items-center pt-12 pb-20 md:px-8'>
             <h2 className='text-1.5 font-semibold mb-6'>3 Steps to Killer Melodies:</h2>
             <div className='grid grid-rows-3	grid-cols-1	 md:grid-cols-3	md:grid-rows-1 gap-y-8 md:gap-x-2'>
                 {/* Step 1 */}

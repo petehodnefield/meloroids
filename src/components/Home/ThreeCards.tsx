@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 
 const ThreeCards = () => {
     return (
-        <section id='howItWorks' className='bg-quad '>
+        <section id='howItWorks' className='bg-quad w-full'>
             <div className='  py-16 text-white   md:px-2 cards-grid	'>
                 {/* First card */}
                 <div className='bg-primary h-full w-64 rounded-lg flex flex-col items-center px-6 py-10'>
