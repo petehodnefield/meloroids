@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 const ThreeCards = () => {
     return (
         <section id='howItWorks' className='bg-quad w-full'>
-            <div className='  py-16 text-white   md:px-2 cards-grid	'>
+            <div className='  py-16 text-white   md:px-2 cards-grid	lg:py-24'>
                 {/* First card */}
                 <div className='bg-primary h-full w-64 rounded-lg flex flex-col items-center px-6 py-10'>
                     <Icon className='text-2 mb-2' icon="fluent-emoji-high-contrast:thinking-face" />

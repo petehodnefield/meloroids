@@ -33,7 +33,9 @@ p {
     .cards-grid {
         grid-template-columns: repeat(3, 16rem);
         grid-template-rows: repeat(1, 1fr);
-        justify-content: center;
+        justify-content: center;    
+        gap: 3rem;
+
     }
 }
 @media screen and (min-width: 1280px) {
