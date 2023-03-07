@@ -27,7 +27,9 @@ const TrainForm = () => {
     console.log(melodyParams)
 
     return (
-        <form className='flex flex-col items-center w-full px-6' action="">
+        <form
+            className='flex flex-col items-center w-full px-6'
+            action="">
             <StyleInput
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
