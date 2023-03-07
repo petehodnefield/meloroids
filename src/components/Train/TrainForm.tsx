@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import BtnDark from '../Buttons/BtnDark'
+import KeyInput from './KeyInput'
 import ProgressionInput from './ProgressionInput'
 import StyleInput from './StyleInput'
+import TempoInput from './TempoInput'
 
 
 
@@ -35,6 +38,17 @@ const TrainForm = () => {
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
             />
+            <KeyInput
+                melodyParams={melodyParams}
+                setMelodyParams={setMelodyParams}
+                hoverStyle={hoverStyle}
+            />
+            <TempoInput
+                melodyParams={melodyParams}
+                setMelodyParams={setMelodyParams}
+                hoverStyle={hoverStyle}
+            />
+            <BtnDark buttonText='Start' />
         </form>
     )
 }

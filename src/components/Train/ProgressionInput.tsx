@@ -32,7 +32,7 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormPro
     const [progressionOpen, setProgressionOpen] = useState(false)
     return (
         // Style Input
-        <div className='w-full relative'>
+        <div className='w-full relative mb-6'>
             <div className='flex justify-between items-center w-full'>
                 <label className='text-0.875 font-semibold'>Chord Progression</label>
                 <div className='flex gap-2 mb-1'>
@@ -50,7 +50,7 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormPro
             </div>
             {/* Style dropdown */}
             {progressionOpen ? (
-                <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white'>
+                <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-30'>
                     {progressions.map(progression => (
                         <div
                             key={progression.progression}
