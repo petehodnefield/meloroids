@@ -48,6 +48,7 @@ p {
     animation: pull-out 200ms ease-out ;
 }
 
+
 @keyframes pull-out {
     0%{
         width: 0;
@@ -55,4 +56,16 @@ p {
     100%{
         width: 50%;
     }
+}
+
+.menu-dropdown {
+        animation: menu-dropdown 250ms  ;
+
+}
+
+@keyframes menu-dropdown {
+    0% {
+        transform: translateY(-1rem);
+    }
+    
 }

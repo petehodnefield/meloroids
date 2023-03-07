@@ -2,12 +2,9 @@ import TrainForm from '@/components/Train/TrainForm'
 import React, { useState } from 'react'
 
 const Train = () => {
-    const [styleOpen, setStyleOpen] = useState(false)
-
-    const [styleChoice, setStyleChoice] = useState('Pop Punk')
 
 
-    console.log('style choice', styleChoice)
+
     return (
         <section
             className='bg-cover h-screen'
@@ -20,12 +17,7 @@ const Train = () => {
                     <p className='text-0.875 font-semibold text-primary'>Randomize all</p>
                     <input type='checkbox' className='h-6 w-6' />
                 </div>
-                <TrainForm
-                    styleOpen={styleOpen}
-                    setStyleOpen={setStyleOpen}
-                    setStyleChoice={setStyleChoice}
-                    styleChoice={styleChoice}
-                />
+                <TrainForm />
             </div>
         </section>
     )

@@ -30,6 +30,7 @@ module.exports = {
         dark: '#2c2c2c',
         black: '#111111',
         light: '#e1e1e1',
+        blue: '#3B7EE2',
       },
       maxWidth: {
         xxxs: ['12rem'],
