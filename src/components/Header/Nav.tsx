@@ -11,7 +11,7 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
     const liStyle: string = 'text-0.75 hover:text-dark duration-200 '
     const loginStyle: string = 'font-semibold h-8 bg-white text-primary rounded-full w-24 flex items-center justify-center hover:opacity-90 duration-200'
 
-    const selectedNavItem: string = 'underline  text-dark duration-200'
+    const selectedNavItem: string = 'underline font-semibold   duration-200'
     console.log(navSelected)
     return (
         <nav>

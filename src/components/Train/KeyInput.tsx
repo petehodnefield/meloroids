@@ -25,22 +25,33 @@ interface MelodyParams {
 interface FormProps {
     melodyParams: MelodyParams,
     setMelodyParams: React.Dispatch<React.SetStateAction<MelodyParams>>,
-    hoverStyle: string
+    hoverStyle: string,
+    allRandom: boolean
 }
-const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) => {
+const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, allRandom }: FormProps) => {
     const [keyOpen, setKeyOpen] = useState(false)
 
     return (
         <div className='w-full relative mb-6'>
             <div className='flex justify-between items-center w-full'>
                 <label className='text-0.875 font-semibold'>Key</label>
-                <div className='flex gap-2 mb-1'>
-                    <p className='text-0.875 font-semibold text-medium'>Randomize</p>
-                    <input type='checkbox' className='h-6 w-6 ' />
+                {/* Custom Checkbox */}
+                <div className='checkbox-container'>
+                    {allRandom ? (
+                        <input checked={true} type='checkbox' id='cb4' />
+
+                    ) : (
+                        <input type='checkbox' id='cb4' />
+
+                    )}
+                    <label htmlFor='cb4'>Randomize</label>
                 </div>
+                {/* VIDEO */}
+
             </div>
             <div
-                className='h-12 w-full border-2 rounded-lg flex justify-between items-center '
+                className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
+                ${allRandom ? 'pointer-events-none bg-medium opacity-40' : ''}`}
                 onClick={() => setKeyOpen(!keyOpen)}
             >
                 <div className='w-12 text-center'>🎼</div>

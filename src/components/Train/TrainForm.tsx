@@ -14,7 +14,12 @@ interface MelodyParams {
     tempo?: number
 }
 
-const TrainForm = () => {
+interface RandomProps {
+    allRandom: boolean,
+    setAllRandom: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const TrainForm = ({ allRandom, setAllRandom }: RandomProps) => {
     const hoverStyle = 'hover:box-border	 hover:ml-2 hover:mr-8 hover:cursor-pointer hover:bg-blue hover:text-white duration-100'
 
     const [melodyParams, setMelodyParams] = useState<MelodyParams>({
@@ -34,24 +39,33 @@ const TrainForm = () => {
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
+                allRandom={allRandom}
             />
             <ProgressionInput
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
+                allRandom={allRandom}
+
+
             />
             <KeyInput
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
+                allRandom={allRandom}
+
             />
             <TempoInput
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
+                allRandom={allRandom}
+                setAllRandom={setAllRandom}
+
             />
-            <BtnDark buttonText='Start' />
-        </form>
+            <BtnDark buttonText='Start' ></BtnDark>
+        </form >
     )
 }
 
