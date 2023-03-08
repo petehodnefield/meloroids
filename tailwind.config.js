@@ -37,7 +37,9 @@ module.exports = {
         xxxs: ['12rem'],
         xxs: ['16rem'],
         '660': '660px',
+        '16': '16rem',
         '26': '26rem',
+        '48': '48rem',
         '58': '58rem',
         '70': '70rem',
         112: '28rem'
