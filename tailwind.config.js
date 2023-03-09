@@ -32,6 +32,7 @@ module.exports = {
         light: '#e1e1e1',
         blue: '#3B7EE2',
         green: '#37E1EC',
+        red: '#EE1515',
       },
       maxWidth: {
         xxxs: ['12rem'],
