@@ -26,10 +26,9 @@ interface FormProps {
     melodyParams: MelodyParams,
     setMelodyParams: React.Dispatch<React.SetStateAction<MelodyParams>>,
     hoverStyle: string,
-    allRandom: boolean
 }
 
-const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, allRandom
+const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle,
 }: FormProps) => {
 
     const [styleOpen, setStyleOpen] = useState(false)
@@ -41,19 +40,16 @@ const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, allRandom
                 <label className='text-0.875 font-semibold'>Style</label>
                 {/* Custom Checkbox */}
                 <div className='checkbox-container'>
-                    {allRandom ? (
-                        <input checked={true} type='checkbox' id='cb2' />
 
-                    ) : (
-                        <input type='checkbox' id='cb2' />
+                    <input type='checkbox' id='cb2' />
 
-                    )}
+
                     <label htmlFor='cb2'>Randomize</label>
                 </div>
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center  
-                ${allRandom ? 'pointer-events-none bg-medium opacity-40' : ''}`}
+              `}
                 onClick={() => setStyleOpen(!styleOpen)}
             >
                 <div className='w-12 text-center'>🎶</div>

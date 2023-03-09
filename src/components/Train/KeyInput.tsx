@@ -26,9 +26,9 @@ interface FormProps {
     melodyParams: MelodyParams,
     setMelodyParams: React.Dispatch<React.SetStateAction<MelodyParams>>,
     hoverStyle: string,
-    allRandom: boolean
+
 }
-const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, allRandom }: FormProps) => {
+const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) => {
     const [keyOpen, setKeyOpen] = useState(false)
 
     return (
@@ -37,13 +37,10 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, allRandom }: Form
                 <label className='text-0.875 font-semibold'>Key</label>
                 {/* Custom Checkbox */}
                 <div className='checkbox-container'>
-                    {allRandom ? (
-                        <input checked={true} type='checkbox' id='cb4' />
 
-                    ) : (
-                        <input type='checkbox' id='cb4' />
+                    <input type='checkbox' id='cb4' />
 
-                    )}
+
                     <label htmlFor='cb4'>Randomize</label>
                 </div>
                 {/* VIDEO */}
@@ -51,7 +48,7 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, allRandom }: Form
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
-                ${allRandom ? 'pointer-events-none bg-medium opacity-40' : ''}`}
+              `}
                 onClick={() => setKeyOpen(!keyOpen)}
             >
                 <div className='w-12 text-center'>🎼</div>

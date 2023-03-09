@@ -11,7 +11,6 @@ interface FormProps {
     melodyParams: MelodyParams,
     setMelodyParams: React.Dispatch<React.SetStateAction<MelodyParams>>,
     hoverStyle: string,
-    allRandom: boolean
 }
 
 const progressions = [
@@ -29,7 +28,7 @@ const progressions = [
     },
 ]
 
-const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, allRandom }: FormProps) => {
+const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) => {
     const [progressionOpen, setProgressionOpen] = useState(false)
     return (
         // Style Input
@@ -38,20 +37,16 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, allRandom
                 <label className='text-0.875 font-semibold'>Chord Progression</label>
                 {/* Custom Checkbox */}
                 <div className='checkbox-container'>
-                    {allRandom ? (
-                        <input checked={true} type='checkbox' id='cb3' />
 
-                    ) : (
-                        <input type='checkbox' id='cb3' />
+                    <input type='checkbox' id='cb3' />
 
-                    )}
                     <label htmlFor='cb3'>Randomize</label>
                 </div>
                 {/* VIDEO */}
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
-                ${allRandom ? 'pointer-events-none bg-medium opacity-40' : ''}`}
+                `}
                 onClick={() => setProgressionOpen(!progressionOpen)}
             >
                 <div className='w-12 text-center'>🎶</div>
