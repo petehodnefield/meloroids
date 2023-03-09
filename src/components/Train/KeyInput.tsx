@@ -21,14 +21,23 @@ interface MelodyParams {
     key?: string,
     tempo?: number
 }
-
+interface Checkbox {
+    allRandom: boolean,
+    styleRandom: boolean,
+    progressionRandom: boolean,
+    keyRandom: boolean,
+    tempoRandom: boolean
+}
 interface FormProps {
     melodyParams: MelodyParams,
     setMelodyParams: React.Dispatch<React.SetStateAction<MelodyParams>>,
     hoverStyle: string,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    checkboxChecked: Checkbox
+
 
 }
-const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) => {
+const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, checkboxChecked }: FormProps) => {
     const [keyOpen, setKeyOpen] = useState(false)
 
     return (
@@ -38,10 +47,14 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) => {
                 {/* Custom Checkbox */}
                 <div className='checkbox-container'>
 
-                    <input type='checkbox' id='cb4' />
+                    <input
+                        type='checkbox'
+                        id='keyCheckbox'
+                        checked={checkboxChecked.keyRandom ? true : false}
 
-
-                    <label htmlFor='cb4'>Randomize</label>
+                        onChange={(e) => handleChange(e)}
+                    />
+                    <label htmlFor='keyCheckbox'>Randomize</label>
                 </div>
                 {/* VIDEO */}
 

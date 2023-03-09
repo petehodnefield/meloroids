@@ -5,12 +5,21 @@ interface MelodyParams {
     key?: string,
     tempo?: number
 }
-
+interface Checkbox {
+    allRandom: boolean,
+    styleRandom: boolean,
+    progressionRandom: boolean,
+    keyRandom: boolean,
+    tempoRandom: boolean
+}
 
 interface FormProps {
     melodyParams: MelodyParams,
     setMelodyParams: React.Dispatch<React.SetStateAction<MelodyParams>>,
     hoverStyle: string,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    checkboxChecked: Checkbox
+
 }
 
 const progressions = [
@@ -28,7 +37,7 @@ const progressions = [
     },
 ]
 
-const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) => {
+const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, checkboxChecked }: FormProps) => {
     const [progressionOpen, setProgressionOpen] = useState(false)
     return (
         // Style Input
@@ -38,9 +47,15 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormPro
                 {/* Custom Checkbox */}
                 <div className='checkbox-container'>
 
-                    <input type='checkbox' id='cb3' />
+                    <input
+                        type='checkbox'
+                        checked={checkboxChecked.progressionRandom ? true : false}
+                        id='progressionCheckbox'
+                        onChange={(e) => handleChange(e)}
 
-                    <label htmlFor='cb3'>Randomize</label>
+                    />
+
+                    <label htmlFor='progressionCheckbox'>Randomize</label>
                 </div>
                 {/* VIDEO */}
             </div>

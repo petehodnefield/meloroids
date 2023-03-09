@@ -13,9 +13,20 @@ interface MelodyParams {
     key?: string,
     tempo?: number
 }
+interface Checkbox {
+    allRandom: boolean,
+    styleRandom: boolean,
+    progressionRandom: boolean,
+    keyRandom: boolean,
+    tempoRandom: boolean
+}
 
+interface ChangeProps {
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    checkboxChecked: Checkbox
+}
 
-const TrainForm = () => {
+const TrainForm = ({ handleChange, checkboxChecked }: ChangeProps) => {
     const hoverStyle = 'hover:box-border	 hover:ml-2 hover:mr-8 hover:cursor-pointer hover:bg-blue hover:text-white duration-100'
 
     const [melodyParams, setMelodyParams] = useState<MelodyParams>({
@@ -34,27 +45,31 @@ const TrainForm = () => {
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
-
+                handleChange={handleChange}
+                checkboxChecked={checkboxChecked}
             />
             <ProgressionInput
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
-
-
+                handleChange={handleChange}
+                checkboxChecked={checkboxChecked}
 
             />
             <KeyInput
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
+                handleChange={handleChange}
+                checkboxChecked={checkboxChecked}
 
             />
             <TempoInput
                 melodyParams={melodyParams}
                 setMelodyParams={setMelodyParams}
                 hoverStyle={hoverStyle}
-
+                handleChange={handleChange}
+                checkboxChecked={checkboxChecked}
 
             />
             <BtnDark buttonText='Start' ></BtnDark>

@@ -6,16 +6,26 @@ interface MelodyParams {
     tempo?: number
 }
 
+interface Checkbox {
+    allRandom: boolean,
+    styleRandom: boolean,
+    progressionRandom: boolean,
+    keyRandom: boolean,
+    tempoRandom: boolean
+}
 interface FormProps {
     melodyParams: MelodyParams,
     setMelodyParams: React.Dispatch<React.SetStateAction<MelodyParams>>,
     hoverStyle: string,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    checkboxChecked: Checkbox
+
 
 }
-const TempoInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) => {
+const TempoInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, checkboxChecked }: FormProps) => {
     const [tempoOpen, setTempoOpen] = useState(false)
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    function handleNumberChange(e: React.ChangeEvent<HTMLInputElement>): void {
         const tempo = parseInt(e.target.value)
         setMelodyParams({
             ...melodyParams,
@@ -37,7 +47,7 @@ const TempoInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) =>
                     type='number'
                     min='60'
                     max='200'
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleNumberChange(e)}
 
 
 
@@ -46,11 +56,15 @@ const TempoInput = ({ setMelodyParams, melodyParams, hoverStyle }: FormProps) =>
             {/* Custom Checkbox */}
             <div className='checkbox-container'>
 
-                <input type='checkbox' id='cb5'
-                    onChange={() => setTempoOpen(!tempoOpen)}
+                <input
+                    type='checkbox'
+                    checked={checkboxChecked.tempoRandom ? true : false}
+
+                    id='tempoCheckbox'
+                    onChange={(e) => handleChange(e)}
                 />
 
-                <label htmlFor='cb5'>Randomize</label>
+                <label htmlFor='tempoCheckbox'>Randomize</label>
             </div>
             {/* VIDEO */}
         </div>
