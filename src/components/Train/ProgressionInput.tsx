@@ -61,7 +61,7 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
-                `}
+                ${checkboxChecked.progressionRandom ? 'pointer-events-none bg-medium opacity-40' : ''} `}
                 onClick={() => setProgressionOpen(!progressionOpen)}
             >
                 <div className='w-12 text-center'>🎶</div>

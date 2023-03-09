@@ -61,7 +61,7 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, che
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
-              `}
+                ${checkboxChecked.keyRandom ? 'pointer-events-none bg-medium opacity-40' : ''}`}
                 onClick={() => setKeyOpen(!keyOpen)}
             >
                 <div className='w-12 text-center'>🎼</div>

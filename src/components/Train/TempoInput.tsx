@@ -40,7 +40,7 @@ const TempoInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
                 <input
                     className={
                         `text-0.875 font-semibold w-20  rounded-lg h-12 border-2 text-center focus:outline-primary
-                       `
+                       ${checkboxChecked.tempoRandom ? 'pointer-events-none bg-medium opacity-40' : ''}`
 
                     }
                     defaultValue={60}

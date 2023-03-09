@@ -59,7 +59,7 @@ const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center  
-              `}
+                ${checkboxChecked.styleRandom ? 'pointer-events-none bg-medium opacity-40' : ''}`}
                 onClick={() => setStyleOpen(!styleOpen)}
             >
                 <div className='w-12 text-center'>🎶</div>
