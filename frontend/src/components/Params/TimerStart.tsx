@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
 interface TimerProps {
-    timer: boolean,
-    setTimer: React.Dispatch<React.SetStateAction<boolean>>
+    startTimer: boolean,
+    setStartTimer: React.Dispatch<React.SetStateAction<boolean>>
 }
-const TimerStart = ({ timer, setTimer }: TimerProps) => {
+const TimerStart = ({ startTimer, setStartTimer }: TimerProps) => {
 
     const [seconds, setSeconds] = useState(0)
     const [minutes, setMinutes] = useState(10)
 
+    // if 
     // Time handler
     useEffect(() => {
-        let interval = setInterval(() => {
+        let interval: any;
+         interval = setInterval(() => {
             setSeconds((seconds) => seconds - 1);
         }, 1000);
         if (seconds === 0 && minutes === 0) {
@@ -30,7 +32,7 @@ const TimerStart = ({ timer, setTimer }: TimerProps) => {
 
     return (
         <div className={`fixed bottom-0 text-white w-screen h-16 flex justify-center items-center
-        ${!timer ? 'hidden' : ''}
+        ${!startTimer ? 'hidden' : ''}
         ${minutes === 0 && seconds < 5 ? 'bg-dark' : ' bg-primary'}`}>
             {seconds < 10 ? (
                 <h3 className={`text-2 font-semibold
