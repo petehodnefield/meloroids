@@ -14,5 +14,14 @@ export const resolvers = {
       await Artist.deleteMany();
       return await Artist.create(args);
     },
+    updateArtist: async (parent, args) => {
+      return await Artist.findOneAndUpdate(
+        { _id: args._id },
+        { name: args.name }
+      );
+    },
+    deleteArtist: async (parent, args) => {
+      return await Artist.findOneAndDelete({ _id: args._id });
+    },
   },
 };
