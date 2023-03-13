@@ -5,9 +5,13 @@ export const resolvers = {
     artists: async () => {
       return await Artist.find();
     },
+    artist: async (parent, { name }) => {
+      return Artist.findOne({ name });
+    },
   },
   Mutation: {
     createArtist: async (parent, args) => {
+      await Artist.deleteMany();
       return await Artist.create(args);
     },
   },

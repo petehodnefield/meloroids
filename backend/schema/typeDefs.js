@@ -13,6 +13,7 @@ export const typeDefs = `#graphql
 
   type Query {
     artists: [Artist]
+    artist(name: String!): Artist
   }
 
   type Mutation {
