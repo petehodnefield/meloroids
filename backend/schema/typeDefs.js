@@ -11,14 +11,35 @@ export const typeDefs = `#graphql
     image: String
   }
 
+  type Album {
+    _id: ID,
+    album_name: String,
+    artwork: String,
+    year: String,
+    popularity: Int,
+    songs: [Song]
+  }
+
+  type Song {
+    _id: ID,
+    song_name: String,
+    tempo: Int,
+    popularity: Int
+  }
+
   type Query {
     artists: [Artist]
     artist(name: String!): Artist
+
+    albums: [Album]
   }
 
   type Mutation {
     createArtist(name: String!, age: Int!, image: String!): Artist
     updateArtist(name: String!, _id: ID!): Artist
     deleteArtist(_id: ID!): Artist
+
+    createAlbum(album_name: String!, artwork: String!, year: String!, popularity: String): Album
+
   }
 `;

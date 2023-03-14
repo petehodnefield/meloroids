@@ -3,13 +3,14 @@ const { Schema } = mongoose;
 
 const songSchema = new Schema({
   song_name: {
-    required,
+    required: true,
+
     type: String,
     minLength: 1,
     maxLength: 40,
   },
   tempo: {
-    required,
+    required: true,
     type: Number,
     max: 220,
   },
