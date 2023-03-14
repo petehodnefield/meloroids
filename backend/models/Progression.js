@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const progressionSchema = new Schema({
   numerals: {
-    required,
+    required: true,
     type: String,
     maxLength: 30,
   },
@@ -12,12 +12,11 @@ const progressionSchema = new Schema({
     max: 220,
   },
   is_major: {
-    required,
-    type: boolean,
+    required: true,
+    type: Boolean,
   },
   all_keys: [
     {
-      required,
       key: String,
       progression_in_key: String,
       midi_file: String,

@@ -17,6 +17,10 @@ const songSchema = new Schema({
   popularity: {
     type: Number,
   },
+  progression: {
+    type: Schema.Types.ObjectId,
+    ref: "Progression",
+  },
 });
 const Song = mongoose.model("Song", songSchema);
 

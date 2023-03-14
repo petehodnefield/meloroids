@@ -1,5 +1,6 @@
 import Album from "../models/Album.js";
 import Artist from "../models/Artist.js";
+import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
@@ -22,10 +23,18 @@ export const resolvers = {
 
     // Songs
     songs: async () => {
-      return await Song.find();
+      return await Song.find().populate("progression");
     },
     song: async (parent, { song_name }) => {
       return Song.findOne({ song_name });
+    },
+
+    // Progressions
+    progressions: async () => {
+      return await Progression.find();
+    },
+    progression: async (parent, { numerals }) => {
+      return Progression.findOne({ numerals });
     },
   },
   Mutation: {
@@ -72,6 +81,21 @@ export const resolvers = {
     },
     deleteSong: async (parent, args) => {
       return await Song.findOneAndDelete({ _id: args._id });
+    },
+
+    // Progressions
+    createProgression: async (parent, args) => {
+      await Progression.deleteMany();
+      return await Progression.create(args);
+    },
+    updateProgression: async (parent, args) => {
+      return await Progression.findOneAndUpdate(
+        { _id: args._id },
+        { numerals: args.numerals, is_major: args.is_major }
+      );
+    },
+    deleteProgression: async (parent, args) => {
+      return await Progression.findOneAndDelete({ _id: args._id });
     },
   },
 };

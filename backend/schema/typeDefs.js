@@ -24,7 +24,21 @@ export const typeDefs = `#graphql
     _id: ID,
     song_name: String,
     tempo: Int,
-    popularity: Int
+    popularity: Int,
+    progression: [Progression]
+  }
+  type AllKeys {
+    _id: ID,
+    key: String,
+    progression_in_key: String,
+    midi_file: String
+  }
+  type Progression {
+    _id: ID,
+    numerals: String,
+    tempo: Int,
+    is_major: Boolean,
+    all_keys: AllKeys
   }
 
   type Query {
@@ -37,6 +51,9 @@ export const typeDefs = `#graphql
 
     songs: [Song]
     song(song_name: String!): Song
+
+    progressions: [Progression]
+    progression(numerals: String!): Progression
 
   }
 
@@ -53,5 +70,10 @@ export const typeDefs = `#graphql
     createSong(song_name: String!, tempo: Int!, popularity: Int): Song
     updateSong(_id: ID!, song_name: String!): Song
     deleteSong(_id: ID!): Song
+
+    createProgression(numerals: String!, tempo: Int!, is_major: Boolean): Progression
+    updateProgression(_id: ID!, numerals: String, is_major: Boolean): Progression
+    deleteProgression(_id: ID!): Progression
+
   }
 `;
