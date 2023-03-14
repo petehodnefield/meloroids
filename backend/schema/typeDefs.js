@@ -7,7 +7,7 @@ export const typeDefs = `#graphql
   type Artist {
     _id: ID
     name: String
-    age: String
+    age: Int
     image: String
   }
 
@@ -17,7 +17,7 @@ export const typeDefs = `#graphql
   }
 
   type Mutation {
-    createArtist(name: String!, age: String!, image: String!): Artist
+    createArtist(name: String!, age: Int!, image: String!): Artist
     updateArtist(name: String!, _id: ID!): Artist
     deleteArtist(_id: ID!): Artist
   }
