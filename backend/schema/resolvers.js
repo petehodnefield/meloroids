@@ -24,6 +24,9 @@ export const resolvers = {
     songs: async () => {
       return await Song.find();
     },
+    song: async (parent, { song_name }) => {
+      return Song.findOne({ song_name });
+    },
   },
   Mutation: {
     // Artists
@@ -60,6 +63,15 @@ export const resolvers = {
     createSong: async (parent, args) => {
       await Song.deleteMany();
       return await Song.create(args);
+    },
+    updateSong: async (parent, args) => {
+      return await Song.findOneAndUpdate(
+        { _id: args._id },
+        { song_name: args.song_name }
+      );
+    },
+    deleteSong: async (parent, args) => {
+      return await Song.findOneAndDelete({ _id: args._id });
     },
   },
 };

@@ -36,6 +36,8 @@ export const typeDefs = `#graphql
 
 
     songs: [Song]
+    song(song_name: String!): Song
+
   }
 
   type Mutation {
@@ -49,6 +51,7 @@ export const typeDefs = `#graphql
 
 
     createSong(song_name: String!, tempo: Int!, popularity: Int): Song
-
+    updateSong(_id: ID!, song_name: String!): Song
+    deleteSong(_id: ID!): Song
   }
 `;
