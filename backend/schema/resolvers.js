@@ -1,5 +1,6 @@
 import Album from "../models/Album.js";
 import Artist from "../models/Artist.js";
+import Song from "../models/Song.js";
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
   Query: {
@@ -13,7 +14,15 @@ export const resolvers = {
 
     // Albums
     albums: async () => {
-      return await Album.find();
+      return await Album.find().populate("songs");
+    },
+    album: async (parent, { album_name }) => {
+      return Album.findOne({ album_name }).populate("songs");
+    },
+
+    // Songs
+    songs: async () => {
+      return await Song.find();
     },
   },
   Mutation: {
@@ -31,10 +40,26 @@ export const resolvers = {
     deleteArtist: async (parent, args) => {
       return await Artist.findOneAndDelete({ _id: args._id });
     },
+
     // Albums
     createAlbum: async (parent, args) => {
       await Album.deleteMany();
       return await Album.create(args);
+    },
+    updateAlbum: async (parent, args) => {
+      return await Album.findOneAndUpdate(
+        { _id: args._id },
+        { $push: { songs: args.song_id } }
+      );
+    },
+    deleteAlbum: async (parent, args) => {
+      return await Album.findOneAndDelete({ _id: args._id });
+    },
+
+    // Songs
+    createSong: async (parent, args) => {
+      await Song.deleteMany();
+      return await Song.create(args);
     },
   },
 };

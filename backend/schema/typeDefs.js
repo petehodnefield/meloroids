@@ -32,6 +32,10 @@ export const typeDefs = `#graphql
     artist(name: String!): Artist
 
     albums: [Album]
+    album(album_name: String!): Album
+
+
+    songs: [Song]
   }
 
   type Mutation {
@@ -40,6 +44,11 @@ export const typeDefs = `#graphql
     deleteArtist(_id: ID!): Artist
 
     createAlbum(album_name: String!, artwork: String!, year: String!, popularity: String): Album
+    updateAlbum(_id: ID!, song_id: ID!): Album
+    deleteAlbum(_id: ID!): Album
+
+
+    createSong(song_name: String!, tempo: Int!, popularity: Int): Song
 
   }
 `;
