@@ -33,10 +33,10 @@ export const resolvers = {
 
     // Progressions
     progressions: async () => {
-      return await Progression.find();
+      return await Progression.find().populate("all_keys");
     },
     progression: async (parent, { numerals }) => {
-      return Progression.findOne({ numerals });
+      return Progression.findOne({ numerals }).populate("all_keys");
     },
 
     // Genre
@@ -114,6 +114,14 @@ export const resolvers = {
     },
     deleteProgression: async (parent, args) => {
       return await Progression.findOneAndDelete({ _id: args._id });
+    },
+    createAllKey: async (parent, { _id, key }) => {
+      const updatedProgression = await Progression.findOneAndUpdate(
+        { _id: _id },
+        { $push: { all_keys: { key } } },
+        { new: true }
+      );
+      return updatedProgression;
     },
 
     // Genres

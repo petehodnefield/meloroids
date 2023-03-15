@@ -38,7 +38,7 @@ export const typeDefs = `#graphql
     numerals: String,
     tempo: Int,
     is_major: Boolean,
-    all_keys: AllKeys
+    all_keys: [AllKeys]
   }
 
   type Genre {
@@ -72,7 +72,7 @@ export const typeDefs = `#graphql
     genre(genre: String!): Genre
 
     keys: [Key]
-    key(key: String!): Key
+    key(genre: String!): Key
 
   }
 
@@ -93,6 +93,8 @@ export const typeDefs = `#graphql
     createProgression(numerals: String!, tempo: Int!, is_major: Boolean): Progression
     updateProgression(_id: ID!, numerals: String, is_major: Boolean): Progression
     deleteProgression(_id: ID!): Progression
+
+    createAllKey(_id: ID!, key: String!): Progression
 
     createGenre(genre: String!): Genre
     updateGenre(_id: ID!, progression_id: ID!): Genre
