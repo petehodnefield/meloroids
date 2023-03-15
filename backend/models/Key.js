@@ -3,15 +3,14 @@ const { Schema } = mongoose;
 
 const keySchema = new Schema({
   key: {
-    required,
+    required: true,
     type: String,
   },
   is_major: {
-    required,
-    type: boolean,
+    required: true,
+    type: Boolean,
   },
   midi_file: {
-    required,
     type: String,
   },
 });

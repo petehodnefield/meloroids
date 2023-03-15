@@ -1,6 +1,7 @@
 import Album from "../models/Album.js";
 import Artist from "../models/Artist.js";
 import Genre from "../models/Genre.js";
+import Key from "../models/Key.js";
 import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
 // Resolvers define how to fetch the types defined in your schema.
@@ -44,6 +45,14 @@ export const resolvers = {
     },
     genre: async (parent, { genre }) => {
       return Genre.findOne({ genre }).populate("progressions");
+    },
+
+    // Key
+    keys: async () => {
+      return await Key.find();
+    },
+    key: async (parent, { key }) => {
+      return Key.findOne({ key });
     },
   },
   Mutation: {
@@ -120,6 +129,21 @@ export const resolvers = {
     },
     deleteGenre: async (parent, args) => {
       return await Genre.findOneAndDelete({ _id: args._id });
+    },
+
+    // Key
+    createKey: async (parent, args) => {
+      await Key.deleteMany();
+      return await Key.create(args);
+    },
+    updateKey: async (parent, args) => {
+      return await Key.findOneAndUpdate(
+        { _id: args._id },
+        { is_major: args.is_major, key: args.key }
+      );
+    },
+    deleteKey: async (parent, args) => {
+      return await Key.findOneAndDelete({ _id: args._id });
     },
   },
 };

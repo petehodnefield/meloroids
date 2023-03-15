@@ -47,6 +47,13 @@ export const typeDefs = `#graphql
     progressions: [Progression]
   }
 
+  type Key {
+    _id: ID!,
+    key: String!,
+    is_major: Boolean!,
+    midi_file: String
+  }
+
   type Query {
     artists: [Artist]
     artist(name: String!): Artist
@@ -63,6 +70,9 @@ export const typeDefs = `#graphql
 
     genres: [Genre]
     genre(genre: String!): Genre
+
+    keys: [Key]
+    key(key: String!): Key
 
   }
 
@@ -87,6 +97,10 @@ export const typeDefs = `#graphql
     createGenre(genre: String!): Genre
     updateGenre(_id: ID!, progression_id: ID!): Genre
     deleteGenre(_id: ID!): Genre
+
+    createKey(key: String!, is_major: Boolean!, midi_file: String): Key
+    updateKey(_id: ID!, is_major: Boolean, key: String): Key
+    deleteKey(_id: ID!): Key
 
   }
 `;
