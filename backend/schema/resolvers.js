@@ -1,5 +1,6 @@
 import Album from "../models/Album.js";
 import Artist from "../models/Artist.js";
+import Genre from "../models/Genre.js";
 import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
 // Resolvers define how to fetch the types defined in your schema.
@@ -35,6 +36,14 @@ export const resolvers = {
     },
     progression: async (parent, { numerals }) => {
       return Progression.findOne({ numerals });
+    },
+
+    // Genre
+    genres: async () => {
+      return await Genre.find().populate("progressions");
+    },
+    genre: async (parent, { genre }) => {
+      return Genre.findOne({ genre }).populate("progressions");
     },
   },
   Mutation: {
@@ -96,6 +105,21 @@ export const resolvers = {
     },
     deleteProgression: async (parent, args) => {
       return await Progression.findOneAndDelete({ _id: args._id });
+    },
+
+    // Genres
+    createGenre: async (parent, args) => {
+      await Genre.deleteMany();
+      return await Genre.create(args);
+    },
+    updateGenre: async (parent, args) => {
+      return await Genre.findOneAndUpdate(
+        { _id: args._id },
+        { $push: { progressions: args.progression_id } }
+      );
+    },
+    deleteGenre: async (parent, args) => {
+      return await Genre.findOneAndDelete({ _id: args._id });
     },
   },
 };

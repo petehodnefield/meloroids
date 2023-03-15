@@ -41,6 +41,12 @@ export const typeDefs = `#graphql
     all_keys: AllKeys
   }
 
+  type Genre {
+    _id: ID!
+    genre: String!
+    progressions: [Progression]
+  }
+
   type Query {
     artists: [Artist]
     artist(name: String!): Artist
@@ -54,6 +60,9 @@ export const typeDefs = `#graphql
 
     progressions: [Progression]
     progression(numerals: String!): Progression
+
+    genres: [Genre]
+    genre(genre: String!): Genre
 
   }
 
@@ -74,6 +83,10 @@ export const typeDefs = `#graphql
     createProgression(numerals: String!, tempo: Int!, is_major: Boolean): Progression
     updateProgression(_id: ID!, numerals: String, is_major: Boolean): Progression
     deleteProgression(_id: ID!): Progression
+
+    createGenre(genre: String!): Genre
+    updateGenre(_id: ID!, progression_id: ID!): Genre
+    deleteGenre(_id: ID!): Genre
 
   }
 `;
