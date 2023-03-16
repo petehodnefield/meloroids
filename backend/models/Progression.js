@@ -19,10 +19,6 @@ const progressionSchema = new Schema({
     type: String,
     maxLength: 30,
   },
-  tempo: {
-    type: Number,
-    max: 220,
-  },
   is_major: {
     required: true,
     type: Boolean,

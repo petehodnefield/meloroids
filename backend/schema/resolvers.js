@@ -4,31 +4,38 @@ import Genre from "../models/Genre.js";
 import Key from "../models/Key.js";
 import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
+import { keysData } from "../data/keys.js";
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
   Query: {
     // Artists
     artists: async () => {
-      return await Artist.find().populate("albums");
+      return await Artist.find().populate("albums").populate("songs");
     },
     artist: async (parent, { name }) => {
-      return Artist.findOne({ name }).populate("albums");
+      return Artist.findOne({ name }).populate("albums").populate("songs");
     },
 
     // Albums
     albums: async () => {
-      return await Album.find().populate("songs");
+      return await Album.find().populate("songs").populate("artist");
     },
     album: async (parent, { album_name }) => {
-      return Album.findOne({ album_name }).populate("songs");
+      return Album.findOne({ album_name }).populate("songs").populate("artist");
     },
 
     // Songs
     songs: async () => {
-      return await Song.find().populate("progression");
+      return await Song.find()
+        .populate("progression")
+        .populate("album")
+        .populate("key");
     },
     song: async (parent, { song_name }) => {
-      return Song.findOne({ song_name });
+      return Song.findOne({ song_name })
+        .populate("progression")
+        .populate("album")
+        .populate("key");
     },
 
     // Progressions
@@ -75,6 +82,18 @@ export const resolvers = {
         { _id: args._id },
         { $push: { albums: args.album_id } }
       );
+      const updatedAlbum = await Album.findOneAndUpdate(
+        { _id: args.album_id },
+        { $push: { artist: args._id } }
+      );
+      return updatedArtist;
+    },
+    addSongToArtist: async (parent, args) => {
+      const updatedArtist = await Artist.findOneAndUpdate(
+        { _id: args._id },
+        { $push: { songs: args.song_id } }
+      );
+
       return updatedArtist;
     },
 
@@ -96,7 +115,13 @@ export const resolvers = {
     // Songs
     createSong: async (parent, args) => {
       await Song.deleteMany();
-      return await Song.create(args);
+      const createSong = await Song.create(args);
+      const addProgression = await Song.findOneAndUpdate(
+        { _id: createSong._id },
+        { $push: { progression: args.progression_id } },
+        { new: true }
+      );
+      return addProgression;
     },
     updateSong: async (parent, args) => {
       return await Song.findOneAndUpdate(
@@ -152,7 +177,8 @@ export const resolvers = {
     // Key
     createKey: async (parent, args) => {
       await Key.deleteMany();
-      return await Key.create(args);
+      const addKeys = await Key.insertMany(keysData);
+      return addKeys;
     },
     updateKey: async (parent, args) => {
       return await Key.findOneAndUpdate(

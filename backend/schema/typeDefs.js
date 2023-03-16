@@ -20,14 +20,17 @@ export const typeDefs = `#graphql
     year: String,
     popularity: Int,
     songs: [Song]
+    artist: [Artist]
   }
 
   type Song {
     _id: ID,
     song_name: String,
     tempo: Int,
+    key: [Key],
     popularity: Int,
     progression: [Progression]
+    album: [Album]
   }
 
   type AllKeys {
@@ -40,7 +43,6 @@ export const typeDefs = `#graphql
   type Progression {
     _id: ID,
     numerals: String,
-    tempo: Int,
     is_major: Boolean,
     all_keys: [AllKeys]
   }
@@ -90,13 +92,14 @@ export const typeDefs = `#graphql
     deleteAlbum(_id: ID!): Album
 
     addAlbumToArtist(_id: ID!, album_id: ID!): Artist
+    addSongToArtist(_id: ID!, song_id: ID!): Artist
 
 
-    createSong(song_name: String!, tempo: Int!, popularity: Int): Song
+    createSong(song_name: String!, tempo: Int!, popularity: Int, progression_id: ID!): Song
     updateSong(_id: ID!, song_name: String!): Song
     deleteSong(_id: ID!): Song
 
-    createProgression(numerals: String!, tempo: Int!, is_major: Boolean): Progression
+    createProgression(numerals: String!, is_major: Boolean): Progression
     updateProgression(_id: ID!, numerals: String, is_major: Boolean): Progression
     deleteProgression(_id: ID!): Progression
 
@@ -106,7 +109,7 @@ export const typeDefs = `#graphql
     updateGenre(_id: ID!, progression_id: ID!): Genre
     deleteGenre(_id: ID!): Genre
 
-    createKey(key: String!, is_major: Boolean!, midi_file: String): Key
+    createKey: Key
     updateKey(_id: ID!, is_major: Boolean, key: String): Key
     deleteKey(_id: ID!): Key
 

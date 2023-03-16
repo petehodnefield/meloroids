@@ -5,6 +5,7 @@ import DateFormat from "../utils/DateFormat.js";
 const albumSchema = new Schema({
   album_name: {
     required: true,
+    unique: true,
     type: String,
     maxLength: 40,
   },
@@ -23,6 +24,12 @@ const albumSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Song",
+    },
+  ],
+  artist: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Artist",
     },
   ],
 });
