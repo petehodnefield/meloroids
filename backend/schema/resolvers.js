@@ -9,10 +9,10 @@ export const resolvers = {
   Query: {
     // Artists
     artists: async () => {
-      return await Artist.find();
+      return await Artist.find().populate("albums");
     },
     artist: async (parent, { name }) => {
-      return Artist.findOne({ name });
+      return Artist.findOne({ name }).populate("albums");
     },
 
     // Albums
@@ -70,6 +70,13 @@ export const resolvers = {
     deleteArtist: async (parent, args) => {
       return await Artist.findOneAndDelete({ _id: args._id });
     },
+    addAlbumToArtist: async (parent, args) => {
+      const updatedArtist = await Artist.findOneAndUpdate(
+        { _id: args._id },
+        { $push: { albums: args.album_id } }
+      );
+      return updatedArtist;
+    },
 
     // Albums
     createAlbum: async (parent, args) => {
@@ -115,10 +122,13 @@ export const resolvers = {
     deleteProgression: async (parent, args) => {
       return await Progression.findOneAndDelete({ _id: args._id });
     },
-    createAllKey: async (parent, { _id, key }) => {
+    createAllKey: async (
+      parent,
+      { progression_id, progression_in_key, key, midi_file }
+    ) => {
       const updatedProgression = await Progression.findOneAndUpdate(
-        { _id: _id },
-        { $push: { all_keys: { key } } },
+        { _id: progression_id },
+        { $push: { all_keys: { progression_in_key, key, midi_file } } },
         { new: true }
       );
       return updatedProgression;

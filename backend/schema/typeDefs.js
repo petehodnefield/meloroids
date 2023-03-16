@@ -9,6 +9,8 @@ export const typeDefs = `#graphql
     name: String
     age: Int
     image: String
+    albums: [Album]
+    songs: [Song]
   }
 
   type Album {
@@ -27,12 +29,14 @@ export const typeDefs = `#graphql
     popularity: Int,
     progression: [Progression]
   }
+
   type AllKeys {
     _id: ID,
     key: String,
     progression_in_key: String,
     midi_file: String
   }
+  
   type Progression {
     _id: ID,
     numerals: String,
@@ -85,6 +89,8 @@ export const typeDefs = `#graphql
     updateAlbum(_id: ID!, song_id: ID!): Album
     deleteAlbum(_id: ID!): Album
 
+    addAlbumToArtist(_id: ID!, album_id: ID!): Artist
+
 
     createSong(song_name: String!, tempo: Int!, popularity: Int): Song
     updateSong(_id: ID!, song_name: String!): Song
@@ -94,7 +100,7 @@ export const typeDefs = `#graphql
     updateProgression(_id: ID!, numerals: String, is_major: Boolean): Progression
     deleteProgression(_id: ID!): Progression
 
-    createAllKey(_id: ID!, key: String!): Progression
+    createAllKey(progression_id: ID!, progression_in_key: String!, key: String!, midi_file: String): Progression
 
     createGenre(genre: String!): Genre
     updateGenre(_id: ID!, progression_id: ID!): Genre

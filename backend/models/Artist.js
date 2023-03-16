@@ -17,6 +17,18 @@ const artistSchema = new Schema({
     required: true,
     type: String,
   },
+  albums: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Album",
+    },
+  ],
+  songs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Song",
+    },
+  ],
 });
 
 const Artist = mongoose.model("Artist", artistSchema);
