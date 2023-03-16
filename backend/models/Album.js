@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
-import DateFormat from "../utils/DateFormat.js";
 
 const albumSchema = new Schema({
   album_name: {
@@ -14,8 +13,7 @@ const albumSchema = new Schema({
     type: String,
   },
   year: {
-    type: Date,
-    get: (timestamp) => DateFormat(timestamp),
+    type: Number,
   },
   popularity: {
     type: Number,

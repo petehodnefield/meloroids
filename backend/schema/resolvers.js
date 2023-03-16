@@ -4,7 +4,6 @@ import Genre from "../models/Genre.js";
 import Key from "../models/Key.js";
 import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
-import { keysData } from "../data/keys.js";
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
   Query: {
@@ -177,8 +176,8 @@ export const resolvers = {
     // Key
     createKey: async (parent, args) => {
       await Key.deleteMany();
-      const addKeys = await Key.insertMany(keysData);
-      return addKeys;
+      // const addKeys = await Key.insertMany(keysData);
+      // return addKeys;
     },
     updateKey: async (parent, args) => {
       return await Key.findOneAndUpdate(

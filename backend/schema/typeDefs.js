@@ -57,7 +57,6 @@ export const typeDefs = `#graphql
     _id: ID!,
     key: String!,
     is_major: Boolean!,
-    midi_file: String
   }
 
   type Query {

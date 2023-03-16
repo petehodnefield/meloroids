@@ -10,9 +10,6 @@ const keySchema = new Schema({
     required: true,
     type: Boolean,
   },
-  midi_file: {
-    type: String,
-  },
 });
 const Key = mongoose.model("Key", keySchema);
 
