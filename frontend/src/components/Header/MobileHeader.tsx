@@ -16,7 +16,7 @@ const MobileHeader = ({ isOpen, setIsOpen }: NavProps) => {
     const hoverStyles: string = 'hover:opacity-80 hover:cursor-pointer duration-200'
 
     return (
-        <div className='h-20 bg-primary flex relative items-center justify-center border-b-1 shadow-md border-secondary py-4 sticky top-0 lg:hidden'>
+        <div className='h-20 bg-primary flex   items-center justify-center border-b-1 shadow-md border-secondary py-4 w-full sticky top-0 lg:hidden'>
             <Icon
                 className={
                     `absolute my-auto left-4 text-2  ${hoverStyles}
