@@ -71,7 +71,7 @@ export const typeDefs = `#graphql
     song(song_name: String!): Song
 
     progressions: [Progression]
-    progression(numerals: String!): Progression
+    progression(id: ID!): Progression
 
     genres: [Genre]
     genre(genre: String!): Genre

@@ -39,10 +39,14 @@ export const resolvers = {
 
     // Progressions
     progressions: async () => {
-      return await Progression.find().populate("all_keys");
+      return await Progression.find();
     },
-    progression: async (parent, { numerals }) => {
-      return Progression.findOne({ numerals }).populate("all_keys");
+    progression: async (parent, args) => {
+      const progression = await Progression.findOne({
+        _id: args.id,
+      });
+
+      return progression;
     },
 
     // Genre
@@ -102,10 +106,15 @@ export const resolvers = {
       return await Album.create(args);
     },
     updateAlbum: async (parent, args) => {
-      return await Album.findOneAndUpdate(
+      const updatedAlbum = await Album.findOneAndUpdate(
         { _id: args._id },
         { $push: { songs: args.song_id } }
       );
+      const updatedSong = await Song.findOneAndUpdate(
+        { _id: args.song_id },
+        { $push: { album: args._id } }
+      );
+      return updatedAlbum;
     },
     deleteAlbum: async (parent, args) => {
       return await Album.findOneAndDelete({ _id: args._id });
