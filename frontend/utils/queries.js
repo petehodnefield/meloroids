@@ -42,3 +42,37 @@ export const GENRES_PROGRESSIONS = gql`
     }
   }
 `;
+
+export const GENRE_BY_ID = gql `
+query Genre($genreId: ID!) {
+  genre(id: $genreId) {
+    _id
+    genre
+    progressions {
+      _id
+      numerals
+      is_major
+    }
+  }
+}
+`
+
+export const MINOR_KEYS = gql`
+  query Minorkeys {
+    minorkeys {
+      _id
+      key
+      is_major
+    }
+  }
+`;
+
+export const MAJOR_KEYS = gql`
+  query Majorkeys {
+    majorkeys {
+      _id
+      key
+      is_major
+    }
+  }
+`;

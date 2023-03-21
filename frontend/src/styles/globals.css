@@ -123,3 +123,15 @@ p {
     transform: translateY(-1rem);
   }
 }
+
+.button-fade-in {
+  animation: button-fade-in 300ms timing-function delay iteration-count direction fill-mode;
+}
+@keyframes button-fade-in {
+  0% {
+    opacity: 30%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}

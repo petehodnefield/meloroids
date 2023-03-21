@@ -6,8 +6,10 @@ import { GENRES_PROGRESSIONS } from 'utils/queries'
 
 interface MelodyParams {
     genre?: string,
-    genreId?: string| number,
+    genreId?: string | number,
     progression?: string,
+    progressionId?: string,
+    is_major?: boolean | string,
     key?: string,
     tempo?: number
 }
@@ -32,11 +34,11 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
     const [progressionOpen, setProgressionOpen] = useState(false)
 
     // Get progressions query
-    const {loading: progressionLoading, data:progressionData, error: progressionError} = useQuery(GENRES_PROGRESSIONS, {
-        variables: {genreprogressionsId: melodyParams.genreId}
+    const { loading: progressionLoading, data: progressionData, error: progressionError } = useQuery(GENRES_PROGRESSIONS, {
+        variables: { genreprogressionsId: melodyParams.genreId }
     })
 
-    if(progressionLoading) return <div>Loading...</div>
+    if (progressionLoading) return <div>Loading...</div>
 
     console.log(melodyParams.genre)
     return (
@@ -77,7 +79,9 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
                             onClick={() => {
                                 setMelodyParams({
                                     ...melodyParams,
-                                    progression: progression.numerals
+                                    progression: progression.numerals,
+                                    is_major: progression.is_major,
+                                    progressionId: progression._id
                                 })
                                 setProgressionOpen(!progressionOpen)
                             }}

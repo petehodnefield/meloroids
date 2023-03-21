@@ -24,7 +24,7 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
                 <li className={`${liStyle}  ${navSelected === 'train' ? selectedNavItem : ''}`}>
                     <Link
                         onClick={() => setNavSelected('train')}
-                        href='/train'>Train
+                        href='/train-setup'>Train
                     </Link>
                 </li>
                 <li className={`${liStyle}  ${navSelected === 'train' ? selectedNavItem : ''}`}>

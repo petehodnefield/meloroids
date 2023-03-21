@@ -53,8 +53,8 @@ export const resolvers = {
     genres: async () => {
       return await Genre.find().populate("progressions");
     },
-    genre: async (parent, { genre }) => {
-      return Genre.findOne({ genre }).populate("progressions");
+    genre: async (parent, { id }) => {
+      return Genre.findOne({ _id: id }).populate("progressions");
     },
     genreprogressions: async (parent, { id }) => {
       return Genre.findOne({ _id: id }).populate("progressions");
