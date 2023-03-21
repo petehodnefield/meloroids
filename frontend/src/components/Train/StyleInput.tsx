@@ -1,21 +1,10 @@
 import React, { useState } from 'react'
+import { useQuery } from '@apollo/client'
+import {ALL_GENRES} from '../../../utils/queries'
 
-const styles = [
-    {
-        style: 'Pop Punk',
-        icon: '🎶'
-    },
-    {
-        style: 'Trap',
-        icon: '🎶'
-    },
-    {
-        style: 'House',
-        icon: '🎶'
-    },
-]
+
 interface MelodyParams {
-    style?: string,
+    genre?: string,
     progression?: string,
     key?: string,
     tempo?: number
@@ -41,6 +30,10 @@ const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
 
     const [styleOpen, setStyleOpen] = useState(false)
 
+        const { loading: genreLoading, error: genreError, data: genreData } = useQuery(ALL_GENRES)
+
+    if(genreLoading) return <div>Loading...</div>
+
     return (
         // Style Input
         <div className='w-full relative mb-6'>
@@ -63,26 +56,26 @@ const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
                 onClick={() => setStyleOpen(!styleOpen)}
             >
                 <div className='w-12 text-center'>🎶</div>
-                <p className='text-left w-full text-0.875 font-semibold'>{melodyParams.style}</p>
+                <p className='text-left w-full text-0.875 font-semibold'>{melodyParams.genre}</p>
                 <div className='w-12 h-12 flex items-center justify-center'>       ⌄</div>
             </div>
             {/* Style dropdown */}
             {styleOpen ? (
                 <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-40'>
-                    {styles.map(style => (
+                    {genreData.genres.map((genre: any) => (
                         <div
-                            key={style.style}
+                            key={genre.genre}
                             className={`h-12  text-dark  flex justify-between items-center rounded-lg ${hoverStyle}`}
                             onClick={() => {
                                 setMelodyParams({
                                     ...melodyParams,
-                                    style: style.style
+                                    genre: genre.genre
                                 })
                                 setStyleOpen(!styleOpen)
                             }}
                         >
-                            <div className='w-12 text-center'>{style.icon}</div>
-                            <p className='text-left w-full text-0.875 font-semibold'>{style.style}</p>
+                            <div className='w-12 text-center'>🎶</div>
+                            <p className='text-left w-full text-0.875 font-semibold'>{genre.genre}</p>
 
                         </div>
                     ))}

@@ -1,7 +1,7 @@
-import {gql} from 'graphql'
+import { gql } from "@apollo/client";
 
-export const ALL_GENRES = gql `
-query Query {
+export const ALL_GENRES = gql`
+  query Query {
     genres {
       _id
       genre
@@ -9,13 +9,12 @@ query Query {
         _id
         numerals
         is_major
-  
       }
     }
   }
-`
+`;
 export const PROGRESSION_BY_ID = gql`
-query Progression($progressionId: ID!) {
+  query Progression($progressionId: ID!) {
     progression(id: $progressionId) {
       _id
       numerals
@@ -28,4 +27,4 @@ query Progression($progressionId: ID!) {
       }
     }
   }
-`
+`;

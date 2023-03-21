@@ -1,6 +1,7 @@
 import TrainForm from '@/components/Train/TrainForm'
 import React, { useState, useEffect } from 'react'
 
+
 interface Checkbox {
     allRandom: boolean,
     styleRandom: boolean,
@@ -16,6 +17,7 @@ const Train = () => {
         keyRandom: false,
         tempoRandom: false
     })
+
 
 
     async function handleChange(e: React.ChangeEvent<HTMLInputElement>): Promise<void> {
@@ -84,6 +86,8 @@ const Train = () => {
         }
     }, [checkboxChecked.keyRandom, checkboxChecked.progressionRandom, checkboxChecked.styleRandom, checkboxChecked.tempoRandom])
 
+
+ 
     return (
         <section
             className='bg-cover h-screen md:py-12 md:flex md:justify-center'
