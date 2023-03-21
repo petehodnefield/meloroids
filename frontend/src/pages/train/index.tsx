@@ -17,7 +17,6 @@ const Train = () => {
         tempoRandom: false
     })
 
-    console.log(checkboxChecked)
 
     async function handleChange(e: React.ChangeEvent<HTMLInputElement>): Promise<void> {
         // If allRandom is clicked
