@@ -67,6 +67,16 @@ export const resolvers = {
     key: async (parent, { key }) => {
       return Key.findOne({ key });
     },
+    majorkeys: async () => {
+      return Key.find({
+        is_major: true,
+      });
+    },
+    minorkeys: async () => {
+      return Key.find({
+        is_major: false,
+      });
+    },
   },
   Mutation: {
     // Artists

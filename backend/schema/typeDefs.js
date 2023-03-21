@@ -79,6 +79,8 @@ export const typeDefs = `#graphql
 
     keys: [Key]
     key(genre: String!): Key
+    majorkeys: [Key]
+    minorkeys: [Key]
 
   }
 
