@@ -4,7 +4,8 @@ import {ALL_GENRES} from '../../../utils/queries'
 
 
 interface MelodyParams {
-    genre?: string,
+    genre?: string,    
+    genreId?: string| number,
     progression?: string,
     key?: string,
     tempo?: number
@@ -69,7 +70,8 @@ const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
                             onClick={() => {
                                 setMelodyParams({
                                     ...melodyParams,
-                                    genre: genre.genre
+                                    genre: genre.genre,
+                                    genreId: genre._id
                                 })
                                 setStyleOpen(!styleOpen)
                             }}

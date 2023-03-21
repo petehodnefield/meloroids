@@ -9,6 +9,7 @@ import TempoInput from './TempoInput'
 
 interface MelodyParams {
     genre?: string,
+    genreId?: string| number,
     progression?: string,
     key?: string,
     tempo?: number
@@ -30,13 +31,12 @@ const TrainForm = ({ handleChange, checkboxChecked }: ChangeProps) => {
     const hoverStyle = 'hover:box-border	 hover:ml-2 hover:mr-8 hover:cursor-pointer hover:bg-blue hover:text-white duration-100'
 
     const [melodyParams, setMelodyParams] = useState<MelodyParams>({
-        genre: 'Pop Punk',
+        genre: '',
+        genreId: '',
         progression: 'I',
         key: 'Aminor',
         tempo: 120
     })
-
-console.log('Melody Params', melodyParams)
     return (
         <form
             className='flex flex-col items-center w-full px-6'

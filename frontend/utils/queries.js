@@ -28,3 +28,17 @@ export const PROGRESSION_BY_ID = gql`
     }
   }
 `;
+
+export const GENRES_PROGRESSIONS = gql`
+  query Query($genreprogressionsId: ID!) {
+    genreprogressions(id: $genreprogressionsId) {
+      _id
+      genre
+      progressions {
+        _id
+        numerals
+        is_major
+      }
+    }
+  }
+`;

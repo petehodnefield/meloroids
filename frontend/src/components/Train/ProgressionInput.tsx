@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
+
+import { useQuery } from '@apollo/client'
+import { GENRES_PROGRESSIONS } from 'utils/queries'
+
+
 interface MelodyParams {
-    style?: string,
+    genre?: string,
+    genreId?: string| number,
     progression?: string,
     key?: string,
     tempo?: number
@@ -22,23 +28,17 @@ interface FormProps {
 
 }
 
-const progressions = [
-    {
-        progression: 'I IV VI- V',
-        icon: '🎶'
-    },
-    {
-        progression: 'i bVII bVI',
-        icon: '🎶'
-    },
-    {
-        progression: 'i iv v',
-        icon: '🎶'
-    },
-]
-
 const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, checkboxChecked }: FormProps) => {
     const [progressionOpen, setProgressionOpen] = useState(false)
+
+    // Get progressions query
+    const {loading: progressionLoading, data:progressionData, error: progressionError} = useQuery(GENRES_PROGRESSIONS, {
+        variables: {genreprogressionsId: melodyParams.genreId}
+    })
+
+    if(progressionLoading) return <div>Loading...</div>
+
+    console.log(melodyParams.genre)
     return (
         // Style Input
         <div className='w-full relative mb-6'>
@@ -57,11 +57,10 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
 
                     <label htmlFor='progressionCheckbox'>Randomize</label>
                 </div>
-                {/* VIDEO */}
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
-                ${checkboxChecked.progressionRandom ? 'pointer-events-none bg-medium opacity-40' : ''} `}
+                ${checkboxChecked.progressionRandom || !melodyParams.genre ? 'pointer-events-none bg-medium opacity-40' : ''} `}
                 onClick={() => setProgressionOpen(!progressionOpen)}
             >
                 <div className='w-12 text-center'>🎶</div>
@@ -71,20 +70,20 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
             {/* Style dropdown */}
             {progressionOpen ? (
                 <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-30'>
-                    {progressions.map(progression => (
+                    {progressionData.genreprogressions.progressions.map((progression: any) => (
                         <div
-                            key={progression.progression}
+                            key={progression.numerals}
                             className={`h-12  text-dark  flex justify-between items-center rounded-lg ${hoverStyle}`}
                             onClick={() => {
                                 setMelodyParams({
                                     ...melodyParams,
-                                    progression: progression.progression
+                                    progression: progression.numerals
                                 })
                                 setProgressionOpen(!progressionOpen)
                             }}
                         >
-                            <div className='w-12 text-center'>{progression.icon}</div>
-                            <p className='text-left w-full text-0.875 font-semibold'>{progression.progression}</p>
+                            <div className='w-12 text-center'>🎶</div>
+                            <p className='text-left w-full text-0.875 font-semibold'>{progression.numerals}</p>
 
                         </div>
                     ))}

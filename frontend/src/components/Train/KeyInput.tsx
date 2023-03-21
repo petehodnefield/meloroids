@@ -16,7 +16,9 @@ const keys = [
 ]
 
 interface MelodyParams {
-    style?: string,
+    genre?: string,
+    genreId?: string| number,
+
     progression?: string,
     key?: string,
     tempo?: number
@@ -61,7 +63,7 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, che
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
-                ${checkboxChecked.keyRandom ? 'pointer-events-none bg-medium opacity-40' : ''}`}
+                ${checkboxChecked.keyRandom || !melodyParams.genre ?  'pointer-events-none bg-medium opacity-40' : ''}`}
                 onClick={() => setKeyOpen(!keyOpen)}
             >
                 <div className='w-12 text-center'>🎼</div>
@@ -83,7 +85,7 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, che
                                 setKeyOpen(!keyOpen)
                             }}
                         >
-                            <div className='w-12 text-center'>{key.icon}</div>
+                            <div className='w-12 text-center'>🎼</div>
                             <p className='text-left w-full text-0.875 font-semibold'>{key.key}</p>
 
                         </div>
