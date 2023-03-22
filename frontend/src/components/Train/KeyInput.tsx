@@ -99,7 +99,9 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, che
                                 onClick={() => {
                                     setMelodyParams({
                                         ...melodyParams,
-                                        key: key.key
+                                        key: key.key,
+                                        keyId: key._id
+
                                     })
                                     setKeyOpen(!keyOpen)
                                 }}

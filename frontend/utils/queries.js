@@ -43,19 +43,29 @@ export const GENRES_PROGRESSIONS = gql`
   }
 `;
 
-export const GENRE_BY_ID = gql `
-query Genre($genreId: ID!) {
-  genre(id: $genreId) {
-    _id
-    genre
-    progressions {
+export const GENRE_BY_ID = gql`
+  query Genre($genreId: ID!) {
+    genre(id: $genreId) {
       _id
-      numerals
+      genre
+      progressions {
+        _id
+        numerals
+        is_major
+      }
+    }
+  }
+`;
+
+export const KEY_BY_ID = gql`
+  query Key($keyId: ID!) {
+    key(id: $keyId) {
+      _id
+      key
       is_major
     }
   }
-}
-`
+`;
 
 export const MINOR_KEYS = gql`
   query Minorkeys {

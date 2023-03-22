@@ -64,8 +64,8 @@ export const resolvers = {
     keys: async () => {
       return await Key.find();
     },
-    key: async (parent, { key }) => {
-      return Key.findOne({ key });
+    key: async (parent, { id }) => {
+      return Key.findOne({ _id: id });
     },
     majorkeys: async () => {
       return Key.find({

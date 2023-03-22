@@ -1,36 +1,39 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
 import { initializeApollo } from "../../../lib/apollo";
-import { PROGRESSION_BY_ID } from "../../../utils/queries";
-
+import { PROGRESSION_BY_ID, KEY_BY_ID } from "../../../utils/queries";
+import ProgressionQuery from "../../components/Train/ProgressionQuery";
 const TrainDetails = ({ queryID }) => {
   const genreId = queryID.params[0];
-
   const progressionId = queryID.params[1];
   const keyId = queryID.params[2];
   const tempo = queryID.params[3];
 
+  console.log(progressionId);
+
   const {
-    data: progressionData,
-    loading,
-    error,
-  } = useQuery(PROGRESSION_BY_ID, {
-    variables: { progressionId: progressionId },
+    data: keyData,
+    loading: keyLoading,
+    error: keyError,
+  } = useQuery(KEY_BY_ID, {
+    variables: { keyId: keyId },
   });
-  if (loading) return <div> Loading...</div>;
 
-  console.log(progressionData.progression);
+  if (keyLoading) return <div> Loading...</div>;
 
-  const progressionKey = progressionData.progression.all_keys.filter(
-    (progression) => progression.key === "A"
-  );
-  console.log(progressionKey[0].progression_in_key);
+  const keyName = keyData.key.key;
+
   return (
     <div>
-      <p>genreId: {genreId}</p>
-      <p>progressionId: {progressionId}</p>
-      <p>keyId: {keyId}</p>
-      <p>tempo: {tempo}</p>
+     
+      <ProgressionQuery
+        keyName={keyName}
+        progressionId={progressionId}
+      ></ProgressionQuery>
+      <p>
+        Key: {keyName} {keyData.key.is_major ? `Major` : `Minor`}
+      </p>
+      <p>tempo: {tempo} BPM</p>
     </div>
   );
 };
@@ -40,10 +43,17 @@ export const getServerSideProps = async ({ query }) => {
   const queryID = query;
 
   const apolloClient = initializeApollo();
+
   await apolloClient.query({
     query: PROGRESSION_BY_ID,
     variables: { progressionId: queryID.params[0] },
   });
+
+  await apolloClient.query({
+    query: KEY_BY_ID,
+    variables: { keyId: queryID.params[2] },
+  });
+
   return {
     props: { initializeApolloState: apolloClient.cache.extract(), queryID },
   };

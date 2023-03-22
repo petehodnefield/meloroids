@@ -90,7 +90,7 @@ const TrainForm = ({ handleChange, checkboxChecked }: ChangeProps) => {
 
             />
             <Link
-                href={`/train/${melodyParams.genreId}/${melodyParams.progressionId}/${melodyParams.key}/${melodyParams.tempo}
+                href={`/train/${melodyParams.genreId}/${melodyParams.progressionId}/${melodyParams.keyId}/${melodyParams.tempo}
                 `}>
                 <button className={
                     `bg-dark text-white  text-1 font-semibold h-12 w-48 rounded  hover:opacity-80 duration-200
