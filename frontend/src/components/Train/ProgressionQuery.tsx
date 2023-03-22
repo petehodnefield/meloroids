@@ -26,8 +26,14 @@ const ProgressionQuery = ({ progressionId, keyName }: Props) => {
 
   return (
     <div>
-      <p>Chords (literal): {chordsLiteral}</p>
-      <p>Chords (numerals): {chordsNumerals}</p>
+      <div className='flex flex-col items-center mb-4'>
+        <h3 className='text-1 font-semibold text-medium'>🎼 Chords (literal):</h3>
+        <p className='text-2 font-semibold'>{chordsLiteral}</p>
+      </div>
+      <div className='flex flex-col items-center mb-4'>
+        <h3 className='text-1 font-semibold text-medium'>🎼 Chords (numerals):</h3>
+        <p className='text-2 font-semibold'>{chordsNumerals}</p>
+      </div>
     </div>
   )
 }
