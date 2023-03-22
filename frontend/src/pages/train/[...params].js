@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import { initializeApollo } from "../../../lib/apollo";
 import { PROGRESSION_BY_ID, KEY_BY_ID } from "../../../utils/queries";
-import ProgressionQuery from "../../components/Train/ProgressionQuery";
 import LoopFileName from "../../components/Train/LoopFileName";
 
 const TrainDetails = ({ queryID }) => {
@@ -11,7 +10,14 @@ const TrainDetails = ({ queryID }) => {
   const keyId = queryID.params[2];
   const tempo = queryID.params[3];
 
-  console.log(progressionId);
+  const {
+    data: progressionData,
+    loading: progressionLoading,
+    error: progressionError,
+  } = useQuery(PROGRESSION_BY_ID, {
+    variables: { progressionId: progressionId },
+  });
+
 
   const {
     data: keyData,
@@ -20,10 +26,17 @@ const TrainDetails = ({ queryID }) => {
   } = useQuery(KEY_BY_ID, {
     variables: { keyId: keyId },
   });
-
-  if (keyLoading) return <div> Loading...</div>;
+  if (keyLoading || progressionLoading) return <div> Loading...</div>;
 
   const keyName = keyData.key.key;
+
+  const progressionKey = progressionData.progression.all_keys.filter(
+    (progression) => progression.key === keyName
+  );
+  const chordsLiteral = progressionKey[0].progression_in_key;
+  const chordsNumerals = progressionData.progression.numerals;
+
+  const loopName = "Rocket " .concat(tempo +  'bpm ').concat(keyName).concat( keyData.key.is_major ? `Major ` : `Minor `).concat('@mongamonga_')
 
   return (
     <div
@@ -39,10 +52,15 @@ const TrainDetails = ({ queryID }) => {
           <h2 className="text-2.5 text-primary font-semibold mb-8">"Rocket"</h2>
           {/* Data wrapper */}
           <div className="pb-6">
-            <ProgressionQuery
-              keyName={keyName}
-              progressionId={progressionId}
-            ></ProgressionQuery>
+          <div className='flex flex-col items-center mb-4'>
+        <h3 className='text-1 font-semibold text-medium'>🎼 Chords (literal):</h3>
+        <p className='text-2 font-semibold'>{chordsLiteral}</p>
+      </div>
+      <div className='flex flex-col items-center mb-4'>
+        <h3 className='text-1 font-semibold text-medium'>🎼 Chords (numerals):</h3>
+        <p className='text-2 font-semibold'>{chordsNumerals}</p>
+      </div>
+          
             <div className="flex flex-col items-center mb-4">
               <h3 className="text-1 font-semibold text-medium">🔑 Key:</h3>
               <p className="text-2 font-semibold">
@@ -55,7 +73,9 @@ const TrainDetails = ({ queryID }) => {
             </div>
           </div>
         </div>
-        <LoopFileName></LoopFileName>
+        <LoopFileName
+        loopName={loopName}
+        ></LoopFileName>
       </div>
     </div>
   );
