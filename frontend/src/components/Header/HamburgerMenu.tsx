@@ -35,7 +35,7 @@ const HamburgerMenu = ({ setIsOpen }: NavProps) => {
                 <li
                     className='text-white text-1 font-semibold hover:text-light duration-200'>
                     <Link
-                        href='/train'
+                        href='/train-setup'
                         onClick={() => setIsOpen(false)}
                     >Train</Link>
                 </li>
