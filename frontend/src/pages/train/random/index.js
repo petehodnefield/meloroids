@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { ALL_PROGRESSIONS, ALL_KEYS } from "../../../../utils/queries";
 import { randomWord } from "../../../../utils/data/words";
@@ -8,6 +8,7 @@ import Link from "next/link";
 
 const RandomTrain = () => {
   const [loopName, setLoopName] = useState(randomWord);
+
   const {
     loading: progressionLoading,
     data: progressionData,
@@ -26,7 +27,7 @@ const RandomTrain = () => {
   // Pull a random key from ALL_KEYS query
   const randomKeyIndex = Math.floor(Math.random() * keyData.keys.length);
   const randomKey = keyData.keys[randomKeyIndex];
-  console.log("Random Key", randomKey);
+  // console.log("Random Key", randomKey);
 
   //   Pull a random progression from the ALL_PROGRESSIONS query
   const allMatchingKeyProgressions = progressionData.progressions.filter(
@@ -40,16 +41,14 @@ const RandomTrain = () => {
   const allKeysMatch = randomProgression.all_keys.filter(
     (all_keys) => all_keys.key === randomKey.key
   );
-  console.log("Random Progression", randomProgression);
-  console.log("All Keys Match", allKeysMatch);
+  // console.log("Random Progression", randomProgression);
+  // console.log("All Keys Match", allKeysMatch);
 
   //   Assign clearer variable names
   const key = randomKey.key;
   const progression = allKeysMatch[0].progression_in_key;
   const numerals = randomProgression.numerals;
   const tempo = Math.floor(Math.random() * (200 - 60) + 60);
-
-  console.log("Tempo", tempo);
 
   const loopFileName = loopName
     .concat(" ")
@@ -69,9 +68,9 @@ const RandomTrain = () => {
         {/* White bg for content */}
         <div className="relative w-full flex flex-col items-center pt-10  bg-white md:max-w-26 md:rounded-lg md:mb-6">
           {/* Reroll Icon */}
-          <Link href="/train/random">
+          <Link onClick={() => setLoopName(randomWord())} href="/train/random">
             <Icon
-              className="absolute top-4 right-4 text-1.5 hover:cursor-pointer hover:opacity-80"
+              className="absolute top-4 right-4 text-2 hover:cursor-pointer hover:opacity-80"
               icon="mdi:dice-6"
             />
           </Link>
