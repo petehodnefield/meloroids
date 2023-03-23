@@ -54,7 +54,7 @@ const TempoInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
                 />
             </div>
             {/* Custom Checkbox */}
-            <div className='checkbox-container'>
+            {/* <div className='checkbox-container'>
 
                 <input
                     type='checkbox'
@@ -65,8 +65,7 @@ const TempoInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
                 />
 
                 <label htmlFor='tempoCheckbox'>Randomize</label>
-            </div>
-            {/* VIDEO */}
+            </div> */}
         </div>
     )
 }

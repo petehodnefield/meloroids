@@ -47,7 +47,7 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
             <div className='flex justify-between items-center w-full'>
                 <label className='text-0.875 font-semibold'>Chord Progression</label>
                 {/* Custom Checkbox */}
-                <div className='checkbox-container'>
+                {/* <div className='checkbox-container'>
 
                     <input
                         type='checkbox'
@@ -58,7 +58,7 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
                     />
 
                     <label htmlFor='progressionCheckbox'>Randomize</label>
-                </div>
+                </div> */}
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 

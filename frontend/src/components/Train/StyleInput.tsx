@@ -41,7 +41,7 @@ const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
             <div className='flex justify-between items-center w-full'>
                 <label className='text-0.875 font-semibold'>Style</label>
                 {/* Custom Checkbox */}
-                <div className='checkbox-container'>
+                {/* <div className='checkbox-container'>
                     <input
                         type='checkbox'
                         id='styleCheckbox'
@@ -49,7 +49,7 @@ const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
                         onChange={(e) => handleChange(e)}
                     />
                     <label htmlFor='styleCheckbox'>Randomize</label>
-                </div>
+                </div> */}
             </div>
             <div
                 className={`h-12 w-full border-2 rounded-lg flex justify-between items-center  

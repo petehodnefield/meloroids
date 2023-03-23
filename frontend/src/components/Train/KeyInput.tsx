@@ -44,7 +44,7 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, che
             <div className='flex justify-between items-center w-full'>
                 <label className='text-0.875 font-semibold'>Key</label>
                 {/* Custom Checkbox */}
-                <div className='checkbox-container'>
+                {/* <div className='checkbox-container'>
 
                     <input
                         type='checkbox'
@@ -54,8 +54,7 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, che
                         onChange={(e) => handleChange(e)}
                     />
                     <label htmlFor='keyCheckbox'>Randomize</label>
-                </div>
-                {/* VIDEO */}
+                </div> */}
 
             </div>
             <div
