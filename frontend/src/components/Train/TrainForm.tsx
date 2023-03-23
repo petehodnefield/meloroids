@@ -89,14 +89,24 @@ const TrainForm = ({ handleChange, checkboxChecked }: ChangeProps) => {
                 checkboxChecked={checkboxChecked}
 
             />
-            <Link
-                href={`/train/${melodyParams.genreId}/${melodyParams.progressionId}/${melodyParams.keyId}/${melodyParams.tempo}
-                `}>
-                <button className={
-                    `bg-dark text-white  text-1 font-semibold h-12 w-48 rounded  hover:opacity-80 duration-200
-                    ${!melodyParams.genreId || !melodyParams.keyId || !melodyParams.progressionId ? 'pointer-events-none opacity-30' : ' button-fade-in'}`}
-                >Start</button>
-            </Link>
+            {checkboxChecked.allRandom ? (
+                 <Link
+                 href={`/train/random`}>
+                    <button className={`bg-dark text-white  text-1 font-semibold h-12 w-48 rounded  hover:opacity-80  button-fade-in`}>
+                        Start
+                    </button>
+                </Link>
+            ): (
+                <Link
+                    href={`/train/${melodyParams.genreId}/${melodyParams.progressionId}/${melodyParams.keyId}/${melodyParams.tempo}`}
+                    className={`${!melodyParams.genreId || !melodyParams.keyId || !melodyParams.progressionId ? 'pointer-events-none opacity-30' : ' button-fade-in'}`}
+                >
+                    <button className={`bg-dark text-white  text-1 font-semibold h-12 w-48 rounded  hover:opacity-80 duration-200`}>
+                        Start
+                    </button>
+                </Link>
+            )}
+           
         </form >
     )
 }

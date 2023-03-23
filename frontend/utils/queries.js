@@ -29,6 +29,19 @@ export const PROGRESSION_BY_ID = gql`
   }
 `;
 
+export const ALL_PROGRESSIONS = gql`
+  query Query {
+    progressions {
+      _id
+      numerals
+      is_major
+      all_keys {
+        key
+        progression_in_key
+      }
+    }
+  }
+`;
 export const GENRES_PROGRESSIONS = gql`
   query Query($genreprogressionsId: ID!) {
     genreprogressions(id: $genreprogressionsId) {
@@ -60,6 +73,16 @@ export const GENRE_BY_ID = gql`
 export const KEY_BY_ID = gql`
   query Key($keyId: ID!) {
     key(id: $keyId) {
+      _id
+      key
+      is_major
+    }
+  }
+`;
+
+export const ALL_KEYS = gql`
+  query Query {
+    keys {
       _id
       key
       is_major
