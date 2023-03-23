@@ -13,7 +13,7 @@ const Login = () => {
                     md:max-w-112 md:mx-0 md:px-16 md:py-10'>
                     <h2 className='text-2 font-semibold mb-8'>Login</h2>
                     <LoginForm />
-                    <p className='text-0.75 font-semibold text-center md:text-left'>Don't have an account? <Link href='/signup' className='text-primary hover:opacity-80'>Create one </Link></p>
+                    <p className='text-0.75 font-semibold text-center md:text-left'>Don&apos;t have an account? <Link href='/signup' className='text-primary hover:opacity-80'>Create one </Link></p>
                 </div>
             </div>
 
