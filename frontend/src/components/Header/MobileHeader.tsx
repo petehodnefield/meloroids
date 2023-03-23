@@ -26,12 +26,12 @@ const MobileHeader = ({ isOpen, setIsOpen }: NavProps) => {
                 icon="ic:twotone-menu"
                 onClick={() => setIsOpen(!isOpen)}
             />
-            <div >
-                <Link href='/'>
+            <div className='h-12 w-8'>
+                <Link className='h-full w-full' href='/'>
                     <Image
                         src={logoSmall}
                         alt='Meloroids logo'
-                        className='h-12 w-full '
+                        className='h-full w-full '
                     />
                 </Link>
             </div>
