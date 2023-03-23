@@ -57,12 +57,6 @@ const TrainDetails = ({ queryID }) => {
       <div className="flex flex-col items-center w-full md:py-12  lg:max-w-48 lg:justify-between">
         {/* White bg for content */}
         <div className="relative w-full flex flex-col items-center pt-10  bg-white md:max-w-26 md:rounded-lg md:mb-6">
-          <Link onClick={() => setLoopName(randomWord())} href="/train/random">
-            <Icon
-              className="absolute top-4 right-4 text-2 hover:cursor-pointer hover:opacity-80"
-              icon="mdi:dice-6"
-            />
-          </Link>
           {/* Loop Title */}
           <h2 className="text-2.5 text-primary font-semibold mb-8">
             {randomWord}
