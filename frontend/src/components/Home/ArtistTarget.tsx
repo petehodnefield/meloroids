@@ -22,8 +22,8 @@ const ArtistTarget = () => {
                         className='object-cover px-6 h-48 w-full rounded md:h-88  lg:hidden'
                     />
                     <div className='px-6 pt-6 pb-8 lg:px-0 lg:max-w-660'>
-                        <p className='text-1 mb-5'>With Artist Target, you can experiment with different melodies and harmonies while also learning how to emulate the sound of your favorite artists. Whether you're an experienced musician or just starting out, our feature is a fun and effective way to improve your songwriting skills.</p>
-                        <p className='text-1'><span className='italic font-semibold'>Here's how it works: </span>simply select an artist from our database, and Artist Target will analyze the song's key, tempo, and other parameters. Then, it's up to you to write a melody that matches those same parameters.</p>
+                        <p className='text-1 mb-5'>With Artist Target, you can experiment with different melodies and harmonies while also learning how to emulate the sound of your favorite artists. Whether you&apos;re an experienced musician or just starting out, our feature is a fun and effective way to improve your songwriting skills.</p>
+                        <p className='text-1'><span className='italic font-semibold'>Here&apos;s how it works: </span>simply select an artist from our database, and Artist Target will analyze the song&apos;s key, tempo, and other parameters. Then, it&apos;s up to you to write a melody that matches those same parameters.</p>
                     </div>
                     <Link href='/signup'>
                         <BtnDark buttonText='Join the waitlist' />
