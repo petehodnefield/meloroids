@@ -71,7 +71,7 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
             </div>
             {/* Style dropdown */}
             {progressionOpen ? (
-                <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-30'>
+                <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-30 max-h-14 overflow-scroll'>
                     {progressionData.genreprogressions.progressions.map((progression: any) => (
                         <div
                             key={progression.numerals}

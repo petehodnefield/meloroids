@@ -62,7 +62,7 @@ const StyleInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, c
             </div>
             {/* Style dropdown */}
             {styleOpen ? (
-                <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-40'>
+                <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-40 max-h-14 overflow-scroll'>
                     {genreData.genres.map((genre: any) => (
                         <div
                             key={genre.genre}

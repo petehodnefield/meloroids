@@ -69,7 +69,7 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, che
             </div>
             {/* Style dropdown */}
             {keyOpen ? (
-                <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-10'>
+                <div className='border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-10 max-h-14 overflow-scroll'>
                     {melodyParams.is_major ? (
 
                         majorkeyData.majorkeys.map((key: any) => (
