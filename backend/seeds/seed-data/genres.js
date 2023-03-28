@@ -5,4 +5,10 @@ export const genresData = [
   {
     genre: "Trap",
   },
+  {
+    genre: "Spanish",
+  },
+  {
+    genre: "Emo",
+  },
 ];
