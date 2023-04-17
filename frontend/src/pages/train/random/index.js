@@ -52,9 +52,9 @@ const RandomTrain = () => {
 
   const loopFileName = loopName
     .concat(" ")
-    .concat(tempo + "bpm ")
-    .concat(key)
-    .concat(randomKey.is_major ? `Major ` : `Minor `)
+    .concat(tempo + " bpm ")
+    .concat(key.toLowerCase())
+    .concat(randomKey.is_major ? ` major ` : ` minor `)
     .concat("@mongamonga_");
 
   return (

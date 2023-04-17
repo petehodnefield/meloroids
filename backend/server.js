@@ -10,8 +10,7 @@ import { resolvers } from "./schema/resolvers.js";
 import { seedDB } from "./seeds/seeds.js";
 
 const db = await mongoose.connect(
-  "mongodb://localhost:27017"
-  // process.env.MONGO_DB_URI
+  process.env.MONGO_DB_URI || "mongodb://localhost:27017"
 );
 // const seed = await seedDB();
 console.info("connected to db!");

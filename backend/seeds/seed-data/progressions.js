@@ -235,7 +235,240 @@ export const progressionData = [
       },
     ],
   },
+  // IV∆7 I III- VI-
+  {
+    numerals: "IV∆7 I III- VI-",
+    is_major: true,
+    all_keys: [
+      {
+        key: "Eb",
+        progression_in_key: "Ab∆7 Eb G- C-",
+        midi_file: "s",
+      },
+      {
+        key: "E",
+        progression_in_key: "A∆7 E G#- C#-",
+        midi_file: "s",
+      },
 
+      {
+        key: "F",
+        progression_in_key: "Bb∆7 F A- D-",
+        midi_file: "s",
+      },
+      {
+        key: "F#",
+        progression_in_key: "B∆7 F# A#- D#-",
+        midi_file: "s",
+      },
+      {
+        key: "Gb",
+        progression_in_key: "Cb∆7 Gb Bb- Eb-",
+        midi_file: "s",
+      },
+      {
+        key: "G",
+        progression_in_key: "C∆7 G B- E-",
+        midi_file: "s",
+      },
+      {
+        key: "Ab",
+        progression_in_key: "Db∆7 Ab C- F-",
+        midi_file: "s",
+      },
+      {
+        key: "A",
+        progression_in_key: "D∆7 A C#- F#-",
+        midi_file: "s",
+      },
+      {
+        key: "Bb",
+        progression_in_key: "Eb∆7 Bb D- G-",
+        midi_file: "s",
+      },
+      {
+        key: "B",
+        progression_in_key: "E∆7 B D#- G#-",
+        midi_file: "s",
+      },
+      {
+        key: "C",
+        progression_in_key: "F∆7 C E- A-",
+        midi_file: "s",
+      },
+      {
+        key: "C#",
+        progression_in_key: "F#∆7 C# E#- A#-",
+        midi_file: "s",
+      },
+      {
+        key: "Db",
+        progression_in_key: "Gb∆7 Db F- Bb-",
+        midi_file: "s",
+      },
+      {
+        key: "D",
+        progression_in_key: "G∆7 D F#- B-",
+        midi_file: "s",
+      },
+    ],
+  },
+  // IV∆7 VI- V I
+  {
+    numerals: "IV∆7 VI- V I",
+    is_major: true,
+    all_keys: [
+      {
+        key: "Eb",
+        progression_in_key: "Ab∆7 C- Bb Eb",
+        midi_file: "s",
+      },
+      {
+        key: "E",
+        progression_in_key: "A∆7 C#- B E",
+        midi_file: "s",
+      },
+
+      {
+        key: "F",
+        progression_in_key: "Bb∆7 D- C F",
+        midi_file: "s",
+      },
+      {
+        key: "F#",
+        progression_in_key: "B∆7 D#- C# F#",
+        midi_file: "s",
+      },
+      {
+        key: "Gb",
+        progression_in_key: "Cb∆7 Eb- Db Gb",
+        midi_file: "s",
+      },
+      {
+        key: "G",
+        progression_in_key: "C∆7 E- D G",
+        midi_file: "s",
+      },
+      {
+        key: "Ab",
+        progression_in_key: "Db∆7 F- Eb Ab",
+        midi_file: "s",
+      },
+      {
+        key: "A",
+        progression_in_key: "D∆7 F#- E A",
+        midi_file: "s",
+      },
+      {
+        key: "Bb",
+        progression_in_key: "Eb∆7 G- F Bb",
+        midi_file: "s",
+      },
+      {
+        key: "B",
+        progression_in_key: "E∆7 G#- F# B",
+        midi_file: "s",
+      },
+      {
+        key: "C",
+        progression_in_key: "F∆7 A- G C",
+        midi_file: "s",
+      },
+      {
+        key: "C#",
+        progression_in_key: "C#∆7 A#- G# C#",
+        midi_file: "s",
+      },
+      {
+        key: "Db",
+        progression_in_key: "Gb∆7 Bb- Ab Db",
+        midi_file: "s",
+      },
+      {
+        key: "D",
+        progression_in_key: "G∆7 B- A D",
+        midi_file: "s",
+      },
+    ],
+  },
+  // I VI- III- V
+  {
+    numerals: "I VI- III- V",
+    is_major: true,
+    all_keys: [
+      {
+        key: "Eb",
+        progression_in_key: "Eb C- G- Bb",
+        midi_file: "s",
+      },
+      {
+        key: "E",
+        progression_in_key: "E C#- G#- B",
+        midi_file: "s",
+      },
+
+      {
+        key: "F",
+        progression_in_key: "F D- A- C",
+        midi_file: "s",
+      },
+      {
+        key: "F#",
+        progression_in_key: "F# D#- A#- C#",
+        midi_file: "s",
+      },
+      {
+        key: "Gb",
+        progression_in_key: "Gb Eb- Bb- Db",
+        midi_file: "s",
+      },
+      {
+        key: "G",
+        progression_in_key: "G E- B- D",
+        midi_file: "s",
+      },
+      {
+        key: "Ab",
+        progression_in_key: "Ab F- C- Eb",
+        midi_file: "s",
+      },
+      {
+        key: "A",
+        progression_in_key: "A F#- C#- E",
+        midi_file: "s",
+      },
+      {
+        key: "Bb",
+        progression_in_key: "Bb G- D- F",
+        midi_file: "s",
+      },
+      {
+        key: "B",
+        progression_in_key: "B G#- D#- F#",
+        midi_file: "s",
+      },
+      {
+        key: "C",
+        progression_in_key: "C A- E- G",
+        midi_file: "s",
+      },
+      {
+        key: "C#",
+        progression_in_key: "C# A#- F- G#",
+        midi_file: "s",
+      },
+      {
+        key: "Db",
+        progression_in_key: "Db Bb- F- Ab",
+        midi_file: "s",
+      },
+      {
+        key: "D",
+        progression_in_key: "D B- F#- A",
+        midi_file: "s",
+      },
+    ],
+  },
   // MINOR KEY PROGRESSIONS
   // i bVII bVI V
   {
@@ -889,6 +1122,170 @@ export const progressionData = [
       {
         key: "D#",
         progression_in_key: "D#- G#- A#",
+        midi_file: "s",
+      },
+    ],
+  },
+  // bVI bVII i
+  {
+    numerals: "bVI bVII i",
+    is_major: false,
+    all_keys: [
+      {
+        key: "Eb",
+        progression_in_key: "B Db Eb-",
+        midi_file: "s",
+      },
+      {
+        key: "E",
+        progression_in_key: "C D E-",
+        midi_file: "s",
+      },
+      {
+        key: "F",
+        progression_in_key: "Db Eb F-",
+        midi_file: "s",
+      },
+      {
+        key: "F#",
+        progression_in_key: "D E F#-",
+        midi_file: "s",
+      },
+      {
+        key: "G",
+        progression_in_key: "Eb F G-",
+        midi_file: "s",
+      },
+      {
+        key: "G#",
+        progression_in_key: "E F# G#-",
+        midi_file: "s",
+      },
+      {
+        key: "Ab",
+        progression_in_key: "Fb Gb Ab-",
+        midi_file: "s",
+      },
+      {
+        key: "A",
+        progression_in_key: "F G A-",
+        midi_file: "s",
+      },
+      {
+        key: "A#",
+        progression_in_key: "F# G# A#-",
+        midi_file: "s",
+      },
+      {
+        key: "Bb",
+        progression_in_key: "Gb Ab Bb-",
+        midi_file: "s",
+      },
+      {
+        key: "B",
+        progression_in_key: "G A B-",
+        midi_file: "s",
+      },
+      {
+        key: "C",
+        progression_in_key: "Ab Bb C-",
+        midi_file: "s",
+      },
+      {
+        key: "C#",
+        progression_in_key: "A B C#-",
+        midi_file: "s",
+      },
+      {
+        key: "D",
+        progression_in_key: "Bb C D-",
+        midi_file: "s",
+      },
+      {
+        key: "D#",
+        progression_in_key: "B C# D#-",
+        midi_file: "s",
+      },
+    ],
+  },
+  // i bIII bVI bVII
+  {
+    numerals: "i bIII bVI bVII",
+    is_major: false,
+    all_keys: [
+      {
+        key: "Eb",
+        progression_in_key: "Eb- Gb B Db",
+        midi_file: "s",
+      },
+      {
+        key: "E",
+        progression_in_key: "E- G C D",
+        midi_file: "s",
+      },
+      {
+        key: "F",
+        progression_in_key: "F- Ab Db Eb",
+        midi_file: "s",
+      },
+      {
+        key: "F#",
+        progression_in_key: "F#- A D E",
+        midi_file: "s",
+      },
+      {
+        key: "G",
+        progression_in_key: "G- Bb Eb F",
+        midi_file: "s",
+      },
+      {
+        key: "G#",
+        progression_in_key: "G#- B E F#",
+        midi_file: "s",
+      },
+      {
+        key: "Ab",
+        progression_in_key: "Ab- Cb Fb Gb",
+        midi_file: "s",
+      },
+      {
+        key: "A",
+        progression_in_key: "A- C F G",
+        midi_file: "s",
+      },
+      {
+        key: "A#",
+        progression_in_key: "A#- C# F# G#",
+        midi_file: "s",
+      },
+      {
+        key: "Bb",
+        progression_in_key: "Bb- Db Gb Ab",
+        midi_file: "s",
+      },
+      {
+        key: "B",
+        progression_in_key: "B- D G A",
+        midi_file: "s",
+      },
+      {
+        key: "C",
+        progression_in_key: "C- Eb Ab Bb",
+        midi_file: "s",
+      },
+      {
+        key: "C#",
+        progression_in_key: "C#- E A B",
+        midi_file: "s",
+      },
+      {
+        key: "D",
+        progression_in_key: "D- F Bb C",
+        midi_file: "s",
+      },
+      {
+        key: "D#",
+        progression_in_key: "D#- F# B C#",
         midi_file: "s",
       },
     ],

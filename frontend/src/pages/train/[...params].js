@@ -42,9 +42,9 @@ const TrainDetails = ({ queryID }) => {
 
   const loopFileName = loopName
     .concat(" ")
-    .concat(tempo + "bpm ")
-    .concat(keyName)
-    .concat(keyData.key.is_major ? `Major ` : `Minor `)
+    .concat(tempo + " bpm ")
+    .concat(keyName.toLowerCase())
+    .concat(keyData.key.is_major ? ` major ` : ` minor `)
     .concat("@mongamonga_");
 
   return (
