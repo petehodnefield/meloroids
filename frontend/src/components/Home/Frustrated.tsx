@@ -1,5 +1,7 @@
 import React from 'react'
 import BtnPrimary from '../Buttons/BtnPrimary'
+import Image from 'next/image'
+import frustrated from '../../../public/assets/images/frustrated.jpg'
 const Frustrated = () => {
     return (
         <section className="pt-7 pb-12 flex flex-col items-center px-6 md:px-20 lg:max-w-58 xl:max-w-70  lg:pt-10 lg:pb-14 lg:px-0 lg:items-start">
@@ -14,7 +16,13 @@ const Frustrated = () => {
                         <p className="text-1 italic">How many times have you made a genuine effort to try to learn how chords are formed, how to make chord progressions, only to become increasingly frustrated?</p>
                     </div>
                     {/* Frustrated image */}
-                    <div className="w-64 h-64 bg-cover rounded	lg:hidden" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1621252179027-94459d278660?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80)` }} />
+                    <div className="w-64 h-64 bg-cover rounded	lg:hidden"  >
+                        <Image                    
+                        className='w-full h-full object-cover'
+                        src={frustrated}
+                        alt='A women shaking her head in frustration.'
+                        />
+                    </div>
                     <div className="py-10 lg:max-w-660 lg:p-0 lg:mb-6">
                         <p className="text-0.875 mb-4">I know the struggle producers face trying to grasp the concepts of music theory. The internet is filled with teachers who overcomplicate concepts, and most producers don’t realize the true power of understanding music theory</p>
                         <p className="text-0.875">Meloroids is a one-of-a-kind platform that will provide you with instant inspiration for whatever genre you are trying to produce. You will learn and immediately apply music theory concepts.</p>
@@ -24,7 +32,14 @@ const Frustrated = () => {
                     </a>
                 </div>
                 {/* Large frustrated image */}
-                <div className="hidden w-64 h-64 bg-cover rounded ml-20	lg:block mt-2" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1621252179027-94459d278660?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80)` }} />
+                <div className="hidden w-64 h-64 bg-cover rounded ml-20	lg:block mt-2">
+                    <Image
+                    className='w-full h-full object-cover'
+                    src={frustrated}
+                    alt='A women shaking her head in frustration.'
+
+                    />
+                </div>
             </div>
 
         </section>

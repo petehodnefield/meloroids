@@ -11,6 +11,7 @@ import ThreeCards from "@/components/Home/ThreeCards"
 import ThreeSteps from "@/components/Home/ThreeSteps"
 import Image from "next/image"
 import Link from "next/link"
+import studioImage from '../../public/assets/images/music-studio.jpg'
 export default function Home() {
 
   return (
@@ -19,8 +20,9 @@ export default function Home() {
         {/* First text section */}
         <Hero />
         {/* Studio image */}
-        <img
-          src='https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80'
+        <Image
+          src={studioImage}
+          alt="A music studio with guitars hanging on the wall and a mixing console."
           className=" w-full h-40 object-cover rounded	box-border md:h-88 lg:rounded-full lg:w-88 lg:h-88" />
       </div>
       {/* Second text section */}

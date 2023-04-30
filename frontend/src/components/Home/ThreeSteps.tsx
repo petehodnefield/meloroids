@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
-
+import point from '../../../public/assets/images/point.jpg'
+import producer from '../../../public/assets/images/music-producer.jpg'
+import mixingConsole from '../../../public/assets/images/mixing-console.jpg'
 const ThreeSteps = () => {
     return (
         <section id='threeSteps' className='w-full bg-dark text-white flex flex-col items-center pt-12 pb-20 md:px-8'>
@@ -10,9 +12,9 @@ const ThreeSteps = () => {
                 <div className='flex flex-col items-center max-w-xxs text-center	'>
                     <h3 className='text-1.125 font-semibold mb-2' >Step 1: <span className='text-primary italic'>Choose a genre</span></h3>
                     <div className='h-48 w-40 mb-4'>
-                        <img
-                            src='https://images.unsplash.com/photo-1545262841-5283004cef19?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1664&q=80'
-                            alt='A hand pointing at a screen'
+                        <Image
+                            src={point}
+                            alt='A hand pointing at a screen.'
                             className='h-full w-full rounded'
                         />
                     </div>
@@ -22,8 +24,8 @@ const ThreeSteps = () => {
                 <div className='flex flex-col items-center max-w-xxs text-center	'>
                     <h3 className='text-1.125 font-semibold mb-2' >Step 2: <span className='text-primary italic'>Choose parameters</span></h3>
                     <div className='h-48 w-40 mb-4'>
-                        <img
-                            src='https://images.unsplash.com/photo-1627773755683-dfcf2774596a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2352&q=80'
+                        <Image
+                            src={producer}
                             alt='Music producer working on a beat at a computer. Photo by TechAvation on Unsplash.'
                             className='h-full w-full rounded'
                         />
@@ -34,8 +36,8 @@ const ThreeSteps = () => {
                 <div className='flex flex-col items-center max-w-xxs text-center	'>
                     <h3 className='text-1.125 font-semibold mb-2' >Step 3: <span className='text-primary italic'>Write a hit</span></h3>
                     <div className='h-48 w-40 mb-4'>
-                        <img
-                            src='https://images.unsplash.com/photo-1518972559570-7cc1309f3229?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80'
+                        <Image
+                            src={mixingConsole}
                             alt='A studio mixing bord with many colors. Photo by Dylan McLeod on Unsplash'
                             className='h-full w-full rounded'
                         />

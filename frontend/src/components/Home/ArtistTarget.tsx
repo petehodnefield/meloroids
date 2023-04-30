@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import BtnDark from '../Buttons/BtnDark'
+import Image from 'next/image'
+import rapper from '../../../public/assets/images/rapper.jpg'
 const ArtistTarget = () => {
     return (
         <section className='flex flex-col items-center pt-10 pb-10  lg:justify-center w-full lg:pt-14 lg:pb-16'>
@@ -16,9 +18,9 @@ const ArtistTarget = () => {
                         <h3 className='text-2 font-semibold lg:text-2.5'>COMING SOON</h3>
                     </div>
                     {/* Train img SMALL */}
-                    <img
-                        src='https://images.unsplash.com/photo-1621535484902-f946de404eb4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1372&q=80'
-                        alt='A rapper wearing a ski mask smoking a cigarette. Photo by David Huck on Unsplash.'
+                    <Image
+                    src={rapper}
+                    alt='A rapper wearing a ski mask smoking a cigarette. Photo by David Huck on Unsplash.'
                         className='object-cover px-6 h-48 w-full rounded md:h-88  lg:hidden'
                     />
                     <div className='px-6 pt-6 pb-8 lg:px-0 lg:max-w-660'>
@@ -30,8 +32,8 @@ const ArtistTarget = () => {
                     </Link>
                 </div>
                 {/* Train img SMALL */}
-                <img
-                    src='https://images.unsplash.com/photo-1621535484902-f946de404eb4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1372&q=80'
+                <Image
+                    src={rapper}
                     alt='A rapper wearing a ski mask smoking a cigarette. Photo by David Huck on Unsplash.'
                     className='hidden object-cover px-6 h-88 w-88 rounded-full  lg:block lg:p-0'
                 />
