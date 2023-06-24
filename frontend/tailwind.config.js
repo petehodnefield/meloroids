@@ -18,7 +18,7 @@ module.exports = {
         sans: ["var(--font-inter)"],
       },
       colors: {
-        primary: "#BB39FA",
+        primary: "#b525f8",
         secondary: "#C9ABD9",
         tertiary: "#EFECF0",
         quad: "#423D47",

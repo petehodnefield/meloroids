@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-  --primary: #bb39fa;
+  --primary: #b525f8;
   --secondary: #c9abd9;
   --tertiary: #efecf0;
   --quad: #423d47;
@@ -125,7 +125,8 @@ p {
 }
 
 .button-fade-in {
-  animation: button-fade-in 300ms timing-function delay iteration-count direction fill-mode;
+  animation: button-fade-in 300ms timing-function delay iteration-count
+    direction fill-mode;
 }
 @keyframes button-fade-in {
   0% {
