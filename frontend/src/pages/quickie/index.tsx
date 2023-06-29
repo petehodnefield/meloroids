@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react'
 import {randomWord} from '../../../utils/data/words'
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
-const index = () => {
+const Quickie = () => {
     const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -29,4 +29,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Quickie
