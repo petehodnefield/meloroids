@@ -11,7 +11,9 @@ interface MelodyParams {
     progressionId?: string,
     is_major?: boolean | string,
     key?: string,
-    tempo?: number
+    tempo?: number,  
+    producerHandle: string
+
 }
 interface Checkbox {
     allRandom: boolean,
@@ -40,7 +42,6 @@ const ProgressionInput = ({ setMelodyParams, melodyParams, hoverStyle, handleCha
 
     if (progressionLoading) return <div>Loading...</div>
 
-    console.log(melodyParams.genre)
     return (
         // Style Input
         <div className='w-full relative mb-6'>

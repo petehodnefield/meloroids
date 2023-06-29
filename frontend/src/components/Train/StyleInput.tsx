@@ -9,6 +9,7 @@ interface MelodyParams {
     progression?: string,
     key?: string,
     tempo?: number
+    producerHandle: string
 }
 interface Checkbox {
     allRandom: boolean,

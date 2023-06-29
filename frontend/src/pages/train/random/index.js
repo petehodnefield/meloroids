@@ -27,7 +27,6 @@ const RandomTrain = () => {
   // Pull a random key from ALL_KEYS query
   const randomKeyIndex = Math.floor(Math.random() * keyData.keys.length);
   const randomKey = keyData.keys[randomKeyIndex];
-  // console.log("Random Key", randomKey);
 
   //   Pull a random progression from the ALL_PROGRESSIONS query
   const allMatchingKeyProgressions = progressionData.progressions.filter(
@@ -41,8 +40,6 @@ const RandomTrain = () => {
   const allKeysMatch = randomProgression.all_keys.filter(
     (all_keys) => all_keys.key === randomKey.key
   );
-  // console.log("Random Progression", randomProgression);
-  // console.log("All Keys Match", allKeysMatch);
 
   //   Assign clearer variable names
   const key = randomKey.key;

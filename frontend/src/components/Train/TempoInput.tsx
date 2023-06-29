@@ -3,7 +3,9 @@ interface MelodyParams {
     style?: string,
     progression?: string,
     key?: string,
-    tempo?: number
+    tempo?: number,
+    producerHandle: string
+
 }
 
 interface Checkbox {
@@ -11,7 +13,8 @@ interface Checkbox {
     styleRandom: boolean,
     progressionRandom: boolean,
     keyRandom: boolean,
-    tempoRandom: boolean
+    tempoRandom: boolean,
+    
 }
 interface FormProps {
     melodyParams: MelodyParams,

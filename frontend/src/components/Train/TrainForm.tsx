@@ -15,7 +15,8 @@ interface MelodyParams {
     is_major?: boolean | string,
     key?: string,
     keyId?: string,
-    tempo?: number
+    tempo?: number,
+    producerHandle: string
 }
 interface Checkbox {
     allRandom: boolean,
@@ -41,9 +42,27 @@ const TrainForm = ({ handleChange, checkboxChecked }: ChangeProps) => {
         is_major: '',
         key: '',
         keyId: '',
-        tempo: 60
+        tempo: 60,
+        producerHandle: 'mongamonga'
     })
 
+    // On save, save field to localStorage
+    const saveProducerName = (e:any) => {
+        e.preventDefault()
+        localStorage.setItem('producerName', melodyParams.producerHandle)
+    }    
+
+useEffect(() => {
+    const localRetrieve = localStorage.getItem('producerName')
+    console.log( localRetrieve)
+    if(localRetrieve) {
+        setMelodyParams({
+            ...melodyParams,
+            producerHandle: 'mongamonga'
+        })}
+        console.log(melodyParams)
+
+}, [])
     useEffect(() => (
         setMelodyParams({
             ...melodyParams,
@@ -52,7 +71,6 @@ const TrainForm = ({ handleChange, checkboxChecked }: ChangeProps) => {
         })
     ), [melodyParams.genre])
 
-    console.log(melodyParams)
 
     return (
         <form
@@ -89,6 +107,16 @@ const TrainForm = ({ handleChange, checkboxChecked }: ChangeProps) => {
                 checkboxChecked={checkboxChecked}
 
             />
+            <label className='text-0.875 font-semibold'>Instagram Handle <button onClick={saveProducerName}>Save</button></label>
+            <input 
+            onChange={(e:any) => setMelodyParams({
+                ...melodyParams,
+                producerHandle: e.target.value
+            })}   
+            value={melodyParams.producerHandle ? melodyParams.producerHandle: ''}
+            className={
+                        `text-0.875 font-semibold w-full  rounded-lg h-12 border-2 text-center focus:outline-primary`}/>
+
             {checkboxChecked.allRandom ? (
                  <Link
                  href={`/train/random`}>

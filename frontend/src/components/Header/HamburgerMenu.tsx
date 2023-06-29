@@ -33,11 +33,18 @@ const HamburgerMenu = ({ setIsOpen }: NavProps) => {
                     >Home</Link>
                 </li>
                 <li
-                    className='text-white text-1 font-semibold hover:text-light duration-200'>
+                    className='text-white text-1 font-semibold hover:text-light duration-200 mb-4'>
                     <Link
                         href='/train-setup'
                         onClick={() => setIsOpen(false)}
                     >Train</Link>
+                </li>
+                <li
+                    className='text-white text-1 font-semibold hover:text-light duration-200 mb-4'>
+                    <Link
+                        href='/quickie'
+                        onClick={() => setIsOpen(false)}
+                    >Quickie</Link>
                 </li>
             </ul>
         </div>

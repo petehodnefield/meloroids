@@ -50,6 +50,9 @@ module.exports = {
         88: "22rem",
         112: "28rem",
       },
+      boxShadow: {
+        "3xl": "0 8px 16px 0 rgba(44, 44, 44, 0.25)",
+      },
     },
   },
   plugins: [],

@@ -10,7 +10,9 @@ interface MelodyParams {
     is_major?: boolean | string,
     key?: string,
     keyId?: string,
-    tempo?: number
+    tempo?: number,
+    producerHandle: string
+
 }
 interface Checkbox {
     allRandom: boolean,
@@ -37,8 +39,6 @@ const KeyInput = ({ setMelodyParams, melodyParams, hoverStyle, handleChange, che
 
     if (majorkeyLoading || minorKeyLoading) return <div>Loading...</div>
 
-    console.log(minorKeyData)
-    console.log("state of major", melodyParams.is_major)
     return (
         <div className='w-full relative mb-6'>
             <div className='flex justify-between items-center w-full'>
