@@ -23,7 +23,7 @@ module.exports = {
         tertiary: "#EFECF0",
         quad: "#423D47",
         white: "#ffffff",
-        light: "#",
+        light: "#E1E1E1",
         medium: "#999999",
         dark: "#2c2c2c",
         black: "#111111",
@@ -52,6 +52,9 @@ module.exports = {
       },
       boxShadow: {
         "3xl": "0 8px 16px 0 rgba(44, 44, 44, 0.25)",
+      },
+      borderWidth: {
+        1: "1px",
       },
     },
   },
