@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-export const DateToggle = () => {
-  const [includeDate, setIncludeDate] = useState(false);
-
+export const DateToggle = ({ includeDate, setIncludeDate }) => {
   // Styles to handle toggle switch
   const toggleOuterSelected = "justify-end  bg-primary";
   const toggleOuterUnselected = "justify-start  bg-light";
