@@ -31,9 +31,9 @@ const Quickie = () => {
       <Image
         src={background}
         alt="A music studio with an imac at the center"
-        className="absolute top-0 h-full object-cover z-0 w-full"
+        className="bg__quickie absolute top-0 h-full object-cover z-0 w-full"
       />
-      <div className="flex flex-col items-center justify-between	 bg-white shadow-3xl pt-10 rounded-xl w-96 relative">
+      <div className="flex flex-col items-center justify-between	 bg-white shadow-3xl pt-10 rounded-4xl w-96 relative">
         <h2 className="text-2.5 font-semibold mb-4 text-primary">Quickie</h2>
 
         <DateToggle includeDate={includeDate} setIncludeDate={setIncludeDate} />
