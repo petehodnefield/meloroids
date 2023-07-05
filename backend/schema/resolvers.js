@@ -245,7 +245,7 @@ export const resolvers = {
       const token = auth.signToken(user);
       return { token, user };
     },
-    updateUser: async (parent, { password }, context) => {
+    changeUserPassword: async (parent, { password }, context) => {
       if (context.user) {
         console.log(context.user);
         const updateUser = await User.findOneAndUpdate(
@@ -255,6 +255,19 @@ export const resolvers = {
         return updateUser;
       }
       throw new GraphQLError("You need to be logged in!");
+    },
+    changeUserInfo: async (parent, args, context) => {
+      if (context.user) {
+        const changeUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            username: args.username,
+            bio: args.bio,
+            instagramHandle: args.instagramHandle,
+          }
+        );
+        return changeUser;
+      }
     },
     deleteUser: async (parent, args, context) => {
       if (context.user) {

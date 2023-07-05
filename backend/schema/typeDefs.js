@@ -128,7 +128,8 @@ export const typeDefs = `#graphql
 
     createUser(username: String!, password: String!, email: String!): Auth
     login(username: String!, password: String!): Auth
-    updateUser(password: String!): User
+    changeUserPassword(password: String!): User
+    changeUserInfo(username: String, bio: String, instagramHandle: String): User
     deleteUser: User
   }
 

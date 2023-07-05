@@ -13,7 +13,7 @@ import auth from "./utils/auth.js";
 const db = await mongoose.connect(
   process.env.MONGO_DB_URI || "mongodb://localhost:27017"
 );
-const seed = await seedDB();
+// const seed = await seedDB();
 console.info("connected to db!");
 
 // The ApolloServer constructor requires two parameters: your schema
