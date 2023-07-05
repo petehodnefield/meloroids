@@ -4,6 +4,8 @@ import Genre from "../models/Genre.js";
 import Key from "../models/Key.js";
 import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
+import User from "../models/User.js";
+import auth from "../utils/auth.js";
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
   Query: {
@@ -76,6 +78,14 @@ export const resolvers = {
       return Key.find({
         is_major: false,
       });
+    },
+
+    // Users
+    users: async () => {
+      return await User.find();
+    },
+    user: async (parent, { id }) => {
+      return await User.findOne({ _id: id });
     },
   },
   Mutation: {
@@ -209,6 +219,30 @@ export const resolvers = {
     },
     deleteKey: async (parent, args) => {
       return await Key.findOneAndDelete({ _id: args._id });
+    },
+
+    // Users
+    createUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = auth.signToken(user);
+
+      return { token, user };
+    },
+    login: async (parent, { username, password }) => {
+      const user = await User.findOne({ username });
+
+      if (!user) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+
+      const token = auth.signToken(user);
+      return { token, user };
     },
   },
 };

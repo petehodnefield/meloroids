@@ -59,6 +59,15 @@ export const typeDefs = `#graphql
     is_major: Boolean!,
   }
 
+  type User {
+    _id: ID!,
+    username: String!,
+    password: String!,
+    email: String!,
+    instagramHandle: String,
+    bio: String
+  }
+
   type Query {
     artists: [Artist]
     artist(name: String!): Artist
@@ -82,6 +91,8 @@ export const typeDefs = `#graphql
     majorkeys: [Key]
     minorkeys: [Key]
 
+    users: [User]
+    user(id: ID!): User
   }
 
   type Mutation {
@@ -115,5 +126,11 @@ export const typeDefs = `#graphql
     updateKey(_id: ID!, is_major: Boolean, key: String): Key
     deleteKey(_id: ID!): Key
 
+    createUser(username: String!, password: String!, email: String!): Auth
+    login(username: String!, password: String!): Auth
+  }
+  type Auth {
+    token: ID!
+    user: User
   }
 `;
