@@ -233,7 +233,7 @@ export const resolvers = {
       const user = await User.findOne({ username });
 
       if (!user) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new GraphQLError("Incorrect credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
@@ -250,7 +250,8 @@ export const resolvers = {
         console.log(context.user);
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { password: password }
+          { password: password },
+          { new: true }
         );
         return updateUser;
       }
