@@ -8,11 +8,12 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { typeDefs } from "./schema/typeDefs.js";
 import { resolvers } from "./schema/resolvers.js";
 import { seedDB } from "./seeds/seeds.js";
+import auth from "./utils/auth.js";
 
 const db = await mongoose.connect(
   process.env.MONGO_DB_URI || "mongodb://localhost:27017"
 );
-// const seed = await seedDB();
+const seed = await seedDB();
 console.info("connected to db!");
 
 // The ApolloServer constructor requires two parameters: your schema
@@ -26,6 +27,7 @@ const server = new ApolloServer({
 });
 
 const { url } = await startStandaloneServer(server, {
+  context: auth.authMiddleware,
   listen: { port: 4000 },
 });
 

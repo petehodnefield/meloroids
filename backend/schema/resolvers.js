@@ -6,6 +6,7 @@ import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
 import User from "../models/User.js";
 import auth from "../utils/auth.js";
+import { GraphQLError } from "graphql";
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
   Query: {
@@ -238,11 +239,30 @@ export const resolvers = {
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new GraphQLError("Incorrect credentials");
       }
 
       const token = auth.signToken(user);
       return { token, user };
+    },
+    updateUser: async (parent, { password }, context) => {
+      if (context.user) {
+        console.log(context.user);
+        const updateUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { password: password }
+        );
+        return updateUser;
+      }
+      throw new GraphQLError("You need to be logged in!");
+    },
+    deleteUser: async (parent, args, context) => {
+      if (context.user) {
+        const deleteUser = await User.findOneAndDelete({
+          _id: context.user._id,
+        });
+        return deleteUser;
+      }
     },
   },
 };

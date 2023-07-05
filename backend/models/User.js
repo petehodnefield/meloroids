@@ -27,26 +27,21 @@ const userSchema = new Schema({
     type: String,
   },
 });
-
+// TODO: Make sure password gets hashed upon updating
 userSchema.pre("save", function (next) {
   const user = this;
-
-  // only hash the password if it has been modified (or is new)
-  if (!user.isModified("password")) return next();
-
-  // generate a salt
-  bcrypt.genSalt(saltRounds, function (err, salt) {
-    if (err) return next(err);
-
-    // hash the password using our new salt
-    bcrypt.hash(user.password, salt, function (err, hash) {
+  if (user.isModified("password")) {
+    bcrypt.genSalt(10, function (err, salt) {
       if (err) return next(err);
-
-      // override the cleartext password with the hashed one
-      user.password = hash;
-      next();
+      bcrypt.hash(user.password, salt, function (err, hash) {
+        if (err) return next(err);
+        user.password = hash;
+        next();
+      });
     });
-  });
+  } else {
+    next();
+  }
 });
 
 // compare the incoming password with the hashed password
