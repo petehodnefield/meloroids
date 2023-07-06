@@ -3,15 +3,19 @@ import decode from "jwt-decode";
 class AuthService {
   // Retrieve data saved in token
   getProfile() {
-    return decode(this.getToken());
+    if (typeof window !== "undefined") {
+      return decode(this.getToken());
+    }
   }
 
   // check if the user is still logged in
   loggedIn() {
-    // Checks if there is a saved token and it's still valid
-    const token = this.getToken();
-    // use type coersion to check if token is NOT undefined and the token is NOT expired
-    return !!token && !this.isTokenExpired(token);
+    if (typeof window !== "undefined") {
+      // Checks if there is a saved token and it's still valid
+      const token = this.getToken();
+      // use type coersion to check if token is NOT undefined and the token is NOT expired
+      return !!token && !this.isTokenExpired(token);
+    }
   }
 
   // Check if the token has expired

@@ -12,6 +12,7 @@ const Quickie = () => {
   const [hydrated, setHydrated] = useState(false);
   const [loopName, setLoopName] = useState("");
   const [includeDate, setIncludeDate] = useState(false);
+  const [date, setDate] = useState();
 
   // gives you your current date
   const today = new Date();
@@ -24,14 +25,22 @@ const Quickie = () => {
   useEffect(() => {
     setHydrated(true);
 
-    setLoopName(`${randomWord}`);
+    setLoopName(`${randomWord} @mongamonga_`);
+    // setDate(formattedToday);
   }, []);
+  useEffect(() => {
+    if (includeDate) {
+      setLoopName(`${randomWord} @mongamonga_ ${formattedToday}`);
+    } else {
+      setLoopName(`${randomWord} @mongamonga_`);
+    }
+  }, [includeDate]);
 
   if (!hydrated) return null;
 
-  if (!Auth.loggedIn()) {
-    return <Login />;
-  }
+  // if (!Auth.loggedIn()) {
+  //   return <Login />;
+  // }
 
   return (
     <div className="quickie h-screen flex flex-col items-center py-12 relative">
@@ -51,13 +60,7 @@ const Quickie = () => {
             icon="mdi:dice-6"
           />
         </Link>
-        <LoopFileName
-          loopName={
-            includeDate
-              ? `${loopName} @mongamonga_ ${formattedToday}`
-              : `${loopName} @mongamonga_`
-          }
-        />
+        <LoopFileName loopName={loopName} />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import {
   ApolloProvider,
   createHttpLink,
   HttpLink,
+  ApolloLink,
 } from "@apollo/client";
 
 import { setContext } from "@apollo/client/link/context";
@@ -23,10 +24,11 @@ function createApolloClient() {
       },
     };
   });
+  const link = ApolloLink.from([authLink, httpLink]);
 
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
-    link: httpLink,
+    link: link,
     cache: new InMemoryCache(),
   });
 }

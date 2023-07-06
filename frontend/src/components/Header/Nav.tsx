@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Auth from 'utils/auth'
 interface NavProps {
     navSelected: string
@@ -12,6 +12,14 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
     const loginStyle: string = 'font-semibold h-8 bg-white text-primary rounded-full w-24 flex items-center justify-center hover:opacity-90 duration-200'
 
     const selectedNavItem: string = ' font-semibold   duration-200 before:content-["•"]'
+
+    const [authorized, setAuthorized] = useState(false)
+
+    useEffect(() => {
+        if(Auth.loggedIn()) {
+            setAuthorized(true)
+        }
+    }, [])
 
     const logout = e => {
         e.preventDefault()
@@ -38,26 +46,24 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
                         href='/quickie'>Quickie
                     </Link>
                 </li>
+                <li className={`${liStyle}    `}>
 
-                {!Auth.loggedIn() ? (
-                    <li className={`${liStyle}    `}>
+                {!authorized ? (
                         <Link
                             onClick={() => setNavSelected('login')}
                             className={`${loginStyle}`}
                             href='/login'>Login
                         </Link>
-                    </li>
                 ): (
-                    <li className={`${liStyle}  `}>
                         <Link
                             onClick={logout}
                             className={`${loginStyle}`}
                             
                             href=''>Logout
                         </Link>
-                    </li>
                 )}
-               
+                                   </li>
+
 
                
             </ul>
