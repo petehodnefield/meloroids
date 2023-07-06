@@ -10,12 +10,8 @@ import Auth from "utils/auth";
 import Login from "../login";
 const Quickie = () => {
   const [hydrated, setHydrated] = useState(false);
-  const [loopName, setLoopName] = useState(randomWord);
+  const [loopName, setLoopName] = useState("");
   const [includeDate, setIncludeDate] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
 
   // gives you your current date
   const today = new Date();
@@ -24,7 +20,12 @@ const Quickie = () => {
   let dd = today.getDate();
 
   const formattedToday = mm + "/" + dd + "/" + yyyy;
-  console.log(formattedToday);
+
+  useEffect(() => {
+    setHydrated(true);
+
+    setLoopName(`${randomWord}`);
+  }, []);
 
   if (!hydrated) return null;
 

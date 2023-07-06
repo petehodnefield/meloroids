@@ -39,10 +39,12 @@ class AuthService {
 
   // set token to localStorage and reload page to homepage
   login(idToken) {
-    // Saves user token to localStorage
-    localStorage.setItem("id_token", idToken);
+    if (typeof window !== "undefined") {
+      // Saves user token to localStorage
+      localStorage.setItem("id_token", idToken);
 
-    window.location.assign("/");
+      window.location.assign("/");
+    }
   }
 
   // clear token from localStorage and force logout with reload

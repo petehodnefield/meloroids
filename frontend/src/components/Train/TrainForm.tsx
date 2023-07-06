@@ -107,15 +107,7 @@ useEffect(() => {
                 checkboxChecked={checkboxChecked}
 
             />
-            <label className='text-0.875 font-semibold'>Instagram Handle <button onClick={saveProducerName}>Save</button></label>
-            <input 
-            onChange={(e:any) => setMelodyParams({
-                ...melodyParams,
-                producerHandle: e.target.value
-            })}   
-            value={melodyParams.producerHandle ? melodyParams.producerHandle: ''}
-            className={
-                        `text-0.875 font-semibold w-full  rounded-lg h-12 border-2 text-center focus:outline-primary`}/>
+           
 
             {checkboxChecked.allRandom ? (
                  <Link

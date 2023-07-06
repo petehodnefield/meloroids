@@ -15,3 +15,29 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const SIGNUP = gql`
+  mutation Mutation(
+    $username: String!
+    $password: String!
+    $email: String!
+    $instagramHandle: String!
+  ) {
+    createUser(
+      username: $username
+      password: $password
+      email: $email
+      instagramHandle: $instagramHandle
+    ) {
+      token
+      user {
+        _id
+        username
+        password
+        email
+        instagramHandle
+        bio
+      }
+    }
+  }
+`;

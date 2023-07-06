@@ -1,7 +1,7 @@
 import TrainForm from '@/components/Train/TrainForm'
 import React, { useState, useEffect } from 'react'
-
-
+import backgroundImage from '../../../public/assets/images/music-studio.png'
+import Image from 'next/image'
 interface Checkbox {
     allRandom: boolean,
     styleRandom: boolean,
@@ -90,10 +90,15 @@ const Train = () => {
  
     return (
         <section
-            className='bg-cover h-screen md:py-12 md:flex md:justify-center'
-            style={{ backgroundImage: `url(https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80)` }}
+            className='bg-cover h-screen md:py-12 md:flex md:justify-center relative'
+            
         >
-            <div className='bg-white flex flex-col items-center w-full h-screen md:h-fit py-8 md:max-w-26 md:rounded md:pb-10'>
+            <Image
+            alt='A music studio desk with guitars and an imac'
+            src={backgroundImage}
+            className='bg__quickie absolute top-0 h-full object-cover z-0 w-full'
+            />
+            <div className='bg-white flex flex-col items-center w-full h-screen md:h-fit py-8 md:max-w-26 md:rounded md:pb-10 relative'>
                 <h2 className='text-2 font-semibold mb-5'>Pick your parameters</h2>
                 {/* Custom Checkbox */}
                 <div className='checkbox-container'>
