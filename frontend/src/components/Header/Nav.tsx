@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-
+import Auth from 'utils/auth'
 interface NavProps {
     navSelected: string
     setNavSelected: React.Dispatch<React.SetStateAction<string>>
@@ -12,6 +12,11 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
     const loginStyle: string = 'font-semibold h-8 bg-white text-primary rounded-full w-24 flex items-center justify-center hover:opacity-90 duration-200'
 
     const selectedNavItem: string = ' font-semibold   duration-200 before:content-["•"]'
+
+    const logout = e => {
+        e.preventDefault()
+        Auth.logout()
+      }
     return (
         <nav>
             <ul className='flex gap-6 items-center text-white'>
@@ -33,15 +38,28 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
                         href='/quickie'>Quickie
                     </Link>
                 </li>
+
+                {!Auth.loggedIn() ? (
+                    <li className={`${liStyle}    `}>
+                        <Link
+                            onClick={() => setNavSelected('login')}
+                            className={`${loginStyle}`}
+                            href='/login'>Login
+                        </Link>
+                    </li>
+                ): (
+                    <li className={`${liStyle}  `}>
+                        <Link
+                            onClick={logout}
+                            className={`${loginStyle}`}
+                            
+                            href=''>Logout
+                        </Link>
+                    </li>
+                )}
                
 
-                <li className={`${liStyle}  ${navSelected === 'login' ? selectedNavItem : ''}  `}>
-                    <Link
-                        onClick={() => setNavSelected('login')}
-                        className={`${loginStyle}`}
-                        href='/login'>Login
-                    </Link>
-                </li>
+               
             </ul>
         </nav>
     )

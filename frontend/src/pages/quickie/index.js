@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import background from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
+import Auth from "utils/auth";
+import Login from "../login";
 const Quickie = () => {
   const [hydrated, setHydrated] = useState(false);
   const [loopName, setLoopName] = useState(randomWord);
@@ -25,6 +27,10 @@ const Quickie = () => {
   console.log(formattedToday);
 
   if (!hydrated) return null;
+
+  if (!Auth.loggedIn()) {
+    return <Login />;
+  }
 
   return (
     <div className="quickie h-screen flex flex-col items-center py-12 relative">

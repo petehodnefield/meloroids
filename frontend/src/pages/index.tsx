@@ -1,5 +1,5 @@
 
-
+import React, {useEffect, useState} from 'react'
 
 import BtnDarkPill from "@/components/Buttons/BtnDarkPill"
 import BtnPrimary from "@/components/Buttons/BtnPrimary"
@@ -13,6 +13,11 @@ import Image from "next/image"
 import Link from "next/link"
 import studioImage from '../../public/assets/images/music-studio.jpg'
 export default function Home() {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   return (
     < div className="flex justify-center flex-col items-center">
