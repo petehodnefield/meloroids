@@ -31,6 +31,7 @@ module.exports = {
         blue: "#3B7EE2",
         green: "#37E1EC",
         red: "#EE1515",
+        formError: "rgba(328, 21, 21, 0.1)",
       },
       maxHeight: {
         14: "14rem",

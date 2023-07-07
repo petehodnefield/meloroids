@@ -32,13 +32,13 @@ const LoginForm = () => {
     return (
         <form id='loginForm' onSubmit={(e) => handleFormSubmit(e)}>
             <div className={`${formInputWrapperStyle}`}>
-                <label className={`${labelStyle}`}>Username</label>
-                <input type='text' required className={inputStyle} onChange={(e) => setUserInfo({...userInfo, username: e.target.value})} />
+                <label htmlFor='username' className={`${labelStyle}`}>Username</label>
+                <input minLength={3} maxLength={20} id='username' type='text' required className={inputStyle} onChange={(e) => setUserInfo({...userInfo, username: e.target.value})} />
             </div>
 
             <div className={`${formExtraInputWrapperStyle}`}>
-                <label className={`${labelStyle}`}>Password</label>
-                <input type='password' required className={inputStyle} onChange={(e) => setUserInfo({...userInfo, password: e.target.value})}/>
+                <label htmlFor='password' className={`${labelStyle}`}>Password</label>
+                <input minLength={8} maxLength={20} id='password' type='password' required className={inputStyle} onChange={(e) => setUserInfo({...userInfo, password: e.target.value})}/>
                 <Link href={'/reset-password'} className='text-0.875  font-semibold h-12 flex items-center'>Forgot password?</Link>
                 {errorMessage ? <p className='text-red font-semibold mb-2'>{errorMessage}</p>: ''}
             </div>
