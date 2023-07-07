@@ -97,6 +97,12 @@ export const resolvers = {
     user: async (parent, { id }) => {
       return await User.findOne({ _id: id });
     },
+    username: async (parent, { username }) => {
+      return await User.findOne({ username: username });
+    },
+    userEmail: async (parent, { email }) => {
+      return await User.findOne({ email: email });
+    },
   },
   Mutation: {
     // Artists

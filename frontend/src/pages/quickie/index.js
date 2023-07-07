@@ -11,6 +11,10 @@ import Image from "next/image";
 import Auth from "utils/auth";
 import Login from "../login";
 const Quickie = () => {
+  if (!Auth.loggedIn()) {
+    return <Login />;
+  }
+
   const [hydrated, setHydrated] = useState(false);
   const [loopName, setLoopName] = useState(randomWord);
   const [includeDate, setIncludeDate] = useState(false);
@@ -37,18 +41,16 @@ const Quickie = () => {
   }, [data]);
   useEffect(() => {
     if (includeDate && data) {
-      setLoopName(`${randomWord} ${data.me.instagramHandle} ${formattedToday}`);
+      setLoopName(
+        `${randomWord} @${data.me.instagramHandle} ${formattedToday}`
+      );
     } else if (data) {
-      setLoopName(`${randomWord} ${data.me.instagramHandle}`);
+      setLoopName(`${randomWord} @${data.me.instagramHandle}`);
     }
   }, [includeDate]);
   if (loading) return <div>Loading....</div>;
 
   if (!hydrated) return null;
-
-  if (!Auth.loggedIn()) {
-    return <Login />;
-  }
 
   return (
     <div className="quickie h-screen flex flex-col items-center py-12 relative">

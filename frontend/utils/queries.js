@@ -122,3 +122,29 @@ export const ME = gql`
     }
   }
 `;
+
+export const USERNAME = gql`
+  query Username($username: String!) {
+    username(username: $username) {
+      _id
+      username
+      password
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;
+
+export const USER_EMAIL = gql`
+  query UserEmail($email: String!) {
+    userEmail(email: $email) {
+      _id
+      username
+      password
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;
