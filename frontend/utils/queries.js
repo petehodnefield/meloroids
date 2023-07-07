@@ -109,3 +109,16 @@ export const MAJOR_KEYS = gql`
     }
   }
 `;
+
+export const ME = gql`
+  query Query {
+    me {
+      _id
+      username
+
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;

@@ -91,6 +91,7 @@ export const typeDefs = `#graphql
     majorkeys: [Key]
     minorkeys: [Key]
 
+    me: User
     users: [User]
     user(id: ID!): User
   }

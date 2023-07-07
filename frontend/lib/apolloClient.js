@@ -16,13 +16,15 @@ function createApolloClient() {
   });
 
   const authLink = setContext((_, { headers }) => {
-    const token = localStorage.getItem("id_token");
-    return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      },
-    };
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("id_token");
+      return {
+        headers: {
+          ...headers,
+          authorization: token ? `Bearer ${token}` : "",
+        },
+      };
+    }
   });
   const link = ApolloLink.from([authLink, httpLink]);
 

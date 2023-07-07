@@ -2,6 +2,8 @@ import LoopFileName from "@/components/Train/LoopFileName";
 import React, { useEffect, useState } from "react";
 import { randomWord } from "../../../utils/data/words";
 import { DateToggle } from "../../components/Quickie/DateToggle";
+import { useQuery } from "@apollo/client";
+import { ME } from "../../../utils/queries";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import background from "../../../public/assets/images/music-studio.png";
@@ -10,7 +12,7 @@ import Auth from "utils/auth";
 import Login from "../login";
 const Quickie = () => {
   const [hydrated, setHydrated] = useState(false);
-  const [loopName, setLoopName] = useState("");
+  const [loopName, setLoopName] = useState(randomWord);
   const [includeDate, setIncludeDate] = useState(false);
   const [date, setDate] = useState();
 
@@ -21,26 +23,32 @@ const Quickie = () => {
   let dd = today.getDate();
 
   const formattedToday = mm + "/" + dd + "/" + yyyy;
+  const { loading, error, data } = useQuery(ME);
 
   useEffect(() => {
     setHydrated(true);
-
-    setLoopName(`${randomWord} @mongamonga_`);
-    // setDate(formattedToday);
   }, []);
+
   useEffect(() => {
-    if (includeDate) {
-      setLoopName(`${randomWord} @mongamonga_ ${formattedToday}`);
-    } else {
-      setLoopName(`${randomWord} @mongamonga_`);
+    if (data) {
+      console.log("data", data.me.instagramHandle);
+      setLoopName(`${randomWord} @${data.me.instagramHandle}`);
+    }
+  }, [data]);
+  useEffect(() => {
+    if (includeDate && data) {
+      setLoopName(`${randomWord} ${data.me.instagramHandle} ${formattedToday}`);
+    } else if (data) {
+      setLoopName(`${randomWord} ${data.me.instagramHandle}`);
     }
   }, [includeDate]);
+  if (loading) return <div>Loading....</div>;
 
   if (!hydrated) return null;
 
-  // if (!Auth.loggedIn()) {
-  //   return <Login />;
-  // }
+  if (!Auth.loggedIn()) {
+    return <Login />;
+  }
 
   return (
     <div className="quickie h-screen flex flex-col items-center py-12 relative">
