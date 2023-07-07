@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {LOGIN} from '../../../utils/mutations'
 import { useMutation } from '@apollo/client'
 import Auth from '../../../utils/auth'
+import Link from 'next/link'
 
 const LoginForm = () => {
     const inputStyle: string = 'text-1  font-semibold border-light border-2 w-full h-12 rounded-lg pl-4 focus:outline-primary focus:duration-400'
@@ -14,6 +15,7 @@ const LoginForm = () => {
         username: '',
         password: ''
     })
+    const[errorMessage, setErrorMessage] = useState('')
 
     const [login, {loading, error, data}] = useMutation(LOGIN)
 
@@ -23,6 +25,7 @@ const LoginForm = () => {
             const {data} = await  login({variables:{username: userInfo.username, password: userInfo.password}})
             Auth.login(data.login.token)
         }catch(e) {
+            setErrorMessage('Username and/or password is incorrect. Please try again.')
             console.log(e)
         }
            }
@@ -36,7 +39,8 @@ const LoginForm = () => {
             <div className={`${formExtraInputWrapperStyle}`}>
                 <label className={`${labelStyle}`}>Password</label>
                 <input type='password' required className={inputStyle} onChange={(e) => setUserInfo({...userInfo, password: e.target.value})}/>
-                <p className='text-0.875  font-semibold h-12 flex items-center'>Forgot password?</p>
+                <Link href={'/reset-password'} className='text-0.875  font-semibold h-12 flex items-center'>Forgot password?</Link>
+                {errorMessage ? <p className='text-red font-semibold mb-2'>{errorMessage}</p>: ''}
             </div>
             <button type='submit' className=' mb-6 bg-dark text-white  text-1 font-semibold h-12 w-full md:w-48 rounded  hover:opacity-80 duration-200'>Login</button>
         </form>)

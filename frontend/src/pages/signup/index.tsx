@@ -13,7 +13,7 @@ const SignUp = () => {
                         md:max-w-112 md:mx-0 md:px-16 md:py-10'>
                     <h2 className='text-2 font-semibold mb-8'>Sign up</h2>
                     <SignupForm />
-                    <p className='text-0.75 font-semibold text-center md:text-left'>Already have an account? <Link href='/login' className='text-primary hover:opacity-80'>Login</Link></p>
+                    <p className='text-0.875 font-semibold text-center md:text-left'>Already have an account? <Link href='/login' className='text-primary hover:opacity-80'>Login</Link></p>
                 </div>
             </div>
         </div>
