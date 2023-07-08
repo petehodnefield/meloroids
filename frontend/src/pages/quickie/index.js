@@ -64,12 +64,12 @@ const Quickie = () => {
 
         <DateToggle includeDate={includeDate} setIncludeDate={setIncludeDate} />
 
-        <Link onClick={() => window.location.reload()} href="/quickie">
+        <p onClick={() => window.location.reload()}>
           <Icon
             className=" text-2 hover:cursor-pointer mb-4 hover:opacity-80"
             icon="mdi:dice-6"
           />
-        </Link>
+        </p>
         <LoopFileName loopName={loopName} />
       </div>
     </div>

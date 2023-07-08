@@ -9,6 +9,7 @@ module.exports = {
       0.875: ["0.875rem"],
       1: ["1rem"],
       1.125: ["1.125rem"],
+      1.25: ["1.25rem"],
       1.5: ["1.5rem"],
       2: ["2rem"],
       2.5: ["2.5rem"],
@@ -36,6 +37,13 @@ module.exports = {
       },
       maxHeight: {
         14: "14rem",
+        300: "300px",
+      },
+      height: {
+        325: "325px",
+      },
+      width: {
+        70: "70rem",
       },
       maxWidth: {
         xxxs: ["12rem"],
@@ -60,6 +68,9 @@ module.exports = {
       },
       borderWidth: {
         1: "1px",
+      },
+      flex: {
+        1.33: "1.3 1.3 0",
       },
     },
   },
