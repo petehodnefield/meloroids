@@ -12,6 +12,7 @@ module.exports = {
       1.5: ["1.5rem"],
       2: ["2rem"],
       2.5: ["2.5rem"],
+      3: "3rem",
     },
     extend: {
       fontFamily: {
