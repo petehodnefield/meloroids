@@ -9,16 +9,24 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    min: 1,
+    max: 20,
   },
   password: {
     type: String,
     required: true,
-    // TODO: add password requirements later
+    validate:
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+    min: 5,
+    max: 20,
   },
   email: {
     type: String,
     required: true,
-    // TODO: Add email validation later
+    validate:
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+    min: 4,
+    max: 30,
   },
   instagramHandle: {
     type: String,
