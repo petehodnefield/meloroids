@@ -25,6 +25,7 @@ const SignupForm = () => {
     const [usernameAvailable, setUsernameAvailable] = useState<null | boolean>(null)
     const [emailAvailable, setEmailAvailable] = useState<null | boolean>(null)
     const [emailMatch, setEmailMatch] = useState<null | boolean>(null)
+    const [passwordMatch, setPasswordMatch] = useState<null | boolean>(null)
     const [formErrors, setFormErrors  ] = useState({
         passwordMatchError: '',
         passwordCriteriaError: 'a',
@@ -105,9 +106,11 @@ const SignupForm = () => {
     const comparePassword = async(password: string) => {
         if (password !== userInfo.password) {
             setFormErrors({...formErrors, passwordMatchError: 'The passwords do not match!'})
+            setPasswordMatch(false)
         }
         else {
             setFormErrors({...formErrors, passwordMatchError: ''})
+            setPasswordMatch(true)
         }
     }
     const compareEmail = async(email: string) => {
@@ -138,7 +141,7 @@ const SignupForm = () => {
     return (
         <form id='signupForm' onSubmit={handleFormSubmit}>
             <div className={`${formInputWrapperStyle} mb-8`}>
-                <label htmlFor='username' className={`${labelStyle}`}>Username</label>
+                <label htmlFor='username' className={`${labelStyle}`}>Username*</label>
                 <div className='relative'>
                     <input minLength={3} maxLength={20} id='username' type='text' required
                     className={`${inputStyle} ${formErrors.usernameExistError || formErrors.usernameCriteriaError ? failureInputStyle: 'focus:outline-primary'}
@@ -162,7 +165,7 @@ const SignupForm = () => {
                 {formErrors.usernameCriteriaError ? <p className={`${errorMessage}`}>{formErrors.usernameCriteriaError}</p>: ''}
             </div>
             <div className={`${formInputWrapperStyle} mb-4`}>
-                <label htmlFor='email' className={`${labelStyle}`}>Email Address</label>
+                <label htmlFor='email' className={`${labelStyle}`}>Email Address*</label>
                 <div className='relative'>
                     <input minLength={6} maxLength={30} id='email' type='email' required
                     className={`${inputStyle}  ${formErrors.emailExistError || formErrors.emailCriteriaError ? failureInputStyle: 'focus:outline-primary'}
@@ -189,7 +192,7 @@ const SignupForm = () => {
                 {formErrors.emailCriteriaError ? <p className={`${errorMessage}`}>{formErrors.emailCriteriaError}</p>: ''}
             </div>
             <div className={`${formInputWrapperStyle} mb-8`}>
-                <label htmlFor='confirmEmail' className={`${labelStyle}`}>Confirm Email Address</label>
+                <label htmlFor='confirmEmail' className={`${labelStyle}`}>Confirm Email Address*</label>
                 <div className='relative'>
                     <input minLength={6} maxLength={30} id='confirmEmail' type='email' required
                         className={`${inputStyle} ${formErrors.emailMatchError ? failureInputStyle : ''} 
@@ -211,7 +214,7 @@ const SignupForm = () => {
 
             </div>
             <div className={`${formInputWrapperStyle} ${!formErrors.passwordCriteriaError ? 'mb-4': ''}`}>
-                <label htmlFor='password' className={`${labelStyle}`}>Password</label>
+                <label htmlFor='password' className={`${labelStyle}`}>Password*</label>
                 <div className='relative'>
                     <input minLength={8} maxLength={20} id='password' type='password' required 
                         className={`${inputStyle} 
@@ -251,16 +254,29 @@ const SignupForm = () => {
                
             </div>
             <div className={`${formInputWrapperStyle} mb-8`}>
-                <label htmlFor='confirmPassword' className={`${labelStyle}`}>Confirm Password</label>
-                <input minLength={8} maxLength={20} id='confirmPassword' type='password' required 
-                     className={`${inputStyle} ${formErrors.passwordMatchError ? formInputError : ''}`}  onChange={(e) => {
-                    comparePassword(e.target.value)
-                }}/>
+                <label htmlFor='confirmPassword' className={`${labelStyle}`}>Confirm Password*</label>
+                <div className='relative'>
+                    <input minLength={8} maxLength={20} id='confirmPassword' type='password' required
+                        className={`${inputStyle} ${formErrors.passwordMatchError ? failureInputStyle : 
+                        passwordMatch ? successInputStyle: ''}`}  
+                        onChange={(e) => {
+                            comparePassword(e.target.value)
+                       }}/>
+                       {userInfo.password.length >=8 && !formErrors.passwordMatchError && passwordMatch ? (
+                        <Icon className={checkMarkStyle} icon="mingcute:check-line" /> 
+
+                    ): passwordMatch ? <Icon className={xMarkStyle} icon="heroicons-outline:x" /> : ''
+
+                       }
+                </div>
                 {formErrors.passwordMatchError ? <p className={`${errorMessage}`}>{formErrors.passwordMatchError}</p>: ''}
             </div>
             <div className={`${formInputWrapperStyle} mb-8`}>
                 <label htmlFor='instagram' className={`${labelStyle}`}>Instagram Handle</label>
-                <input minLength={1} maxLength={20} id='instagram' type='text' className={inputStyle} onChange={(e) => setUserInfo({...userInfo, instagramHandle: e.target.value})}/>
+                <input minLength={2} maxLength={20} id='instagram' type='text' className={inputStyle} 
+                    onChange={(e) => 
+                    setUserInfo({...userInfo, instagramHandle: e.target.value})
+                    }/>
             </div>
             <button type='submit' className=' mb-6 bg-dark text-white  text-1 font-semibold h-12 w-full md:w-48 rounded  hover:opacity-80 duration-200'>Create Account</button>
         </form>
