@@ -28,6 +28,7 @@ module.exports = {
         light: "#E1E1E1",
         medium: "#999999",
         dark: "#2c2c2c",
+        darklight: "rgba(44,44,44,0.85)",
         black: "#111111",
         light: "#e1e1e1",
         blue: "#3B7EE2",
@@ -44,6 +45,9 @@ module.exports = {
       },
       height: {
         325: "325px",
+        600: "600px",
+        800: "800px",
+        1000: "1000px",
       },
       width: {
         70: "70rem",
@@ -54,6 +58,7 @@ module.exports = {
         660: "660px",
         16: "16rem",
         26: "26rem",
+        30: "30rem",
         48: "48rem",
         58: "58rem",
         70: "70rem",

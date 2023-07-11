@@ -144,3 +144,20 @@ p {
 .sublist {
   list-style: circle;
 }
+
+.hero__img {
+  filter: brightness(40%);
+}
+.features__bg {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(211, 181, 225, 0.3575805322128851) 100%
+  );
+}
+.features__img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  max-width: 25rem;
+}
