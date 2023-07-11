@@ -146,7 +146,7 @@ p {
 }
 
 .hero__img {
-  filter: brightness(40%);
+  filter: brightness(30%);
 }
 .features__bg {
   background: rgb(255, 255, 255);
@@ -159,9 +159,12 @@ p {
 .features__img {
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  max-width: 25rem;
 }
-
+@media screen and (min-width: 1280px) {
+  .features__img {
+    max-width: 25rem;
+  }
+}
 .cta__img {
   filter: brightness(15%);
 }

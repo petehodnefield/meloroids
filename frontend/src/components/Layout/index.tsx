@@ -30,7 +30,7 @@ export default function Layout({ children, ...props }: Props) {
                 setIsOpen={setIsOpen}
             />
             <main onClick={() => setIsOpen(false)} className={`min-h-screen ${plus_jakarta_sans.className}`}>{children}</main>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }
