@@ -8,7 +8,7 @@ const CTA = ({ authorized }) => {
   const btnPrimary = "bg-primary";
   const btnOutline = "bg-transparent border-1 border-white";
   return (
-    <section className="py-12 px-6 relative xl:h-400 flex justify-center">
+    <section className="py-12 px-6 md:py-16 relative xl:h-400 flex justify-center">
       <Image
         src={ctaImage}
         alt="A music studio"

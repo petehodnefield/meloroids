@@ -14,9 +14,9 @@ const Hero = ({ authorized }) => {
         alt="A guitar and keyboard floating in space"
         className="absolute top-0 left-0 h-full w-full object-cover z-0 hero__img"
       />
-      <div className="relative w-full xl:h-600 flex items-center xl:max-w-70 xl:p-12">
+      <div className="relative w-full xl:h-600 flex justify-center items-center xl:max-w-70 xl:p-12">
         {/* Background Image */}
-        <div className="py-12 px-6 relative text-white text-center max-w-660 flex flex-col items-center">
+        <div className="py-12 px-6 md:py-16 relative text-white text-center max-w-660 flex flex-col items-center">
           <h1 className="text-3 font-semibold mb-6">
             Music Production Simplified
           </h1>

@@ -5,7 +5,7 @@ import trainImage from "../../../public/assets/images/train.png";
 const Features = () => {
   return (
     <section className="xl:h-1000 flex items-center justify-center features__bg">
-      <div className="px-6 py-12 xl:max-w-70 flex flex-col items-center text-center">
+      <div className="px-6 py-12 md:py-16 xl:max-w-70 flex flex-col items-center text-center">
         <h2 className="text-1.5 font-semibold text-darklight tracking-widest uppercase mb-2">
           Features
         </h2>
@@ -13,18 +13,18 @@ const Features = () => {
           Focus on the Essentials
         </h3>
         {/* Two card container */}
-        <div className="flex-col flex gap-8 xl:gap-12">
+        <div className="flex-col flex gap-8 xl:gap-12 md:w-4/5">
           {/* Quickie */}
-          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl xl:max-w-30 px-4 pt-8 pb-4 xl:p-10">
+          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl  xl:max-w-30 px-4 pt-8 pb-4 md:p-10 xl:p-10">
             <h4 className="text-2.5 font-semibold text-primary mb-4">
               Quickie
             </h4>
-            <p className="text-1.125 font-medium pb-4">
+            <p className="text-1.125 font-medium pb-4 md:max-w-660">
               <span className="font-bold">We all know</span> how annoying it is
               to come up with a name for our beat every time we sit down to make
               music.
             </p>
-            <p className="text-1.125 font-medium pb-6">
+            <p className="text-1.125 font-medium pb-6 md:max-w-660">
               <span className="font-bold text-primary">Quickie</span> is
               beat/loop name generator that perfectly formats your files,
               allowing you to focus all your energy on making music.
@@ -38,14 +38,14 @@ const Features = () => {
             </div>
           </div>
           {/* Train */}
-          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl xl:max-w-30 p-4 xl:p-10">
+          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl xl:max-w-30 px-4 pt-8 pb-4 md:p-10 xl:p-10">
             <h4 className="text-2.5 font-semibold text-primary mb-4">Train</h4>
-            <p className="text-1.125 font-medium pb-4">
+            <p className="text-1.125 font-medium pb-4 md:max-w-660">
               <span className="text-primary font-bold">Train</span> provides
               instant inspiration by showing you popular chord progressions for
               different genres.{" "}
             </p>
-            <p className="text-1.125 font-medium pb-6">
+            <p className="text-1.125 font-medium pb-6 md:max-w-660">
               Constraints are set{" "}
               <span className="italic font-bold text-primary">before</span> you
               make your music,{" "}
