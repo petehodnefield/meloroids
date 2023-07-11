@@ -140,3 +140,7 @@ p {
 .bg__quickie {
   filter: brightness(70%);
 }
+
+.sublist {
+  list-style: circle;
+}

@@ -33,7 +33,10 @@ module.exports = {
         blue: "#3B7EE2",
         green: "#37E1EC",
         red: "#EE1515",
-        formError: "rgba(328, 21, 21, 0.1)",
+        deny: "#EE1515",
+        denyLight: "rgba(238, 21, 21, 0.1)",
+        confirm: "#177055",
+        confirmLight: "#7CD7BC",
       },
       maxHeight: {
         14: "14rem",

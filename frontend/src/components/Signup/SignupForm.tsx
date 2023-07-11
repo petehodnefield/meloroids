@@ -3,13 +3,17 @@ import { useMutation, useQuery } from '@apollo/client'
 import { SIGNUP } from 'utils/mutations'
 import { USERNAME, USER_EMAIL } from 'utils/queries'
 import Auth from 'utils/auth'
-
+import { Icon } from '@iconify/react'
 const SignupForm = () => {
-    const inputStyle: string = 'text-1  font-semibold border-light border-2 w-full h-12 rounded-lg pl-4 focus:outline-primary focus:duration-400'
+    const inputStyle: string = 'text-1  font-semibold  border-2 w-full h-12 rounded-lg pl-4  focus:duration-400'
     const labelStyle: string = 'text-0.875 font-semibold mb-0.5'
     const formInputWrapperStyle: string = 'flex flex-col w-full'
     const errorMessage: string = `text-0.875 font-semibold text-red mt-2`
     const formInputError: string = `bg-formError border-red focus:outline-red`
+    const successInputStyle: string = `border-confirm bg-confirmLight focus:outline-confirm`
+    const failureInputStyle: string = `border-deny bg-denyLight focus:outline-deny`
+    const checkMarkStyle:string = 'text-2 text-confirm absolute right-2.5 top-2.5'
+    const xMarkStyle: string = 'text-2 text-red absolute right-2.5 top-2.5'
 
    
     const [userInfo, setUserInfo] = useState({
@@ -18,14 +22,19 @@ const SignupForm = () => {
         email: '',
         instagramHandle: ''
     })
+    const [usernameAvailable, setUsernameAvailable] = useState<null | boolean>(null)
+    const [emailAvailable, setEmailAvailable] = useState<null | boolean>(null)
     const [formErrors, setFormErrors  ] = useState({
         passwordMatchError: '',
-        passwordCriteriaError: '',
+        passwordCriteriaError: 'a',
         emailMatchError: '',
         usernameExistError: '',
-        emailExistError: ''
+        usernameCriteriaError: '',
+        emailExistError: '',
+        emailCriteriaError: ''
     })
-    console.log(formErrors)
+    console.log('errors', formErrors)
+
     const [signUp, {loading, error, data}] = useMutation(SIGNUP)
     const {loading: usernameLoading, data: usernameData, error: usernameError} = useQuery(USERNAME, {
         variables: {username: userInfo.username}
@@ -40,29 +49,56 @@ const SignupForm = () => {
         if(usernameData.username && usernameData.username.username) {
             const username = usernameData.username.username
             setFormErrors({...formErrors, usernameExistError: 'Username already taken!'})
+            setUsernameAvailable(false)
+
         }else {
             setFormErrors({...formErrors, usernameExistError: ''})
+            setUsernameAvailable(true)
 
         }
+    }
+    const checkUsernameCriteria = async(e: string) => {
+        
+        if( e.length >= 2) {
+            setFormErrors({...formErrors, usernameCriteriaError: ''})        
+        }
+        else if(e.length < 2) {
+            setFormErrors({...formErrors, usernameCriteriaError: 'Invalid username! Must be at least 2 characters.'})
+        }
+       
     }
     const checkIfEmailExists = async() => {
         if(userEmailData.userEmail && userEmailData.userEmail.email) {
             const email = userEmailData.userEmail.email
             setFormErrors({...formErrors, emailExistError: 'Email already in use!'})
+            setEmailAvailable(false)
+
         }else {
             setFormErrors({...formErrors, emailExistError: ''})
+            setEmailAvailable(true)
 
         }
     }
 
+    const checkEmailCriteria = async(e: string) => {
+        const emailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if(e.match(emailFormat) && e.length >=8) {
+            setFormErrors({...formErrors, emailCriteriaError: ''})        
+        }
+        else if(e.length < 8) {
+            setFormErrors({...formErrors, emailCriteriaError: 'Invalid email format!'})
+        }
+       
+    }
     const checkPasswordCriteria = async(e: string) => {
-        if(e.length < 8) {
+        const passwordFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if(e.match(passwordFormat) && e.length >=8) {
+            setFormErrors({...formErrors, passwordCriteriaError: ''})        
+        }
+        else if(e.length < 8) {
             setFormErrors({...formErrors, passwordCriteriaError: 'Password must be at least 8 characters!'})
         }
-        else {
-            setFormErrors({...formErrors, passwordCriteriaError: ''})
-
-        }
+       
     }
 
     const comparePassword = async(password: string) => {
@@ -99,26 +135,46 @@ const SignupForm = () => {
         <form id='signupForm' onSubmit={handleFormSubmit}>
             <div className={`${formInputWrapperStyle} mb-8`}>
                 <label htmlFor='username' className={`${labelStyle}`}>Username</label>
-                <input minLength={3} maxLength={20} id='username' type='text' required 
-                className={`${inputStyle} ${formErrors.usernameExistError ? formInputError: ''}`} 
-                onChange={(e) => {
-                    setUserInfo({...userInfo, username: e.target.value})
-                }}
-                onBlur={() => checkIfUsernameExists()}
-                />
+                <div className='relative'>
+                    <input minLength={3} maxLength={20} id='username' type='text' required
+                    className={`${inputStyle} ${formErrors.usernameExistError || formErrors.usernameCriteriaError ? failureInputStyle: 'focus:outline-primary'}
+                    ${usernameAvailable && userInfo.username.length >=2 ? successInputStyle : 'focus:outline-primary'}`}
+                    onChange={(e) => {
+                        setUserInfo({...userInfo, username: e.target.value})
+                        checkUsernameCriteria(e.target.value)
+                    }}
+                    onBlur={() => checkIfUsernameExists()}
+                    />
+                    {usernameAvailable && userInfo.username.length >= 2 ? 
+                        <Icon className={checkMarkStyle} icon="mingcute:check-line" />
+                        : (
+                            usernameAvailable === null ? '':
+                            <Icon className={xMarkStyle} icon="heroicons-outline:x" />
+                        )
+                    }
+                </div>
                 
                 {formErrors.usernameExistError ? <p className={`${errorMessage}`}>{formErrors.usernameExistError}</p>: ''}
+                {formErrors.usernameCriteriaError ? <p className={`${errorMessage}`}>{formErrors.usernameCriteriaError}</p>: ''}
             </div>
             <div className={`${formInputWrapperStyle} mb-4`}>
                 <label htmlFor='email' className={`${labelStyle}`}>Email Address</label>
-                <input minLength={6} maxLength={30} id='email' type='email' required 
-                className={`${inputStyle}  ${formErrors.emailExistError ? formInputError: ''}`} 
-                onChange={(e) => {
-                    setUserInfo({...userInfo, email: e.target.value})
-                }}
-                onBlur={() => checkIfEmailExists()}
-                />
+                <div className='relative'>
+                    <input minLength={6} maxLength={30} id='email' type='email' required
+                    className={`${inputStyle}  ${formErrors.emailExistError ? formInputError: ''}`}
+                    onChange={(e) =>
+                        setUserInfo({...userInfo, email: e.target.value})
+                    }
+                    onBlur={(e) => {
+                        checkEmailCriteria(e.target.value)
+                        checkIfEmailExists()
+
+                    }}
+                    />
+                    
+                </div>
                 {formErrors.emailExistError ? <p className={`${errorMessage}`}>{formErrors.emailExistError}</p>: ''}
+                {formErrors.emailCriteriaError ? <p className={`${errorMessage}`}>{formErrors.emailCriteriaError}</p>: ''}
             </div>
             <div className={`${formInputWrapperStyle} mb-8`}>
                 <label htmlFor='confirmEmail' className={`${labelStyle}`}>Confirm Email Address</label>
@@ -129,19 +185,31 @@ const SignupForm = () => {
                 {formErrors.emailMatchError ? <p className={`${errorMessage}`}>{formErrors.emailMatchError}</p>: ''}
 
             </div>
-            <div className={`${formInputWrapperStyle} mb-0`}>
+            <div className={`${formInputWrapperStyle} ${!formErrors.passwordCriteriaError ? 'mb-4': ''}`}>
                 <label htmlFor='password' className={`${labelStyle}`}>Password</label>
                 <input minLength={8} maxLength={20} id='password' type='password' required className={inputStyle} onChange={(e) => {
                     setUserInfo({...userInfo, password: e.target.value})
                     checkPasswordCriteria(e.target.value)
                 }}/>
-                
-                <div className='h-12 flex items-center mb-1'>
-                    {formErrors.passwordCriteriaError ?
-                        <p className={`${errorMessage}`}>{formErrors.passwordCriteriaError}</p>:
-                        <p className='text-0.875 text-primary font-semibold  mt-2'>Atleast 8 letters or numbers + special chars.</p>
-                    }
-                </div>
+                {formErrors.passwordCriteriaError ? (
+                    <div className=' flex flex-col  items-start mb-1 py-2'>
+                        <p className='text-1 text-primary font-medium '>Password must:</p>
+                        <ul className='list-disc	text-1 pl-5 mb-2 font-medium'>
+                            <li>Be between 8 and 20 characters</li>
+                            <li>Include all of the following:</li>
+                            <ul className='sublist	pl-4'>
+                                <li>1 uppercase letter</li>
+                                <li>1 lowercase letter</li>
+                                <li>1 number letter</li>
+                                <li>1 special character</li>
+                            </ul>
+                            
+                        </ul>
+                    </div>
+                ): (
+                    ''
+                )}
+               
             </div>
             <div className={`${formInputWrapperStyle} mb-8`}>
                 <label htmlFor='confirmPassword' className={`${labelStyle}`}>Confirm Password</label>
