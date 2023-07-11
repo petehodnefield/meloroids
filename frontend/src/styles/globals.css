@@ -161,3 +161,7 @@ p {
   object-fit: cover;
   max-width: 25rem;
 }
+
+.cta__img {
+  filter: brightness(15%);
+}

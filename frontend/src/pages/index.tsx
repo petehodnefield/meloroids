@@ -1,24 +1,22 @@
 
 import React, {useEffect, useState} from 'react'
-
-import BtnDarkPill from "@/components/Buttons/BtnDarkPill"
-import BtnPrimary from "@/components/Buttons/BtnPrimary"
-import ArtistTarget from "@/components/Home/ArtistTarget"
-import Frustrated from "@/components/Home/Frustrated"
-import Hero from "@/components/Home/Hero"
-import Testimonial from "@/components/Home/Testimonial"
-import ThreeCards from "@/components/Home/ThreeCards"
-import ThreeSteps from "@/components/Home/ThreeSteps"
 import Image from "next/image"
 import Link from "next/link"
 import heroImage from '../../public/assets/images/hero-img.png'
 import quickieImage from '../../public/assets/images/quickie.png'
 import trainImage from '../../public/assets/images/train.png'
+import ctaImage from '../../public/assets/images/cta-img.png'
+import Auth from 'utils/auth'
 export default function Home() {
   const [hydrated, setHydrated] = useState(false);
+  const [authorized, setAuthorized] = useState(false)
+  const btn:string = 'h-12 w-48 rounded text-1 font-semibold flex items-center justify-center'
+  const btnPrimary:string = 'bg-primary'
+  const btnOutline: string = 'bg-transparent border-1 border-white'
 
   useEffect(() => {
     setHydrated(true);
+    Auth.loggedIn() ? setAuthorized(true): setAuthorized(false)
   }, []);
 
   return (
@@ -38,7 +36,7 @@ export default function Home() {
               <h3 className='text-1.125 font-medium mb-8'>Meloroids is the <span className='font-bold '>antidote to beat block</span>, allowing producers
                   to be able to focus on producing their highest quality work.
               </h3>
-              <button className='text-1 font-semibold bg-primary h-12 w-48 rounded'>Get started</button>
+              <Link href={`${authorized ? '/quickie': '/signup'}`} className={`${btn} ${btnPrimary}`}>Get started</Link>
             </div>
          </div>
       </div>
@@ -76,6 +74,23 @@ export default function Home() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className='relative h-400 flex justify-center'>
+        <Image
+          src={ctaImage}
+          alt='A music studio'
+          className='absolute top-0 left-0 w-full h-full object-cover z-0 cta__img'
+        />
+        <div className='relative text-white flex flex-col items-center justify-center text-center'>
+          <h2 className='text-3 font-semibold mb-4'>Become a better producer!</h2>
+          <h3 className='max-w-660 text-1.25 font-medium mb-8'>Join the growing community of producers that are focusing on what truly matters. Ignite your creativity through minimalism.</h3>
+          <div className='flex gap-8'>
+            <Link className={`${btn} ${btnPrimary}`} href={`${authorized ? '/quickie': '/signup'}`} >Get started</Link>
+            <Link className={`${btn} ${btnOutline}`} href={'/'}>Try the demo</Link>
           </div>
         </div>
       </section>
