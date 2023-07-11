@@ -24,6 +24,7 @@ const SignupForm = () => {
     })
     const [usernameAvailable, setUsernameAvailable] = useState<null | boolean>(null)
     const [emailAvailable, setEmailAvailable] = useState<null | boolean>(null)
+    const [emailMatch, setEmailMatch] = useState<null | boolean>(null)
     const [formErrors, setFormErrors  ] = useState({
         passwordMatchError: '',
         passwordCriteriaError: 'a',
@@ -85,7 +86,7 @@ const SignupForm = () => {
         if(e.match(emailFormat) && e.length >=8) {
             setFormErrors({...formErrors, emailCriteriaError: ''})        
         }
-        else if(e.length < 8) {
+        else if(!e.match(emailFormat) || e.length < 8) {
             setFormErrors({...formErrors, emailCriteriaError: 'Invalid email format!'})
         }
        
@@ -112,9 +113,12 @@ const SignupForm = () => {
     const compareEmail = async(email: string) => {
         if (email !== userInfo.email) {
             setFormErrors({...formErrors, emailMatchError: 'The emails do not match!'})
+            setEmailMatch(false)
+
         }
         else {
             setFormErrors({...formErrors, emailMatchError: ''})
+            setEmailMatch(true)
         }
     }
 
@@ -161,36 +165,71 @@ const SignupForm = () => {
                 <label htmlFor='email' className={`${labelStyle}`}>Email Address</label>
                 <div className='relative'>
                     <input minLength={6} maxLength={30} id='email' type='email' required
-                    className={`${inputStyle}  ${formErrors.emailExistError ? formInputError: ''}`}
-                    onChange={(e) =>
+                    className={`${inputStyle}  ${formErrors.emailExistError || formErrors.emailCriteriaError ? failureInputStyle: 'focus:outline-primary'}
+                    ${emailAvailable && userInfo.email.length >=8 && !formErrors.emailCriteriaError ? successInputStyle: 'focus:outline-primary'}`}
+                    onChange={(e) =>{
                         setUserInfo({...userInfo, email: e.target.value})
+                        checkEmailCriteria(e.target.value)
+                    }
+                        
                     }
                     onBlur={(e) => {
-                        checkEmailCriteria(e.target.value)
                         checkIfEmailExists()
-
                     }}
                     />
-                    
+                    {emailAvailable && userInfo.email.length >= 8 && !formErrors.emailCriteriaError ? 
+                        <Icon className={checkMarkStyle} icon="mingcute:check-line" />
+                        : (
+                            emailAvailable === null ? '':
+                            <Icon className={xMarkStyle} icon="heroicons-outline:x" />
+                        )
+                    }
                 </div>
                 {formErrors.emailExistError ? <p className={`${errorMessage}`}>{formErrors.emailExistError}</p>: ''}
                 {formErrors.emailCriteriaError ? <p className={`${errorMessage}`}>{formErrors.emailCriteriaError}</p>: ''}
             </div>
             <div className={`${formInputWrapperStyle} mb-8`}>
                 <label htmlFor='confirmEmail' className={`${labelStyle}`}>Confirm Email Address</label>
-                <input minLength={6} maxLength={30} id='confirmEmail' type='email' required 
-                    className={`${inputStyle} ${formErrors.emailMatchError ? formInputError : ''}`} onChange={(e) => {
-                    compareEmail(e.target.value)
-                }}/>
+                <div className='relative'>
+                    <input minLength={6} maxLength={30} id='confirmEmail' type='email' required
+                        className={`${inputStyle} ${formErrors.emailMatchError ? failureInputStyle : ''} 
+                        ${emailMatch && !formErrors.emailCriteriaError  ? successInputStyle: ''}`} 
+                        onChange={(e) => {
+                            compareEmail(e.target.value)
+                         }}/>
+                    {emailAvailable && userInfo.email.length >= 8 && !formErrors.emailMatchError && emailMatch ? (
+                        <Icon className={checkMarkStyle} icon="mingcute:check-line" />
+
+                    ): emailMatch ?  (
+                        <Icon className={xMarkStyle} icon="heroicons-outline:x" /> 
+
+                    ): ('')}
+                        
+                    
+                </div>
                 {formErrors.emailMatchError ? <p className={`${errorMessage}`}>{formErrors.emailMatchError}</p>: ''}
 
             </div>
             <div className={`${formInputWrapperStyle} ${!formErrors.passwordCriteriaError ? 'mb-4': ''}`}>
                 <label htmlFor='password' className={`${labelStyle}`}>Password</label>
-                <input minLength={8} maxLength={20} id='password' type='password' required className={inputStyle} onChange={(e) => {
-                    setUserInfo({...userInfo, password: e.target.value})
-                    checkPasswordCriteria(e.target.value)
-                }}/>
+                <div className='relative'>
+                    <input minLength={8} maxLength={20} id='password' type='password' required 
+                        className={`${inputStyle} 
+                            ${formErrors.passwordCriteriaError && userInfo.password.length >= 1 ? failureInputStyle : 
+                                userInfo.password.length >= 8 && !formErrors.usernameCriteriaError ? successInputStyle: ''}`} 
+                        onChange={(e) => {
+                            setUserInfo({...userInfo, password: e.target.value})
+                            checkPasswordCriteria(e.target.value)
+                        }}/>
+                        {!formErrors.passwordCriteriaError ? (
+                            <Icon className={checkMarkStyle} icon="mingcute:check-line" /> 
+
+                        ): userInfo.password.length >=1 ? (
+                            <Icon className={xMarkStyle} icon="heroicons-outline:x" /> 
+
+                        ): ''}
+
+                </div>
                 {formErrors.passwordCriteriaError ? (
                     <div className=' flex flex-col  items-start mb-1 py-2'>
                         <p className='text-1 text-primary font-medium '>Password must:</p>
