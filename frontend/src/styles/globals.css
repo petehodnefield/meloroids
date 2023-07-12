@@ -100,6 +100,11 @@ p {
     width: 64rem;
   }
 }
+@media screen and (min-width: 1440px) {
+  .header-w {
+    width: 70rem;
+  }
+}
 
 .pull-out {
   animation: pull-out 200ms ease-out;

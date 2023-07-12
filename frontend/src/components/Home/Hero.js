@@ -8,7 +8,7 @@ const Hero = ({ authorized }) => {
   const btnPrimary = "bg-primary";
   const btnOutline = "bg-transparent border-1 border-white";
   return (
-    <div className="relative flex justify-center flex-col items-center">
+    <div className="relative flex justify-center flex-col items-center lg:h-500">
       {/* Background Image */}
       <Image
         src={heroImage}
@@ -16,7 +16,7 @@ const Hero = ({ authorized }) => {
         className="absolute top-0 left-0 h-full w-full object-cover z-0 hero__img"
       />
       {/* Hero text */}
-      <div className="relative w-full xl:h-600 flex justify-center lg:justify-center items-center  lg:max-w-48 lg:w-full lg:px-0 ">
+      <div className="relative w-full xl:h-600 flex justify-center lg:justify-center items-center  lg:max-w-48 xl:max-w-70 lg:w-full lg:px-0 ">
         <div className="py-12 px-6 md:py-16 lg:px-0 relative text-white text-center lg:text-left max-w-660 lg:max-w-full lg:w-full flex flex-col items-center lg:items-start">
           <h1 className="text-3 font-semibold mb-6 lg:max-w-660">
             Music Production Simplified
