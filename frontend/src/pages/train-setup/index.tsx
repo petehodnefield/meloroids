@@ -90,7 +90,7 @@ const Train = () => {
  
     return (
         <section
-            className='bg-cover h-screen md:py-12 md:flex md:justify-center relative'
+            className='bg-cover h-screen px-6 py-12 flex justify-center relative'
             
         >
             <Image
@@ -98,7 +98,7 @@ const Train = () => {
             src={backgroundImage}
             className='bg__quickie absolute top-0 h-full object-cover z-0 w-full'
             />
-            <div className='bg-white flex flex-col items-center w-full h-screen md:h-fit py-8 md:max-w-26 md:rounded-3xl md:pb-10 relative'>
+            <div className='bg-white w-full flex flex-col items-center w-full h-fit py-8 md:max-w-26 rounded-4xl md:pb-10 relative'>
                 <h2 className='text-2.5 font-semibold text-primary mb-2'>Train</h2>
                 <h2 className='text-1.25 font-mdeium mb-5'>Pick your parameters</h2>
                 {/* Custom Checkbox */}
