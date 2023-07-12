@@ -7,7 +7,7 @@ export const DateToggle = ({ includeDate, setIncludeDate }) => {
   const toggleInnerSelected = "bg-white ";
   const toggleInnerUnselected = "bg-primary ";
   return (
-    <div className="flex items-center gap-1 relative right-2 mb-2">
+    <div className="flex items-center gap-1 relative right-2 mb-4 md:mb-2">
       <div
         className={`toggle__outer 	items-center h-6 w-12  rounded-full	flex
             ${includeDate ? toggleOuterSelected : toggleOuterUnselected}`}

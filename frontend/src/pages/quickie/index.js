@@ -68,12 +68,14 @@ const Quickie = () => {
         className="bg__quickie absolute top-0 h-full object-cover z-0 w-full"
       />
       <div className="flex flex-col items-center justify-between	 bg-white shadow-3xl pt-10 rounded-4xl w-96 relative">
-        <h2 className="text-2.5 font-semibold mb-4 text-primary">Quickie</h2>
+        <h2 className="text-2.5 font-semibold mb-6 md:mb-4 text-primary">
+          Quickie
+        </h2>
 
         <DateToggle includeDate={includeDate} setIncludeDate={setIncludeDate} />
 
         <Icon
-          className=" text-2 hover:cursor-pointer mb-4 hover:opacity-80"
+          className=" text-2 hover:cursor-pointer mb-6 md:mb-4 hover:opacity-80"
           icon="mdi:dice-6"
           onClick={() => {
             const splitWords = words.split(`\n`);
