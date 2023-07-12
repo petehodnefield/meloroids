@@ -2,19 +2,19 @@ import Image from 'next/image'
 import React from 'react'
 import logoFull from '../../../public/assets/logo/logo-full-white.png'
 import Link from 'next/link'
+import PrivacyPolicy from './PrivacyPolicy'
 import { Icon } from '@iconify/react'
 const Footer = () => {
-    const columnStyle = 'flex flex-col items-start justify-start 	'
-    const currentYear: number = new Date().getFullYear()
+    const columnStyle = 'flex flex-col items-center justify-center lg:items-start lg:justify-start 	'
     const handleFormSubmit = async(e:React.FormEvent<EventTarget>) =>{
         e.preventDefault()       
      }
     return (
-        <footer className='flex h-325  py-10 items-center text-white justify-center  bg-primary '>
-            <div className='w-70 h-full flex justify-center'>
+        <footer className='flex lg:h-325  py-10 items-center text-white justify-center  bg-primary '>
+            <div className='w-full lg:w-60 xl:w-70 h-full flex flex-col lg:flex-row items-center justify-center'>
                 {/* Column 1 */}
                 <div className={`${columnStyle} flex-1.33`}>
-                    <div className='flex flex-col items-start mb-20'>
+                    <div className='flex flex-col items-center lg:items-start mb-6 lg:mb-20'>
                         <div className='h-20'>
                             <Link className='h-full mb-1.5 my-4 lg:h-20 lg:mb-3' href='/'>
                                 <Image
@@ -27,17 +27,10 @@ const Footer = () => {
                         <h2 className='text-1.25 font-bold'>Melody creation simplified.</h2>
                     </div>
                     {/* Privacy policy + copyright */}
-                    <div className='flex flex-col items-start gap-2'>
-                        <div className='flex gap-4'>
-                            <Link href={''} className='text-1 font-medium text-light'>Privacy Policy</Link>
-                            |
-                            <Link href={''}  className='text-1 font-medium text-light'>Terms of Service</Link>
-                        </div>
-                        <p  className='text-1 font-medium text-light'>©{currentYear} Meloroids LLC. All Rights Reserved.</p>
-                    </div>
+                    <PrivacyPolicy displayClass={'hidden lg:flex'}/>
                 </div>
                 {/* Column 2 */}
-                <div className={`mt-6 ${columnStyle} flex-1`}>
+                <div className={` ${columnStyle} hidden lg:block lg:flex-1 `}>
                     <div className='flex flex-col items-start'>
                       <h3 className='text-1.5 font-bold mb-4'>Resources</h3>
                       <ul className='flex flex-col p-0 gap-3'>
@@ -58,7 +51,7 @@ const Footer = () => {
                 </div>
                 {/* Column 3 */}
                 <div className={`mt-6 ${columnStyle} gap-8 flex-1`}>
-                    <div className='flex flex-col items-start'>
+                    <div className='flex flex-col items-center lg:items-start'>
                       <h3 className='text-1.5 font-bold mb-2'>Join us</h3>
                      <h4 className='text-1 font-medium mb-2'>Enter your email to get free guides</h4>
                      {/* Form to capture emails */}
@@ -83,6 +76,7 @@ const Footer = () => {
                             </Link>
                         </div>
                     </div>     
+                    <PrivacyPolicy displayClass={'flex lg:hidden'}/>
 
                 </div>
             </div>
