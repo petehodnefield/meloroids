@@ -21,7 +21,7 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
         }
     }, [])
 
-    const logout = e => {
+    const logout = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault()
         Auth.logout()
       }
