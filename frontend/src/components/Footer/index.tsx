@@ -24,7 +24,7 @@ const Footer = () => {
                                 />
                             </Link>
                         </div>
-                        <h2 className='text-1.25 font-bold'>Melody creation simplified.</h2>
+                        <h2 className='text-1.25 font-bold'>Music production simplified.</h2>
                     </div>
                     {/* Privacy policy + copyright */}
                     <PrivacyPolicy displayClass={'hidden lg:flex'}/>

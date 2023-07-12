@@ -14,7 +14,7 @@ const FullHeader = ({ setNavSelected, navSelected }: NavProps) => {
         <header className='hidden bg-primary lg:flex h-24  items-center justify-between px-48 w-full header-w xl:px-0'>
             <div className='h-10 mb-2 '>
                 <Link
-                    onClick={() => setNavSelected('')}
+                    onClick={() => setNavSelected('home')}
                     className='w-full h-full'
                     href='/'>
 

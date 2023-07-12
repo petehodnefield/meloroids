@@ -6,6 +6,8 @@ import { PROGRESSION_BY_ID, KEY_BY_ID } from "../../../utils/queries";
 import LoopFileName from "../../components/Train/LoopFileName";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import studioImage from "../../../public/assets/images/music-studio.png";
+import Image from "next/image";
 
 const TrainDetails = ({ queryID }) => {
   const [loopName, setLoopName] = useState(randomWord);
@@ -48,15 +50,15 @@ const TrainDetails = ({ queryID }) => {
     .concat("@mongamonga_");
 
   return (
-    <div
-      className="bg-cover min-h-screen  flex items-start justify-center"
-      style={{
-        backgroundImage: `url(https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80)`,
-      }}
-    >
+    <div className=" relative bg-cover min-h-screen  flex items-start justify-center">
+      <Image
+        alt="a music studio background"
+        className="absolute w-full h-full"
+        src={studioImage}
+      />
       <div className="flex flex-col items-center w-full md:py-12  lg:max-w-48 lg:justify-between">
         {/* White bg for content */}
-        <div className="relative w-full flex flex-col items-center pt-10  bg-white md:max-w-26 md:rounded-lg md:mb-6">
+        <div className="relative w-full flex flex-col items-center pt-10  bg-white md:max-w-26 md:rounded-4xl md:mb-6">
           {/* Loop Title */}
           <h2 className="text-2.5 text-primary font-semibold mb-8">
             {randomWord}
