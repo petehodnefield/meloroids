@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import { LoginContext } from '@/pages/_app'
 import Auth from 'utils/auth'
 interface NavProps {
     navSelected: string

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { LoginContext } from "@/pages/_app";
 import heroImage from "../../../public/assets/images/hero-img.png";
 import Image from "next/image";
 import Link from "next/link";
-const Hero = ({ authorized }) => {
+const Hero = () => {
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const btn =
     "h-12 w-48 rounded text-1 font-semibold flex items-center justify-center";
   const btnPrimary = "bg-primary";
@@ -31,7 +33,7 @@ const Hero = ({ authorized }) => {
             work.
           </h3>
           <Link
-            href={`${authorized ? "/quickie" : "/signup"}`}
+            href={`${loggedIn ? "/quickie" : "/signup"}`}
             className={`${btn} ${btnPrimary}`}
           >
             Get started

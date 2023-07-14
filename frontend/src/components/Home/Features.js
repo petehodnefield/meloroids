@@ -2,7 +2,8 @@ import React from "react";
 import Image from "next/image";
 import quickieImage from "../../../public/assets/images/quickie.png";
 import trainImage from "../../../public/assets/images/train.png";
-const Features = () => {
+import Link from "next/link";
+const Features = ({ authorized }) => {
   return (
     <section className="lg:h-1000 w-full flex items-center justify-center features__bg">
       <div className="px-6 py-12 md:py-16 xl:max-w-70 flex flex-col items-center text-center">
@@ -15,31 +16,39 @@ const Features = () => {
         {/* Two card container */}
         <div className="flex-col lg:flex-row flex gap-8 xl:gap-12 md:w-4/5 lg:w-full">
           {/* Quickie */}
-          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl  xl:max-w-30 px-4 pt-8 pb-4 md:p-10 xl:p-10">
-            <h4 className="text-2.5 font-semibold text-primary mb-4">
-              Quickie
-            </h4>
-            <p className="text-1.125 font-medium pb-4 md:max-w-660">
-              <span className="font-bold">We all know</span> how annoying it is
-              to come up with a name for our beat every time we sit down to make
-              music.
-            </p>
-            <p className="text-1.125 font-medium pb-6 md:max-w-660">
-              <span className="font-bold text-primary">Quickie</span> is
-              beat/loop name generator that perfectly formats your files,
-              allowing you to focus all your energy on making music.
-            </p>
-            <div className="w-full h-full">
-              <Image
-                src={quickieImage}
-                alt="A snapshot of Quickie by Meloroids"
-                className="rounded-2xl features__img"
-              />
+          <Link
+            href={`${authorized ? "/quickie" : "/login"}`}
+            className="hover:opacity-90 duration-200"
+          >
+            <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl  xl:max-w-30 px-4 pt-8 pb-4 md:p-10 xl:p-10">
+              <h4 className="text-2.5 font-semibold text-primary mb-4">
+                Quickie
+              </h4>
+              <p className="text-1.125 font-medium pb-4 md:max-w-660">
+                <span className="font-bold">We all know</span> how annoying it
+                is to come up with a name for our beat every time we sit down to
+                make music.
+              </p>
+              <p className="text-1.125 font-medium pb-6 md:max-w-660">
+                <span className="font-bold text-primary">Quickie</span> is
+                beat/loop name generator that perfectly formats your files,
+                allowing you to focus all your energy on making music.
+              </p>
+              <div className="w-full h-full">
+                <Image
+                  src={quickieImage}
+                  alt="A snapshot of Quickie by Meloroids"
+                  className="rounded-2xl features__img"
+                />
+              </div>
             </div>
-          </div>
+          </Link>
           {/* Train */}
-          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl xl:max-w-30 px-4 pt-8 pb-4 md:p-10 xl:p-10">
+          <div className="relative flex flex-col items-center bg-white shadow-3xl rounded-4xl xl:max-w-30 px-4 pt-8 pb-4 md:p-10 xl:p-10">
             <h4 className="text-2.5 font-semibold text-primary mb-4">Train</h4>
+            <h5 className="absolute top-4 mg-auto text-1.125 text-dark font-medium">
+              (Coming soon)
+            </h5>
             <p className="text-1.125 font-medium pb-4 md:max-w-660">
               <span className="text-primary font-bold">Train</span> provides
               instant inspiration by showing you popular chord progressions for

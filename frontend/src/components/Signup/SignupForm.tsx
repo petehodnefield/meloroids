@@ -126,7 +126,7 @@ const SignupForm = () => {
     }
 
     const handleFormSubmit = async (e: React.FormEvent<EventTarget>) => {
-        e.preventDefault()
+        // e.preventDefault()
        
         try {
             const {data} = await signUp({variables: {username: userInfo.username, password: userInfo.password, email: userInfo.email, instagramHandle: userInfo.instagramHandle}})
@@ -139,11 +139,11 @@ const SignupForm = () => {
         
     }
     return (
-        <form id='signupForm' onSubmit={handleFormSubmit}>
+        <form id='signupForm' action="https://meloroids.us12.list-manage.com/subscribe/post" method="POST" onSubmit={handleFormSubmit}>
             <div className={`${formInputWrapperStyle} mb-8`}>
-                <label htmlFor='username' className={`${labelStyle}`}>Username*</label>
+                <label htmlFor="MERGE1" className={`${labelStyle}`}>Username*</label>
                 <div className='relative'>
-                    <input minLength={3} maxLength={20} id='username' type='text' required
+                    <input minLength={3} maxLength={20} name="MERGE1" id="MERGE1" type='text' required
                     className={`${inputStyle} ${formErrors.usernameExistError || formErrors.usernameCriteriaError ? failureInputStyle: 'focus:outline-primary'}
                     ${usernameAvailable && userInfo.username.length >=2 ? successInputStyle : 'focus:outline-primary'}`}
                     onChange={(e) => {
@@ -165,9 +165,9 @@ const SignupForm = () => {
                 {formErrors.usernameCriteriaError ? <p className={`${errorMessage}`}>{formErrors.usernameCriteriaError}</p>: ''}
             </div>
             <div className={`${formInputWrapperStyle} mb-4`}>
-                <label htmlFor='email' className={`${labelStyle}`}>Email Address*</label>
+                <label htmlFor="MERGE0" className={`${labelStyle}`}>Email Address*</label>
                 <div className='relative'>
-                    <input minLength={6} maxLength={30} id='email' type='email' required
+                    <input minLength={6} maxLength={30} name="MERGE0" id="MERGE0" type='email' required
                     className={`${inputStyle}  ${formErrors.emailExistError || formErrors.emailCriteriaError ? failureInputStyle: 'focus:outline-primary'}
                     ${emailAvailable && userInfo.email.length >=8 && !formErrors.emailCriteriaError ? successInputStyle: 'focus:outline-primary'}`}
                     onChange={(e) =>{

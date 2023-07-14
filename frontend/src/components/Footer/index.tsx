@@ -7,7 +7,7 @@ import { Icon } from '@iconify/react'
 const Footer = () => {
     const columnStyle = 'flex flex-col items-center justify-center lg:items-start lg:justify-start 	'
     const handleFormSubmit = async(e:React.FormEvent<EventTarget>) =>{
-        e.preventDefault()       
+        // e.preventDefault()       
      }
     return (
         <footer className='flex lg:h-325  py-10 items-center text-white justify-center  bg-primary '>
@@ -55,23 +55,27 @@ const Footer = () => {
                       <h3 className='text-1.5 font-bold mb-2'>Join us</h3>
                      <h4 className='text-1 font-medium mb-2'>Enter your email to get free guides</h4>
                      {/* Form to capture emails */}
-                        <form onSubmit={handleFormSubmit} action="POST" id='newsletterForm' className='border-solid border-b-2 border-white py-1 gap-2 flex'>
-                            <label hidden htmlFor='emailAddress'>Email Address</label>
-                            <input id='emailAddress' type='email' placeholder='Your Email' className='bg-transparent text-light text-1 font-400 focus:outline-none placeholder-light'/>
-                            <button type='submit' className='font-bold'>SUBMIT</button>
-                        </form>
+                     <form action="https://meloroids.us12.list-manage.com/subscribe/post"  method="POST" onSubmit={handleFormSubmit}
+                     id='newsletterForm' className='border-solid border-b-2 border-white py-1 gap-2 flex'>
+                        <input type="hidden" name="u" value="2cc67ef9a6923f3129ac10ac4"/>
+                        <input type="hidden" name="id" value="a1af96bd6f"></input>
+                        <label htmlFor="MERGE0" hidden className='w-40'>Email Address <span className="req asterisk">*</span></label>
+                            <input className='bg-transparent text-light text-1 font-400 focus:outline-none placeholder-light' placeholder='Your Email' type="email"  name="MERGE0" id="MERGE0"  />
+                        <button type='submit' className='font-bold'>SUBMIT</button>
+                    </form>
+                       
                     </div>     
                     <div className='flex flex-col items-start'>
                       <h3 className='text-1.5 font-bold mb-4'>Follow us</h3>
                       {/* Social Icons */}
                         <div className='flex gap-4 items-center'>
-                            <Link href={''}>
+                            <Link target='__blank' href={'https://www.instagram.com/mongamonga_/'}>
                                 <Icon className='text-1.5' icon="bi:instagram" />
                             </Link>
-                            <Link href={''}>
+                            <Link target='__blank' href={'https://www.tiktok.com/@mongamonga_'}>
                                 <Icon className='text-1.5' icon="bi:tiktok" />
                             </Link>
-                            <Link href={''}>
+                            <Link target='__blank' href={'https://www.youtube.com/mongamonga'}>
                                 <Icon className='text-1.5' icon="bi:youtube" />
                             </Link>
                         </div>
