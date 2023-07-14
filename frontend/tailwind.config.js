@@ -26,7 +26,7 @@ module.exports = {
         quad: "#423D47",
         white: "#ffffff",
         light: "#E1E1E1",
-        medium: "#999999",
+        medium: "#7D7D7D",
         dark: "#2c2c2c",
         darklight: "rgba(44,44,44,0.85)",
         black: "#111111",
