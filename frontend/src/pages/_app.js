@@ -11,20 +11,26 @@ import { useApollo } from "../../lib/apollo";
 import Auth from "utils/auth";
 
 export const LoginContext = createContext();
+export const NavigationContext = createContext();
 
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
   const [loggedIn, setLoggedIn] = useState();
+  const [navigationSelected, setNavigationSelected] = useState("Home");
   useEffect(() => {
     setLoggedIn(Auth.loggedIn());
   }, []);
   return (
     <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
-      <ApolloProvider client={apolloClient}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ApolloProvider>
+      <NavigationContext.Provider
+        value={[navigationSelected, setNavigationSelected]}
+      >
+        <ApolloProvider client={apolloClient}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ApolloProvider>
+      </NavigationContext.Provider>
     </LoginContext.Provider>
   );
 }

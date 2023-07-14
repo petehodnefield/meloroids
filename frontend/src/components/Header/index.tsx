@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
+import { NavigationContext } from '@/pages/_app';
 import FullHeader from './FullHeader';
 import HamburgerMenu from './HamburgerMenu';
 import MobileHeader from './MobileHeader';
@@ -10,8 +11,8 @@ interface NavProps {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Header = ({ navSelected, setNavSelected, isOpen, setIsOpen }: NavProps) => {
-
+const Header = ({ isOpen, setIsOpen }: NavProps) => {
+const [navigationSelected, setNavigationSelected] = useContext(NavigationContext)
 
     return (
         <div className='relative lg:w-full lg:flex lg:justify-center bg-primary'>
@@ -20,8 +21,7 @@ const Header = ({ navSelected, setNavSelected, isOpen, setIsOpen }: NavProps) =>
                 isOpen={isOpen}
             ></MobileHeader>
             <FullHeader
-                navSelected={navSelected}
-                setNavSelected={setNavSelected}
+                
             ></FullHeader>
 
             {isOpen ? <HamburgerMenu
