@@ -1,14 +1,23 @@
 import Image from 'next/image'
-import React from 'react'
+import React, {useState, useContext} from 'react'
+import { NavigationContext, LoginContext } from '@/pages/_app'
 import logoFull from '../../../public/assets/logo/logo-full-white.png'
 import Link from 'next/link'
 import PrivacyPolicy from './PrivacyPolicy'
 import { Icon } from '@iconify/react'
+import Auth from 'utils/auth'
 const Footer = () => {
+    const [navigationSelected, setNavigationSelected] = useContext(NavigationContext)
+    const [loggedIn, setLoggedIn] = useContext(LoginContext)
     const columnStyle = 'flex flex-col items-center justify-center lg:items-start lg:justify-start 	'
     const handleFormSubmit = async(e:React.FormEvent<EventTarget>) =>{
         // e.preventDefault()       
      }
+
+     const logout = (e: React.FormEvent<EventTarget>) => {
+        e.preventDefault()
+        Auth.logout()
+      }
     return (
         <footer className='flex lg:h-325  py-10 items-center text-white justify-center  bg-primary '>
             <div className='w-full lg:w-60 xl:w-70 h-full flex flex-col lg:flex-row items-center justify-center'>
@@ -16,7 +25,7 @@ const Footer = () => {
                 <div className={`${columnStyle} flex-1.33`}>
                     <div className='flex flex-col items-center lg:items-start mb-6 lg:mb-20'>
                         <div className='h-20'>
-                            <Link className='h-full mb-1.5 my-4 lg:h-20 lg:mb-3' href='/'>
+                            <Link className='h-full mb-1.5 my-4 lg:h-20 lg:mb-3' onClick={() => setNavigationSelected('home')} href='/'>
                                 <Image
                                     className='h-full w-full  object-contain '
                                     src={logoFull}
@@ -35,13 +44,31 @@ const Footer = () => {
                       <h3 className='text-1.5 font-bold mb-4'>Resources</h3>
                       <ul className='flex flex-col p-0 gap-3'>
                         <li className='mg-0 p-0'>
-                            <Link href={'/quickie'} className='font-1.125 font-medium'>Quickie</Link>
+                            <Link 
+                                onClick={() => setNavigationSelected(loggedIn ? 'quickie': 'login')} 
+                                href={loggedIn? '/quickie': '/login'} 
+                                className='font-1.125 font-medium'>Quickie
+                            </Link>
                         </li>
                         <li>
-                            <Link href={'/train'} className='font-1.125 font-medium'>Train</Link>
+                            <Link 
+                                onClick={() => setNavigationSelected(loggedIn ? 'train': 'login')} 
+                                href={loggedIn? '/train-setup': '/login'} 
+                                className='font-1.125 font-medium'>Train
+                            </Link>
                         </li>
                         <li>
-                            <Link href={'/login'} className='font-1.125 font-medium'>Sign in</Link>
+                            {loggedIn ? (
+                                <p onClick={logout}>Logout</p>
+                            ): (
+                            <Link                       
+                                onClick={() => setNavigationSelected('login')} 
+                                href={'/login'} 
+                                className='font-1.125 font-medium'
+                                    >{loggedIn ? "Logout": "Login"}
+                            </Link>
+                            )}
+                            
                         </li>
                         <li>
                             <Link href={'/contact'} className='font-1.125 font-medium'>Contact</Link>

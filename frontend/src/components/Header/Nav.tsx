@@ -24,19 +24,19 @@ const Nav = () => {
             <ul className='flex gap-6 items-center text-white'>
                 <li className={`${liStyle} ${navigationSelected === 'home' ? selectedNavItem : ''}`}>
                     <Link
-                        onClick={() => setNavigationSelected(loggedIn ? 'dashboard': 'home')}
+                        onClick={() => setNavigationSelected('home | Meloroids')}
                         href='/'>{loggedIn ? 'Dashboard': 'Home'}
                     </Link>
                 </li>
                 <li className={`${liStyle}  ${navigationSelected === 'train' ? selectedNavItem : ''}`}>
                     <Link
-                        onClick={() => setNavigationSelected('train')}
-                        href='/train-setup'>Train
+                        onClick={() => setNavigationSelected(loggedIn ? 'train': 'login')}
+                        href={`${loggedIn ? '/train-setup': '/login'}`}>Train
                     </Link>
                 </li>
                 <li className={`${liStyle}  ${navigationSelected === 'quickie' ? selectedNavItem : ''}`}>
                     <Link
-                        onClick={() => setNavigationSelected('quickie')}
+                        onClick={() => setNavigationSelected(loggedIn ? 'quickie': 'login')}
                         href={`${loggedIn ? '/quickie': '/login' }`}>Quickie
                     </Link>
                 </li>

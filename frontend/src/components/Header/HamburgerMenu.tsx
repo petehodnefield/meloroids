@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import { LoginContext } from '@/pages/_app';
+import { LoginContext, NavigationContext } from '@/pages/_app';
 import { Icon } from '@iconify/react';
 import logoSmall from '../../../public/assets/logo/logo-small-white.png'
 import Image from 'next/image';
@@ -14,7 +14,7 @@ interface NavProps {
 
 const HamburgerMenu = ({ setIsOpen }: NavProps) => {
     const [loggedIn, setLoggedIn] = useContext(LoginContext)
-
+const [navigationSelected, setNavigationSelected] = useContext(NavigationContext)
 
     const liStyle: string = 'h-16 pl-6 flex items-center justify-start border-b-1 w-full text-white text-1 font-semibold   hover:text-light duration-200'
     
@@ -40,21 +40,32 @@ const HamburgerMenu = ({ setIsOpen }: NavProps) => {
                 <li className={`${liStyle} border-t-1`}>
                     <Link
                         href='/'
-                        onClick={() => setIsOpen(false)}
-                    >Home</Link>
+                        onClick={() => {
+                            setIsOpen(false)
+                            setNavigationSelected(loggedIn ? 'home': 'login')
+                        }}
+                    >{loggedIn ? 'Dashboard': 'Home'}</Link>
                 </li>
                 <li
                    className={`${liStyle}`}>
                     <Link
-                        href='/train-setup'
-                        onClick={() => setIsOpen(false)}
+                        href={loggedIn ? '/train-setup': 'login'}
+                        onClick={() => {
+                            setIsOpen(false)
+                            setNavigationSelected(loggedIn ? 'train': 'login')
+
+                        }}
                     >Train</Link>
                 </li>
                 <li
                     className={`${liStyle}`}>
                     <Link
                         href={`${loggedIn ? '/quickie': '/login'}`}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            setIsOpen(false)
+                            setNavigationSelected(loggedIn ? 'quickie': 'login')
+                        }
+                        }
                     >Quickie</Link>
                 </li>
                 <li className={`${liStyle}    `}>

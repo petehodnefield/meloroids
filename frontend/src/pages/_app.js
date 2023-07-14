@@ -16,7 +16,8 @@ export const NavigationContext = createContext();
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
   const [loggedIn, setLoggedIn] = useState();
-  const [navigationSelected, setNavigationSelected] = useState("Home");
+  const [navigationSelected, setNavigationSelected] =
+    useState("Home | Meloroids");
   useEffect(() => {
     setLoggedIn(Auth.loggedIn());
   }, []);
