@@ -1,5 +1,6 @@
 import LoopFileName from "@/components/Train/LoopFileName";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { LoginContext } from "../_app";
 import { randomWord } from "../../../utils/data/words";
 import { DateToggle } from "../../components/Quickie/DateToggle";
 import { useQuery } from "@apollo/client";
@@ -12,16 +13,16 @@ import Image from "next/image";
 import Auth from "utils/auth";
 import Login from "../login";
 const Quickie = () => {
-  // if (!Auth.loggedIn()) {
-  //   return <Login />;
-  // }
-
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const [hydrated, setHydrated] = useState(false);
   const [loopName, setLoopName] = useState(randomWord);
   const [includeDate, setIncludeDate] = useState(false);
   const [getRandomWord, setGetRandomWord] = useState(randomWord);
   const [date, setDate] = useState();
 
+  if (!loggedIn) {
+    return <Login />;
+  }
   // gives you your current date
   const today = new Date();
   const yyyy = today.getFullYear().toString().substr(-2);
@@ -52,12 +53,6 @@ const Quickie = () => {
   if (loading) return <div>Loading....</div>;
 
   if (!hydrated) return null;
-
-  const chooseNewWord = async () => {
-    const splitWords = await words.split(`\n`);
-    const randomIndex = await Math.floor(Math.random() * splitWords.length);
-    return splitWords[randomIndex];
-  };
 
   return (
     <div className="quickie h-screen flex flex-col items-center py-12 px-6 md:px-0 relative">

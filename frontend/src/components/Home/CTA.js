@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LoginContext } from "@/pages/_app";
 import Image from "next/image";
 import Link from "next/link";
 import ctaImage from "../../../public/assets/images/cta-img.png";
-const CTA = ({ authorized }) => {
+const CTA = () => {
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
+
   const btn =
     "h-12 w-full md:w-48 xl:w-48 rounded text-1 font-semibold flex items-center justify-center";
   const btnPrimary = "bg-primary";
@@ -23,7 +26,7 @@ const CTA = ({ authorized }) => {
         <div className="flex flex-col items-center justify-center md:flex-row w-full gap-4 xl:gap-8">
           <Link
             className={`${btn} ${btnPrimary}`}
-            href={`${authorized ? "/quickie" : "/signup"}`}
+            href={`${loggedIn ? "/quickie" : "/signup"}`}
           >
             Get started
           </Link>

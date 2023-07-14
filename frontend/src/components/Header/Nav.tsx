@@ -14,13 +14,8 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
 
     const selectedNavItem: string = ' font-semibold   duration-200 before:content-["•"]'
 
-    const [authorized, setAuthorized] = useState(false)
+    const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
-    useEffect(() => {
-        if(Auth.loggedIn()) {
-            setAuthorized(true)
-        }
-    }, [])
 
     const logout = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault()
@@ -31,8 +26,8 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
             <ul className='flex gap-6 items-center text-white'>
                 <li className={`${liStyle} ${navSelected === 'home' ? selectedNavItem : ''}`}>
                     <Link
-                        onClick={() => setNavSelected('home')}
-                        href='/'>Home
+                        onClick={() => setNavSelected(loggedIn ? 'dashboard': 'home')}
+                        href='/'>{loggedIn ? 'Dashboard': 'Home'}
                     </Link>
                 </li>
                 <li className={`${liStyle}  ${navSelected === 'train' ? selectedNavItem : ''}`}>
@@ -44,12 +39,12 @@ const Nav = ({ setNavSelected, navSelected }: NavProps) => {
                 <li className={`${liStyle}  ${navSelected === 'quickie' ? selectedNavItem : ''}`}>
                     <Link
                         onClick={() => setNavSelected('quickie')}
-                        href='/quickie'>Quickie
+                        href={`${loggedIn ? '/quickie': '/login' }`}>Quickie
                     </Link>
                 </li>
                 <li className={`${liStyle}    `}>
 
-                {!authorized ? (
+                {!loggedIn ? (
                         <Link
                             onClick={() => setNavSelected('login')}
                             className={`${loginStyle}`}

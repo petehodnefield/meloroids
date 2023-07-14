@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import { LoginContext } from '@/pages/_app';
 import { Icon } from '@iconify/react';
 import logoSmall from '../../../public/assets/logo/logo-small-white.png'
 import Image from 'next/image';
@@ -12,14 +13,11 @@ interface NavProps {
 
 
 const HamburgerMenu = ({ setIsOpen }: NavProps) => {
-    const [authorized, setAuthorized] = useState(false)
+    const [loggedIn, setLoggedIn] = useContext(LoginContext)
+
 
     const liStyle: string = 'h-16 pl-6 flex items-center justify-start border-b-1 w-full text-white text-1 font-semibold   hover:text-light duration-200'
-    useEffect(() => {
-        if(Auth.loggedIn()) {
-            setAuthorized(true)
-        }
-    }, [])
+    
 
     const logout = () => {
         Auth.logout()
@@ -55,13 +53,13 @@ const HamburgerMenu = ({ setIsOpen }: NavProps) => {
                 <li
                     className={`${liStyle}`}>
                     <Link
-                        href='/quickie'
+                        href={`${loggedIn ? '/quickie': '/login'}`}
                         onClick={() => setIsOpen(false)}
                     >Quickie</Link>
                 </li>
                 <li className={`${liStyle}    `}>
 
-{!authorized ? (
+{!loggedIn ? (
         <Link
         onClick={() => setIsOpen(false)}
 

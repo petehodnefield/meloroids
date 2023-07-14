@@ -23,9 +23,9 @@ export default function Home() {
           {/* Hero section */}
           <Hero />
           {/* Features section */}
-          {/* <Features /> */}
+          <Features />
           {/* CTA Section */}
-          {/* <CTA /> */}
+          <CTA />
         </div>
       )}
     </div>
