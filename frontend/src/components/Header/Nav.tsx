@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import React, {useState, useEffect, useContext} from 'react'
+import { useQuery } from '@apollo/client'
+import { ME } from 'utils/queries'
 import { LoginContext, NavigationContext } from '@/pages/_app'
 import Auth from 'utils/auth'
 
@@ -7,14 +9,26 @@ import Auth from 'utils/auth'
 
 const Nav = () => {
     const liStyle: string = 'text-0.875 font-semibold hover:text-dark duration-200 '
+    const liCircleStyle: string = ' h-10 w-10  flex items-center  justify-center text-1.125 font-semibold bg-primary border-1 rounded-full hover:text-dark duration-200 '
     const loginStyle: string = 'font-semibold h-8 bg-white text-primary rounded-full w-24 flex items-center justify-center hover:opacity-90 duration-200'
 
     const selectedNavItem: string = ' font-semibold   duration-200 before:content-["•"]'
 
     const [loggedIn, setLoggedIn] = useContext(LoginContext);
+    const [username, setUsername] = useState('')
 
     const [navigationSelected, setNavigationSelected] = useContext(NavigationContext)
-
+    const {loading, data, error} = useQuery(ME)
+    useEffect(() => {
+        if(loggedIn) {
+            const username = data.me.username
+            const firstLetterFromUsername = username.split("")[0]
+            setUsername(firstLetterFromUsername)
+        }
+      
+    },[data])
+    if(loading) return <div>Loading...</div>
+  
     const logout = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault()
         Auth.logout()
@@ -56,7 +70,16 @@ const Nav = () => {
                             href=''>Logout
                         </Link>
                 )}
-                                   </li>
+                    </li>
+                    {loggedIn ? (
+                          <li className={`${liCircleStyle} `}>
+                          <Link
+                              onClick={() => setNavigationSelected(loggedIn ? 'train': 'login')}
+                              href={`${loggedIn ? '/train-setup': '/login'}`}>{username}
+                          </Link>
+                      </li>
+                    ): ('')}
+                    
 
 
                

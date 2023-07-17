@@ -44,7 +44,7 @@ const AuthHome = () => {
         </Link>
 
         {/* Profile */}
-        {/* <div className="relative flex flex-col items-center text-dark p-12 bg-white rounded-xl">
+        <div className="relative flex flex-col items-center text-dark p-12 bg-white rounded-xl">
           <h3 className="text-2 font-semibold">{data.me.username}</h3>
           <div className="flex w-full justify-start gap-4 flex-wrap	">
             <p className="font-bold flex-2">Email:</p>
@@ -62,7 +62,7 @@ const AuthHome = () => {
             <p className="font-bold flex-1 ">Bio:</p>
             <p className="flex-2">{data.me.bio}</p>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
