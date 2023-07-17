@@ -44,7 +44,6 @@ const AuthHome = () => {
       <div className="z-2 relative w-full max-w-70 mb-4 flex justify-center">
         <h2 className="text-white text-3 ">Dashboard</h2>
       </div>
-      {/* Two card container */}
       <div className="relative flex flex-col items-center">
         {/* Quickie */}
         <Link
@@ -66,6 +65,12 @@ const AuthHome = () => {
           </div>
         </Link>
       </div>
+      <Link
+        className="flex relative mt-8 lg:hidden bg-primary text-white h-12 w-40 rounded-lg flex items-center justify-center cursor-pointer"
+        href={"/"}
+      >
+        Edit profile
+      </Link>
     </div>
   );
 };
