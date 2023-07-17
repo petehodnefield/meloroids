@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LoginContext } from "@/pages/_app";
 import Link from "next/link";
 import Image from "next/image";
 import heroImage from "../../../public/assets/images/hero-img.png";
@@ -6,9 +7,20 @@ import quickieImage from "../../../public/assets/images/quickie.png";
 import { ME } from "../../../utils/queries";
 import { useQuery } from "@apollo/client";
 const AuthHome = () => {
+  const [username, setUsername] = useState();
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
+
   const { loading, data, error } = useQuery(ME);
+  useEffect(() => {
+    if (loggedIn) {
+      if (data) {
+        const username = data.me.username;
+        setUsername(username);
+      }
+    }
+  }, [data]);
   if (loading) return <div>Loading...</div>;
-  console.log("data", data);
+  console.log("data", data.me.username);
 
   return (
     <div className="relative flex py-12 px-6 flex-col items-center h-screen lg:h-500">
@@ -18,6 +30,17 @@ const AuthHome = () => {
         alt="A guitar and keyboard floating in space"
         className="absolute top-0 left-0 h-full w-full object-cover z-0 hero__img"
       />{" "}
+      <div className="relative flex justify-center  w-64 mb-4">
+        <div className=" flex  flex-col gap-2 lg:absolute lg:top-4 lg:left-4 text-white">
+          <h3 className="text-1.5 font-medium">Hi, {username}!</h3>
+          <Link
+            className="hidden lg:flex bg-primary text-white h-12 w-40 rounded-lg flex items-center justify-center cursor-pointer"
+            href={"/"}
+          >
+            Edit profile
+          </Link>
+        </div>
+      </div>
       <div className="z-2 relative w-full max-w-70 mb-4 flex justify-center">
         <h2 className="text-white text-3 ">Dashboard</h2>
       </div>
@@ -42,27 +65,6 @@ const AuthHome = () => {
             </div>
           </div>
         </Link>
-
-        {/* Profile */}
-        <div className="relative flex flex-col items-center text-dark p-12 bg-white rounded-xl">
-          <h3 className="text-2 font-semibold">{data.me.username}</h3>
-          <div className="flex w-full justify-start gap-4 flex-wrap	">
-            <p className="font-bold flex-2">Email:</p>
-            <p className="text-primary flex-1">{data.me.email}</p>
-          </div>
-          <div className="flex w-full justify-start gap-4">
-            <p className="font-bold flex-1">Email:</p>
-            <p className="flex-2">{data.me.instagramHandle}</p>
-          </div>
-          <div className="flex w-full justify-start gap-4">
-            <p className="font-bold flex-1">Instagram:</p>
-            <p className="flex-2">{data.me.instagramHandle}</p>
-          </div>
-          <div className="flex w-full justify-start gap-4">
-            <p className="font-bold flex-1 ">Bio:</p>
-            <p className="flex-2">{data.me.bio}</p>
-          </div>
-        </div>
       </div>
     </div>
   );
