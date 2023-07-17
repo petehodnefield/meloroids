@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { LoginContext } from "@/pages/_app";
+import { LoginContext, NavigationContext } from "@/pages/_app";
 import { useQuery } from "@apollo/client";
 import { ME } from "utils/queries";
 import logoSmall from "../../../public/assets/logo/logo-small-white.png";
@@ -11,6 +11,8 @@ import HamburgerMenu from "./HamburgerMenu";
 const MobileHeader = ({ isOpen, setIsOpen }) => {
   const hoverStyles = "hover:opacity-80 hover:cursor-pointer duration-200";
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
+  const [navigationSelected, setNavigationSelected] =
+    useContext(NavigationContext);
   const [username, setUsername] = useState("");
   const { loading, data, error } = useQuery(ME);
 
@@ -32,7 +34,11 @@ const MobileHeader = ({ isOpen, setIsOpen }) => {
         onClick={() => setIsOpen(!isOpen)}
       />
       <div className="h-12 w-8">
-        <Link className="h-full w-full" href="/">
+        <Link
+          className="h-full w-full"
+          href="/"
+          onClick={() => setNavigationSelected("home")}
+        >
           <Image
             src={logoSmall}
             alt="Meloroids logo"
@@ -41,9 +47,13 @@ const MobileHeader = ({ isOpen, setIsOpen }) => {
         </Link>
       </div>
       {loggedIn ? (
-        <div className="text-white absolute right-8 text-1.125 font-semibold h-10 w-10 rounded-full border-1 border-white flex items-center justify-center">
+        <Link
+          href={"/"}
+          onClick={() => setNavigationSelected("home")}
+          className="text-white absolute right-8 text-1.125 font-semibold h-10 w-10 rounded-full border-1 border-white flex items-center justify-center"
+        >
           {username}
-        </div>
+        </Link>
       ) : (
         ""
       )}

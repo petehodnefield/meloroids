@@ -31,6 +31,7 @@ const Nav = () => {
   
     const logout = (e: React.FormEvent<EventTarget>) => {
         e.preventDefault()
+        setNavigationSelected('home')
         Auth.logout()
       }
     return (
@@ -38,7 +39,7 @@ const Nav = () => {
             <ul className='flex gap-6 items-center text-white'>
                 <li className={`${liStyle} ${navigationSelected === 'home' ? selectedNavItem : ''}`}>
                     <Link
-                        onClick={() => setNavigationSelected('home | Meloroids')}
+                        onClick={() => setNavigationSelected('home')}
                         href='/'>{loggedIn ? 'Dashboard': 'Home'}
                     </Link>
                 </li>
@@ -64,7 +65,9 @@ const Nav = () => {
                         </Link>
                 ): (
                         <Link
-                            onClick={logout}
+                            onClick={(e)=>{
+                            logout(e)                                
+                            }}
                             className={`${loginStyle}`}
                             
                             href=''>Logout
@@ -74,8 +77,9 @@ const Nav = () => {
                     {loggedIn ? (
                           <li className={`${liCircleStyle} `}>
                           <Link
-                              onClick={() => setNavigationSelected(loggedIn ? 'train': 'login')}
-                              href={`${loggedIn ? '/train-setup': '/login'}`}>{username}
+                          className='h-full w-full flex items-center justify-center relative bottom-0.5'
+                              onClick={() => setNavigationSelected('home')}
+                              href={`/`}>{username}
                           </Link>
                       </li>
                     ): ('')}
