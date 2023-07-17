@@ -12,7 +12,7 @@ import background from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
 import Auth from "utils/auth";
 import Login from "../login";
-const Quickie = () => {
+const QuickieDemo = () => {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const [hydrated, setHydrated] = useState(false);
   const [loopName, setLoopName] = useState(randomWord);
@@ -27,22 +27,17 @@ const Quickie = () => {
 
   useEffect(() => {
     if (data) {
-      setLoopName(`${getRandomWord} @${data.me.instagramHandle}`);
+      setLoopName(`${getRandomWord} @YOURNAME`);
     }
   }, [data]);
   useEffect(() => {
     if (includeDate && data) {
-      setLoopName(
-        `${getRandomWord} @${data.me.instagramHandle} ${formattedToday}`
-      );
+      setLoopName(`${getRandomWord} @YOURNAME ${formattedToday}`);
     } else if (data) {
-      setLoopName(`${getRandomWord} @${data.me.instagramHandle}`);
+      setLoopName(`${getRandomWord} @YOURNAME`);
     }
   }, [includeDate]);
 
-  if (!loggedIn) {
-    return <Login />;
-  }
   // gives you your current date
   const today = new Date();
   const yyyy = today.getFullYear().toString().substr(-2);
@@ -63,9 +58,9 @@ const Quickie = () => {
         alt="A music studio with an imac at the center"
         className="bg__quickie absolute top-0 h-full object-cover z-0 w-full"
       />
-      <div className="flex flex-col items-center justify-between	 bg-white shadow-3xl pt-10 rounded-4xl w-full md:w-96 relative">
+      <div className="flex flex-col items-center justify-between	 bg-white shadow-3xl pt-10 rounded-4xl w-full md:w-96 relative mb-6">
         <h2 className="text-2.5 font-semibold mb-6 md:mb-4 text-primary">
-          Quickie
+          Quickie (Demo)
         </h2>
 
         <DateToggle includeDate={includeDate} setIncludeDate={setIncludeDate} />
@@ -78,7 +73,7 @@ const Quickie = () => {
             const randomIndex = Math.floor(Math.random() * splitWords.length);
             const newRandomWord = splitWords[randomIndex];
             setLoopName(
-              `${newRandomWord} @${data.me.instagramHandle}
+              `${newRandomWord} @YOURNAME
               ${includeDate ? formattedToday : ""}`
             );
             setGetRandomWord(newRandomWord);
@@ -87,8 +82,14 @@ const Quickie = () => {
 
         <LoopFileName loopName={loopName} />
       </div>
+      <Link
+        className="relative bg-primary h-12 flex items-center w-48 justify-center text-1 text-white font-semibold rounded-lg"
+        href={"/signup"}
+      >
+        Create an account
+      </Link>
     </div>
   );
 };
 
-export default Quickie;
+export default QuickieDemo;

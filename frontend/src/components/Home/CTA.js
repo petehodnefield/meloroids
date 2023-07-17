@@ -30,7 +30,7 @@ const CTA = () => {
           >
             Get started
           </Link>
-          <Link className={`${btn} ${btnOutline}`} href={"/"}>
+          <Link className={`${btn} ${btnOutline}`} href={"/quickie-demo"}>
             Try the demo
           </Link>
         </div>
