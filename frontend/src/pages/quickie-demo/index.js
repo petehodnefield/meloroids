@@ -1,4 +1,4 @@
-import LoopFileName from "@/components/Train/LoopFileName";
+import LoopFileName from "@/components/Target/LoopFileName";
 import React, { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../_app";
 import { randomWord } from "../../../utils/data/words";
