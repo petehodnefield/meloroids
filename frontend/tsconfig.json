@@ -32,7 +32,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/Train/LoopFileName.js", "src/pages/quickie/index.js", "src/pages/index.js", "src/components/Home/Hero.js", "src/components/Layout/index.js", "src/pages/_app.js", "src/components/Signup/SignupForm.js", "src/components/Header/MobileHeader.js"  ],
+, "src/components/Train/LoopFileName.js", "src/pages/quickie/index.js", "src/pages/index.js", "src/components/Home/Hero.js", "src/components/Layout/index.js", "src/pages/_app.js", "src/components/Signup/SignupForm.js", "src/components/Header/MobileHeader.js", "src/components/Header/FullHeader.js", "src/components/Login/LoginForm.js", "src/pages/chords/index.js", "src/pages/login/index.js", "src/pages/signup/index.js", "src/pages/_document.js", "src/components/Header/index.js", "src/components/Header/Nav.js", "src/components/Header/HamburgerMenu.js", "src/components/Buttons/BtnPrimary.js", "src/components/Buttons/BtnDarkPill.js", "src/components/Buttons/BtnDark.js", "src/components/Timer/TimerStart.js", "src/components/Timer/Timer.js", "src/components/Footer/index.js", "src/pages/train-setup/index.js", "src/components/Train/KeyInput.js", "src/components/Train/ProgressionInput.js", "src/components/Train/StyleInput.js", "src/components/Train/TempoInput.js", "src/components/Train/TrainForm.js"  ],
   "exclude": [
     "node_modules"
   ]

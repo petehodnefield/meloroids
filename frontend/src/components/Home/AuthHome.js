@@ -30,11 +30,11 @@ const AuthHome = () => {
         alt="A guitar and keyboard floating in space"
         className="absolute top-0 left-0 h-full w-full object-cover z-0 hero__img"
       />{" "}
-      <div className="relative flex justify-center  w-64 mb-4">
-        <div className=" flex  flex-col gap-2 lg:absolute lg:top-4 lg:left-4 text-white">
+      <div className="relative flex justify-center  w-full xl:w-64 mb-4">
+        <div className=" flex  flex-col gap-2 xl:absolute xl:top-4 xl:left-4 text-white">
           <h3 className="text-1.5 font-medium">Hi, {username}!</h3>
           <Link
-            className="hidden lg:flex bg-primary text-white h-12 w-40 rounded-lg flex items-center justify-center cursor-pointer"
+            className="hidden xl:flex bg-primary text-white h-12 w-40 rounded-lg flex items-center justify-center cursor-pointer"
             href={"/"}
           >
             Edit profile
@@ -66,7 +66,7 @@ const AuthHome = () => {
         </Link>
       </div>
       <Link
-        className="flex relative mt-8 lg:hidden bg-primary text-white h-12 w-40 rounded-lg flex items-center justify-center cursor-pointer"
+        className="flex relative mt-8 xl:hidden bg-primary text-white h-12 w-40 rounded-lg flex items-center justify-center cursor-pointer"
         href={"/"}
       >
         Edit profile
