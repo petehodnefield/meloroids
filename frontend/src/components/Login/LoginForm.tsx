@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+import { NavigationContext } from '@/pages/_app'
 import {LOGIN} from '../../../utils/mutations'
 import { useMutation } from '@apollo/client'
 import Auth from '../../../utils/auth'
@@ -10,6 +11,8 @@ const LoginForm = () => {
     const formInputWrapperStyle: string = 'flex flex-col w-full mb-4'
     const formExtraInputWrapperStyle: string = 'flex flex-col w-full mb-2'
 
+    const [navigationSelected, setNavigationSelected] = useContext(NavigationContext)
+
     // State handling login form information
     const [userInfo, setUserInfo] = useState({
         username: '',
@@ -20,6 +23,8 @@ const LoginForm = () => {
     const [login, {loading, error, data}] = useMutation(LOGIN)
 
     const handleFormSubmit = async (e: React.FormEvent<EventTarget>) => {
+        setNavigationSelected('Dashboard')
+
         e.preventDefault()
         try {
             const {data} = await  login({variables:{username: userInfo.username, password: userInfo.password}})

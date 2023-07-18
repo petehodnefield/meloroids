@@ -108,7 +108,7 @@ const SignupForm = () => {
   }, [userInfo.password, userInfo.passwordConfirm]);
 
   const handleFormSubmit = async (e) => {
-    // e.preventDefault()
+    e.preventDefault();
 
     try {
       const { data } = await signUp({
@@ -127,7 +127,7 @@ const SignupForm = () => {
   return (
     <form
       id="signupForm"
-      action="https://meloroids.us12.list-manage.com/subscribe/post"
+      // action="https://meloroids.us12.list-manage.com/subscribe/post"
       method="POST"
       onSubmit={handleFormSubmit}
     >
@@ -237,7 +237,11 @@ const SignupForm = () => {
       </div>
 
       {/* Password Input Field */}
-      <div className={`${formInputWrapperStyle} `}>
+      <div
+        className={`${formInputWrapperStyle} ${
+          passwordValidated ? "mb-4" : "mb-2"
+        }`}
+      >
         <label htmlFor="password" className={`${labelStyle}`}>
           Password*
         </label>
@@ -328,7 +332,8 @@ const SignupForm = () => {
           maxLength={20}
           id="instagram"
           type="text"
-          className={inputStyle}
+          className={`${inputStyle}
+          ${userInfo.instagramHandle.length >= 1 ? successInputStyle : ""}`}
           onChange={(e) =>
             setUserInfo({ ...userInfo, instagramHandle: e.target.value })
           }
