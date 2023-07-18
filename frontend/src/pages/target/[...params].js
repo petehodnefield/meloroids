@@ -1,9 +1,10 @@
 import { useQuery } from "@apollo/client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { LoginContext } from "../_app";
 import { initializeApollo } from "../../../lib/apollo";
 import { randomWord } from "../../../utils/data/words";
-import { PROGRESSION_BY_ID, KEY_BY_ID } from "../../../utils/queries";
-import LoopFileName from "../../components/Train/LoopFileName";
+import { PROGRESSION_BY_ID, KEY_BY_ID, ME } from "../../../utils/queries";
+import LoopFileName from "../../components/Target/LoopFileName";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import studioImage from "../../../public/assets/images/music-studio.png";
@@ -11,7 +12,8 @@ import Image from "next/image";
 
 const TrainDetails = ({ queryID }) => {
   const [loopName, setLoopName] = useState(randomWord);
-
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
+  console.log(loggedIn);
   const genreId = queryID.params[0];
   const progressionId = queryID.params[1];
   const keyId = queryID.params[2];
@@ -32,6 +34,8 @@ const TrainDetails = ({ queryID }) => {
   } = useQuery(KEY_BY_ID, {
     variables: { keyId: keyId },
   });
+
+  const { loading: meLoading, data: meData, error: meError } = useQuery(ME);
   if (keyLoading || progressionLoading) return <div> Loading...</div>;
 
   const keyName = keyData.key.key;
