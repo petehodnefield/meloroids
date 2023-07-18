@@ -19,6 +19,7 @@ const SignupForm = () => {
   const [userInfo, setUserInfo] = useState({
     username: "",
     password: "",
+    passwordConfirm: "",
     email: "",
     emailConfirm: "",
     instagramHandle: "",
@@ -28,6 +29,9 @@ const SignupForm = () => {
   const [emailValidated, setEmailValidated] = useState(false);
   // State to hold confirm emails
   const [emailMatch, setEmailMatch] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(false);
+
+  const [passwordValidated, setPasswordValidated] = useState(false);
 
   const [signUp, { loading, data, error }] = useMutation(SIGNUP);
   const {
@@ -45,6 +49,7 @@ const SignupForm = () => {
   } = useQuery(USER_EMAIL, {
     variables: { email: userInfo.email },
   });
+
   // Check if username exists in db
   useEffect(() => {
     if (!usernameData || !usernameData.username) {
@@ -54,6 +59,7 @@ const SignupForm = () => {
     }
   }, [usernameData]);
 
+  // Check if email is available and if it matches regex
   useEffect(() => {
     if (!emailData || !emailData.userEmail) {
       setEmailAvailable(true);
@@ -71,25 +77,35 @@ const SignupForm = () => {
 
   // Compare email and emailConfirm
   useEffect(() => {
-    if (userInfo.email === userInfo.emailConfirm) {
+    if (userInfo.email === userInfo.emailConfirm && userInfo.email.length > 1) {
       setEmailMatch(true);
     } else {
       setEmailMatch(false);
     }
   }, [userInfo.email, userInfo.emailConfirm]);
 
-  const compareEmails = async (e) => {
-    if (userInfo.email === e) {
-      setEmailMatch(true);
-    } else {
-      setEmailMatch(false);
-    }
-  };
-
-  const checkPasswordCriteria = async (e) => {
+  // Validate password
+  useEffect(() => {
     const passwordFormat =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  };
+    if (userInfo.password.match(passwordFormat)) {
+      setPasswordValidated(true);
+    } else {
+      setPasswordValidated(false);
+    }
+  }, [userInfo.password]);
+
+  // Compare password and passwordConfirm
+  useEffect(() => {
+    if (
+      userInfo.password === userInfo.passwordConfirm &&
+      userInfo.password.length > 1
+    ) {
+      setPasswordMatch(true);
+    } else {
+      setPasswordMatch(false);
+    }
+  }, [userInfo.password, userInfo.passwordConfirm]);
 
   const handleFormSubmit = async (e) => {
     // e.preventDefault()
@@ -115,6 +131,7 @@ const SignupForm = () => {
       method="POST"
       onSubmit={handleFormSubmit}
     >
+      {/* Username Input Field */}
       <div className={`${formInputWrapperStyle} mb-8`}>
         <label htmlFor="MERGE1" className={`${labelStyle}`}>
           Username*
@@ -147,6 +164,8 @@ const SignupForm = () => {
           ""
         )}
       </div>
+
+      {/* Email Address Input Field */}
       <div className={`${formInputWrapperStyle} mb-4`}>
         <label htmlFor="MERGE0" className={`${labelStyle}`}>
           Email Address*
@@ -184,6 +203,7 @@ const SignupForm = () => {
           ""
         )}
       </div>
+
       {/* Confirm Email Address Input */}
       <div className={`${formInputWrapperStyle} mb-8`}>
         <label htmlFor="confirmEmail" className={`${labelStyle}`}>
@@ -215,6 +235,8 @@ const SignupForm = () => {
           ""
         )}
       </div>
+
+      {/* Password Input Field */}
       <div className={`${formInputWrapperStyle} `}>
         <label htmlFor="password" className={`${labelStyle}`}>
           Password*
@@ -227,27 +249,38 @@ const SignupForm = () => {
             type="password"
             required
             className={`${inputStyle} 
-                           `}
+             ${passwordValidated ? successInputStyle : ""}     
+             ${
+               !passwordValidated && userInfo.password.length >= 1
+                 ? failureInputStyle
+                 : ""
+             }         
+            `}
             onChange={(e) => {
               setUserInfo({ ...userInfo, password: e.target.value });
             }}
           />
         </div>
-
-        <div className=" flex flex-col  items-start mb-1 py-2">
-          <p className="text-1 text-primary font-medium ">Password must:</p>
-          <ul className="list-disc	text-1 pl-5 mb-2 font-medium">
-            <li>Be between 8 and 20 characters</li>
-            <li>Include all of the following:</li>
-            <ul className="sublist	pl-4">
-              <li>1 uppercase letter</li>
-              <li>1 lowercase letter</li>
-              <li>1 number letter</li>
-              <li>1 special character</li>
+        {!passwordValidated ? (
+          <div className=" flex flex-col  items-start mb-1 py-2">
+            <p className="text-1 text-primary font-medium ">Password must:</p>
+            <ul className="list-disc	text-1 pl-5 mb-2 font-medium">
+              <li>Be between 8 and 20 characters</li>
+              <li>Include all of the following:</li>
+              <ul className="sublist	pl-4">
+                <li>1 uppercase letter</li>
+                <li>1 lowercase letter</li>
+                <li>1 number letter</li>
+                <li>1 special character</li>
+              </ul>
             </ul>
-          </ul>
-        </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
+
+      {/* Confirm Password Input Field */}
       <div className={`${formInputWrapperStyle} mb-8`}>
         <label htmlFor="confirmPassword" className={`${labelStyle}`}>
           Confirm Password*
@@ -259,10 +292,32 @@ const SignupForm = () => {
             id="confirmPassword"
             type="password"
             required
-            className={`${inputStyle} `}
-            onChange={(e) => {}}
+            className={`${inputStyle} 
+            ${passwordMatch && passwordValidated ? successInputStyle : ""}
+            ${
+              (!passwordMatch && userInfo.passwordConfirm.length >= 1) ||
+              (!passwordValidated && userInfo.passwordConfirm.length >= 1)
+                ? failureInputStyle
+                : ""
+            }
+            `}
+            onChange={(e) => {
+              setUserInfo({ ...userInfo, passwordConfirm: e.target.value });
+            }}
           />
         </div>
+        {!passwordMatch && userInfo.passwordConfirm.length >= 1 ? (
+          <p className={errorMessage}>Passwords do not match</p>
+        ) : (
+          ""
+        )}
+        {!passwordValidated && userInfo.passwordConfirm.length >= 1 ? (
+          <p className={errorMessage}>
+            Please enter a password that meets the criteria
+          </p>
+        ) : (
+          ""
+        )}
       </div>
       <div className={`${formInputWrapperStyle} mb-8`}>
         <label htmlFor="instagram" className={`${labelStyle}`}>
