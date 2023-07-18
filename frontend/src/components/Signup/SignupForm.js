@@ -22,22 +22,11 @@ const SignupForm = () => {
     email: "",
     instagramHandle: "",
   });
-  const [usernameAvailable, setUsernameAvailable] = useState(null);
-  const [emailAvailable, setEmailAvailable] = useState(null);
-  const [emailMatch, setEmailMatch] = useState(null);
-  const [passwordMatch, setPasswordMatch] = useState(null);
-  const [formErrors, setFormErrors] = useState({
-    passwordMatchError: "",
-    passwordCriteriaError: "a",
-    emailMatchError: "",
-    usernameExistError: "",
-    usernameCriteriaError: "",
-    emailExistError: "",
-    emailCriteriaError: "",
-  });
-  console.log("errors", formErrors);
+  const [usernameAvailable, setUsernameAvailable] = useState(true);
+  const [emailAvailable, setEmailAvailable] = useState(true);
+  const [emailValidated, setEmailValidated] = useState(false);
 
-  const [signUp, { loading, error, data }] = useMutation(SIGNUP);
+  const [signUp, { loading, data, error }] = useMutation(SIGNUP);
   const {
     loading: usernameLoading,
     data: usernameData,
@@ -45,103 +34,48 @@ const SignupForm = () => {
   } = useQuery(USERNAME, {
     variables: { username: userInfo.username },
   });
+
   const {
-    loading: userEmailLoading,
-    data: userEmailData,
-    error: userEmailError,
+    loading: emailLoading,
+    data: emailData,
+    error: emailError,
   } = useQuery(USER_EMAIL, {
     variables: { email: userInfo.email },
   });
-
-  if (loading) return <div>Loading....</div>;
-
-  const checkIfUsernameExists = async () => {
-    if (!usernameData || !usernameData.username.username) {
-      setFormErrors({ ...formErrors, usernameExistError: "" });
+  // Check if username exists in db
+  useEffect(() => {
+    if (!usernameData || !usernameData.username) {
+      console.log("username is available");
       setUsernameAvailable(true);
-    } else if (usernameData.username && usernameData.username.username) {
-      const username = usernameData.username.username;
-      setFormErrors({
-        ...formErrors,
-        usernameExistError: "Username already taken!",
-      });
+    } else {
+      console.log("username taken!");
       setUsernameAvailable(false);
     }
-  };
-  const checkUsernameCriteria = async (e) => {
-    if (e.length >= 2) {
-      setFormErrors({ ...formErrors, usernameCriteriaError: "" });
-    } else if (e.length < 2) {
-      setFormErrors({
-        ...formErrors,
-        usernameCriteriaError:
-          "Invalid username! Must be at least 2 characters.",
-      });
-    }
-  };
+  }, [usernameData]);
 
-  const checkIfEmailExists = async () => {
-    if (!userEmailData.userEmail || !userEmailData.userEmail.email) {
-      setFormErrors({ ...formErrors, emailExistError: "" });
+  useEffect(() => {
+    console.log(emailData);
+    if (!emailData || !emailData.userEmail) {
       setEmailAvailable(true);
-    } else if (userEmailData.userEmail && userEmailData.userEmail.email) {
-      const email = userEmailData.userEmail.email;
-      setFormErrors({
-        ...formErrors,
-        emailExistError: "Email already in use!",
-      });
+      const emailFormat =
+        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      if (userInfo.email.match(emailFormat)) {
+        setEmailValidated(true);
+      } else {
+        setEmailValidated(false);
+      }
+    } else {
       setEmailAvailable(false);
     }
-  };
+    console.log("email", emailData);
+  }, [emailData]);
 
-  const checkEmailCriteria = async (e) => {
-    const emailFormat =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (e.match(emailFormat) && e.length >= 8) {
-      setFormErrors({ ...formErrors, emailCriteriaError: "" });
-    } else if (!e.match(emailFormat) || e.length < 8) {
-      setFormErrors({
-        ...formErrors,
-        emailCriteriaError: "Invalid email format!",
-      });
-    }
-  };
+  const checkIfUsernameExists = async (e) => {};
+
+  const checkEmailCriteria = async (e) => {};
   const checkPasswordCriteria = async (e) => {
     const passwordFormat =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (e.match(passwordFormat) && e.length >= 8) {
-      setFormErrors({ ...formErrors, passwordCriteriaError: "" });
-    } else if (e.length < 8) {
-      setFormErrors({
-        ...formErrors,
-        passwordCriteriaError: "Password must be at least 8 characters!",
-      });
-    }
-  };
-
-  const comparePassword = async (password) => {
-    if (password !== userInfo.password) {
-      setFormErrors({
-        ...formErrors,
-        passwordMatchError: "The passwords do not match!",
-      });
-      setPasswordMatch(false);
-    } else {
-      setFormErrors({ ...formErrors, passwordMatchError: "" });
-      setPasswordMatch(true);
-    }
-  };
-  const compareEmail = async (email) => {
-    if (email !== userInfo.email) {
-      setFormErrors({
-        ...formErrors,
-        emailMatchError: "The emails do not match!",
-      });
-      setEmailMatch(false);
-    } else {
-      setFormErrors({ ...formErrors, emailMatchError: "" });
-      setEmailMatch(true);
-    }
   };
 
   const handleFormSubmit = async (e) => {
@@ -180,40 +114,22 @@ const SignupForm = () => {
             id="MERGE1"
             type="text"
             required
-            className={`${inputStyle} ${
-              formErrors.usernameExistError || formErrors.usernameCriteriaError
-                ? failureInputStyle
-                : "focus:outline-primary"
+            className={`${inputStyle} 
+            ${
+              usernameAvailable && userInfo.username.length >= 2
+                ? successInputStyle
+                : ""
             }
-                    ${
-                      usernameAvailable && userInfo.username.length >= 2
-                        ? successInputStyle
-                        : "focus:outline-primary"
-                    }`}
+            ${!usernameAvailable ? failureInputStyle : ""}
+            `}
             onChange={(e) => {
               setUserInfo({ ...userInfo, username: e.target.value });
-              checkUsernameCriteria(e.target.value);
             }}
-            onBlur={() => checkIfUsernameExists()}
           />
-          {usernameAvailable && userInfo.username.length >= 2 ? (
-            <Icon className={checkMarkStyle} icon="mingcute:check-line" />
-          ) : usernameAvailable === null ? (
-            ""
-          ) : (
-            <Icon className={xMarkStyle} icon="heroicons-outline:x" />
-          )}
         </div>
 
-        {formErrors.usernameExistError ? (
-          <p className={`${errorMessage}`}>{formErrors.usernameExistError}</p>
-        ) : (
-          ""
-        )}
-        {formErrors.usernameCriteriaError ? (
-          <p className={`${errorMessage}`}>
-            {formErrors.usernameCriteriaError}
-          </p>
+        {!usernameAvailable ? (
+          <p className={errorMessage}>Username taken!</p>
         ) : (
           ""
         )}
@@ -230,43 +146,27 @@ const SignupForm = () => {
             id="MERGE0"
             type="email"
             required
-            className={`${inputStyle}  ${
-              formErrors.emailExistError || formErrors.emailCriteriaError
+            className={`${inputStyle} 
+            ${emailAvailable && emailValidated ? successInputStyle : ""}
+            ${
+              (userInfo.email.length >= 1 && !emailAvailable) ||
+              (userInfo.email.length >= 1 && !emailValidated)
                 ? failureInputStyle
-                : "focus:outline-primary"
+                : ""
             }
-                    ${
-                      emailAvailable &&
-                      userInfo.email.length >= 8 &&
-                      !formErrors.emailCriteriaError
-                        ? successInputStyle
-                        : "focus:outline-primary"
-                    }`}
+            `}
             onChange={(e) => {
               setUserInfo({ ...userInfo, email: e.target.value });
-              checkEmailCriteria(e.target.value);
-            }}
-            onBlur={(e) => {
-              checkIfEmailExists();
             }}
           />
-          {emailAvailable &&
-          userInfo.email.length >= 8 &&
-          !formErrors.emailCriteriaError ? (
-            <Icon className={checkMarkStyle} icon="mingcute:check-line" />
-          ) : emailAvailable === null ? (
-            ""
-          ) : (
-            <Icon className={xMarkStyle} icon="heroicons-outline:x" />
-          )}
         </div>
-        {formErrors.emailExistError ? (
-          <p className={`${errorMessage}`}>{formErrors.emailExistError}</p>
+        {!emailAvailable ? (
+          <p className={errorMessage}>Email already taken!</p>
         ) : (
           ""
         )}
-        {formErrors.emailCriteriaError ? (
-          <p className={`${errorMessage}`}>{formErrors.emailCriteriaError}</p>
+        {!emailValidated && userInfo.email.length >= 2 ? (
+          <p className={errorMessage}>Please enter a valid email!</p>
         ) : (
           ""
         )}
@@ -282,40 +182,12 @@ const SignupForm = () => {
             id="confirmEmail"
             type="email"
             required
-            className={`${inputStyle} ${
-              formErrors.emailMatchError ? failureInputStyle : ""
-            } 
-                        ${
-                          emailMatch && !formErrors.emailCriteriaError
-                            ? successInputStyle
-                            : ""
-                        }`}
-            onChange={(e) => {
-              compareEmail(e.target.value);
-            }}
+            className={`${inputStyle}`}
+            onChange={(e) => {}}
           />
-          {emailAvailable &&
-          userInfo.email.length >= 8 &&
-          !formErrors.emailMatchError &&
-          emailMatch ? (
-            <Icon className={checkMarkStyle} icon="mingcute:check-line" />
-          ) : emailMatch ? (
-            <Icon className={xMarkStyle} icon="heroicons-outline:x" />
-          ) : (
-            ""
-          )}
         </div>
-        {formErrors.emailMatchError ? (
-          <p className={`${errorMessage}`}>{formErrors.emailMatchError}</p>
-        ) : (
-          ""
-        )}
       </div>
-      <div
-        className={`${formInputWrapperStyle} ${
-          !formErrors.passwordCriteriaError ? "mb-4" : ""
-        }`}
-      >
+      <div className={`${formInputWrapperStyle} `}>
         <label htmlFor="password" className={`${labelStyle}`}>
           Password*
         </label>
@@ -327,45 +199,26 @@ const SignupForm = () => {
             type="password"
             required
             className={`${inputStyle} 
-                            ${
-                              formErrors.passwordCriteriaError &&
-                              userInfo.password.length >= 1
-                                ? failureInputStyle
-                                : userInfo.password.length >= 8 &&
-                                  !formErrors.usernameCriteriaError
-                                ? successInputStyle
-                                : ""
-                            }`}
+                           `}
             onChange={(e) => {
               setUserInfo({ ...userInfo, password: e.target.value });
-              checkPasswordCriteria(e.target.value);
             }}
           />
-          {!formErrors.passwordCriteriaError ? (
-            <Icon className={checkMarkStyle} icon="mingcute:check-line" />
-          ) : userInfo.password.length >= 1 ? (
-            <Icon className={xMarkStyle} icon="heroicons-outline:x" />
-          ) : (
-            ""
-          )}
         </div>
-        {formErrors.passwordCriteriaError ? (
-          <div className=" flex flex-col  items-start mb-1 py-2">
-            <p className="text-1 text-primary font-medium ">Password must:</p>
-            <ul className="list-disc	text-1 pl-5 mb-2 font-medium">
-              <li>Be between 8 and 20 characters</li>
-              <li>Include all of the following:</li>
-              <ul className="sublist	pl-4">
-                <li>1 uppercase letter</li>
-                <li>1 lowercase letter</li>
-                <li>1 number letter</li>
-                <li>1 special character</li>
-              </ul>
+
+        <div className=" flex flex-col  items-start mb-1 py-2">
+          <p className="text-1 text-primary font-medium ">Password must:</p>
+          <ul className="list-disc	text-1 pl-5 mb-2 font-medium">
+            <li>Be between 8 and 20 characters</li>
+            <li>Include all of the following:</li>
+            <ul className="sublist	pl-4">
+              <li>1 uppercase letter</li>
+              <li>1 lowercase letter</li>
+              <li>1 number letter</li>
+              <li>1 special character</li>
             </ul>
-          </div>
-        ) : (
-          ""
-        )}
+          </ul>
+        </div>
       </div>
       <div className={`${formInputWrapperStyle} mb-8`}>
         <label htmlFor="confirmPassword" className={`${labelStyle}`}>
@@ -378,32 +231,10 @@ const SignupForm = () => {
             id="confirmPassword"
             type="password"
             required
-            className={`${inputStyle} ${
-              formErrors.passwordMatchError
-                ? failureInputStyle
-                : passwordMatch
-                ? successInputStyle
-                : ""
-            }`}
-            onChange={(e) => {
-              comparePassword(e.target.value);
-            }}
+            className={`${inputStyle} `}
+            onChange={(e) => {}}
           />
-          {userInfo.password.length >= 8 &&
-          !formErrors.passwordMatchError &&
-          passwordMatch ? (
-            <Icon className={checkMarkStyle} icon="mingcute:check-line" />
-          ) : passwordMatch ? (
-            <Icon className={xMarkStyle} icon="heroicons-outline:x" />
-          ) : (
-            ""
-          )}
         </div>
-        {formErrors.passwordMatchError ? (
-          <p className={`${errorMessage}`}>{formErrors.passwordMatchError}</p>
-        ) : (
-          ""
-        )}
       </div>
       <div className={`${formInputWrapperStyle} mb-8`}>
         <label htmlFor="instagram" className={`${labelStyle}`}>

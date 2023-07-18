@@ -22,6 +22,7 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
+    unique: true,
     required: true,
     validate:
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
@@ -30,9 +31,12 @@ const userSchema = new Schema({
   },
   instagramHandle: {
     type: String,
+    min: 2,
+    max: 30,
   },
   bio: {
     type: String,
+    max: 280,
   },
 });
 
