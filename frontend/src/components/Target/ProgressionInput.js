@@ -29,18 +29,6 @@ const ProgressionInput = ({
       <div className="flex justify-between items-center w-full">
         <label className="text-0.875 font-semibold">Chord Progression</label>
         {/* Custom Checkbox */}
-        {/* <div className='checkbox-container'>
-
-                    <input
-                        type='checkbox'
-                        checked={checkboxChecked.progressionRandom ? true : false}
-                        id='progressionCheckbox'
-                        onChange={(e) => handleChange(e)}
-
-                    />
-
-                    <label htmlFor='progressionCheckbox'>Randomize</label>
-                </div> */}
       </div>
       <div
         className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 

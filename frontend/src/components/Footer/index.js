@@ -65,22 +65,24 @@ const Footer = () => {
               <li>
                 <Link
                   onClick={() =>
-                    setNavigationSelected(loggedIn ? "train" : "login")
+                    setNavigationSelected(loggedIn ? "target" : "login")
                   }
-                  href={loggedIn ? "/train-setup" : "/login"}
+                  href={loggedIn ? "/target-setup" : "/login"}
                   className="font-1.125 font-medium"
                 >
-                  Train
+                  Target
                 </Link>
               </li>
               <li>
                 {loggedIn ? (
-                  <p onClick={logout}>Logout</p>
+                  <p className="cursor-pointer font-medium" onClick={logout}>
+                    Logout
+                  </p>
                 ) : (
                   <Link
                     onClick={() => setNavigationSelected("login")}
                     href={"/login"}
-                    className="font-1.125 font-medium"
+                    className=" font-medium"
                   >
                     {loggedIn ? "Logout" : "Login"}
                   </Link>

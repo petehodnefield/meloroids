@@ -6,7 +6,7 @@ import StyleInput from "./StyleInput";
 import TempoInput from "./TempoInput";
 import Link from "next/link";
 
-const TrainForm = ({ handleChange, checkboxChecked }) => {
+const TargetForm = ({ handleChange, checkboxChecked }) => {
   const hoverStyle =
     "hover:box-border	 hover:ml-2 hover:mr-8 hover:cursor-pointer hover:bg-blue hover:text-white duration-100";
 
@@ -18,7 +18,7 @@ const TrainForm = ({ handleChange, checkboxChecked }) => {
     is_major: "",
     key: "",
     keyId: "",
-    tempo: 60,
+    tempo: 120,
     producerHandle: "mongamonga",
   });
 
@@ -110,4 +110,4 @@ const TrainForm = ({ handleChange, checkboxChecked }) => {
   );
 };
 
-export default TrainForm;
+export default TargetForm;

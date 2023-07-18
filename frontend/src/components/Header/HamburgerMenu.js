@@ -53,13 +53,13 @@ const HamburgerMenu = ({ setIsOpen }) => {
         <li className={`${liStyle}`}>
           <Link
             className={linkStyle}
-            href={loggedIn ? "/train-setup" : "login"}
+            href={loggedIn ? "/target-setup" : "login"}
             onClick={() => {
               setIsOpen(false);
-              setNavigationSelected(loggedIn ? "train" : "login");
+              setNavigationSelected(loggedIn ? "target" : "login");
             }}
           >
-            Train
+            Target
           </Link>
         </li>
         <li className={`${liStyle}`}>

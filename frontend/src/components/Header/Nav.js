@@ -48,14 +48,14 @@ const Nav = () => {
         </li>
         <li
           className={`${liStyle}  ${
-            navigationSelected === "train" ? selectedNavItem : ""
+            navigationSelected === "target" ? selectedNavItem : ""
           }`}
         >
           <Link
-            onClick={() => setNavigationSelected(loggedIn ? "train" : "login")}
-            href={`${loggedIn ? "/train-setup" : "/login"}`}
+            onClick={() => setNavigationSelected(loggedIn ? "target" : "login")}
+            href={`${loggedIn ? "/target-setup" : "/login"}`}
           >
-            Train
+            Target
           </Link>
         </li>
         <li

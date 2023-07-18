@@ -1,9 +1,9 @@
-import TrainForm from "@/components/Train/TrainForm";
+import TargetForm from "@/components/Target/TargetForm";
 import React, { useState, useEffect } from "react";
 import backgroundImage from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
 
-const Train = () => {
+const Target = () => {
   const [checkboxChecked, setCheckboxChecked] = useState({
     allRandom: false,
     styleRandom: false,
@@ -96,7 +96,7 @@ const Train = () => {
         className="bg__quickie absolute top-0 h-full object-cover z-0 w-full"
       />
       <div className="bg-white w-full flex flex-col items-center w-full h-fit py-8 md:max-w-26 rounded-4xl md:pb-10 relative">
-        <h2 className="text-2.5 font-semibold text-primary mb-2">Train</h2>
+        <h2 className="text-2.5 font-semibold text-primary mb-2">Target</h2>
         <h2 className="text-1.25 font-mdeium mb-5">Pick your parameters</h2>
         {/* Custom Checkbox */}
         <div className="checkbox-container">
@@ -110,7 +110,7 @@ const Train = () => {
             Randomize all
           </label>
         </div>
-        <TrainForm
+        <TargetForm
           handleChange={handleChange}
           checkboxChecked={checkboxChecked}
         />
@@ -119,4 +119,4 @@ const Train = () => {
   );
 };
 
-export default Train;
+export default Target;

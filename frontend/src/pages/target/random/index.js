@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { ALL_PROGRESSIONS, ALL_KEYS } from "../../../../utils/queries";
 import { randomWord } from "../../../../utils/data/words";
-import LoopFileName from "../../../components/Train/LoopFileName";
+import LoopFileName from "../../../components/Target/LoopFileName";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Image from "next/image";
