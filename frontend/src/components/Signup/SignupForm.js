@@ -20,11 +20,14 @@ const SignupForm = () => {
     username: "",
     password: "",
     email: "",
+    emailConfirm: "",
     instagramHandle: "",
   });
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [emailAvailable, setEmailAvailable] = useState(true);
   const [emailValidated, setEmailValidated] = useState(false);
+  // State to hold confirm emails
+  const [emailMatch, setEmailMatch] = useState(false);
 
   const [signUp, { loading, data, error }] = useMutation(SIGNUP);
   const {
@@ -45,16 +48,13 @@ const SignupForm = () => {
   // Check if username exists in db
   useEffect(() => {
     if (!usernameData || !usernameData.username) {
-      console.log("username is available");
       setUsernameAvailable(true);
     } else {
-      console.log("username taken!");
       setUsernameAvailable(false);
     }
   }, [usernameData]);
 
   useEffect(() => {
-    console.log(emailData);
     if (!emailData || !emailData.userEmail) {
       setEmailAvailable(true);
       const emailFormat =
@@ -67,12 +67,25 @@ const SignupForm = () => {
     } else {
       setEmailAvailable(false);
     }
-    console.log("email", emailData);
   }, [emailData]);
 
-  const checkIfUsernameExists = async (e) => {};
+  // Compare email and emailConfirm
+  useEffect(() => {
+    if (userInfo.email === userInfo.emailConfirm) {
+      setEmailMatch(true);
+    } else {
+      setEmailMatch(false);
+    }
+  }, [userInfo.email, userInfo.emailConfirm]);
 
-  const checkEmailCriteria = async (e) => {};
+  const compareEmails = async (e) => {
+    if (userInfo.email === e) {
+      setEmailMatch(true);
+    } else {
+      setEmailMatch(false);
+    }
+  };
+
   const checkPasswordCriteria = async (e) => {
     const passwordFormat =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -171,6 +184,7 @@ const SignupForm = () => {
           ""
         )}
       </div>
+      {/* Confirm Email Address Input */}
       <div className={`${formInputWrapperStyle} mb-8`}>
         <label htmlFor="confirmEmail" className={`${labelStyle}`}>
           Confirm Email Address*
@@ -182,10 +196,24 @@ const SignupForm = () => {
             id="confirmEmail"
             type="email"
             required
-            className={`${inputStyle}`}
-            onChange={(e) => {}}
+            className={`${inputStyle}
+            ${emailMatch ? successInputStyle : ""}
+            ${
+              !emailMatch && userInfo.emailConfirm.length >= 1
+                ? failureInputStyle
+                : ""
+            }
+            `}
+            onChange={(e) => {
+              setUserInfo({ ...userInfo, emailConfirm: e.target.value });
+            }}
           />
         </div>
+        {!emailMatch && userInfo.emailConfirm.length >= 1 ? (
+          <p className={errorMessage}>Emails do not match</p>
+        ) : (
+          ""
+        )}
       </div>
       <div className={`${formInputWrapperStyle} `}>
         <label htmlFor="password" className={`${labelStyle}`}>
