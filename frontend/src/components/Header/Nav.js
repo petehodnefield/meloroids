@@ -4,6 +4,8 @@ import { useQuery } from "@apollo/client";
 import { ME } from "utils/queries";
 import { LoginContext, NavigationContext } from "@/pages/_app";
 import Auth from "utils/auth";
+import Loading from "../Loading/LoadingWhiteText";
+import Error from "../Error/Error";
 
 const Nav = () => {
   const liStyle = "text-0.875 font-semibold hover:text-dark duration-200 ";
@@ -27,7 +29,8 @@ const Nav = () => {
       setUsername(firstLetterFromUsername);
     }
   }, [data]);
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   const logout = (e) => {
     e.preventDefault();

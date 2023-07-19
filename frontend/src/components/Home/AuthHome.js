@@ -6,6 +6,8 @@ import heroImage from "../../../public/assets/images/hero-img.png";
 import quickieImage from "../../../public/assets/images/quickie.png";
 import { ME } from "../../../utils/queries";
 import { useQuery } from "@apollo/client";
+import Loading from "../Loading/LoadingWhiteText";
+import Error from "../Error/Error";
 const AuthHome = () => {
   const [username, setUsername] = useState();
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
@@ -19,8 +21,8 @@ const AuthHome = () => {
       }
     }
   }, [data]);
-  if (loading) return <div>Loading...</div>;
-  console.log("data", data.me.username);
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   return (
     <div className="relative flex py-12 px-6 flex-col items-center h-screen lg:h-500">

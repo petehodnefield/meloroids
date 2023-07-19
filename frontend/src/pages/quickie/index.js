@@ -12,6 +12,8 @@ import background from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
 import Auth from "utils/auth";
 import Login from "../login";
+import Loading from "@/components/Loading/LoadingWhiteText";
+import Error from "@/components/Error/Error";
 const Quickie = () => {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const [hydrated, setHydrated] = useState(false);
@@ -51,7 +53,8 @@ const Quickie = () => {
 
   const formattedToday = mm + "/" + dd + "/" + yyyy;
 
-  if (loading) return <div>Loading....</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   if (!hydrated) return null;
 

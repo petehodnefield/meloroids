@@ -81,7 +81,7 @@ const TargetForm = ({ handleChange, checkboxChecked }) => {
       />
 
       {checkboxChecked.allRandom ? (
-        <Link href={`/train/random`}>
+        <Link href={`/target/random`}>
           <button
             className={`bg-dark text-white  text-1 font-semibold h-12 w-48 rounded  hover:opacity-80  button-fade-in`}
           >

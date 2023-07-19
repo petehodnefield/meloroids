@@ -4,6 +4,8 @@ import { SIGNUP } from "utils/mutations";
 import { USERNAME, USER_EMAIL } from "utils/queries";
 import Auth from "utils/auth";
 import { Icon } from "@iconify/react";
+import LoadingWhiteText from "../Loading/LoadingWhiteText";
+import Error from "../Error/Error";
 const SignupForm = () => {
   const inputStyle =
     "text-1  font-semibold  border-2 w-full h-12 rounded-lg pl-4  focus:duration-400";

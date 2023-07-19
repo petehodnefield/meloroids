@@ -7,6 +7,7 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Image from "next/image";
 import studioImage from "../../../../public/assets/images/music-studio.png";
+import Loading from "../../../components/Loading/LoadingWhiteText";
 
 const RandomTrain = () => {
   const [loopName, setLoopName] = useState(randomWord);
@@ -23,7 +24,7 @@ const RandomTrain = () => {
     error: keyError,
   } = useQuery(ALL_KEYS);
 
-  if (progressionLoading || keyLoading) return <div>Loading...</div>;
+  if (progressionLoading || keyLoading) return <Loading />;
   if (progressionError || keyError) return <div>Error!</div>;
 
   // Pull a random key from ALL_KEYS query

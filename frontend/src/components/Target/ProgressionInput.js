@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { useQuery } from "@apollo/client";
 import { GENRES_PROGRESSIONS } from "utils/queries";
+import Loading from "../Loading/LoadingWhiteText";
 
 const ProgressionInput = ({
   setMelodyParams,
@@ -21,7 +22,7 @@ const ProgressionInput = ({
     variables: { genreprogressionsId: melodyParams.genreId },
   });
 
-  if (progressionLoading) return <div>Loading...</div>;
+  if (progressionLoading) return <Loading />;
 
   return (
     // Style Input

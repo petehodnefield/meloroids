@@ -9,8 +9,10 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import studioImage from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
+import Loading from "../../components/Loading/LoadingWhiteText";
+import Error from "../../components/Error/Error";
 
-const TrainDetails = ({ queryID }) => {
+const TargetDetails = ({ queryID }) => {
   const [loopName, setLoopName] = useState(randomWord);
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   console.log(loggedIn);
@@ -36,8 +38,8 @@ const TrainDetails = ({ queryID }) => {
   });
 
   const { loading: meLoading, data: meData, error: meError } = useQuery(ME);
-  if (keyLoading || progressionLoading) return <div> Loading...</div>;
-
+  if (keyLoading || progressionLoading) return <Loading />;
+  if (keyError || progressionError) return <Error />;
   const keyName = keyData.key.key;
 
   const progressionKey = progressionData.progression.all_keys.filter(
@@ -100,7 +102,7 @@ const TrainDetails = ({ queryID }) => {
   );
 };
 
-export default TrainDetails;
+export default TargetDetails;
 export const getServerSideProps = async ({ query }) => {
   const queryID = query;
 

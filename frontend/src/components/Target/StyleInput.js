@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { ALL_GENRES } from "../../../utils/queries";
+import Loading from "../Loading/LoadingWhiteText";
 
 const StyleInput = ({
   setMelodyParams,
@@ -17,7 +18,7 @@ const StyleInput = ({
     data: genreData,
   } = useQuery(ALL_GENRES);
 
-  if (genreLoading) return <div>Loading...</div>;
+  if (genreLoading) return <Loading />;
 
   return (
     // Style Input

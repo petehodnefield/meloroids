@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { MAJOR_KEYS, MINOR_KEYS } from "utils/queries";
+import Loading from "../Loading/LoadingWhiteText";
 
 const KeyInput = ({
   setMelodyParams,
@@ -22,7 +23,7 @@ const KeyInput = ({
     error: minorKeyError,
   } = useQuery(MINOR_KEYS);
 
-  if (majorkeyLoading || minorKeyLoading) return <div>Loading...</div>;
+  if (majorkeyLoading || minorKeyLoading) return <Loading />;
 
   return (
     <div className="w-full relative mb-6">

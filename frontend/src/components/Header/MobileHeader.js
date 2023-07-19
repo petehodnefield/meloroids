@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import HamburgerMenu from "./HamburgerMenu";
+import Loading from "../Loading/LoadingWhiteText";
+import Error from "../Error/Error";
 
 const MobileHeader = ({ isOpen, setIsOpen }) => {
   const hoverStyles = "hover:opacity-80 hover:cursor-pointer duration-200";
@@ -23,7 +25,8 @@ const MobileHeader = ({ isOpen, setIsOpen }) => {
       setUsername(firstLetterFromUsername);
     }
   }, [data]);
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
   return (
     <div className="h-20 bg-primary flex   items-center justify-center border-b-1 shadow-md border-secondary py-4 w-full sticky top-0 lg:hidden">
       <Icon
