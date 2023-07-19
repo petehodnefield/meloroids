@@ -5,15 +5,22 @@ import { initializeApollo } from "../../../lib/apollo";
 import { randomWord } from "../../../utils/data/words";
 import { PROGRESSION_BY_ID, KEY_BY_ID, ME } from "../../../utils/queries";
 import LoopFileName from "../../components/Target/LoopFileName";
-import Link from "next/link";
-import { Icon } from "@iconify/react";
 import studioImage from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
-import Loading from "../../components/Loading/LoadingWhiteText";
+import LoadingWhiteText from "../../components/Loading/LoadingWhiteText";
+import Login from "../login";
 import Error from "../../components/Error/Error";
 
 const TargetDetails = ({ queryID }) => {
-  const [loopName, setLoopName] = useState(randomWord);
+  const [loopNameParams, setLoopNameParams] = useState({
+    randomWord: randomWord,
+    tempo: queryID.params[3],
+    key: "",
+    producer: "",
+    chordsLiteral: "",
+    chordsNumerals: "",
+  });
+  const [loopName, setLoopName] = useState("");
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   console.log(loggedIn);
   const genreId = queryID.params[0];
@@ -38,33 +45,72 @@ const TargetDetails = ({ queryID }) => {
   });
 
   const { loading: meLoading, data: meData, error: meError } = useQuery(ME);
-  if (keyLoading || progressionLoading) return <Loading />;
-  if (keyError || progressionError) return <Error />;
-  const keyName = keyData.key.key;
 
-  const progressionKey = progressionData.progression.all_keys.filter(
-    (progression) => progression.key === keyName
-  );
-  const chordsLiteral = progressionKey[0].progression_in_key;
-  const chordsNumerals = progressionData.progression.numerals;
+  useEffect(() => {
+    if (meData === undefined || meData.me === null) {
+      return;
+    } else if (meData.me.username) {
+      const me = meData.me.instagramHandle;
+      setLoopNameParams({
+        ...loopNameParams,
+        producer: me,
+      });
+    }
+  }, [meData]);
 
-  const loopFileName = loopName
-    .concat(" ")
-    .concat(tempo + " bpm ")
-    .concat(keyName.toLowerCase())
-    .concat(keyData.key.is_major ? ` major ` : ` minor `)
-    .concat("@mongamonga_");
+  useEffect(() => {
+    if (
+      progressionData === undefined ||
+      progressionData.progressions === null ||
+      keyData === undefined ||
+      keyData.keys === null
+    ) {
+      return;
+    }
+    const keyName = keyData.key.key;
+    console.log("keyName", keyData.key);
+
+    const progressionKey = progressionData.progression.all_keys.filter(
+      (progression) => progression.key === keyName
+    );
+    const chordsLiteral = progressionKey[0].progression_in_key;
+    const chordsNumerals = progressionData.progression.numerals;
+    setLoopNameParams({
+      ...loopNameParams,
+      chordsNumerals: chordsNumerals,
+      chordsLiteral: chordsLiteral,
+      key: `${keyData.key.key.toLowerCase()} ${
+        keyData.key.is_major ? "major" : "minor"
+      }`,
+    });
+  }, [progressionData, keyData]);
+
+  useEffect(() => {
+    setLoopName(
+      `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer}`
+    );
+  }, [loopNameParams]);
+
+  if (progressionLoading || keyLoading || meLoading)
+    return <LoadingWhiteText />;
+  if (progressionError || keyError || meError)
+    return (
+      <div>
+        <Error />
+      </div>
+    );
+  if (!loggedIn) return <Login />;
 
   return (
-    <div className=" relative bg-cover min-h-screen  flex items-start justify-center">
+    <div className=" relative bg-cover min-h-screen  flex items-start justify-center px-6">
       <Image
         alt="a music studio background"
-        className="absolute w-full h-full"
+        className="absolute w-full h-full object-cover"
         src={studioImage}
       />
-      <div className="flex flex-col items-center w-full md:py-12  lg:max-w-48 lg:justify-between">
+      <div className="flex flex-col items-center w-full md:py-12  lg:max-w-48 lg:justify-between  py-8">
         {/* White bg for content */}
-        <div className="relative w-full flex flex-col items-center pt-10  bg-white md:max-w-26 md:rounded-4xl md:mb-6">
+        <div className="relative w-full flex flex-col items-center pt-10  bg-white md:max-w-26 rounded-4xl md:mb-6">
           {/* Loop Title */}
           <h2 className="text-2.5 text-primary font-semibold mb-8">
             {randomWord}
@@ -75,27 +121,32 @@ const TargetDetails = ({ queryID }) => {
               <h3 className="text-1 font-semibold text-medium">
                 🎼 Chords (literal):
               </h3>
-              <p className="text-2 font-semibold">{chordsLiteral}</p>
+              <p className="text-2 font-semibold">
+                {loopNameParams.chordsLiteral}
+              </p>
             </div>
             <div className="flex flex-col items-center mb-4">
               <h3 className="text-1 font-semibold text-medium">
                 🎼 Chords (numerals):
               </h3>
-              <p className="text-2 font-semibold">{chordsNumerals}</p>
+              <p className="text-2 font-semibold">
+                {loopNameParams.chordsNumerals}
+              </p>
             </div>
 
             <div className="flex flex-col items-center mb-4">
               <h3 className="text-1 font-semibold text-medium">🔑 Key:</h3>
-              <p className="text-2 font-semibold">
-                {keyName} {keyData.key.is_major ? `Major` : `Minor`}
-              </p>
+              <p className="text-2 font-semibold">{loopNameParams.key}</p>
             </div>
             <div className="flex flex-col items-center mb-4">
               <h3 className="text-1 font-semibold text-medium">🏃🏽‍♂️ Tempo:</h3>
-              <p className="text-2 font-semibold"> {tempo} BPM</p>
+              <p className="text-2 font-semibold">
+                {" "}
+                {loopNameParams.tempo} BPM
+              </p>
             </div>
           </div>
-          <LoopFileName loopName={loopFileName}></LoopFileName>
+          <LoopFileName loopName={loopName}></LoopFileName>
         </div>
       </div>
     </div>

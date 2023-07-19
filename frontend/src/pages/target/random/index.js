@@ -42,7 +42,7 @@ const RandomTrain = () => {
     if (meData === undefined || meData.me === null) {
       return;
     } else if (meData.me.username) {
-      const me = meData.me.username;
+      const me = meData.me.instagramHandle;
       setLoopNameParams({
         ...loopNameParams,
         producer: me,
@@ -53,7 +53,7 @@ const RandomTrain = () => {
   useEffect(() => {
     console.log("loop name", loopNameParams);
     setLoopName(
-      `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key}  @${loopNameParams.producer}`
+      `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer}`
     );
   }, [loopNameParams]);
 
@@ -87,13 +87,16 @@ const RandomTrain = () => {
 
     setLoopNameParams({
       ...loopNameParams,
-      key: `${allKeysMatch[0].key} ${randomKey.is_major ? "major" : "minor"}`,
+      key: `${allKeysMatch[0].key.toLowerCase()} ${
+        randomKey.is_major ? "major" : "minor"
+      }`,
       numerals: allKeysMatch[0].progression_in_key,
     });
   }, [keyData, progressionData]);
 
-  if (progressionLoading || keyLoading) return <LoadingWhiteText />;
-  if (progressionError || keyError)
+  if (progressionLoading || keyLoading || meLoading)
+    return <LoadingWhiteText />;
+  if (progressionError || keyError || meError)
     return (
       <div>
         <Error />
