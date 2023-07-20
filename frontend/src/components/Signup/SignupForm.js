@@ -8,15 +8,12 @@ import LoadingWhiteText from "../Loading/LoadingWhiteText";
 import Error from "../Error/Error";
 const SignupForm = () => {
   const inputStyle =
-    "text-1  font-semibold  border-2 w-full h-12 rounded-lg pl-4  focus:duration-400";
+    "text-1  font-semibold  border-2 w-full h-12 rounded-lg pl-4 focus:duration-400";
   const labelStyle = "text-0.875 font-semibold mb-0.5";
   const formInputWrapperStyle = "flex flex-col w-full";
   const errorMessage = `text-0.875 font-semibold text-red mt-2`;
-  const formInputError = `bg-formError border-red focus:outline-red`;
   const successInputStyle = `border-confirm bg-confirmLight focus:outline-confirm`;
   const failureInputStyle = `border-deny bg-denyLight focus:outline-deny`;
-  const checkMarkStyle = "text-2 text-confirm absolute right-2.5 top-2.5";
-  const xMarkStyle = "text-2 text-red absolute right-2.5 top-2.5";
 
   const [userInfo, setUserInfo] = useState({
     username: "",
@@ -112,18 +109,30 @@ const SignupForm = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = await signUp({
-        variables: {
-          username: userInfo.username,
-          password: userInfo.password,
-          email: userInfo.email,
-          instagramHandle: userInfo.instagramHandle,
-        },
-      });
-      Auth.login(data.createUser.token);
-    } catch (e) {
-      console.log(e);
+    if (
+      !emailAvailable ||
+      !emailValidated ||
+      !emailMatch ||
+      !usernameAvailable ||
+      !passwordMatch ||
+      !passwordValidated
+    ) {
+      window.alert("Please fix your errors on the form and try again.");
+      return;
+    } else {
+      try {
+        const { data } = await signUp({
+          variables: {
+            username: userInfo.username,
+            password: userInfo.password,
+            email: userInfo.email,
+            instagramHandle: userInfo.instagramHandle,
+          },
+        });
+        Auth.login(data.createUser.token);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
   return (
