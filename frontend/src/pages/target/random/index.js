@@ -19,7 +19,8 @@ const RandomTrain = () => {
     tempo: randomTempo,
     key: "",
     producer: "",
-    numerals: "",
+    chordsLiteral: "",
+    chordsNumerals: "",
   });
   const [loopName, setLoopName] = useState("");
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
@@ -83,14 +84,15 @@ const RandomTrain = () => {
       (all_keys) => all_keys.key === randomKey.key
     );
 
-    console.log("allkeys", allKeysMatch);
+    console.log("progressionData", randomProgression);
 
     setLoopNameParams({
       ...loopNameParams,
       key: `${allKeysMatch[0].key.toLowerCase()} ${
         randomKey.is_major ? "major" : "minor"
       }`,
-      numerals: allKeysMatch[0].progression_in_key,
+      chordsLiteral: allKeysMatch[0].progression_in_key,
+      chordsNumerals: randomProgression.numerals,
     });
   }, [keyData, progressionData]);
 
@@ -132,13 +134,17 @@ const RandomTrain = () => {
               <h3 className="text-1 font-semibold text-medium">
                 🎼 Chords (literal):
               </h3>
-              <p className="text-2 font-semibold">{loopNameParams.key}</p>
+              <p className="text-2 font-semibold">
+                {loopNameParams.chordsLiteral}
+              </p>
             </div>
             <div className="flex flex-col items-center mb-4">
               <h3 className="text-1 font-semibold text-medium">
                 🎼 Chords (numerals):
               </h3>
-              <p className="text-2 font-semibold">{loopNameParams.numerals}</p>
+              <p className="text-2 font-semibold">
+                {loopNameParams.chordsNumerals}
+              </p>
             </div>
 
             <div className="flex flex-col items-center mb-4">

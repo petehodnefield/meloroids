@@ -101,6 +101,10 @@ const TargetDetails = ({ queryID }) => {
     );
   if (!loggedIn) return <Login />;
 
+  const splitChords = loopNameParams.chordsLiteral.split(" ");
+  const splitNumerals = loopNameParams.chordsNumerals.split(" ");
+  console.log(splitChords);
+
   return (
     <div className=" relative bg-cover min-h-screen  flex items-start justify-center px-6">
       <Image
@@ -117,28 +121,48 @@ const TargetDetails = ({ queryID }) => {
           </h2>
           {/* Data wrapper */}
           <div className="pb-6">
-            <div className="flex flex-col items-center mb-4">
-              <h3 className="text-1 font-semibold text-medium">
+            <div className="flex flex-col items-center mb-6">
+              <h3 className="text-1 font-semibold text-medium mb-3">
                 🎼 Chords (literal):
               </h3>
-              <p className="text-2 font-semibold">
+              <div className="flex gap-3">
+                {splitChords.map((chord) => (
+                  <div
+                    key={chord}
+                    className="flex items-center justify-center bg-primary rounded-full w-16 h-16 border-1 border-dark text-white "
+                  >
+                    <p className="text-1.5 font-semibold">{chord}</p>
+                  </div>
+                ))}
+              </div>
+              {/* <p className="text-2 font-semibold">
                 {loopNameParams.chordsLiteral}
-              </p>
+              </p> */}
             </div>
-            <div className="flex flex-col items-center mb-4">
-              <h3 className="text-1 font-semibold text-medium">
+            <div className="flex flex-col items-center mb-6">
+              <h3 className="text-1 font-semibold text-medium mb-3">
                 🎼 Chords (numerals):
               </h3>
-              <p className="text-2 font-semibold">
+              <div className="flex gap-3">
+                {splitNumerals.map((numeral) => (
+                  <div
+                    key={numeral}
+                    className="flex items-center justify-center bg-dark rounded-full w-16 h-16 text-white "
+                  >
+                    <p className="text-1.5 font-semibold">{numeral}</p>
+                  </div>
+                ))}
+              </div>
+              {/* <p className="text-2 font-semibold">
                 {loopNameParams.chordsNumerals}
-              </p>
+              </p> */}
             </div>
 
-            <div className="flex flex-col items-center mb-4">
-              <h3 className="text-1 font-semibold text-medium">🔑 Key:</h3>
+            <div className="flex flex-col items-center mb-6">
+              <h3 className="text-1 font-semibold text-medium ">🔑 Key:</h3>
               <p className="text-2 font-semibold">{loopNameParams.key}</p>
             </div>
-            <div className="flex flex-col items-center mb-4">
+            <div className="flex flex-col items-center mb-6">
               <h3 className="text-1 font-semibold text-medium">🏃🏽‍♂️ Tempo:</h3>
               <p className="text-2 font-semibold">
                 {" "}
