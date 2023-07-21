@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import heroImage from "../../../public/assets/images/hero-img.png";
 import quickieImage from "../../../public/assets/images/quickie.png";
+import targetImage from "../../../public/assets/images/target.png";
 import { ME } from "../../../utils/queries";
 import { useQuery } from "@apollo/client";
 import Loading from "../Loading/LoadingWhiteText";
@@ -35,18 +36,12 @@ const AuthHome = () => {
       <div className="relative flex justify-center  w-full xl:w-64 mb-4">
         <div className=" flex  flex-col gap-2 xl:absolute xl:top-4 xl:left-4 text-white">
           <h3 className="text-1.5 font-medium">Hi, {username}!</h3>
-          <Link
-            className="hidden xl:flex bg-primary text-white h-12 w-40 rounded-lg flex items-center justify-center cursor-pointer"
-            href={"/"}
-          >
-            Edit profile
-          </Link>
         </div>
       </div>
       <div className="z-2 relative w-full max-w-70 mb-4 flex justify-center">
         <h2 className="text-white text-3 ">Dashboard</h2>
       </div>
-      <div className="relative flex flex-col items-center">
+      <div className="relative flex flex-col lg:flex-row gap-4 items-center">
         {/* Quickie */}
         <Link
           href={"/quickie"}
@@ -66,13 +61,24 @@ const AuthHome = () => {
             </div>
           </div>
         </Link>
+        {/* Target */}
+        <Link
+          href={"/target-setup"}
+          className="hover:opacity-80 duration-200	md:w-1/2 xl:w-full"
+        >
+          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
+            <h4 className="text-2.5 font-semibold text-primary mb-2">Target</h4>
+
+            <div className="w-full h-full">
+              <Image
+                src={targetImage}
+                alt="A snapshot of Target by Meloroids"
+                className="rounded-2xl features__img"
+              />
+            </div>
+          </div>
+        </Link>
       </div>
-      <Link
-        className="flex relative mt-8 xl:hidden bg-primary text-white h-12 w-40 rounded-lg flex items-center justify-center cursor-pointer"
-        href={"/"}
-      >
-        Edit profile
-      </Link>
     </div>
   );
 };

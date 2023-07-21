@@ -1,7 +1,9 @@
 import TargetForm from "@/components/Target/TargetForm";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LoginContext } from "../_app";
 import backgroundImage from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
+import Login from "../login";
 
 const Target = () => {
   const [checkboxChecked, setCheckboxChecked] = useState({
@@ -11,6 +13,8 @@ const Target = () => {
     keyRandom: false,
     tempoRandom: false,
   });
+
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
   async function handleChange(e) {
     // If allRandom is clicked
@@ -87,6 +91,10 @@ const Target = () => {
     checkboxChecked.styleRandom,
     checkboxChecked.tempoRandom,
   ]);
+
+  if (!loggedIn) {
+    return <Login />;
+  }
 
   return (
     <section className="bg-cover h-screen px-6 py-12 flex justify-center relative">

@@ -33,7 +33,12 @@ const TempoInput = ({
         <label className="text-0.875 font-semibold">Tempo</label>
         <div
           className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
-              `}
+          ${
+            checkboxChecked.tempoRandom || !melodyParams.tempo
+              ? "pointer-events-none bg-medium opacity-40"
+              : ""
+          }     
+          `}
           onClick={() => setTempoOpen(!tempoOpen)}
         >
           <div className="w-12 text-center">🕛</div>

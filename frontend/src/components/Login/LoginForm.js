@@ -59,7 +59,7 @@ const LoginForm = () => {
         />
       </div>
 
-      <div className={`${formExtraInputWrapperStyle}`}>
+      <div className={`${formExtraInputWrapperStyle} mb-6`}>
         <label htmlFor="password" className={`${labelStyle}`}>
           Password
         </label>
@@ -74,18 +74,14 @@ const LoginForm = () => {
             setUserInfo({ ...userInfo, password: e.target.value })
           }
         />
-        <Link
-          href={"/reset-password"}
-          className="text-0.875  font-semibold h-12 flex items-center"
-        >
-          Forgot password?
-        </Link>
+
         {errorMessage ? (
-          <p className="text-red font-semibold mb-2">{errorMessage}</p>
+          <p className="text-red font-semibold mt-3">{errorMessage}</p>
         ) : (
           ""
         )}
       </div>
+
       <button
         type="submit"
         className=" mb-6 bg-dark text-white  text-1 font-semibold h-12 w-full md:w-48 rounded  hover:opacity-80 duration-200"
