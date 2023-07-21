@@ -19,26 +19,9 @@ const TargetForm = ({ handleChange, checkboxChecked }) => {
     key: "",
     keyId: "",
     tempo: 120,
-    producerHandle: "mongamonga",
+    producerHandle: "",
   });
 
-  // On save, save field to localStorage
-  const saveProducerName = (e) => {
-    e.preventDefault();
-    localStorage.setItem("producerName", melodyParams.producerHandle);
-  };
-
-  useEffect(() => {
-    const localRetrieve = localStorage.getItem("producerName");
-    console.log(localRetrieve);
-    if (localRetrieve) {
-      setMelodyParams({
-        ...melodyParams,
-        producerHandle: "mongamonga",
-      });
-    }
-    console.log(melodyParams);
-  }, []);
   useEffect(
     () =>
       setMelodyParams({

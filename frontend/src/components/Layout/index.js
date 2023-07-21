@@ -9,7 +9,6 @@ import Auth from "utils/auth";
 const plus_jakarta_sans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export default function Layout({ children, pageProps }) {
-  const [navSelected, setNavSelected] = useState("Home");
   const [navigationSelected, setNavigationSelected] =
     useContext(NavigationContext);
   const [isOpen, setIsOpen] = useState(false);

@@ -42,7 +42,9 @@ const Nav = () => {
       <ul className="flex gap-6 items-center text-white">
         <li
           className={`${liStyle} ${
-            navigationSelected === "home" ? selectedNavItem : ""
+            navigationSelected === "home" || !navigationSelected
+              ? selectedNavItem
+              : ""
           }`}
         >
           <Link onClick={() => setNavigationSelected("home")} href="/">
