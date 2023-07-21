@@ -97,7 +97,7 @@ const Target = () => {
   }
 
   return (
-    <section className="bg-cover h-screen px-6 py-12 flex justify-center relative">
+    <section className="bg-cover min-h-screen px-6 py-12 flex justify-center relative">
       <Image
         alt="A music studio desk with guitars and an imac"
         src={backgroundImage}
