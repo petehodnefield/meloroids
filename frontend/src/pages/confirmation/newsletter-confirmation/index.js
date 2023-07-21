@@ -12,8 +12,8 @@ const NewsletterConfirmation = () => {
         <div className="bg-light rounded-4xl pt-10 px-10 pb-8 text-center flex items-center flex-col">
           <h2 className="text-2 mb-4">Subscription successful!</h2>
           <h3 className="text-1.125 mb-6">
-            Thank you for joining our newsletter! We can't wait to send you free
-            goodies
+            Thank you for joining our newsletter! We can&#39;t wait to send you
+            free goodies
           </h3>
           <p className="text-primary font-semibold text-0.875">
             Redirecting you to home...
