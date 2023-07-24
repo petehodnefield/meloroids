@@ -28,7 +28,7 @@ const MobileHeader = ({ isOpen, setIsOpen }) => {
   if (loading) return <Loading />;
   if (error) return <Error />;
   return (
-    <div className="h-20 bg-primary flex   items-center justify-center border-b-1 shadow-md border-secondary py-4 w-full sticky top-0 lg:hidden">
+    <div className=" h-20 bg-primary flex   items-center justify-center  shadow-md border-secondary py-4 w-full  lg:hidden">
       <Icon
         className={`absolute my-auto left-4 text-2  ${hoverStyles}
                     ${isOpen ? "hidden" : "text-white"}

@@ -9,7 +9,7 @@ const Header = ({ isOpen, setIsOpen }) => {
     useContext(NavigationContext);
 
   return (
-    <div className="relative lg:w-full lg:flex lg:justify-center bg-primary">
+    <div className="relative lg:w-full flex lg:justify-center bg-primary">
       <MobileHeader setIsOpen={setIsOpen} isOpen={isOpen}></MobileHeader>
       <FullHeader></FullHeader>
 

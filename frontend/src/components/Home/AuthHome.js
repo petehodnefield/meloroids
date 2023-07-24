@@ -26,7 +26,7 @@ const AuthHome = () => {
   if (error) return <Error />;
 
   return (
-    <div className="relative flex py-12 px-6 flex-col items-center h-screen lg:h-500">
+    <div className="relative flex py-12 px-6 flex-col items-center h-full lg:h-screen lg:h-500">
       {/* Background Image */}
       <Image
         src={heroImage}
