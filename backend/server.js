@@ -11,7 +11,7 @@ import { seedDB } from "./seeds/seeds.js";
 import auth from "./utils/auth.js";
 
 const db = await mongoose.connect(
-  process.env.MONGO_DB_URI || "mongodb://localhost:27017"
+  process.env.MONGO_DB_URI || "mongodb://localhost:27017/meloroids"
 );
 // const seed = await seedDB();
 console.info("connected to db!");

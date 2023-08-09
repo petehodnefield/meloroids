@@ -71,9 +71,10 @@ export const typeDefs = `#graphql
   type Query {
     artists: [Artist]
     artist(name: String!): Artist
+    artistallsongs(name: String!): Artist
 
     albums: [Album]
-    album(album_name: String!): Album
+    album(id: ID!): Album
 
 
     songs: [Song]

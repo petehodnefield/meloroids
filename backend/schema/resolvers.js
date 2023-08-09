@@ -17,13 +17,16 @@ export const resolvers = {
     artist: async (parent, { name }) => {
       return Artist.findOne({ name }).populate("albums").populate("songs");
     },
+    artistallsongs: async (parent, { name }) => {
+      return Artist.findOne({ name }).populate("songs");
+    },
 
     // Albums
     albums: async () => {
       return await Album.find().populate("songs").populate("artist");
     },
-    album: async (parent, { album_name }) => {
-      return Album.findOne({ album_name }).populate("songs").populate("artist");
+    album: async (parent, { id }) => {
+      return Album.findOne({ _id: id }).populate("songs").populate("artist");
     },
 
     // Songs
