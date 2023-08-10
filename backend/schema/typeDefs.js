@@ -104,7 +104,7 @@ export const typeDefs = `#graphql
     updateArtist(name: String!, _id: ID!): Artist
     deleteArtist(_id: ID!): Artist
 
-    createAlbum(album_name: String!, artwork: String!, year: String!, popularity: String): Album
+    createAlbum(album_name: String!, artwork: String!, year: String!, artist_id: ID!): Album
     updateAlbum(_id: ID!, song_id: ID!): Album
     deleteAlbum(_id: ID!): Album
 
@@ -112,8 +112,8 @@ export const typeDefs = `#graphql
     addSongToArtist(_id: ID!, song_id: ID!): Artist
 
 
-    createSong(song_name: String!, tempo: Int!, popularity: Int, progression_id: ID!): Song
-    updateSong(_id: ID!, song_name: String!): Song
+    createSong(song_name: String!, tempo: Int!, progression_id: ID!, key_id: ID!, album_id: ID!): Song
+    updateSong(_id: ID!, song_name: String, tempo: Int, key_id: ID, progression_id: ID): Song
     deleteSong(_id: ID!): Song
 
     createProgression(numerals: String!, is_major: Boolean): Progression

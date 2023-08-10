@@ -26,7 +26,16 @@ export const resolvers = {
       return await Album.find().populate("songs").populate("artist");
     },
     album: async (parent, { id }) => {
-      return Album.findOne({ _id: id }).populate("songs").populate("artist");
+      return Album.findOne({ _id: id })
+        .populate({
+          path: "songs",
+          populate: { path: "key", model: "Key" },
+        })
+        .populate({
+          path: "songs",
+          populate: { path: "progression", model: "Progression" },
+        })
+        .populate("artist");
     },
 
     // Songs
@@ -144,8 +153,17 @@ export const resolvers = {
 
     // Albums
     createAlbum: async (parent, args) => {
-      await Album.deleteMany();
-      return await Album.create(args);
+      const newAlbum = await Album.create(args);
+      const updateArtist = await Artist.findOneAndUpdate(
+        {
+          _id: args.artist_id,
+        },
+        {
+          $push: { albums: newAlbum._id },
+        },
+        { new: true }
+      );
+      return newAlbum;
     },
     updateAlbum: async (parent, args) => {
       const updatedAlbum = await Album.findOneAndUpdate(
@@ -164,20 +182,33 @@ export const resolvers = {
 
     // Songs
     createSong: async (parent, args) => {
-      await Song.deleteMany();
       const createSong = await Song.create(args);
+
       const addProgression = await Song.findOneAndUpdate(
         { _id: createSong._id },
-        { $push: { progression: args.progression_id } },
+        { $push: { progression: args.progression_id, key: args.key_id } },
         { new: true }
       );
-      return addProgression;
+
+      const updateAlbum = await Album.findOneAndUpdate(
+        { _id: args.album_id },
+        { $push: { songs: createSong } },
+        { new: true }
+      );
+      return createSong;
     },
     updateSong: async (parent, args) => {
-      return await Song.findOneAndUpdate(
+      const updatedSong = await Song.findOneAndUpdate(
         { _id: args._id },
-        { song_name: args.song_name }
+        {
+          song_name: args.song_name,
+          tempo: args.tempo,
+        },
+        {
+          new: true,
+        }
       );
+      return updatedSong;
     },
     deleteSong: async (parent, args) => {
       return await Song.findOneAndDelete({ _id: args._id });

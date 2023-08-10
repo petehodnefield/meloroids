@@ -12,12 +12,12 @@ import { keysData } from "./seed-data/keys.js";
 import { progressionData } from "./seed-data/progressions.js";
 import { songsData } from "./seed-data/songs.js";
 import { usersData } from "./seed-data/user.js";
-
+import { juiceWrldSongs } from "./seed-data/songs.js";
 export const seedDB = async () => {
   // await User.deleteMany();
   // await Key.deleteMany();
   // await Artist.deleteMany();
-  await Album.deleteMany();
+  // await Album.deleteMany();
   // await Genre.deleteMany();
   // await Progression.deleteMany();
   await Song.deleteMany();
@@ -25,10 +25,21 @@ export const seedDB = async () => {
   // const createdKeys = await Key.create(keysData);
   // const createdGenres = await Genre.create(genresData);
   // const createdArtists = await Artist.create(artistData);
-  const createdAlbums = await Album.create(albumsData);
-  const createdSongs = await Song.create(songsData);
+  // const createdAlbums = await Album.create(albumsData);
+  // const createdSongs = await Song.create(juiceWrldSongs);
   // const createdProgressions = await Progression.create(progressionData);
   // const createdUsers = await User.create(usersData);
+  // const updateAlbum = async (song) => {
+  //   return await Album.findOneAndUpdate(
+  //     { _id: song.album_id },
+  //     { $push: { songs: { song_name: song.song_name, tempo: song.tempo } } },
+  //     { new: true }
+  //   );
+  // };
+  // // Update Album
+  // juiceWrldSongs.forEach((song) => {
+  //   updateAlbum(song);
+  // });
 
   console.log("db seeded! 🌱");
 };
