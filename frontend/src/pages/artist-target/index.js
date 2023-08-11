@@ -12,6 +12,7 @@ const ArtistTarget = () => {
     image: "",
     albums: [],
     selectedAlbum: "",
+    selectedAlbumId: "",
     selectedAlbumArtwork: "",
   });
   console.log(selectedArtist);
@@ -156,6 +157,7 @@ const ArtistTarget = () => {
                         ...selectedArtist,
                         selectedAlbum: album.album_name,
                         selectedAlbumArtwork: album.artwork,
+                        selectedAlbumId: album._id,
                       });
                     }}
                   >
@@ -175,7 +177,7 @@ const ArtistTarget = () => {
             )}
           </div>
           <Link
-            href={`/artist-target/${selectedArtist.name}/${selectedArtist.selectedAlbum}`}
+            href={`/artist-target/${selectedArtist.name}/${selectedArtist.selectedAlbumId}`}
             className={`flex items-center  justify-center rounded h-12 w-48 bg-primary text-1 font-semibold text-white ${
               !selectedArtist.name || !selectedArtist.selectedAlbum
                 ? "pointer-events-none bg-medium opacity-40"

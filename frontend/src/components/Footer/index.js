@@ -33,6 +33,7 @@ const Footer = () => {
                 href="/"
               >
                 <Image
+                  priority="false"
                   className="h-full w-full  object-contain "
                   src={logoFull}
                   alt="Logo for meloroids"

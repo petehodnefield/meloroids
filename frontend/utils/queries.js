@@ -164,3 +164,35 @@ export const ALL_ARTISTS = gql`
     }
   }
 `;
+
+export const ALBUM = gql`
+  query Album($albumId: ID!) {
+    album(id: $albumId) {
+      _id
+      album_name
+      artwork
+      year
+      popularity
+      songs {
+        _id
+        song_name
+        tempo
+        progression {
+          _id
+          numerals
+          is_major
+          all_keys {
+            _id
+            key
+            progression_in_key
+          }
+        }
+        key {
+          is_major
+          _id
+          key
+        }
+      }
+    }
+  }
+`;
