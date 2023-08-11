@@ -9,6 +9,7 @@ import {
 } from "@apollo/client";
 import { useApollo } from "../../lib/apollo";
 import Auth from "utils/auth";
+import Login from "./login";
 
 export const LoginContext = createContext();
 export const NavigationContext = createContext();
@@ -26,9 +27,7 @@ export default function App({ Component, pageProps }) {
         value={[navigationSelected, setNavigationSelected]}
       >
         <ApolloProvider client={apolloClient}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Layout>{loggedIn ? <Component {...pageProps} /> : <Login />}</Layout>
         </ApolloProvider>
       </NavigationContext.Provider>
     </LoginContext.Provider>
