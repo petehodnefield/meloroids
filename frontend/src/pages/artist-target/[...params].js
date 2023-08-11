@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { LoginContext } from "../_app";
+import React, { useState, useEffect } from "react";
 import { initializeApollo } from "../../../lib/apollo";
 import { ALBUM, ME } from "../../../utils/queries";
 import { useQuery } from "@apollo/client";
@@ -8,9 +7,9 @@ import { randomWord } from "../../../utils/data/words";
 import LoopFileName from "../../components/Target/LoopFileName";
 import Image from "next/image";
 import Login from "../login";
+import ReferenceCard from "../../components/Header/ArtistTarget/ReferenceCard";
 const ArtistTargetData = ({ query }) => {
   const albumId = query.params[1];
-  const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const [loopNameParams, setLoopNameParam] = useState({
     key: "",
     tempo: "",
@@ -25,7 +24,12 @@ const ArtistTargetData = ({ query }) => {
     progressionNumerals: "",
     progressionLiteral: "",
   });
-  console.log("Params", randomSongSameParams);
+  const [referenceInfo, setReferenceInfo] = useState({
+    referenceAlbumName: "",
+    referenceAlbumArtwork: "",
+    referenceSongName: "",
+  });
+  console.log("referenceInfo", referenceInfo);
   //   This state holds if the user wants the key and tempo to switch from the song
   const [randomSongDifferentParams, setRandomSongDifferentParams] = useState({
     tempo: "",
@@ -39,6 +43,7 @@ const ArtistTargetData = ({ query }) => {
   const { loading: meLoading, data: meData, error: meError } = useQuery(ME);
   const randomlyChosenSong = async (data) => {
     // Find a song from the songs array
+
     const songsArray = await data.album.songs;
     const randomIndex = Math.floor(Math.random() * songsArray.length);
     const randomSong = await data.album.songs[randomIndex];
@@ -46,12 +51,16 @@ const ArtistTargetData = ({ query }) => {
     const randomSongKey = `${randomSongKeyLetter} ${
       randomSong.key[0].is_major ? "Major" : "Minor"
     }`;
-
     const { numerals } = await randomSong.progression[0];
     const { tempo } = await randomSong;
 
     const allKeys = await randomSong.progression[0].all_keys;
-
+    setReferenceInfo({
+      ...referenceInfo,
+      referenceAlbumName: data.album.album_name,
+      referenceAlbumArtwork: data.album.artwork,
+      referenceSongName: randomSong.song_name,
+    });
     const findProgressionLiteral = await allKeys.map((progression) => {
       if (progression.key === randomSongKeyLetter) {
         setRandomSongSameParams({
@@ -94,8 +103,6 @@ const ArtistTargetData = ({ query }) => {
     );
   }, [loopNameParams]);
 
-  //   if (!loggedIn) return <Login />;
-
   const splitChords = randomSongSameParams.progressionLiteral.split(" ");
   const splitNumerals = randomSongSameParams.progressionNumerals.split(" ");
   return (
@@ -105,7 +112,7 @@ const ArtistTargetData = ({ query }) => {
         className="absolute w-full h-full object-cover"
         src={studioImage}
       />
-      <div className="flex flex-col items-center w-full md:py-12  lg:max-w-48 lg:justify-between  py-8">
+      <div className="flex flex-col items-center gap-8 w-full md:py-12  lg:max-w-48 lg:flex-row lg:items-start lg:justify-between  py-8">
         {/* White bg for content */}
         <div className="relative w-full flex flex-col items-center pt-10  bg-white md:max-w-26 rounded-4xl md:mb-6">
           {/* Loop Title */}
@@ -159,6 +166,7 @@ const ArtistTargetData = ({ query }) => {
           </div>
           <LoopFileName loopName={loopName}></LoopFileName>
         </div>
+        <ReferenceCard referenceInfo={referenceInfo} />
       </div>
     </div>
   );
