@@ -159,6 +159,7 @@ export const ALL_ARTISTS = gql`
       albums {
         _id
         album_name
+        artwork
       }
     }
   }

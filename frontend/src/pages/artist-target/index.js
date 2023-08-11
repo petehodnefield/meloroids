@@ -9,8 +9,10 @@ const ArtistTarget = () => {
   const [artists, setArtists] = useState();
   const [selectedArtist, setSelectedArtist] = useState({
     name: "",
+    image: "",
     albums: [],
     selectedAlbum: "",
+    selectedAlbumArtwork: "",
   });
   console.log(selectedArtist);
   const [artistOpen, setArtistOpen] = useState(false);
@@ -34,23 +36,31 @@ const ArtistTarget = () => {
         className="bg__quickie absolute top-0 h-full object-cover z-0 w-full"
       />
       <div className="bg-white w-full flex flex-col items-center w-full h-fit py-8 md:max-w-26 rounded-4xl md:pb-10 relative">
-        <h2 className="text-2.5 font-semibold text-primary mb-2">
+        <h2 className="text-2.5 font-semibold text-primary mb-4">
           Artist Target
         </h2>
-        <h2 className="text-1.25 font-mdeium mb-5">
-          I want to make loops in the style of...
-        </h2>
+        <h2 className="text-1.25 font-medium mb-5">Select an Artist </h2>
         {/* Artist Dropdown menu */}
-        <form className="w-full px-6 relative">
+        <form className="w-full px-6 relative flex flex-col items-center">
           {/* Select the Artist */}
-          <div className="mb-6">
+          <div className="mb-4 w-full">
             <label className="text-0.875 font-semibold">Artist</label>
             <div
               className={`h-12 w-full border-2 rounded-lg flex justify-between items-center
                      `}
               onClick={() => setArtistOpen(!artistOpen)}
             >
-              <div className="w-12 text-center">🎤</div>
+              {selectedArtist.image ? (
+                <div className="h-12 w-12 py-2 pl-2 mr-2">
+                  <img
+                    alt={`Album artwork for ${selectedArtist.name}`}
+                    className="w-12 h-12 rounded h-full object-cover "
+                    src={selectedArtist.image}
+                  />{" "}
+                </div>
+              ) : (
+                <div className="w-12 text-center pl-2">🎤</div>
+              )}
               <p className="text-left w-full text-0.875 font-semibold">
                 {selectedArtist.name}{" "}
               </p>
@@ -71,10 +81,24 @@ const ArtistTarget = () => {
                         ...selectedArtist,
                         name: artist.name,
                         albums: artist.albums,
+                        image: artist.image,
+                        selectedAlbum: "",
+                        selectedAlbumArtwork: "",
                       });
+                      setAlbumOpen(false);
                     }}
                   >
-                    <div className="w-12 text-center">🎤</div>
+                    <div className="w-14 h-8 text-center pl-2 mr-4">
+                      {artistOpen ? (
+                        <img
+                          alt={`Album artwork for ${artist.name}`}
+                          className="w-full h-full rounded h-full object-cover "
+                          src={artist.image}
+                        />
+                      ) : (
+                        "🎤"
+                      )}
+                    </div>
                     <p className="text-left w-full text-0.875 font-semibold">
                       {artist.name}
                     </p>
@@ -87,14 +111,29 @@ const ArtistTarget = () => {
           </div>
 
           {/* Select the Album */}
-          <div className="mb-6">
+          <div className="mb-8 w-full">
             <label className="text-0.875 font-semibold">Album</label>
             <div
               className={`h-12 w-full border-2 rounded-lg flex justify-between items-center 
-           `}
+           ${
+             !selectedArtist.name
+               ? "pointer-events-none bg-medium opacity-40"
+               : ""
+           }
+              `}
               onClick={() => setAlbumOpen(!albumOpen)}
             >
-              <div className="w-12 text-center">💿</div>
+              <div className="w-12 text-center py-2 pl-2 mr-2">
+                {selectedArtist.selectedAlbumArtwork ? (
+                  <img
+                    alt={`Album artwork for ${selectedArtist.selectedAlbumArtwork}`}
+                    className="w-10 rounded h-full object-cover mr-6"
+                    src={selectedArtist.selectedAlbumArtwork}
+                  />
+                ) : (
+                  "💿"
+                )}
+              </div>
               <p className="text-left w-full text-0.875 font-semibold">
                 {selectedArtist.selectedAlbum
                   ? selectedArtist.selectedAlbum
@@ -110,17 +149,22 @@ const ArtistTarget = () => {
                 {selectedArtist.albums.map((album) => (
                   <div
                     key={album.album_name}
-                    className={`h-12  text-dark  flex justify-between items-center rounded-lg ${hoverStyle}`}
+                    className={`h-12 py-2 pl-2  text-dark  flex justify-between items-center rounded-lg ${hoverStyle}`}
                     onClick={() => {
                       setAlbumOpen(!albumOpen);
                       setSelectedArtist({
                         ...selectedArtist,
                         selectedAlbum: album.album_name,
+                        selectedAlbumArtwork: album.artwork,
                       });
                     }}
                   >
-                    <div className="w-12 text-center">💿</div>
-                    <p className="text-left w-full text-0.875 font-semibold">
+                    <img
+                      alt={`Album artwork for ${album.album_name}`}
+                      className="w-10 rounded h-full object-cover"
+                      src={album.artwork}
+                    />{" "}
+                    <p className="text-left w-full text-0.875 font-semibold ml-4">
                       {album.album_name}
                     </p>
                   </div>
@@ -132,6 +176,11 @@ const ArtistTarget = () => {
           </div>
           <Link
             href={`/artist-target/${selectedArtist.name}/${selectedArtist.selectedAlbum}`}
+            className={`flex items-center  justify-center rounded h-12 w-48 bg-primary text-1 font-semibold text-white ${
+              !selectedArtist.name || !selectedArtist.selectedAlbum
+                ? "pointer-events-none bg-medium opacity-40"
+                : ""
+            }`}
           >
             Start
           </Link>
