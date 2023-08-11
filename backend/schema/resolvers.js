@@ -119,7 +119,6 @@ export const resolvers = {
   Mutation: {
     // Artists
     createArtist: async (parent, args) => {
-      await Artist.deleteMany();
       return await Artist.create(args);
     },
     updateArtist: async (parent, args) => {

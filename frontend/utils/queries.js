@@ -148,3 +148,18 @@ export const USER_EMAIL = gql`
     }
   }
 `;
+
+export const ALL_ARTISTS = gql`
+  query Query {
+    artists {
+      _id
+      name
+      age
+      image
+      albums {
+        _id
+        album_name
+      }
+    }
+  }
+`;
