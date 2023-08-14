@@ -10,6 +10,7 @@ import Image from "next/image";
 import Login from "../login";
 import ReferenceCard from "../../components/Header/ArtistTarget/ReferenceCard";
 import { Icon } from "@iconify/react";
+import LoopParamsArtistTarget from "../../components/LoopCard/LoopParamsArtistTarget";
 const ArtistTargetData = ({ query }) => {
   const albumId = query.params[1];
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
@@ -119,72 +120,13 @@ const ArtistTargetData = ({ query }) => {
       <h1 className="relative mb-4 uppercase text-2 lg:text-3 font-semibold text-white text-center mt-10">
         Artist Target
       </h1>
-      <div className="flex flex-col items-center px-6 gap-8 w-fit   md:w-fit lg:max-w-48 lg:flex-row lg:items-start lg:justify-between  ">
-        <ReferenceCard referenceInfo={referenceInfo} />
-
-        {/* White bg for content */}
-        <div className="relative w-fit flex flex-col items-start pt-10 mb-12  bg-white rounded-lg md:mb-6">
-          <Icon
-            className="absolute top-8 right-8 text-2 hover:cursor-pointer mb-6 md:mb-4 hover:opacity-80"
-            icon="mdi:dice-6"
-            onClick={() => window.location.reload()}
-          />
-          <div className="w-full px-6">
-            {/* Loop Title */}
-            <p className="text-0.75 font-semibold uppercase">Your Loop:</p>
-            <h2 className="text-2.5 text-primary font-semibold mb-6">
-              {randomWord}
-            </h2>
-            {/* Data wrapper */}
-            <div className="pb-6">
-              <div className="flex flex-col items-start mb-6">
-                <h3 className="text-1 font-semibold text-medium mb-3">
-                  🎼 Chords (literal):
-                </h3>
-                <div className="flex gap-3">
-                  {splitChords.map((chord) => (
-                    <div
-                      key={chord}
-                      className="flex items-center justify-center bg-primary rounded-full w-16 h-16 border-1 border-dark text-white "
-                    >
-                      <p className="text-1.5 font-semibold">{chord}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-col items-start mb-6">
-                <h3 className="text-1 font-semibold text-medium mb-3">
-                  🎼 Chords (numerals):
-                </h3>
-                <div className="flex gap-3">
-                  {splitNumerals.map((numeral) => (
-                    <div
-                      key={numeral}
-                      className="flex items-center justify-center bg-dark rounded-full w-16 h-16 text-white "
-                    >
-                      <p className="text-1.5 font-semibold">{numeral}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-col items-start mb-6">
-                <h3 className="text-1 font-semibold text-medium ">🔑 Key:</h3>
-                <p className="text-2 font-semibold">
-                  {randomSongSameParams.key}
-                </p>
-              </div>
-              <div className="flex flex-col items-start ">
-                <h3 className="text-1 font-semibold text-medium">🏃🏽‍♂️ Tempo:</h3>
-                <p className="text-2 font-semibold">
-                  {" "}
-                  {randomSongSameParams.tempo} BPM
-                </p>
-              </div>
-            </div>
-          </div>
-          <LoopFileName loopName={loopName}></LoopFileName>
-        </div>
-      </div>
+      <LoopParamsArtistTarget
+        referenceInfo={referenceInfo}
+        splitChords={splitChords}
+        splitNumerals={splitNumerals}
+        songParams={randomSongSameParams}
+        loopName={loopName}
+      />
     </div>
   );
 };

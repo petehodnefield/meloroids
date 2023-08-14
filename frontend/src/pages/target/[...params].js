@@ -11,7 +11,7 @@ import LoadingWhiteText from "../../components/Loading/LoadingWhiteText";
 import Login from "../login";
 import Error from "../../components/Error/Error";
 import TargetCard from "../../components/Target/TargetCard";
-
+import LoopParamsTarget from "../../components/LoopCard/LoopParamsTarget";
 const TargetDetails = ({ queryID }) => {
   const [loopNameParams, setLoopNameParams] = useState({
     randomWord: randomWord,
@@ -106,12 +106,19 @@ const TargetDetails = ({ queryID }) => {
   const splitNumerals = loopNameParams.chordsNumerals.split(" ");
 
   return (
-    <TargetCard
-      splitChords={splitChords}
-      splitNumerals={splitNumerals}
-      loopName={loopName}
-      loopNameParams={loopNameParams}
-    />
+    <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start  ">
+      <Image
+        alt="a music studio background"
+        className="absolute w-full h-full object-cover"
+        src={studioImage}
+      />{" "}
+      <LoopParamsTarget
+        splitChords={splitChords}
+        splitNumerals={splitNumerals}
+        loopName={loopName}
+        songParams={loopNameParams}
+      />
+    </div>
   );
 };
 
