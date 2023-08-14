@@ -2,8 +2,8 @@ import React from "react";
 
 const ReferenceCard = ({ referenceInfo }) => {
   return (
-    <div className="bg-white z-5 relative flex flex-col items-center pt-6 pb-8 px-6 rounded-lg">
-      <div className="h-80 w-full mb-5 ">
+    <div className="bg-white z-5 relative w-full max-w-24 flex flex-col items-center pt-6 pb-8 px-6 rounded-lg">
+      <div className="h-40 w-full mb-5 ">
         <img
           src={referenceInfo.referenceAlbumArtwork}
           className="rounded-lg h-full w-full object-cover"

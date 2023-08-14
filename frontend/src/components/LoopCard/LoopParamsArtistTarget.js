@@ -12,7 +12,7 @@ const LoopParamsArtistTarget = ({
   loopName,
 }) => {
   return (
-    <div className="flex flex-col items-center px-6 gap-8  lg:flex-row lg:items-start lg:justify-between  ">
+    <div className="flex flex-col w-full items-center px-6 gap-8  lg:flex-row lg:items-start justify-center ">
       {referenceInfo ? <ReferenceCard referenceInfo={referenceInfo} /> : ""}
       <LoopParamsData
         splitChords={splitChords}

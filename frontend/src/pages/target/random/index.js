@@ -12,6 +12,8 @@ import studioImage from "../../../../public/assets/images/music-studio.png";
 import LoadingWhiteText from "../../../components/Loading/LoadingWhiteText";
 import Error from "../../../components/Error/Error";
 import TargetCard from "../../../components/Target/TargetCard";
+import LoopParamsData from "../../../components/LoopCard/LoopParamsData";
+import LoopParamsTarget from "../../../components/LoopCard/LoopParamsTarget";
 
 const RandomTrain = () => {
   const randomTempo = Math.floor(Math.random() * (200 - 60) + 60);
@@ -111,12 +113,19 @@ const RandomTrain = () => {
   const splitNumerals = loopNameParams.chordsNumerals.split(" ");
 
   return (
-    <TargetCard
-      splitChords={splitChords}
-      splitNumerals={splitNumerals}
-      loopName={loopName}
-      loopNameParams={loopNameParams}
-    />
+    <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start  ">
+      <Image
+        alt="a music studio background"
+        className="absolute w-full h-full object-cover"
+        src={studioImage}
+      />{" "}
+      <LoopParamsTarget
+        splitChords={splitChords}
+        splitNumerals={splitNumerals}
+        loopName={loopName}
+        songParams={loopNameParams}
+      />
+    </div>
   );
 };
 

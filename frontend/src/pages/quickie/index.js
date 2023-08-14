@@ -66,7 +66,7 @@ const Quickie = () => {
         alt="A music studio with an imac at the center"
         className="bg__quickie absolute top-0 h-full object-cover z-0 w-full"
       />
-      <div className="flex flex-col items-center justify-between	 bg-white shadow-3xl pt-10 rounded-4xl w-full md:w-96 relative">
+      <div className="flex flex-col items-center justify-between max-w-24	 bg-white shadow-3xl pt-10 rounded-lg w-full md:w-96 relative">
         <h2 className="text-2.5 font-semibold mb-6 md:mb-4 text-primary">
           Quickie
         </h2>

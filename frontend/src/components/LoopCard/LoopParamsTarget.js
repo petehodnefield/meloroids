@@ -12,7 +12,7 @@ const LoopParamsTarget = ({
   loopName,
 }) => {
   return (
-    <div className="flex flex-col items-center px-6 gap-8  lg:flex-row lg:items-start lg:justify-between  ">
+    <div className="flex flex-col items-center px-6 gap-8 mt-12  lg:flex-row lg:items-start lg:justify-between  ">
       <LoopParamsData
         splitChords={splitChords}
         splitNumerals={splitNumerals}

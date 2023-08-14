@@ -60,6 +60,7 @@ module.exports = {
         xxs: ["16rem"],
         660: "660px",
         16: "16rem",
+        24: "24rem",
         26: "26rem",
         30: "30rem",
         48: "48rem",

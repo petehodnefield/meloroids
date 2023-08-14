@@ -10,7 +10,7 @@ const LoopParamsData = ({
   loopName,
 }) => {
   return (
-    <div className="relative  flex flex-col items-start pt-10 mb-12 max-w-30  bg-white rounded-lg md:mb-6">
+    <div className="relative w-full flex flex-col items-start pt-10 mb-12 max-w-24  bg-white rounded-lg md:mb-6">
       <Icon
         className="absolute top-8 right-8 text-2 hover:cursor-pointer mb-6 md:mb-4 hover:opacity-80"
         icon="mdi:dice-6"
@@ -28,7 +28,7 @@ const LoopParamsData = ({
             <h3 className="text-1 font-semibold text-medium mb-3">
               🎼 Chords (literal):
             </h3>
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap">
               {splitChords.map((chord) => (
                 <div
                   key={chord}
@@ -43,7 +43,7 @@ const LoopParamsData = ({
             <h3 className="text-1 font-semibold text-medium mb-3">
               🎼 Chords (numerals):
             </h3>
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap">
               {splitNumerals.map((numeral) => (
                 <div
                   key={numeral}
