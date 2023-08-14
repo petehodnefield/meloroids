@@ -27,7 +27,9 @@ export default function App({ Component, pageProps }) {
         value={[navigationSelected, setNavigationSelected]}
       >
         <ApolloProvider client={apolloClient}>
-          <Layout>{loggedIn ? <Component {...pageProps} /> : <Login />}</Layout>
+          <Layout>
+            <Component {...pageProps} />{" "}
+          </Layout>
         </ApolloProvider>
       </NavigationContext.Provider>
     </LoginContext.Provider>

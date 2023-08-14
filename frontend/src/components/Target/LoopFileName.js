@@ -11,8 +11,8 @@ const LoopFileName = ({ loopName }) => {
     }, "10000");
   }, [copied]);
   return (
-    <div className="relative bg-dark w-full px-16 py-6  text-white flex flex-col items-center justify-center rounded-b-4xl	">
-      <p className="text-1 font-semibold text-center">{loopName}</p>
+    <div className="relative bg-dark w-full pl-6 pr-16 py-6  text-white flex flex-col max-w-fit items-center justify-center rounded-b-lg	">
+      <p className="text-1 font-semibold text-left">{loopName}</p>
       <CopyToClipboard
         className="absolute right-4 hover:cursor-pointer text-1.5"
         text={loopName}
@@ -32,7 +32,7 @@ const LoopFileName = ({ loopName }) => {
         )}
       </CopyToClipboard>
       {copied ? (
-        <div className="text-1 text-primary font-semibold text-center mt-2">
+        <div className="text-1 text-primary font-semibold text-left mt-3 w-full">
           {" "}
           Copied to your clipboard!
         </div>
