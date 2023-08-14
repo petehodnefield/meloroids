@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import heroImage from "../../../public/assets/images/hero-img.png";
 import quickieImage from "../../../public/assets/images/quickie.png";
+import artistTargetImage from "../../../public/assets/images/artist-target.png";
 import targetImage from "../../../public/assets/images/target.png";
 import { ME } from "../../../utils/queries";
 import { useQuery } from "@apollo/client";
@@ -26,7 +27,7 @@ const AuthHome = () => {
   if (error) return <Error />;
 
   return (
-    <div className="relative flex py-12 px-6 flex-col items-center h-full lg:h-screen lg:h-500">
+    <div className="relative flex py-12 px-6 flex-col items-center h-full lg:min-h-screen lg:h-500">
       {/* Background Image */}
       <Image
         src={heroImage}
@@ -41,11 +42,48 @@ const AuthHome = () => {
       <div className="z-2 relative w-full max-w-70 mb-4 flex justify-center">
         <h2 className="text-white text-3 ">Dashboard</h2>
       </div>
-      <div className="relative flex flex-col lg:flex-row gap-4 items-center">
+      <div className="relative flex flex-col justify-center lg:flex-row gap-4 items-center flex-wrap">
+        {/* Artist Target */}
+        <Link
+          href={"/artist-target"}
+          className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
+        >
+          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
+            <h4 className="text-2.5 font-semibold text-primary mb-2">
+              Artist Target
+            </h4>
+
+            <div className="w-full h-full">
+              <Image
+                src={artistTargetImage}
+                alt="A snapshot of Artist Target by Meloroids"
+                className="rounded-2xl features__img"
+              />
+            </div>
+          </div>
+        </Link>
+
+        {/* Target */}
+        <Link
+          href={"/target-setup"}
+          className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
+        >
+          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
+            <h4 className="text-2.5 font-semibold text-primary mb-2">Target</h4>
+
+            <div className="w-full h-full">
+              <Image
+                src={targetImage}
+                alt="A snapshot of Target by Meloroids"
+                className="rounded-2xl features__img"
+              />
+            </div>
+          </div>
+        </Link>
         {/* Quickie */}
         <Link
           href={"/quickie"}
-          className="hover:opacity-80 duration-200	md:w-1/2 xl:w-full"
+          className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
         >
           <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
             <h4 className="text-2.5 font-semibold text-primary mb-2">
@@ -56,23 +94,6 @@ const AuthHome = () => {
               <Image
                 src={quickieImage}
                 alt="A snapshot of Quickie by Meloroids"
-                className="rounded-2xl features__img"
-              />
-            </div>
-          </div>
-        </Link>
-        {/* Target */}
-        <Link
-          href={"/target-setup"}
-          className="hover:opacity-80 duration-200	md:w-1/2 xl:w-full"
-        >
-          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
-            <h4 className="text-2.5 font-semibold text-primary mb-2">Target</h4>
-
-            <div className="w-full h-full">
-              <Image
-                src={targetImage}
-                alt="A snapshot of Target by Meloroids"
                 className="rounded-2xl features__img"
               />
             </div>

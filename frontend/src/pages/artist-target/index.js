@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { LoginContext } from "../_app";
 import Image from "next/image";
 import backgroundImage from "../../../public/assets/images/music-studio.png";
 import { useQuery } from "@apollo/client";
 import { ALL_ARTISTS } from "../../../utils/queries";
 import { hoverStyle } from "../../../utils/styles";
 import Link from "next/link";
+import Login from "../login";
 const ArtistTarget = () => {
+  const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const [artists, setArtists] = useState();
   const [selectedArtist, setSelectedArtist] = useState({
     name: "",
@@ -27,6 +30,7 @@ const ArtistTarget = () => {
       setArtists(artistData.artists);
     }
   }, [artistData]);
+  if (!loggedIn) return <Login />;
   return (
     <section className="bg-cover min-h-screen px-6 py-12 flex justify-center relative">
       {" "}

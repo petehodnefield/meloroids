@@ -50,19 +50,7 @@ const Nav = () => {
           <Link onClick={() => setNavigationSelected("home")} href="/">
             {loggedIn ? "Dashboard" : "Home"}
           </Link>
-        </li>
-        <li
-          className={`${liStyle}  ${
-            navigationSelected === "target" ? selectedNavItem : ""
-          }`}
-        >
-          <Link
-            onClick={() => setNavigationSelected(loggedIn ? "target" : "login")}
-            href={`${loggedIn ? "/target-setup" : "/login"}`}
-          >
-            Target
-          </Link>
-        </li>
+        </li>{" "}
         <li
           className={`${liStyle}  ${
             navigationSelected === "artist-target" ? selectedNavItem : ""
@@ -75,6 +63,18 @@ const Nav = () => {
             href={`${loggedIn ? "/artist-target" : "/login"}`}
           >
             Artist Target
+          </Link>
+        </li>
+        <li
+          className={`${liStyle}  ${
+            navigationSelected === "target" ? selectedNavItem : ""
+          }`}
+        >
+          <Link
+            onClick={() => setNavigationSelected(loggedIn ? "target" : "login")}
+            href={`${loggedIn ? "/target-setup" : "/login"}`}
+          >
+            Target
           </Link>
         </li>
         <li
