@@ -5,7 +5,7 @@ import Key from "../models/Key.js";
 import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
 import User from "../models/User.js";
-import { returnMajorKey } from "../text.js";
+import { returnMajorKey, returnMinorKey } from "../text.js";
 import auth from "../utils/auth.js";
 import { GraphQLError } from "graphql";
 // Resolvers define how to fetch the types defined in your schema.
@@ -246,6 +246,7 @@ export const resolvers = {
             default:
               console.log(false);
           }
+          returnMajorKey(numeralsToNumbers);
         } else {
           switch (numeral) {
             case "i":
@@ -272,9 +273,10 @@ export const resolvers = {
             default:
               console.log(false);
           }
+          returnMinorKey(numeralsToNumbers);
         }
       });
-      returnMajorKey("A", numeralsToNumbers);
+
       // return await Progression.create(args);
     },
     updateProgression: async (parent, args) => {

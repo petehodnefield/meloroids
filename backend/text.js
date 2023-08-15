@@ -34,83 +34,94 @@ const minorKeys = [
   { key: "G", notesInKey: ["G", "A", "Bb", "C", "D", "Eb", "F"] },
   { key: "G#", notesInKey: ["G#", "A#", "B", "C#", "D#", "E", "F#"] },
 ];
-export const returnMajorKey = async (key, [...numbers]) => {
-  // Find the key that matches the key argument
-  const filterKey = majorKeys.filter((keyName) => keyName.key == key);
+export const returnMajorKey = async ([...numbers]) => {
+  let keyNumeralsData = [];
 
-  //   Get the notes from the filtered key
-  const chordsInKey = filterKey[0].notesInKey;
+  const loopThroughAllKeys = majorKeys.forEach((keyObject) => {
+    let individualKeyData = [];
+    //   Get the notes from the filtered key
+    const chordsInKey = keyObject.notesInKey;
+    //   Loop through the indexes to return the proper chords in the progression
+    const getNumerals = numbers.forEach((number) => {
+      let majorMinor;
+      const progressions = chordsInKey[number - 1];
+      // Checks the index to see if it's a major or minor chord
+      switch (number) {
+        case 1:
+          majorMinor = "";
+          break;
+        case 2:
+          majorMinor = "-";
+          break;
+        case 3:
+          majorMinor = "-";
+          break;
+        case 4:
+          majorMinor = "";
+          break;
+        case 5:
+          majorMinor = "";
+          break;
+        case 6:
+          majorMinor = "-";
+          break;
+      }
+      // Combine note with major or minor notation
+      const combine = `${progressions}${majorMinor}`;
 
-  //   Loop through the indexes to return the proper chords in the progression
-  numbers.forEach((number) => {
-    let majorMinor;
-
-    const progressions = chordsInKey[number - 1];
-    // Checks the index to see if it's a major or minor chord
-    switch (number) {
-      case 1:
-        majorMinor = "";
-        break;
-      case 2:
-        majorMinor = "-";
-        break;
-      case 3:
-        majorMinor = "-";
-        break;
-      case 4:
-        majorMinor = "";
-        break;
-      case 5:
-        majorMinor = "";
-        break;
-      case 6:
-        majorMinor = "-";
-        break;
-    }
-    // Combine note with major or minor notation
-    const combine = `${progressions}${majorMinor}`;
-    console.log(combine);
-    return combine;
+      //   Push the numerals to an array to store all numerals for the key
+      individualKeyData.push(combine);
+    });
+    // Push the individual keys to the array that holds all keys
+    keyNumeralsData.push({ key: keyObject.key, numerals: individualKeyData });
   });
+  console.log("keyNumeralsData", keyNumeralsData);
+  return keyNumeralsData;
 };
-export const returnMinorKey = async (key, [...numbers]) => {
-  // Find the key that matches the key argument
-  const filterKey = minorKeys.filter((keyName) => keyName.key == key);
+export const returnMinorKey = async ([...numbers]) => {
+  let keyNumeralsData = [];
 
-  //   Get the notes from the filtered key
-  const chordsInKey = filterKey[0].notesInKey;
+  const loopThroughAllKeys = minorKeys.forEach((keyObject) => {
+    let individualKeyData = [];
+    //   Get the notes from the filtered key
+    const chordsInKey = keyObject.notesInKey;
+    //   Loop through the indexes to return the proper chords in the progression
+    const getNumerals = numbers.forEach((number) => {
+      let majorMinor;
+      const progressions = chordsInKey[number - 1];
+      // Checks the index to see if it's a major or minor chord
+      switch (number) {
+        case 1:
+          majorMinor = "-";
+          break;
+        case 2:
+          majorMinor = "-";
+          break;
+        case 3:
+          majorMinor = "";
+          break;
+        case 4:
+          majorMinor = "-";
+          break;
+        case 5:
+          majorMinor = "-";
+          break;
+        case 6:
+          majorMinor = "";
+          break;
+        case 7:
+          majorMinor = "";
+          break;
+      }
+      // Combine note with major or minor notation
+      const combine = `${progressions}${majorMinor}`;
 
-  //   Loop through the indexes to return the proper chords in the progression
-  numbers.forEach((number) => {
-    let majorMinor;
-
-    const progressions = chordsInKey[number - 1];
-    // Checks the index to see if it's a major or minor chord
-    switch (number) {
-      case 1:
-        majorMinor = "-";
-        break;
-      case 2:
-        majorMinor = "-";
-        break;
-      case 3:
-        majorMinor = "";
-        break;
-      case 4:
-        majorMinor = "-";
-        break;
-      case 5:
-        majorMinor = "-";
-        break;
-      case 6:
-        majorMinor = "";
-        break;
-      case 7:
-        majorMinor = "";
-        break;
-    }
-    // Combine note with major or minor notation
-    const combine = `${progressions}${majorMinor}`;
-    return combine;
+      //   Push the numerals to an array to store all numerals for the key
+      individualKeyData.push(combine);
+    });
+    // Push the individual keys to the array that holds all keys
+    keyNumeralsData.push({ key: keyObject.key, numerals: individualKeyData });
   });
+  console.log("keyNumeralsData", keyNumeralsData);
+  return keyNumeralsData;
 };
