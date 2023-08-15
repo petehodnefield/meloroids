@@ -5,6 +5,7 @@ import Key from "../models/Key.js";
 import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
 import User from "../models/User.js";
+import { returnMajorKey } from "../text.js";
 import auth from "../utils/auth.js";
 import { GraphQLError } from "graphql";
 // Resolvers define how to fetch the types defined in your schema.
@@ -215,8 +216,66 @@ export const resolvers = {
 
     // Progressions
     createProgression: async (parent, args) => {
-      await Progression.deleteMany();
-      return await Progression.create(args);
+      let numeralsToNumbers = [];
+      const splitNumerals = args.numerals.split(" ");
+      const getChordIndexes = await splitNumerals.forEach((numeral) => {
+        // Check to see if it's a major key or a minor key
+        if (args.is_major) {
+          switch (numeral) {
+            case "I":
+              numeralsToNumbers.push(1);
+              break;
+            case "ii":
+              numeralsToNumbers.push(2);
+              break;
+            case "iii":
+              numeralsToNumbers.push(3);
+              break;
+            case "IV":
+              numeralsToNumbers.push(4);
+              break;
+            case "V":
+              numeralsToNumbers.push(5);
+              break;
+            case "vi":
+              numeralsToNumbers.push(6);
+              break;
+            case "vii":
+              numeralsToNumbers.push(7);
+              break;
+            default:
+              console.log(false);
+          }
+        } else {
+          switch (numeral) {
+            case "i":
+              numeralsToNumbers.push(1);
+              break;
+            case "ii":
+              numeralsToNumbers.push(2);
+              break;
+            case "bVII":
+              numeralsToNumbers.push(3);
+              break;
+            case "iv":
+              numeralsToNumbers.push(4);
+              break;
+            case "v":
+              numeralsToNumbers.push(5);
+              break;
+            case "bVI":
+              numeralsToNumbers.push(6);
+              break;
+            case "bVII":
+              numeralsToNumbers.push(7);
+              break;
+            default:
+              console.log(false);
+          }
+        }
+      });
+      returnMajorKey("A", numeralsToNumbers);
+      // return await Progression.create(args);
     },
     updateProgression: async (parent, args) => {
       return await Progression.findOneAndUpdate(

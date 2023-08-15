@@ -1,25 +1,3 @@
-const notes = ["A", "B", "C", "D", "E", "F", "G"];
-const sharps = ["A#", "C#", "D#", "F#", "G#"];
-const flats = ["Ab", "Bb", "Db", "Eb", "Gb"];
-
-const flatKeyNotes = ["A"];
-
-const AbMajor = ["Ab", "Bb", "C", "Db", "Eb", "F", "G"];
-const AMajor = ["A", "B", "C#", "D", "E", "F#", "G#", "A"];
-const BbMajor = ["Bb", "C", "D", "Eb", "F", "G", "A"];
-const BMajor = ["B", "C#", "D#", "E", "F#", "G#", "A#"];
-const CbMajor = ["Cb", "Db", "Eb", "Fb", "Gb", "Ab", "Bb"];
-const CMajor = ["C", "D", "E", "F", "G", "A", "B"];
-const CSharpMajor = ["C#", "D#", "E#", "F#", "G#", "A#", "B#"];
-const DbMajor = ["Db", "Eb", "F", "Gb", "Ab", "Bb", "C"];
-const DMajor = ["D", "E", "F#", "G", "A", "B", "C#"];
-const EbMajor = ["Eb", "F", "G", "Ab", "Bb", "C", "D"];
-const EMajor = ["E", "F#", "G#", "A", "B", "C#", "D#"];
-const FMajor = ["F", "G", "A", "Bb", "C", "D", "E"];
-const FSharpMajor = ["F#", "G#", "A#", "B", "C#", "D#", "E#"];
-const GbMajor = ["Gb", "Ab", "Bb", "Cb", "Db", "Eb", "F"];
-const GMajor = ["G", "A", "B", "C", "D", "E", "F#"];
-
 // Major Keys
 const majorKeys = [
   { key: "Ab", notesInKey: ["Ab", "Bb", "C", "Db", "Eb", "F", "G"] },
@@ -38,7 +16,7 @@ const majorKeys = [
   { key: "Gb", notesInKey: ["Gb", "Ab", "Bb", "Cb", "Db", "Eb", "F"] },
   { key: "G", notesInKey: ["G", "A", "B", "C", "D", "E", "F#"] },
 ];
-
+// Minor Keys
 const minorKeys = [
   { key: "Ab", notesInKey: ["Ab", "Bb", "Cb", "Db", "Eb", "Fb", "Gb"] },
   { key: "A", notesInKey: ["A", "B", "C", "D", "E", "F", "G"] },
@@ -56,8 +34,7 @@ const minorKeys = [
   { key: "G", notesInKey: ["G", "A", "Bb", "C", "D", "Eb", "F"] },
   { key: "G#", notesInKey: ["G#", "A#", "B", "C#", "D#", "E", "F#"] },
 ];
-
-const returnMajorKey = async (key, [...numbers]) => {
+export const returnMajorKey = async (key, [...numbers]) => {
   // Find the key that matches the key argument
   const filterKey = majorKeys.filter((keyName) => keyName.key == key);
 
@@ -92,10 +69,11 @@ const returnMajorKey = async (key, [...numbers]) => {
     }
     // Combine note with major or minor notation
     const combine = `${progressions}${majorMinor}`;
+    console.log(combine);
     return combine;
   });
 };
-const returnMinorKey = async (key, [...numbers]) => {
+export const returnMinorKey = async (key, [...numbers]) => {
   // Find the key that matches the key argument
   const filterKey = minorKeys.filter((keyName) => keyName.key == key);
 
@@ -133,9 +111,6 @@ const returnMinorKey = async (key, [...numbers]) => {
     }
     // Combine note with major or minor notation
     const combine = `${progressions}${majorMinor}`;
-    console.log(combine);
     return combine;
   });
 };
-returnMajorKey("E", [6, 1, 5, 4]);
-returnMinorKey("E", [1, 6, 7]);
