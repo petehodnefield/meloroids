@@ -69,7 +69,6 @@ const TargetDetails = ({ queryID }) => {
       return;
     }
     const keyName = keyData.key.key;
-    console.log("keyName", keyData.key);
 
     const progressionKey = progressionData.progression.all_keys.filter(
       (progression) => progression.key === keyName
