@@ -66,6 +66,17 @@ const Footer = () => {
               <li>
                 <Link
                   onClick={() =>
+                    setNavigationSelected(loggedIn ? "artist target" : "login")
+                  }
+                  href={loggedIn ? "/artist-target" : "/login"}
+                  className="font-1.125 font-medium"
+                >
+                  Artist Target
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={() =>
                     setNavigationSelected(loggedIn ? "target" : "login")
                   }
                   href={loggedIn ? "/target-setup" : "/login"}

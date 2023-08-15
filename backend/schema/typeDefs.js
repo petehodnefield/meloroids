@@ -39,7 +39,14 @@ export const typeDefs = `#graphql
     progression_in_key: String,
     midi_file: String
   }
-  
+
+  input AllHelloKeys {
+    _id: ID,
+    key: String,
+    progression_in_key: String,
+    midi_file: String
+  }
+
   type Progression {
     _id: ID,
     numerals: String,
@@ -116,7 +123,7 @@ export const typeDefs = `#graphql
     updateSong(_id: ID!, song_name: String, tempo: Int, key_id: ID, progression_id: ID): Song
     deleteSong(_id: ID!): Song
 
-    createProgression(numerals: String!, is_major: Boolean): Progression
+    createProgression(numerals: String!, is_major: Boolean, all_keys: AllHelloKeys): Progression
     updateProgression(_id: ID!, numerals: String, is_major: Boolean): Progression
     deleteProgression(_id: ID!): Progression
 
