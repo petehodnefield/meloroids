@@ -327,7 +327,6 @@ export const resolvers = {
 
     // Genres
     createGenre: async (parent, args) => {
-      await Genre.deleteMany();
       return await Genre.create(args);
     },
     updateGenre: async (parent, args) => {
@@ -342,7 +341,6 @@ export const resolvers = {
 
     // Key
     createKey: async (parent, args) => {
-      await Key.deleteMany();
       // const addKeys = await Key.insertMany(keysData);
       // return addKeys;
     },

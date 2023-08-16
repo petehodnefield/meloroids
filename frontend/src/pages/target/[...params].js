@@ -14,16 +14,15 @@ import TargetCard from "../../components/Target/TargetCard";
 import LoopParamsTarget from "../../components/LoopCard/LoopParamsTarget";
 const TargetDetails = ({ queryID }) => {
   const [loopNameParams, setLoopNameParams] = useState({
-    randomWord: randomWord,
     tempo: queryID.params[3],
     key: "",
     producer: "",
     chordsLiteral: "",
     chordsNumerals: "",
+    randomWord: randomWord,
   });
   const [loopName, setLoopName] = useState("");
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
-  console.log(loggedIn);
   const genreId = queryID.params[0];
   const progressionId = queryID.params[1];
   const keyId = queryID.params[2];
@@ -51,6 +50,7 @@ const TargetDetails = ({ queryID }) => {
     if (meData === undefined || meData.me === null) {
       return;
     } else if (meData.me.username) {
+      console.log(meData.me.username);
       const me = meData.me.instagramHandle;
       setLoopNameParams({
         ...loopNameParams,
@@ -82,6 +82,7 @@ const TargetDetails = ({ queryID }) => {
       key: `${keyData.key.key.toLowerCase()} ${
         keyData.key.is_major ? "major" : "minor"
       }`,
+      producer: meData.me.instagramHandle,
     });
   }, [progressionData, keyData]);
 
@@ -110,6 +111,7 @@ const TargetDetails = ({ queryID }) => {
         alt="a music studio background"
         className="absolute w-full h-full object-cover"
         src={studioImage}
+        priority
       />{" "}
       <LoopParamsTarget
         splitChords={splitChords}

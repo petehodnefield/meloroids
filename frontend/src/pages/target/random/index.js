@@ -55,7 +55,6 @@ const RandomTrain = () => {
   }, [meData]);
 
   useEffect(() => {
-    console.log("loop name", loopNameParams);
     setLoopName(
       `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer}`
     );
@@ -87,8 +86,6 @@ const RandomTrain = () => {
       (all_keys) => all_keys.key === randomKey.key
     );
 
-    console.log("progressionData", randomProgression);
-
     setLoopNameParams({
       ...loopNameParams,
       key: `${allKeysMatch[0].key.toLowerCase()} ${
@@ -96,6 +93,7 @@ const RandomTrain = () => {
       }`,
       chordsLiteral: allKeysMatch[0].progression_in_key,
       chordsNumerals: randomProgression.numerals,
+      producer: meData.me.instagramHandle,
     });
   }, [keyData, progressionData]);
 
@@ -115,6 +113,7 @@ const RandomTrain = () => {
   return (
     <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start  ">
       <Image
+        priority
         alt="a music studio background"
         className="absolute w-full h-full object-cover"
         src={studioImage}

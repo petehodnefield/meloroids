@@ -16,6 +16,7 @@ const allKeysSchema = new Schema({
 const progressionSchema = new Schema({
   numerals: {
     required: true,
+    unique: true,
     type: String,
     maxLength: 30,
   },
