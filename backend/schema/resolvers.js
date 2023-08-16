@@ -224,15 +224,12 @@ export const resolvers = {
             progression_in_key: key.numerals.join(" "),
           });
         });
-        // console.log("allKeys", allKeys);
 
-        const createNewProgression = await Progression.create({
+        return await Progression.create({
           is_major: args.is_major,
           numerals: args.numerals,
           all_keys: allKeys,
         });
-        // console.log(createNewProgression.all_keys);
-        return createNewProgression;
       }
       let numeralsToNumbers = [];
       const splitNumerals = args.numerals.split(" ");
