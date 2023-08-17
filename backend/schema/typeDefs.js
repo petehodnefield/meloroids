@@ -93,6 +93,7 @@ export const typeDefs = `#graphql
     genres: [Genre]
     genre(id: ID!): Genre
     genreprogressions(id: ID!): Genre
+    genrefilteredprogressions(progressionId: [ID!]): [Progression]
 
     keys: [Key]
     key(id: ID!): Key

@@ -75,7 +75,9 @@ export const resolvers = {
     genreprogressions: async (parent, { id }) => {
       return Genre.findOne({ _id: id }).populate("progressions");
     },
-
+    genrefilteredprogressions: async (parent, args) => {
+      return Progression.find({ _id: { $nin: args.progressionId } });
+    },
     // Key
     keys: async () => {
       return await Key.find();
