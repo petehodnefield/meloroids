@@ -78,6 +78,7 @@ export const resolvers = {
     genrefilteredprogressions: async (parent, args) => {
       return Progression.find({ _id: { $nin: args.progressionId } });
     },
+
     // Key
     keys: async () => {
       return await Key.find();
@@ -334,8 +335,15 @@ export const resolvers = {
     updateGenre: async (parent, args) => {
       return await Genre.findOneAndUpdate(
         { _id: args._id },
-        { $push: { progressions: args.progression_id } }
+        { $push: { progressions: args.progression_id } },
+        { new: true }
       );
+    },
+    removeProgressionFromGenre: async (parent, { _id, progression_id }) => {
+      return Genre.findOneAndUpdate(
+        { _id: _id },
+        { $pull: { progressions: progression_id } }
+      ).populate("progressions");
     },
     deleteGenre: async (parent, args) => {
       return await Genre.findOneAndDelete({ _id: args._id });

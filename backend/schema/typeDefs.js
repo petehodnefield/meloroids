@@ -131,7 +131,8 @@ export const typeDefs = `#graphql
     createAllKey(progression_id: ID!, progression_in_key: String!, key: String!, midi_file: String): Progression
 
     createGenre(genre: String!): Genre
-    updateGenre(_id: ID!, progression_id: ID!): Genre
+    updateGenre(_id: ID!, progression_id: ID): Genre
+    removeProgressionFromGenre(_id: ID!, progression_id: ID!): Genre
     deleteGenre(_id: ID!): Genre
 
     createKey: Key

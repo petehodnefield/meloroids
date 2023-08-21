@@ -14,7 +14,7 @@ const Nav = () => {
   const loginStyle =
     "font-semibold h-8 bg-white text-primary rounded-full w-24 flex items-center justify-center hover:opacity-90 duration-200";
 
-  const selectedNavItem = ' font-semibold   duration-200 before:content-["•"]';
+  const selectedNavItem = " font-semibold   duration-200 ";
 
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const [username, setUsername] = useState("");
