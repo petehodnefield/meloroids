@@ -201,17 +201,28 @@ export const resolvers = {
       return createSong;
     },
     updateSong: async (parent, args) => {
-      const updatedSong = await Song.findOneAndUpdate(
-        { _id: args._id },
+      const removeOldData = await Song.findOneAndUpdate(
+        { _id: args.song_id },
         {
           song_name: args.song_name,
           tempo: args.tempo,
+          $pull: { progression: args.old_progression_id, key: args.old_key_id },
         },
         {
           new: true,
         }
       );
-      return updatedSong;
+
+      const addNewData = await Song.findOneAndUpdate(
+        { _id: removeOldData._id },
+        {
+          $push: { progression: args.new_progression_id, key: args.new_key_id },
+        },
+        {
+          new: true,
+        }
+      );
+      return addNewData;
     },
     deleteSong: async (parent, args) => {
       return await Song.findOneAndDelete({ _id: args._id });

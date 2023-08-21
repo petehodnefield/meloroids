@@ -121,7 +121,7 @@ export const typeDefs = `#graphql
 
 
     createSong(song_name: String!, tempo: Int!, progression_id: ID!, key_id: ID!, album_id: ID!): Song
-    updateSong(_id: ID!, song_name: String, tempo: Int, key_id: ID, progression_id: ID): Song
+    updateSong(song_id: ID!, song_name: String, tempo: Int, old_progression_id: ID, new_progression_id: ID, old_key_id: ID, new_key_id: ID): Song
     deleteSong(_id: ID!): Song
 
     createProgression(numerals: String!, is_major: Boolean, all_keys: AllHelloKeys): Progression
