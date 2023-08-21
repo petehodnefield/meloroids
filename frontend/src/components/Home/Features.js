@@ -34,7 +34,7 @@ const Features = () => {
                 accurate way to write loops in the style of an artist.
               </p>
               <p className="text-1.125 font-medium pb-6 md:max-w-660">
-                Loop parameters are generated directly from an artist's
+                Loop parameters are generated directly from an artist&apos;s
                 discography, allowing you to make loops with pinpoint accuracy.{" "}
               </p>
               <div>
