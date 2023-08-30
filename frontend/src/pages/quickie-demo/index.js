@@ -14,28 +14,51 @@ import Auth from "utils/auth";
 import Login from "../login";
 import Loading from "../../components/Loading/LoadingWhiteText";
 const QuickieDemo = () => {
-  const [loggedIn, setLoggedIn] = useContext(LoginContext);
-  const [hydrated, setHydrated] = useState(false);
   const [loopName, setLoopName] = useState(randomWord);
   const [includeDate, setIncludeDate] = useState(false);
   const [getRandomWord, setGetRandomWord] = useState(randomWord);
-  const [date, setDate] = useState();
+  const [randomProducer, setRandomProducer] = useState("murdabeatz");
   const { loading, error, data } = useQuery(ME);
+  const bigProducers = [
+    "murdabeatz",
+    "wheezy",
+    "nickmira",
+    "rickrubin",
+    "pharrellwilliams",
+    "louisbell",
+    "ryantedder",
+    "maxmartin",
+    "timbaland",
+    "mustard",
+    "diplo",
+    "liljon",
+    "swizzbeatz",
+    "drdre",
+    "metroboomin",
+    "madlib",
+    "bennyblanco",
+    "boi1da",
+    "wondagurl",
+  ];
 
   useEffect(() => {
-    setHydrated(true);
-  }, []);
+    const randomBigProducerIndex = Math.floor(
+      Math.random() * bigProducers.length
+    );
 
+    const randomBigProducer = `@${bigProducers[randomBigProducerIndex]}`;
+    setRandomProducer(randomBigProducer);
+  }, []);
   useEffect(() => {
     if (data) {
-      setLoopName(`${getRandomWord} @YOURNAME`);
+      setLoopName(`${getRandomWord} ${randomProducer}`);
     }
   }, [data]);
   useEffect(() => {
     if (includeDate && data) {
-      setLoopName(`${getRandomWord} @YOURNAME ${formattedToday}`);
+      setLoopName(`${getRandomWord}  ${randomProducer} ${formattedToday}`);
     } else if (data) {
-      setLoopName(`${getRandomWord} @YOURNAME`);
+      setLoopName(`${getRandomWord}  ${randomProducer}`);
     }
   }, [includeDate]);
 
@@ -48,8 +71,6 @@ const QuickieDemo = () => {
   const formattedToday = mm + "/" + dd + "/" + yyyy;
 
   if (loading) return <Loading />;
-
-  if (!hydrated) return null;
 
   return (
     <div className="quickie h-screen flex flex-col items-center py-12 px-6 md:px-0 relative">
@@ -74,7 +95,7 @@ const QuickieDemo = () => {
             const randomIndex = Math.floor(Math.random() * splitWords.length);
             const newRandomWord = splitWords[randomIndex];
             setLoopName(
-              `${newRandomWord} @YOURNAME
+              `${newRandomWord} ${randomProducer}
               ${includeDate ? formattedToday : ""}`
             );
             setGetRandomWord(newRandomWord);
