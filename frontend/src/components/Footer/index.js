@@ -117,14 +117,17 @@ const Footer = () => {
             </h4>
             {/* Form to capture emails */}
             <form
-              action="https://meloroids.us12.list-manage.com/subscribe/post"
+              action="https://meloroids.us21.list-manage.com/subscribe/post"
               method="POST"
               onSubmit={handleFormSubmit}
               id="newsletterForm"
               className="border-solid border-b-2 border-white py-1 gap-2 flex"
             >
-              <input type="hidden" name="u" value="2cc67ef9a6923f3129ac10ac4" />
-              <input type="hidden" name="id" value="a1af96bd6f"></input>
+              {/* Hidden Inputs */}
+              <input type="hidden" name="u" value="74ca7fc92cb84f6ac5e3867ab" />
+              <input type="hidden" name="id" value="7005dd4ba1" />
+
+              {/* Email Input */}
               <label htmlFor="MERGE0" hidden className="w-40">
                 Email Address <span className="req asterisk">*</span>
               </label>
