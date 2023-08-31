@@ -106,9 +106,7 @@ const SignupForm = () => {
     }
   }, [userInfo.password, userInfo.passwordConfirm]);
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleFormSubmit = async (e, form) => {
     if (
       !emailAvailable ||
       !emailValidated ||
@@ -117,6 +115,7 @@ const SignupForm = () => {
       !passwordMatch ||
       !passwordValidated
     ) {
+      e.preventDefault();
       window.alert("Please fix your errors on the form and try again.");
       return;
     } else {
@@ -138,21 +137,25 @@ const SignupForm = () => {
   return (
     <form
       id="signupForm"
-      // action="https://meloroids.us12.list-manage.com/subscribe/post"
+      action="https://meloroids.us21.list-manage.com/subscribe/post"
       method="POST"
-      onSubmit={handleFormSubmit}
+      onSubmit={(e) => handleFormSubmit(e)}
     >
+      {/* Hidden Inputs */}
+      <input type="hidden" name="u" value="74ca7fc92cb84f6ac5e3867ab" />
+      <input type="hidden" name="id" value="7005dd4ba1" />
+
       {/* Username Input Field */}
       <div className={`${formInputWrapperStyle} mb-8`}>
-        <label htmlFor="MERGE1" className={`${labelStyle}`}>
+        <label htmlFor="username" className={`${labelStyle}`}>
           Username*
         </label>
         <div className="relative">
           <input
             minLength={3}
             maxLength={20}
-            name="MERGE1"
-            id="MERGE1"
+            name="username"
+            id="username"
             type="text"
             required
             className={`${inputStyle} 
@@ -334,14 +337,17 @@ const SignupForm = () => {
           ""
         )}
       </div>
+
+      {/* Instagram Handle */}
       <div className={`${formInputWrapperStyle} mb-8`}>
-        <label htmlFor="instagram" className={`${labelStyle}`}>
+        <label htmlFor="MERGE1" className={`${labelStyle}`}>
           Instagram Handle
         </label>
         <input
           minLength={2}
           maxLength={20}
-          id="instagram"
+          id="MERGE1"
+          name="MERGE1"
           type="text"
           className={`${inputStyle}
           ${userInfo.instagramHandle.length >= 1 ? successInputStyle : ""}`}
