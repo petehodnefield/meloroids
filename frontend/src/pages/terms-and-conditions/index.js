@@ -12,20 +12,24 @@ const TermsAndConditions = () => {
         <p className={`${pStyles} mb-4`}>Effective as of September 01, 2023</p>
         <div className={`${textSection}`}>
           <h2 className={`${h2Styles} mb-2`}>
-            Agreement between User and https://www.meloroids.io
+            Agreement between User and{" "}
+            <Link href="/"> https://www.meloroids.io</Link>
           </h2>
           <p className={`${hasTextBelow}`}>
-            Welcome to https://www.meloroids.io. The https://www.meloroids.io
+            Welcome to <Link href="/"> https://www.meloroids.io</Link>. The{" "}
+            <Link href="/"> https://www.meloroids.io</Link>
             website (the "Site") is comprised of various web pages operated by
-            Meloroids LLC. https://www.meloroids.io is offered to you
-            conditioned on your acceptance without modification of the terms,
-            conditions, and notices contained herein (the "Terms"). Your use of
-            https://www.meloroids.io constitutes your agreement to all such
-            Terms. Please read these terms carefully, and keep a copy of them
-            for your reference.
+            Meloroids LLC. <Link href="/"> https://www.meloroids.io</Link> is
+            offered to you conditioned on your acceptance without modification
+            of the terms, conditions, and notices contained herein (the
+            "Terms"). Your use of
+            <Link href="/"> https://www.meloroids.io</Link> constitutes your
+            agreement to all such Terms. Please read these terms carefully, and
+            keep a copy of them for your reference.
           </p>
           <p className={`${hasTextBelow}`}>
-            https://www.meloroids.io is a News and Information Site.
+            <Link href="/"> https://www.meloroids.io</Link> is a News and
+            Information Site.
           </p>
           <p>
             Meloroids is a resource for music producers to write better
@@ -40,8 +44,11 @@ const TermsAndConditions = () => {
         <div className={`${textSection}`}>
           <h2 className={h2Styles}>Privacy</h2>
           <p>
-            Your use of <Link href={"/"}>https://www.meloroids.io</Link> is
-            subject to Meloroids LLC&#39;s Privacy Policy. Please review our
+            Your use of{" "}
+            <Link href={"/"}>
+              <Link href="/"> https://www.meloroids.io</Link>
+            </Link>{" "}
+            is subject to Meloroids LLC&#39;s Privacy Policy. Please review our
             Privacy Policy, which also governs the Site and informs users of our
             data collection practices.
           </p>
@@ -50,12 +57,12 @@ const TermsAndConditions = () => {
         <div className={`${textSection}`}>
           <h2 className={h2Styles}>Electronic Communications</h2>
           <p>
-            Visiting https://www.meloroids.io or sending emails to Meloroids LLC
-            constitutes electronic communications. You consent to receive
-            electronic communications and you agree that all agreements,
-            notices, disclosures and other communications that we provide to you
-            electronically, via email and on the Site, satisfy any legal
-            requirement that such communications be in writing.
+            Visiting <Link href="/"> https://www.meloroids.io</Link> or sending
+            emails to Meloroids LLC constitutes electronic communications. You
+            consent to receive electronic communications and you agree that all
+            agreements, notices, disclosures and other communications that we
+            provide to you electronically, via email and on the Site, satisfy
+            any legal requirement that such communications be in writing.
           </p>
         </div>
 
@@ -80,8 +87,9 @@ const TermsAndConditions = () => {
           <p>
             Meloroids LLC does not knowingly collect, either online or offline,
             personal information from persons under the age of thirteen. If you
-            are under 18, you may use https://www.meloroids.io only with
-            permission of a parent or guardian.
+            are under 18, you may use{" "}
+            <Link href="/"> https://www.meloroids.io</Link> only with permission
+            of a parent or guardian.
           </p>
         </div>
 
@@ -90,24 +98,27 @@ const TermsAndConditions = () => {
             Links to Third Party Sites/Third Party Services
           </h2>
           <p className={`${hasTextBelow}`}>
-            https://www.meloroids.io may contain links to other websites
-            ("Linked Sites"). The Linked Sites are not under the control of
-            Meloroids LLC and Meloroids LLC is not responsible for the contents
-            of any Linked Site, including without limitation any link contained
-            in a Linked Site, or any changes or updates to a Linked Site.
-            Meloroids LLC is providing these links to you only as a convenience,
-            and the inclusion of any link does not imply endorsement by
-            Meloroids LLC of the site or any association with its operators.
+            <Link href="/"> https://www.meloroids.io</Link> may contain links to
+            other websites ("Linked Sites"). The Linked Sites are not under the
+            control of Meloroids LLC and Meloroids LLC is not responsible for
+            the contents of any Linked Site, including without limitation any
+            link contained in a Linked Site, or any changes or updates to a
+            Linked Site. Meloroids LLC is providing these links to you only as a
+            convenience, and the inclusion of any link does not imply
+            endorsement by Meloroids LLC of the site or any association with its
+            operators.
           </p>
           <p>
-            Certain services made available via https://www.meloroids.io are
-            delivered by third party sites and organizations. By using any
-            product, service or functionality originating from the
-            https://www.meloroids.io domain, you hereby acknowledge and consent
-            that Meloroids LLC may share such information and data with any
-            third party with whom Meloroids LLC has a contractual relationship
-            to provide the requested product, service or functionality on behalf
-            of https://www.meloroids.io users and customers.
+            Certain services made available via{" "}
+            <Link href="/"> https://www.meloroids.io</Link> are delivered by
+            third party sites and organizations. By using any product, service
+            or functionality originating from the
+            <Link href="/"> https://www.meloroids.io</Link> domain, you hereby
+            acknowledge and consent that Meloroids LLC may share such
+            information and data with any third party with whom Meloroids LLC
+            has a contractual relationship to provide the requested product,
+            service or functionality on behalf of{" "}
+            <Link href="/"> https://www.meloroids.io</Link> users and customers.
           </p>
         </div>
 
@@ -117,15 +128,15 @@ const TermsAndConditions = () => {
           </h2>
           <p className={`${hasTextBelow}`}>
             You are granted a non-exclusive, non-transferable, revocable license
-            to access and use https://www.meloroids.io strictly in accordance
-            with these terms of use. As a condition of your use of the Site, you
-            warrant to Meloroids LLC that you will not use the Site for any
-            purpose that is unlawful or prohibited by these Terms. You may not
-            use the Site in any manner which could damage, disable, overburden,
-            or impair the Site or interfere with any other party&#39;s use and
-            enjoyment of the Site. You may not obtain or attempt to obtain any
-            materials or information through any means not intentionally made
-            available or provided for through the Site.
+            to access and use <Link href="/"> https://www.meloroids.io</Link>{" "}
+            strictly in accordance with these terms of use. As a condition of
+            your use of the Site, you warrant to Meloroids LLC that you will not
+            use the Site for any purpose that is unlawful or prohibited by these
+            Terms. You may not use the Site in any manner which could damage,
+            disable, overburden, or impair the Site or interfere with any other
+            party&#39;s use and enjoyment of the Site. You may not obtain or
+            attempt to obtain any materials or information through any means not
+            intentionally made available or provided for through the Site.
           </p>
           <p className={`${hasTextBelow}`}>
             All content included as part of the Service, such as text, graphics,
@@ -156,8 +167,9 @@ const TermsAndConditions = () => {
             LLC from our offices within the USA. If you access the Service from
             a location outside the USA, you are responsible for compliance with
             all local laws. You agree that you will not use the Meloroids LLC
-            Content accessed through https://www.meloroids.io in any country or
-            in any manner prohibited by any applicable laws, restrictions or
+            Content accessed through{" "}
+            <Link href="/"> https://www.meloroids.io</Link> in any country or in
+            any manner prohibited by any applicable laws, restrictions or
             regulations.
           </p>
         </div>
@@ -322,7 +334,8 @@ const TermsAndConditions = () => {
           <h2 className={h2Styles}>Changes to Terms</h2>
           <p>
             Meloroids LLC reserves the right, in its sole discretion, to change
-            the Terms under which https://www.meloroids.io is offered. The most
+            the Terms under which{" "}
+            <Link href="/"> https://www.meloroids.io</Link> is offered. The most
             current version of the Terms will supersede all previous versions.
             Meloroids LLC encourages you to periodically review the Terms to
             stay informed of our updates.
