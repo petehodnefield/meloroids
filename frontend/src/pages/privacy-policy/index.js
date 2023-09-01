@@ -13,13 +13,12 @@ const PrivacyPolicy = () => {
         <p className={`${pStyles} mb-4`}>Effective as of September 01, 2023</p>
         <p className={`mb-6`}>
           Protecting your private information is our priority. This Statement of
-          Privacy applies to<Link href="/"> https://www.meloroids.io</Link>, and
-          Meloroids LLC and governs data collection and usage. For the purposes
-          of this Privacy Policy, unless otherwise noted, all references to
-          Meloroids LLC include<Link href="/"> https://www.meloroids.io</Link>.
-          The Meloroids LLC website is a music producer resource site. By using
-          the Meloroids LLC website, you consent to the data practices described
-          in this statement.
+          Privacy applies to https://www.meloroids.io, and Meloroids LLC and
+          governs data collection and usage. For the purposes of this Privacy
+          Policy, unless otherwise noted, all references to Meloroids LLC
+          include https://www.meloroids.io. The Meloroids LLC website is a music
+          producer resource site. By using the Meloroids LLC website, you
+          consent to the data practices described in this statement.
         </p>
         <div className={`${textSection}`}>
           <h2 className={`${h2Styles}`}>

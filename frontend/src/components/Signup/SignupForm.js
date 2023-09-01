@@ -6,6 +6,7 @@ import Auth from "utils/auth";
 import { Icon } from "@iconify/react";
 import LoadingWhiteText from "../Loading/LoadingWhiteText";
 import Error from "../Error/Error";
+import Link from "next/link";
 const SignupForm = () => {
   const inputStyle =
     "text-1  font-semibold  border-2 w-full h-12 rounded-lg pl-4 focus:duration-400";
@@ -22,6 +23,7 @@ const SignupForm = () => {
     email: "",
     emailConfirm: "",
     instagramHandle: "",
+    checked: false,
   });
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [emailAvailable, setEmailAvailable] = useState(true);
@@ -31,6 +33,16 @@ const SignupForm = () => {
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   const [passwordValidated, setPasswordValidated] = useState(false);
+
+  const [errorMessages, setErrorMessages] = useState({
+    checkedError: "",
+    emailAvailableError: "",
+    emailValidationError: "",
+    emailMatchError: "",
+    passwordValidationError: "",
+    passwordMatchError: "",
+    usernameAvailableError: "",
+  });
 
   const [signUp, { loading, data, error }] = useMutation(SIGNUP);
   const {
@@ -113,11 +125,14 @@ const SignupForm = () => {
       !emailMatch ||
       !usernameAvailable ||
       !passwordMatch ||
-      !passwordValidated
+      !passwordValidated ||
+      !userInfo.checked
     ) {
       e.preventDefault();
       window.alert("Please fix your errors on the form and try again.");
       return;
+    } else if (!userInfo.checked) {
+      setErrorMessages({ ...errorMessages, checkedError: true });
     } else {
       try {
         const { data } = await signUp({
@@ -339,7 +354,7 @@ const SignupForm = () => {
       </div>
 
       {/* Instagram Handle */}
-      <div className={`${formInputWrapperStyle} mb-8`}>
+      <div className={`${formInputWrapperStyle} mb-6`}>
         <label htmlFor="MERGE1" className={`${labelStyle}`}>
           Instagram Handle
         </label>
@@ -355,6 +370,40 @@ const SignupForm = () => {
             setUserInfo({ ...userInfo, instagramHandle: e.target.value })
           }
         />
+      </div>
+
+      {/* Checkbox confirming Terms and Conditions */}
+      <div className={` mb-6`}>
+        <input
+          checked={userInfo.checked}
+          onClick={() =>
+            setUserInfo({ ...userInfo, checked: !userInfo.checked })
+          }
+          type="checkbox"
+          name="agreeCheckbox"
+          id="agreeCheckbox"
+          required
+          className="mr-1 cursor-pointer h-4 w-4 relative top-0.5 "
+        />
+        <label htmlFor="agreeCheckbox" className="text-0.875">
+          I am 13 years of age or older and agree to the terms outlined in the{" "}
+          <Link
+            target="__blank"
+            className="text-primary font-semibold "
+            href={"/terms-and-conditions"}
+          >
+            Terms and Conditions
+          </Link>{" "}
+          and the{" "}
+          <Link
+            target="__blank"
+            className="text-primary font-semibold "
+            href={"/privacy-policy"}
+          >
+            Privacy Policy
+          </Link>
+        </label>
+        {errorMessages.checkedError ? <p>Error!</p> : ""}
       </div>
       <button
         type="submit"
