@@ -9,12 +9,12 @@ import Error from "../Error/Error";
 import Link from "next/link";
 const SignupForm = () => {
   const inputStyle =
-    "text-1  font-semibold  border-2 w-full h-12 rounded-lg pl-4 focus:duration-400";
+    "text-1  font-semibold  border-2 w-full h-12 rounded-lg pl-4 focus:border-2 focus:border-primary focus:outline-none";
   const labelStyle = "text-0.875 font-semibold mb-0.5";
   const formInputWrapperStyle = "flex flex-col w-full";
   const errorMessage = `text-0.875 font-semibold text-red mt-2`;
-  const successInputStyle = `border-confirm bg-confirmLight focus:outline-confirm`;
-  const failureInputStyle = `border-deny bg-denyLight focus:outline-deny`;
+  const successInputStyle = `border-confirm bg-confirmLight focus:border-confirm`;
+  const failureInputStyle = `border-deny bg-denyLight focus:border-deny`;
 
   const [userInfo, setUserInfo] = useState({
     username: "",
@@ -34,15 +34,8 @@ const SignupForm = () => {
 
   const [passwordValidated, setPasswordValidated] = useState(false);
 
-  const [errorMessages, setErrorMessages] = useState({
-    checkedError: "",
-    emailAvailableError: "",
-    emailValidationError: "",
-    emailMatchError: "",
-    passwordValidationError: "",
-    passwordMatchError: "",
-    usernameAvailableError: "",
-  });
+  const [termsChecked, setTermsChecked] = useState(false);
+  const [termsCheckedError, setTermsCheckedError] = useState("");
 
   const [signUp, { loading, data, error }] = useMutation(SIGNUP);
   const {
@@ -75,7 +68,7 @@ const SignupForm = () => {
     if (!emailData || !emailData.userEmail) {
       setEmailAvailable(true);
       const emailFormat =
-        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (userInfo.email.match(emailFormat)) {
         setEmailValidated(true);
       } else {
@@ -125,14 +118,13 @@ const SignupForm = () => {
       !emailMatch ||
       !usernameAvailable ||
       !passwordMatch ||
-      !passwordValidated ||
-      !userInfo.checked
+      !passwordValidated
     ) {
       e.preventDefault();
       window.alert("Please fix your errors on the form and try again.");
       return;
     } else if (!userInfo.checked) {
-      setErrorMessages({ ...errorMessages, checkedError: true });
+      setTermsCheckedError("Please check the terms and conditions!");
     } else {
       try {
         const { data } = await signUp({
@@ -376,9 +368,11 @@ const SignupForm = () => {
       <div className={` mb-6`}>
         <input
           checked={userInfo.checked}
-          onClick={() =>
-            setUserInfo({ ...userInfo, checked: !userInfo.checked })
-          }
+          onClick={() => {
+            setUserInfo({ ...userInfo, checked: !userInfo.checked });
+            setTermsChecked(!userInfo.checked);
+          }}
+          onChange={() => {}}
           type="checkbox"
           name="agreeCheckbox"
           id="agreeCheckbox"
@@ -403,7 +397,11 @@ const SignupForm = () => {
             Privacy Policy
           </Link>
         </label>
-        {errorMessages.checkedError ? <p>Error!</p> : ""}
+        {!userInfo.checked && termsCheckedError ? (
+          <p className={errorMessage}>{termsCheckedError}</p>
+        ) : (
+          ""
+        )}
       </div>
       <button
         type="submit"
