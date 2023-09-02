@@ -25,7 +25,7 @@ const Contact = () => {
           <form
             id="contactForm"
             className=""
-            action="https://formsubmit.co/meloroids@gmail.com"
+            action="https://formsubmit.co/support@meloroids.io"
             method="POST"
             // onSubmit={handleFormSubmit}
           >
