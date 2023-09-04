@@ -122,257 +122,395 @@ export const resolvers = {
   },
   Mutation: {
     // Artists
-    createArtist: async (parent, args) => {
-      return await Artist.create(args);
+    createArtist: async (parent, args, context) => {
+      if (context.user.role === "admin") {
+        return await Artist.create(args);
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     updateArtist: async (parent, args) => {
-      return await Artist.findOneAndUpdate(
-        { _id: args._id },
-        { name: args.name }
-      );
+      if (context.user.role === "admin") {
+        return await Artist.findOneAndUpdate(
+          { _id: args._id },
+          { name: args.name }
+        );
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     deleteArtist: async (parent, args) => {
-      return await Artist.findOneAndDelete({ _id: args._id });
+      if (context.user.role === "admin") {
+        return await Artist.findOneAndDelete({ _id: args._id });
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     addAlbumToArtist: async (parent, args) => {
-      const updatedArtist = await Artist.findOneAndUpdate(
-        { _id: args._id },
-        { $push: { albums: args.album_id } }
-      );
-      const updatedAlbum = await Album.findOneAndUpdate(
-        { _id: args.album_id },
-        { $push: { artist: args._id } }
-      );
-      return updatedArtist;
+      if (context.user.role === "admin") {
+        const updatedArtist = await Artist.findOneAndUpdate(
+          { _id: args._id },
+          { $push: { albums: args.album_id } }
+        );
+        const updatedAlbum = await Album.findOneAndUpdate(
+          { _id: args.album_id },
+          { $push: { artist: args._id } }
+        );
+        return updatedArtist;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     addSongToArtist: async (parent, args) => {
-      const updatedArtist = await Artist.findOneAndUpdate(
-        { _id: args._id },
-        { $push: { songs: args.song_id } }
-      );
+      if (context.user.role === "admin") {
+        const updatedArtist = await Artist.findOneAndUpdate(
+          { _id: args._id },
+          { $push: { songs: args.song_id } }
+        );
 
-      return updatedArtist;
+        return updatedArtist;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
 
     // Albums
     createAlbum: async (parent, args) => {
-      const newAlbum = await Album.create(args);
-      const updateArtist = await Artist.findOneAndUpdate(
-        {
-          _id: args.artist_id,
-        },
-        {
-          $push: { albums: newAlbum._id },
-        },
-        { new: true }
-      );
-      return newAlbum;
+      if (context.user.role === "admin") {
+        const newAlbum = await Album.create(args);
+        const updateArtist = await Artist.findOneAndUpdate(
+          {
+            _id: args.artist_id,
+          },
+          {
+            $push: { albums: newAlbum._id },
+          },
+          { new: true }
+        );
+        return newAlbum;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     updateAlbum: async (parent, args) => {
-      const updatedAlbum = await Album.findOneAndUpdate(
-        { _id: args._id },
-        { $push: { songs: args.song_id } }
-      );
-      const updatedSong = await Song.findOneAndUpdate(
-        { _id: args.song_id },
-        { $push: { album: args._id } }
-      );
-      return updatedAlbum;
+      if (context.user.role === "admin") {
+        const updatedAlbum = await Album.findOneAndUpdate(
+          { _id: args._id },
+          { $push: { songs: args.song_id } }
+        );
+        const updatedSong = await Song.findOneAndUpdate(
+          { _id: args.song_id },
+          { $push: { album: args._id } }
+        );
+        return updatedAlbum;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     deleteAlbum: async (parent, args) => {
-      return await Album.findOneAndDelete({ _id: args._id });
+      if (context.user.role === "admin") {
+        return await Album.findOneAndDelete({ _id: args._id });
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
 
     // Songs
     createSong: async (parent, args) => {
-      const createSong = await Song.create(args);
+      if (context.user.role === "admin") {
+        const createSong = await Song.create(args);
 
-      const addProgression = await Song.findOneAndUpdate(
-        { _id: createSong._id },
-        { $push: { progression: args.progression_id, key: args.key_id } },
-        { new: true }
-      );
+        const addProgression = await Song.findOneAndUpdate(
+          { _id: createSong._id },
+          { $push: { progression: args.progression_id, key: args.key_id } },
+          { new: true }
+        );
 
-      const updateAlbum = await Album.findOneAndUpdate(
-        { _id: args.album_id },
-        { $push: { songs: createSong } },
-        { new: true }
-      );
-      return createSong;
+        const updateAlbum = await Album.findOneAndUpdate(
+          { _id: args.album_id },
+          { $push: { songs: createSong } },
+          { new: true }
+        );
+        return createSong;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     updateSong: async (parent, args) => {
-      const removeOldData = await Song.findOneAndUpdate(
-        { _id: args.song_id },
-        {
-          song_name: args.song_name,
-          tempo: args.tempo,
-          $pull: { progression: args.old_progression_id, key: args.old_key_id },
-        },
-        {
-          new: true,
-        }
-      );
+      if (context.user.role === "admin") {
+        const removeOldData = await Song.findOneAndUpdate(
+          { _id: args.song_id },
+          {
+            song_name: args.song_name,
+            tempo: args.tempo,
+            $pull: {
+              progression: args.old_progression_id,
+              key: args.old_key_id,
+            },
+          },
+          {
+            new: true,
+          }
+        );
 
-      const addNewData = await Song.findOneAndUpdate(
-        { _id: removeOldData._id },
-        {
-          $push: { progression: args.new_progression_id, key: args.new_key_id },
-        },
-        {
-          new: true,
-        }
-      );
-      return addNewData;
+        const addNewData = await Song.findOneAndUpdate(
+          { _id: removeOldData._id },
+          {
+            $push: {
+              progression: args.new_progression_id,
+              key: args.new_key_id,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+        return addNewData;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     deleteSong: async (parent, args) => {
-      return await Song.findOneAndDelete({ _id: args._id });
+      if (context.user.role === "admin") {
+        return await Song.findOneAndDelete({ _id: args._id });
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
 
     // Progressions
     createProgression: async (parent, args) => {
-      async function createProgression(data) {
-        let allKeys = [];
-        const loopThroughKeys = await data.forEach((key) => {
-          allKeys.push({
-            key: key.key,
-            progression_in_key: key.numerals.join(" "),
+      if (context.user.role === "admin") {
+        async function createProgression(data) {
+          let allKeys = [];
+          const loopThroughKeys = await data.forEach((key) => {
+            allKeys.push({
+              key: key.key,
+              progression_in_key: key.numerals.join(" "),
+            });
           });
-        });
 
-        return await Progression.create({
-          is_major: args.is_major,
-          numerals: args.numerals,
-          all_keys: allKeys,
-        });
-      }
-      let numeralsToNumbers = [];
-      const splitNumerals = args.numerals.split(" ");
-      const getChordIndexes = await splitNumerals.forEach(
-        (numeral, index, array) => {
-          // Check to see if it's a major key or a minor key
-          if (args.is_major) {
-            switch (numeral) {
-              case "I":
-                numeralsToNumbers.push(1);
-                break;
-              case "ii":
-                numeralsToNumbers.push(2);
-                break;
-              case "iii":
-                numeralsToNumbers.push(3);
-                break;
-              case "IV":
-                numeralsToNumbers.push(4);
-                break;
-              case "V":
-                numeralsToNumbers.push(5);
-                break;
-              case "vi":
-                numeralsToNumbers.push(6);
-                break;
-              case "vii":
-                numeralsToNumbers.push(7);
-                break;
-              default:
-                console.log(false);
-            }
-            if (index === array.length - 1) {
-              const results = returnMajorKey(numeralsToNumbers).then((data) =>
-                createProgression(data)
-              );
-            }
-          } else {
-            switch (numeral) {
-              case "i":
-                numeralsToNumbers.push(1);
-                break;
-              case "ii":
-                numeralsToNumbers.push(2);
-                break;
-              case "bIII":
-                numeralsToNumbers.push(3);
-                break;
-              case "iv":
-                numeralsToNumbers.push(4);
-                break;
-              case "v":
-                numeralsToNumbers.push(5);
-                break;
-              case "bVI":
-                numeralsToNumbers.push(6);
-                break;
-              case "bVII":
-                numeralsToNumbers.push(7);
-                break;
-              default:
-                console.log(false);
-            }
-            if (index === array.length - 1) {
-              const results = returnMinorKey(numeralsToNumbers).then((data) =>
-                createProgression(data)
-              );
+          return await Progression.create({
+            is_major: args.is_major,
+            numerals: args.numerals,
+            all_keys: allKeys,
+          });
+        }
+        let numeralsToNumbers = [];
+        const splitNumerals = args.numerals.split(" ");
+        const getChordIndexes = await splitNumerals.forEach(
+          (numeral, index, array) => {
+            // Check to see if it's a major key or a minor key
+            if (args.is_major) {
+              switch (numeral) {
+                case "I":
+                  numeralsToNumbers.push(1);
+                  break;
+                case "ii":
+                  numeralsToNumbers.push(2);
+                  break;
+                case "iii":
+                  numeralsToNumbers.push(3);
+                  break;
+                case "IV":
+                  numeralsToNumbers.push(4);
+                  break;
+                case "V":
+                  numeralsToNumbers.push(5);
+                  break;
+                case "vi":
+                  numeralsToNumbers.push(6);
+                  break;
+                case "vii":
+                  numeralsToNumbers.push(7);
+                  break;
+                default:
+                  console.log(false);
+              }
+              if (index === array.length - 1) {
+                const results = returnMajorKey(numeralsToNumbers).then((data) =>
+                  createProgression(data)
+                );
+              }
+            } else {
+              switch (numeral) {
+                case "i":
+                  numeralsToNumbers.push(1);
+                  break;
+                case "ii":
+                  numeralsToNumbers.push(2);
+                  break;
+                case "bIII":
+                  numeralsToNumbers.push(3);
+                  break;
+                case "iv":
+                  numeralsToNumbers.push(4);
+                  break;
+                case "v":
+                  numeralsToNumbers.push(5);
+                  break;
+                case "bVI":
+                  numeralsToNumbers.push(6);
+                  break;
+                case "bVII":
+                  numeralsToNumbers.push(7);
+                  break;
+                default:
+                  console.log(false);
+              }
+              if (index === array.length - 1) {
+                const results = returnMinorKey(numeralsToNumbers).then((data) =>
+                  createProgression(data)
+                );
+              }
             }
           }
-        }
-      );
+        );
 
-      // return await Progression.create(args);
+        // return await Progression.create(args);
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     updateProgression: async (parent, args) => {
-      return await Progression.findOneAndUpdate(
-        { _id: args._id },
-        { numerals: args.numerals, is_major: args.is_major }
-      );
+      if (context.user.role === "admin") {
+        return await Progression.findOneAndUpdate(
+          { _id: args._id },
+          { numerals: args.numerals, is_major: args.is_major }
+        );
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     deleteProgression: async (parent, args) => {
-      return await Progression.findOneAndDelete({ _id: args._id });
+      if (context.user.role === "admin") {
+        return await Progression.findOneAndDelete({ _id: args._id });
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     createAllKey: async (
       parent,
       { progression_id, progression_in_key, key, midi_file }
     ) => {
-      const updatedProgression = await Progression.findOneAndUpdate(
-        { _id: progression_id },
-        { $push: { all_keys: { progression_in_key, key, midi_file } } },
-        { new: true }
-      );
-      return updatedProgression;
+      if (context.user.role === "admin") {
+        const updatedProgression = await Progression.findOneAndUpdate(
+          { _id: progression_id },
+          { $push: { all_keys: { progression_in_key, key, midi_file } } },
+          { new: true }
+        );
+        return updatedProgression;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
 
     // Genres
     createGenre: async (parent, args) => {
-      return await Genre.create(args);
+      if (context.user.role === "admin") {
+        return await Genre.create(args);
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     updateGenre: async (parent, args) => {
-      return await Genre.findOneAndUpdate(
-        { _id: args._id },
-        { $push: { progressions: args.progression_id } },
-        { new: true }
-      );
+      if (context.user.role === "admin") {
+        return await Genre.findOneAndUpdate(
+          { _id: args._id },
+          { $push: { progressions: args.progression_id } },
+          { new: true }
+        );
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     removeProgressionFromGenre: async (parent, { _id, progression_id }) => {
-      return Genre.findOneAndUpdate(
-        { _id: _id },
-        { $pull: { progressions: progression_id } }
-      ).populate("progressions");
+      if (context.user.role === "admin") {
+        return Genre.findOneAndUpdate(
+          { _id: _id },
+          { $pull: { progressions: progression_id } }
+        ).populate("progressions");
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     deleteGenre: async (parent, args) => {
-      return await Genre.findOneAndDelete({ _id: args._id });
+      if (context.user.role === "admin") {
+        return await Genre.findOneAndDelete({ _id: args._id });
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
 
     // Key
     createKey: async (parent, args) => {
-      // const addKeys = await Key.insertMany(keysData);
-      // return addKeys;
+      if (context.user.role === "admin") {
+        // const addKeys = await Key.insertMany(keysData);
+        // return addKeys;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     updateKey: async (parent, args) => {
-      return await Key.findOneAndUpdate(
-        { _id: args._id },
-        { is_major: args.is_major, key: args.key }
-      );
+      if (context.user.role === "admin") {
+        return await Key.findOneAndUpdate(
+          { _id: args._id },
+          { is_major: args.is_major, key: args.key }
+        );
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     deleteKey: async (parent, args) => {
-      return await Key.findOneAndDelete({ _id: args._id });
+      if (context.user.role === "admin") {
+        return await Key.findOneAndDelete({ _id: args._id });
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
 
     // Users

@@ -209,7 +209,7 @@ const SignupForm = () => {
             }
             `}
             onChange={(e) => {
-              setUserInfo({ ...userInfo, email: e.target.value });
+              setUserInfo({ ...userInfo, email: e.target.value.toLowerCase() });
             }}
           />
         </div>

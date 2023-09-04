@@ -72,7 +72,8 @@ export const typeDefs = `#graphql
     password: String!,
     email: String!,
     instagramHandle: String,
-    bio: String
+    bio: String,
+    role: String!
   }
 
   type Query {
@@ -139,7 +140,7 @@ export const typeDefs = `#graphql
     updateKey(_id: ID!, is_major: Boolean, key: String): Key
     deleteKey(_id: ID!): Key
 
-    createUser(username: String!, password: String!, email: String!, instagramHandle: String!): Auth
+    createUser(username: String!, password: String!, role: String, email: String!, instagramHandle: String!): Auth
     login(username: String!, password: String!): Auth
     changeUserPassword(password: String!): User
     changeUserInfo(username: String, bio: String, instagramHandle: String): User

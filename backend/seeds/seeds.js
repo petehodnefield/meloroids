@@ -14,13 +14,14 @@ import { songsData } from "./seed-data/songs.js";
 import { usersData } from "./seed-data/user.js";
 import { juiceWrldSongs } from "./seed-data/songs.js";
 export const seedDB = async () => {
-  // await User.deleteMany();
+  await User.deleteMany();
   // await Key.deleteMany();
   // await Artist.deleteMany();
   // await Album.deleteMany();
   // await Genre.deleteMany();
   // await Progression.deleteMany();
-  await Song.deleteMany();
+  // await Song.deleteMany();
+  // await User.deleteMany();
 
   // const createdKeys = await Key.create(keysData);
   // const createdGenres = await Genre.create(genresData);
