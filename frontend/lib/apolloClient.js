@@ -11,8 +11,7 @@ import { setContext } from "@apollo/client/link/context";
 
 function createApolloClient() {
   const httpLink = createHttpLink({
-    uri: "https://meloroids-api-new.onrender.com/graphql",
-    // uri: "http://localhost:4000/graphql",
+    uri: process.env.NEXT_PUBLIC_API_URL,
   });
 
   const authLink = setContext((_, { headers }) => {
