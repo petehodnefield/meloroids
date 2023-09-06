@@ -76,7 +76,7 @@ export const typeDefs = `#graphql
     role: String!
   }
 
-  type Query {
+  type Query  {
     artists: [Artist]
     artist(name: String!): Artist
     artistallsongs(name: String!): Artist

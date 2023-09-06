@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const secret = process.env.ACCESS_TOKEN_KEY;
-const expiration = "72h";
+const expiration = "2h";
 
 const auth = {
   signToken: function ({ username, email, _id, role }) {
