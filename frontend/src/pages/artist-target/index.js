@@ -18,7 +18,6 @@ const ArtistTarget = () => {
     selectedAlbumId: "",
     selectedAlbumArtwork: "",
   });
-  console.log(selectedArtist);
   const [artistOpen, setArtistOpen] = useState(false);
 
   const [albumOpen, setAlbumOpen] = useState(false);

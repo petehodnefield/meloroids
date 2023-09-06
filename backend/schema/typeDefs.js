@@ -1,8 +1,12 @@
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
-export const typeDefs = `#graphql
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+import { rateLimitDirective } from "graphql-rate-limit-directive";
+
+const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
+  rateLimitDirective();
+export const typeDefsTypes = `#graphql
+
 
   type Artist {
     _id: ID
@@ -76,7 +80,7 @@ export const typeDefs = `#graphql
     role: String!
   }
 
-  type Query  {
+  type Query @rateLimit(limit: 1, duration: 15)  {
     artists: [Artist]
     artist(name: String!): Artist
     artistallsongs(name: String!): Artist

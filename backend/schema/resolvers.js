@@ -538,7 +538,6 @@ export const resolvers = {
     },
     changeUserPassword: async (parent, { password }, context) => {
       if (context.user) {
-        console.log(context.user);
         const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { password: password },

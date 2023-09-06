@@ -33,7 +33,6 @@ const ArtistTargetData = ({ query }) => {
     referenceAlbumArtwork: "",
     referenceSongName: "",
   });
-  console.log("referenceInfo", referenceInfo);
   //   This state holds if the user wants the key and tempo to switch from the song
   const [randomSongDifferentParams, setRandomSongDifferentParams] = useState({
     tempo: "",

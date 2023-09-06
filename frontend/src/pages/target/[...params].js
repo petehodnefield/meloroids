@@ -50,7 +50,6 @@ const TargetDetails = ({ queryID }) => {
     if (meData === undefined || meData.me === null) {
       return;
     } else if (meData.me.username) {
-      console.log(meData.me.username);
       const me = meData.me.instagramHandle;
       setLoopNameParams({
         ...loopNameParams,

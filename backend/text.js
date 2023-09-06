@@ -75,7 +75,6 @@ export const returnMajorKey = async ([...numbers]) => {
     // Push the individual keys to the array that holds all keys
     keyNumeralsData.push({ key: keyObject.key, numerals: individualKeyData });
   });
-  //   console.log("keyNumeralsData", keyNumeralsData);
   return keyNumeralsData;
 };
 export const returnMinorKey = async ([...numbers]) => {
@@ -122,6 +121,5 @@ export const returnMinorKey = async ([...numbers]) => {
     // Push the individual keys to the array that holds all keys
     keyNumeralsData.push({ key: keyObject.key, numerals: individualKeyData });
   });
-  //   console.log("keyNumeralsData", keyNumeralsData);
   return await keyNumeralsData;
 };
