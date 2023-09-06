@@ -16,13 +16,13 @@ const TermsAndConditions = () => {
           </h2>
           <p className={`${hasTextBelow}`}>
             Welcome to https://www.meloroids.io. The https://www.meloroids.io
-            website (the "Site") is comprised of various web pages operated by
-            Meloroids LLC. https://www.meloroids.io is offered to you
-            conditioned on your acceptance without modification of the terms,
-            conditions, and notices contained herein (the "Terms"). Your use of
-            https://www.meloroids.io constitutes your agreement to all such
-            Terms. Please read these terms carefully, and keep a copy of them
-            for your reference.
+            website (the &ldquo;Site&ldquo;) is comprised of various web pages
+            operated by Meloroids LLC. https://www.meloroids.io is offered to
+            you conditioned on your acceptance without modification of the
+            terms, conditions, and notices contained herein (the
+            &ldquo;Terms&ldquo;). Your use of https://www.meloroids.io
+            constitutes your agreement to all such Terms. Please read these
+            terms carefully, and keep a copy of them for your reference.
           </p>
           <p className={`${hasTextBelow}`}>
             https://www.meloroids.io is a News and Information Site.
@@ -91,13 +91,14 @@ const TermsAndConditions = () => {
           </h2>
           <p className={`${hasTextBelow}`}>
             https://www.meloroids.io may contain links to other websites
-            ("Linked Sites"). The Linked Sites are not under the control of
-            Meloroids LLC and Meloroids LLC is not responsible for the contents
-            of any Linked Site, including without limitation any link contained
-            in a Linked Site, or any changes or updates to a Linked Site.
-            Meloroids LLC is providing these links to you only as a convenience,
-            and the inclusion of any link does not imply endorsement by
-            Meloroids LLC of the site or any association with its operators.
+            (&ldquo;Linked Sites&ldquo;). The Linked Sites are not under the
+            control of Meloroids LLC and Meloroids LLC is not responsible for
+            the contents of any Linked Site, including without limitation any
+            link contained in a Linked Site, or any changes or updates to a
+            Linked Site. Meloroids LLC is providing these links to you only as a
+            convenience, and the inclusion of any link does not imply
+            endorsement by Meloroids LLC of the site or any association with its
+            operators.
           </p>
           <p>
             Certain services made available via https://www.meloroids.io are
@@ -241,11 +242,11 @@ const TermsAndConditions = () => {
             THE INFORMATION, SOFTWARE, PRODUCTS, SERVICES AND RELATED GRAPHICS
             CONTAINED ON THE SITE FOR ANY PURPOSE. TO THE MAXIMUM EXTENT
             PERMITTED BY APPLICABLE LAW, ALL SUCH INFORMATION, SOFTWARE,
-            PRODUCTS, SERVICES AND RELATED GRAPHICS ARE PROVIDED "AS IS" WITHOUT
-            WARRANTY OR CONDITION OF ANY KIND. MELOROIDS LLC AND/OR ITS
-            SUPPLIERS HEREBY DISCLAIM ALL WARRANTIES AND CONDITIONS WITH REGARD
-            TO THIS INFORMATION, SOFTWARE, PRODUCTS, SERVICES AND RELATED
-            GRAPHICS, INCLUDING ALL IMPLIED WARRANTIES OR CONDITIONS OF
+            PRODUCTS, SERVICES AND RELATED GRAPHICS ARE PROVIDED &ldquo;AS
+            IS&ldquo; WITHOUT WARRANTY OR CONDITION OF ANY KIND. MELOROIDS LLC
+            AND/OR ITS SUPPLIERS HEREBY DISCLAIM ALL WARRANTIES AND CONDITIONS
+            WITH REGARD TO THIS INFORMATION, SOFTWARE, PRODUCTS, SERVICES AND
+            RELATED GRAPHICS, INCLUDING ALL IMPLIED WARRANTIES OR CONDITIONS OF
             MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND
             NON-INFRINGEMENT.
           </p>
