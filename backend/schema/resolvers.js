@@ -524,13 +524,17 @@ export const resolvers = {
       const user = await User.findOne({ username });
 
       if (!user) {
-        throw new GraphQLError("Incorrect credentials");
+        throw new GraphQLError(
+          "Username and/or password is incorrect. Please try again."
+        );
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new GraphQLError("Incorrect credentials");
+        throw new GraphQLError(
+          "Username and/or password is incorrect. Please try again."
+        );
       }
 
       const token = auth.signToken(user);

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavigationContext } from "@/pages/_app";
 import { LOGIN } from "../../../utils/mutations";
 import { useMutation } from "@apollo/client";
@@ -34,12 +34,10 @@ const LoginForm = () => {
       });
       Auth.login(data.login.token);
     } catch (e) {
-      setErrorMessage(
-        "Username and/or password is incorrect. Please try again."
-      );
-      console.log(e, "hello");
+      setErrorMessage(e.message);
     }
   };
+
   return (
     <form id="loginForm" onSubmit={(e) => handleFormSubmit(e)}>
       <div className={`${formInputWrapperStyle}`}>
