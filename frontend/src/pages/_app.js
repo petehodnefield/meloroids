@@ -10,7 +10,7 @@ import {
 import { useApollo } from "../../lib/apollo";
 import Auth from "utils/auth";
 import Login from "./login";
-
+import Script from "next/script";
 export const LoginContext = createContext();
 export const NavigationContext = createContext();
 
@@ -29,6 +29,18 @@ export default function App({ Component, pageProps }) {
         <ApolloProvider client={apolloClient}>
           <Layout>
             <Component {...pageProps} />{" "}
+            <Script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-JXMJZT5MYJ"
+            />
+            <Script id="google-analytics">
+              {` window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-JXMJZT5MYJ');
+          `}
+            </Script>
           </Layout>
         </ApolloProvider>
       </NavigationContext.Provider>
