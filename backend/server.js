@@ -11,9 +11,11 @@ import { seedDB } from "./seeds/seeds.js";
 import auth from "./utils/auth.js";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { rateLimitDirective } from "graphql-rate-limit-directive";
-
+const onLimit = (resource, directiveArgs, source, args, context, info) => {
+  throw new Error("Limit achieved!");
+};
 const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
-  rateLimitDirective();
+  rateLimitDirective({ onLimit });
 
 const db = await mongoose.connect(
   process.env.MONGO_DB_URI
@@ -26,8 +28,6 @@ let schema = makeExecutableSchema({
   typeDefs: [
     rateLimitDirectiveTypeDefs,
     `#graphql
-
-
   type Artist {
     _id: ID
     name: String
@@ -100,7 +100,7 @@ let schema = makeExecutableSchema({
     role: String!
   }
 
-  type Query @rateLimit(limit: 1, duration: 15)  {
+  type Query @rateLimit(limit: 200, duration: 60)  {
     artists: [Artist]
     artist(name: String!): Artist
     artistallsongs(name: String!): Artist
@@ -132,7 +132,7 @@ let schema = makeExecutableSchema({
     userEmail(email: String!): User
   }
 
-  type Mutation {
+  type Mutation  @rateLimit(limit: 20, duration: 60)   {
     createArtist(name: String!, age: Int!, image: String!): Artist
     updateArtist(name: String!, _id: ID!): Artist
     deleteArtist(_id: ID!): Artist
@@ -164,11 +164,11 @@ let schema = makeExecutableSchema({
     updateKey(_id: ID!, is_major: Boolean, key: String): Key
     deleteKey(_id: ID!): Key
 
-    createUser(username: String!, password: String!, role: String, email: String!, instagramHandle: String!): Auth
-    login(username: String!, password: String!): Auth
-    changeUserPassword(password: String!): User
-    changeUserInfo(username: String, bio: String, instagramHandle: String): User
-    deleteUser: User
+    createUser(username: String!, password: String!, role: String, email: String!, instagramHandle: String!): Auth @rateLimit(limit: 3, duration: 1440) 
+    login(username: String!, password: String!): Auth @rateLimit(limit: 5, duration: 15) 
+    changeUserPassword(password: String!): User @rateLimit(limit: 3, duration: 43200) 
+    changeUserInfo(username: String, bio: String, instagramHandle: String): User @rateLimit(limit: 5, duration: 1440) 
+    deleteUser: User @rateLimit(limit: 30, duration: 1440) 
   }
 
   type Auth {

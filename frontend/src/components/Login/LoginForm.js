@@ -37,7 +37,7 @@ const LoginForm = () => {
       setErrorMessage(
         "Username and/or password is incorrect. Please try again."
       );
-      console.log(e);
+      console.log(e, "hello");
     }
   };
   return (
