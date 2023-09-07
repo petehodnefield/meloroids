@@ -22,7 +22,7 @@ const LoginForm = () => {
   });
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [login, { loading, error, data }] = useMutation(LOGIN);
+  const [login, { client, loading, error, data }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (e) => {
     setNavigationSelected("Dashboard");
@@ -33,6 +33,7 @@ const LoginForm = () => {
         variables: { username: userInfo.username, password: userInfo.password },
       });
       Auth.login(data.login.token);
+      await client.resetStore();
     } catch (e) {
       setErrorMessage(e.message);
     }

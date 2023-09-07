@@ -1,5 +1,7 @@
 import Image from "next/image";
 import React, { useState, useContext } from "react";
+import { useQuery } from "@apollo/client";
+import { ME } from "../../../utils/queries";
 import { NavigationContext, LoginContext } from "@/pages/_app";
 import logoFull from "../../../public/assets/logo/logo-full-white.png";
 import Link from "next/link";
@@ -10,15 +12,18 @@ const Footer = () => {
   const [navigationSelected, setNavigationSelected] =
     useContext(NavigationContext);
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
+  const { client, loading, data, error } = useQuery(ME);
+
   const columnStyle =
     "flex flex-col items-center justify-center lg:items-start lg:justify-start 	";
   const handleFormSubmit = async (e) => {
     // e.preventDefault()
   };
 
-  const logout = (e) => {
+  const logout = async (e) => {
     e.preventDefault();
     Auth.logout();
+    await client.resetStore();
   };
   return (
     <footer className="flex lg:h-325  py-10 items-center text-white justify-center  bg-primary ">

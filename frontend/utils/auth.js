@@ -1,13 +1,6 @@
 import decode from "jwt-decode";
 
 class AuthService {
-  // Retrieve data saved in token
-  getProfile() {
-    if (typeof window !== "undefined") {
-      return decode(this.getToken());
-    }
-  }
-
   // check if the user is still logged in
   loggedIn() {
     if (typeof window !== "undefined") {

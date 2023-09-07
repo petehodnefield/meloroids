@@ -21,7 +21,7 @@ const Nav = () => {
 
   const [navigationSelected, setNavigationSelected] =
     useContext(NavigationContext);
-  const { loading, data, error } = useQuery(ME);
+  const { client, loading, data, error } = useQuery(ME);
   useEffect(() => {
     if (loggedIn) {
       const username = data.me.username;
@@ -32,10 +32,11 @@ const Nav = () => {
   if (loading) return <Loading />;
   if (error) return <Error />;
 
-  const logout = (e) => {
+  const logout = async (e) => {
     e.preventDefault();
     setNavigationSelected("home");
     Auth.logout();
+    await client.resetStore();
   };
   return (
     <nav>

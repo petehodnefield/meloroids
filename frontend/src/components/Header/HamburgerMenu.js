@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useQuery } from "@apollo/client";
+import { ME } from "../../../utils/queries";
 import { LoginContext, NavigationContext } from "@/pages/_app";
 import { Icon } from "@iconify/react";
 import logoSmall from "../../../public/assets/logo/logo-small-white.png";
@@ -10,14 +12,16 @@ const HamburgerMenu = ({ setIsOpen }) => {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const [navigationSelected, setNavigationSelected] =
     useContext(NavigationContext);
+  const { client, loading, data, error } = useQuery(ME);
 
   const liStyle =
     "h-16  flex items-center justify-start border-b-1 w-full text-white text-1 font-semibold bg-dark ";
   const linkStyle =
     "h-full w-full flex items-center pl-6 bg-dark hover:bg-primary duration-200 ";
 
-  const logout = () => {
+  const logout = async () => {
     Auth.logout();
+    await client.resetStore();
   };
 
   return (
