@@ -46,7 +46,7 @@ const LoginForm = () => {
           Username
         </label>
         <input
-          minLength={3}
+          minLength={1}
           maxLength={20}
           id="username"
           type="text"

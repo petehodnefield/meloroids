@@ -153,7 +153,7 @@ export const resolvers = {
       }
     },
     addAlbumToArtist: async (parent, args, context) => {
-      if (context.user && context.user && context.user.role === "admin") {
+      if (context.user && context.user.role === "admin") {
         const updatedArtist = await Artist.findOneAndUpdate(
           { _id: args._id },
           { $push: { albums: args.album_id } }
@@ -464,7 +464,7 @@ export const resolvers = {
       { _id, progression_id },
       context
     ) => {
-      if (context.user.role === "admin") {
+      if (context.user && context.user.role === "admin") {
         return Genre.findOneAndUpdate(
           { _id: _id },
           { $pull: { progressions: progression_id } }
@@ -509,7 +509,7 @@ export const resolvers = {
       }
     },
     deleteKey: async (parent, args, context) => {
-      if (context.user.role === "admin") {
+      if (context.user && context.user.role === "admin") {
         return await Key.findOneAndDelete({ _id: args._id });
       } else {
         throw new GraphQLError(

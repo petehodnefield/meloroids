@@ -159,7 +159,7 @@ const SignupForm = () => {
         </label>
         <div className="relative">
           <input
-            minLength={3}
+            minLength={2}
             maxLength={20}
             name="username"
             id="username"

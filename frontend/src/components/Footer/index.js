@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { ME } from "../../../utils/queries";
 import { NavigationContext, LoginContext } from "@/pages/_app";
@@ -14,10 +14,27 @@ const Footer = () => {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const { client, loading, data, error } = useQuery(ME);
 
+  const [email, setEmail] = useState("");
+  const [emailValidated, setEmailValidated] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+
   const columnStyle =
     "flex flex-col items-center justify-center lg:items-start lg:justify-start 	";
+
+  useEffect(() => {
+    const emailFormat =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (email.match(emailFormat)) {
+      setEmailValidated(true);
+    } else {
+      setEmailValidated(false);
+    }
+  }, [email]);
   const handleFormSubmit = async (e) => {
-    // e.preventDefault()
+    if (!emailValidated) {
+      e.preventDefault();
+      setEmailErrorMessage("Please enter a valid email!");
+    }
   };
 
   const logout = async (e) => {
@@ -118,7 +135,7 @@ const Footer = () => {
           <div className="flex flex-col items-center lg:items-start">
             <h3 className="text-1.5 font-bold mb-2">Join us</h3>
             <h4 className="text-1 font-medium mb-2">
-              Enter your email to get free guides
+              Enter your email to get free stuff
             </h4>
             {/* Form to capture emails */}
             <form
@@ -129,9 +146,20 @@ const Footer = () => {
               className="border-solid border-b-2 border-white py-1 gap-2 flex"
             >
               {/* Hidden Inputs */}
-              <input type="hidden" name="u" value="74ca7fc92cb84f6ac5e3867ab" />
-              <input type="hidden" name="id" value="7005dd4ba1" />
-
+              <input
+                type="hidden"
+                name="u"
+                value="74ca7fc92cb84f6ac5e3867ab"
+                minLength={5}
+                maxLength={30}
+              />
+              <input
+                type="hidden"
+                name="id"
+                value="7005dd4ba1"
+                minLength={5}
+                maxLength={30}
+              />
               {/* Email Input */}
               <label htmlFor="MERGE0" hidden className="w-40">
                 Email Address <span className="req asterisk">*</span>
@@ -142,11 +170,19 @@ const Footer = () => {
                 type="email"
                 name="MERGE0"
                 id="MERGE0"
+                required
+                onChange={(e) => setEmail(e.target.value)}
+                minLength={5}
+                maxLength={30}
               />
-              <button type="submit" className="font-bold">
+              <button
+                type={emailValidated ? "submit" : ""}
+                className="font-bold"
+              >
                 SUBMIT
-              </button>
-            </form>
+              </button>{" "}
+            </form>{" "}
+            {emailErrorMessage ? emailErrorMessage : ""}
           </div>
           <div className="flex flex-col items-start">
             <h3 className="text-1.5 font-bold mb-4">Follow us</h3>
