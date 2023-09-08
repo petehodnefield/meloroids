@@ -123,7 +123,7 @@ export const resolvers = {
   Mutation: {
     // Artists
     createArtist: async (parent, args, context) => {
-      if (context.user.role === "admin") {
+      if (context.user && context.user.role === "admin") {
         return await Artist.create(args);
       } else {
         throw new GraphQLError(
@@ -131,8 +131,8 @@ export const resolvers = {
         );
       }
     },
-    updateArtist: async (parent, args) => {
-      if (context.user.role === "admin") {
+    updateArtist: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Artist.findOneAndUpdate(
           { _id: args._id },
           { name: args.name }
@@ -143,8 +143,8 @@ export const resolvers = {
         );
       }
     },
-    deleteArtist: async (parent, args) => {
-      if (context.user.role === "admin") {
+    deleteArtist: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Artist.findOneAndDelete({ _id: args._id });
       } else {
         throw new GraphQLError(
@@ -152,8 +152,8 @@ export const resolvers = {
         );
       }
     },
-    addAlbumToArtist: async (parent, args) => {
-      if (context.user.role === "admin") {
+    addAlbumToArtist: async (parent, args, context) => {
+      if (context.user && context.user && context.user.role === "admin") {
         const updatedArtist = await Artist.findOneAndUpdate(
           { _id: args._id },
           { $push: { albums: args.album_id } }
@@ -169,8 +169,8 @@ export const resolvers = {
         );
       }
     },
-    addSongToArtist: async (parent, args) => {
-      if (context.user.role === "admin") {
+    addSongToArtist: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         const updatedArtist = await Artist.findOneAndUpdate(
           { _id: args._id },
           { $push: { songs: args.song_id } }
@@ -185,8 +185,8 @@ export const resolvers = {
     },
 
     // Albums
-    createAlbum: async (parent, args) => {
-      if (context.user.role === "admin") {
+    createAlbum: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         const newAlbum = await Album.create(args);
         const updateArtist = await Artist.findOneAndUpdate(
           {
@@ -204,8 +204,8 @@ export const resolvers = {
         );
       }
     },
-    updateAlbum: async (parent, args) => {
-      if (context.user.role === "admin") {
+    updateAlbum: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         const updatedAlbum = await Album.findOneAndUpdate(
           { _id: args._id },
           { $push: { songs: args.song_id } }
@@ -221,8 +221,8 @@ export const resolvers = {
         );
       }
     },
-    deleteAlbum: async (parent, args) => {
-      if (context.user.role === "admin") {
+    deleteAlbum: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Album.findOneAndDelete({ _id: args._id });
       } else {
         throw new GraphQLError(
@@ -232,8 +232,8 @@ export const resolvers = {
     },
 
     // Songs
-    createSong: async (parent, args) => {
-      if (context.user.role === "admin") {
+    createSong: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         const createSong = await Song.create(args);
 
         const addProgression = await Song.findOneAndUpdate(
@@ -254,8 +254,8 @@ export const resolvers = {
         );
       }
     },
-    updateSong: async (parent, args) => {
-      if (context.user.role === "admin") {
+    updateSong: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         const removeOldData = await Song.findOneAndUpdate(
           { _id: args.song_id },
           {
@@ -290,8 +290,8 @@ export const resolvers = {
         );
       }
     },
-    deleteSong: async (parent, args) => {
-      if (context.user.role === "admin") {
+    deleteSong: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Song.findOneAndDelete({ _id: args._id });
       } else {
         throw new GraphQLError(
@@ -301,8 +301,8 @@ export const resolvers = {
     },
 
     // Progressions
-    createProgression: async (parent, args) => {
-      if (context.user.role === "admin") {
+    createProgression: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         async function createProgression(data) {
           let allKeys = [];
           const loopThroughKeys = await data.forEach((key) => {
@@ -396,8 +396,8 @@ export const resolvers = {
         );
       }
     },
-    updateProgression: async (parent, args) => {
-      if (context.user.role === "admin") {
+    updateProgression: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Progression.findOneAndUpdate(
           { _id: args._id },
           { numerals: args.numerals, is_major: args.is_major }
@@ -408,8 +408,8 @@ export const resolvers = {
         );
       }
     },
-    deleteProgression: async (parent, args) => {
-      if (context.user.role === "admin") {
+    deleteProgression: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Progression.findOneAndDelete({ _id: args._id });
       } else {
         throw new GraphQLError(
@@ -419,9 +419,10 @@ export const resolvers = {
     },
     createAllKey: async (
       parent,
-      { progression_id, progression_in_key, key, midi_file }
+      { progression_id, progression_in_key, key, midi_file },
+      context
     ) => {
-      if (context.user.role === "admin") {
+      if (context.user && context.user.role === "admin") {
         const updatedProgression = await Progression.findOneAndUpdate(
           { _id: progression_id },
           { $push: { all_keys: { progression_in_key, key, midi_file } } },
@@ -436,8 +437,8 @@ export const resolvers = {
     },
 
     // Genres
-    createGenre: async (parent, args) => {
-      if (context.user.role === "admin") {
+    createGenre: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Genre.create(args);
       } else {
         throw new GraphQLError(
@@ -445,8 +446,8 @@ export const resolvers = {
         );
       }
     },
-    updateGenre: async (parent, args) => {
-      if (context.user.role === "admin") {
+    updateGenre: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Genre.findOneAndUpdate(
           { _id: args._id },
           { $push: { progressions: args.progression_id } },
@@ -458,7 +459,11 @@ export const resolvers = {
         );
       }
     },
-    removeProgressionFromGenre: async (parent, { _id, progression_id }) => {
+    removeProgressionFromGenre: async (
+      parent,
+      { _id, progression_id },
+      context
+    ) => {
       if (context.user.role === "admin") {
         return Genre.findOneAndUpdate(
           { _id: _id },
@@ -470,8 +475,8 @@ export const resolvers = {
         );
       }
     },
-    deleteGenre: async (parent, args) => {
-      if (context.user.role === "admin") {
+    deleteGenre: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Genre.findOneAndDelete({ _id: args._id });
       } else {
         throw new GraphQLError(
@@ -481,8 +486,8 @@ export const resolvers = {
     },
 
     // Key
-    createKey: async (parent, args) => {
-      if (context.user.role === "admin") {
+    createKey: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         // const addKeys = await Key.insertMany(keysData);
         // return addKeys;
       } else {
@@ -491,8 +496,8 @@ export const resolvers = {
         );
       }
     },
-    updateKey: async (parent, args) => {
-      if (context.user.role === "admin") {
+    updateKey: async (parent, args, context) => {
+      if (context.user && context.user.role === "admin") {
         return await Key.findOneAndUpdate(
           { _id: args._id },
           { is_major: args.is_major, key: args.key }
@@ -503,7 +508,7 @@ export const resolvers = {
         );
       }
     },
-    deleteKey: async (parent, args) => {
+    deleteKey: async (parent, args, context) => {
       if (context.user.role === "admin") {
         return await Key.findOneAndDelete({ _id: args._id });
       } else {
