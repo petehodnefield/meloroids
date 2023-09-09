@@ -3,8 +3,16 @@ import { Icon } from "@iconify/react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const LoopFileName = ({ loopName }) => {
+  const iconStyle = "cursor-pointer text-2";
+
   const [copied, setCopied] = useState(false);
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(loopName).then(() => {}),
+      () => {
+        console.error("failed to copy");
+      };
+  };
   useEffect(() => {
     setTimeout(() => {
       setCopied(false);
@@ -13,6 +21,25 @@ const LoopFileName = ({ loopName }) => {
   return (
     <div className="relative bg-dark w-full pl-8  pr-16 py-6  text-white flex flex-col  items-center justify-center rounded-b-lg	">
       <p className="text-1 w-full font-semibold text-left">{loopName}</p>
+      <div className="absolute right-4 hover:cursor-pointer text-1.5">
+        {copied ? (
+          <Icon
+            className={`${iconStyle} text-green`}
+            icon="carbon:checkmark-filled"
+            onClick={() => setCopied(!copied)}
+          />
+        ) : (
+          <Icon
+            onClick={() => {
+              copyToClipboard(loopName);
+              setCopied(!copied);
+            }}
+            className={iconStyle}
+            icon="ph:copy"
+          />
+        )}
+      </div>
+
       {copied ? (
         <div className="text-1 text-primary font-semibold  mt-3 w-full">
           {" "}
@@ -21,24 +48,6 @@ const LoopFileName = ({ loopName }) => {
       ) : (
         ""
       )}
-      <CopyToClipboard
-        className="absolute right-4 hover:cursor-pointer text-1.5"
-        text={loopName}
-        onCopy={() => setCopied(true)}
-      >
-        {copied ? (
-          <Icon
-            color="#57B534"
-            icon="ic:baseline-check-circle"
-            className="text-2.5"
-          />
-        ) : (
-          <Icon
-            className={`${copied ? "hidden" : ""} h-8 hover:opacity-60`}
-            icon="ph:copy-simple"
-          />
-        )}
-      </CopyToClipboard>
     </div>
   );
 };
