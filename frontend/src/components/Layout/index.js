@@ -4,7 +4,7 @@ import Header from "../Header";
 import Head from "next/head";
 import { ReactNode } from "react";
 import Footer from "../Footer";
-import { Plus_Jakarta_Sans } from "@next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import Auth from "utils/auth";
 const plus_jakarta_sans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 

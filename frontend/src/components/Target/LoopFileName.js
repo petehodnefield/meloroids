@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const LoopFileName = ({ loopName }) => {
   const iconStyle = "cursor-pointer text-2";
