@@ -41,3 +41,14 @@ export const SIGNUP = gql`
     }
   }
 `;
+
+export const DELETE_ARTIST = gql`
+  mutation Mutation($id: ID!) {
+    deleteArtist(_id: $id) {
+      _id
+      name
+      age
+      image
+    }
+  }
+`;

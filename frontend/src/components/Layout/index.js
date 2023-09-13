@@ -25,6 +25,7 @@ export default function Layout({ children, pageProps }) {
           content="Meloroids is a resource for music producers to write better melodies."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="google-adsense-account" content="ca-pub-3182044043571875" />
       </Head>
       <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       <main
