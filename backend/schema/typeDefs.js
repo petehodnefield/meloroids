@@ -118,7 +118,7 @@ export const typeDefsTypes = `#graphql
     deleteArtist(_id: ID!): Artist
 
     createAlbum(album_name: String!, artwork: String!, year: String!, artist_id: ID!): Album
-    updateAlbum(_id: ID!, song_id: ID!): Album
+    updateAlbum(_id: ID!, song_id: ID, album_artwork: String!): Album
     deleteAlbum(_id: ID!): Album
 
     addAlbumToArtist(_id: ID!, album_id: ID!): Artist

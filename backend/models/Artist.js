@@ -10,7 +10,6 @@ const artistSchema = new Schema({
     unique: true,
   },
   age: {
-    required: true,
     type: Number,
   },
   image: {

@@ -8,6 +8,16 @@ import User from "../models/User.js";
 import { returnMajorKey, returnMinorKey } from "../text.js";
 import auth from "../utils/auth.js";
 import { GraphQLError } from "graphql";
+import dotenv from "dotenv";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+dotenv.config();
+const bucketName = process.env.AWS_BUCKET_NAME;
+const bucketRegion = process.env.AWS_BUCKET_REGION;
+const accessKey = process.env.AWS_ACCESS_KEY;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+
+const client = new S3Client({});
+
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
   Query: {
@@ -123,25 +133,19 @@ export const resolvers = {
   Mutation: {
     // Artists
     createArtist: async (parent, args, context) => {
-      if (context.user && context.user.role === "admin") {
-        return await Artist.create(args);
-      } else {
-        throw new GraphQLError(
-          "You do not have permission to perform this request!"
-        );
-      }
+      // if (context.user) {
+      return await Artist.create(args);
+      // } else {
+      //   throw new GraphQLError(
+      //     "You do not have permission to perform this request!"
+      //   );
+      // }
     },
     updateArtist: async (parent, args, context) => {
-      if (context.user && context.user.role === "admin") {
-        return await Artist.findOneAndUpdate(
-          { _id: args._id },
-          { name: args.name }
-        );
-      } else {
-        throw new GraphQLError(
-          "You do not have permission to perform this request!"
-        );
-      }
+      return await Artist.findOneAndUpdate(
+        { _id: args._id },
+        { name: args.name, image: args.image }
+      );
     },
     deleteArtist: async (parent, args, context) => {
       if (context.user && context.user.role === "admin") {
@@ -204,7 +208,17 @@ export const resolvers = {
         );
       }
     },
-    updateAlbum: async (parent, args, context) => {
+    updateAlbumInfo: async (parent, args, context) => {
+      const updatedAlbumInfo = await Album.findOneAndUpdate(
+        { _id: args._id },
+        {
+          artwork: args.artwork,
+          year: args.year,
+        }
+      );
+      return updatedAlbumInfo;
+    },
+    updateAlbumSongs: async (parent, args, context) => {
       if (context.user && context.user.role === "admin") {
         const updatedAlbum = await Album.findOneAndUpdate(
           { _id: args._id },
