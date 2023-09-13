@@ -24,7 +24,7 @@ const Hero = () => {
             Music Production Simplified
           </h1>
           <h2 className="text-1.5 font-medium mb-8">
-            Focus on what <span className="font-bold">truly</span> matter
+            Taking the guess work out of making beats.{" "}
           </h2>
           <h3 className="text-1.125 font-medium mb-8 lg:max-w-660">
             Meloroids is the{" "}

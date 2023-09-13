@@ -150,12 +150,13 @@ let schema = makeExecutableSchema({
   }
 
   type Mutation  @rateLimit(limit: 20, duration: 60)   {
-    createArtist(name: String!, age: Int!, image: String!): Artist
-    updateArtist(name: String!, _id: ID!): Artist
+    createArtist(name: String!, age: Int, image: String!): Artist
+    updateArtist(name: String, _id: ID!, image: String): Artist
     deleteArtist(_id: ID!): Artist
 
     createAlbum(album_name: String!, artwork: String!, year: String!, artist_id: ID!): Album
-    updateAlbum(_id: ID!, song_id: ID!): Album
+    updateAlbumInfo(_id: ID!, artwork: String, year: String): Album
+    updateAlbumSongs(_id: ID!, song_id: ID!): Album
     deleteAlbum(_id: ID!): Album
 
     addAlbumToArtist(_id: ID!, album_id: ID!): Artist
