@@ -52,3 +52,14 @@ export const DELETE_ARTIST = gql`
     }
   }
 `;
+
+export const DELETE_PROGRESSION = gql`
+  mutation Mutation($id: ID!) {
+    deleteProgression(_id: $id) {
+      _id
+      numerals
+
+      is_major
+    }
+  }
+`;

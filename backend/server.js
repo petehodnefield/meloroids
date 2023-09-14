@@ -168,7 +168,7 @@ let schema = makeExecutableSchema({
     deleteSong(_id: ID!): Song
 
     createProgression(numerals: String!, is_major: Boolean, all_keys: AllHelloKeys): Progression
-    updateProgression(_id: ID!, numerals: String, is_major: Boolean): Progression
+    updateProgression(_id: ID!, numerals: String!, is_major: Boolean, all_keys: AllHelloKeys): Progression
     deleteProgression(_id: ID!): Progression
 
     createAllKey(progression_id: ID!, progression_in_key: String!, key: String!, midi_file: String): Progression

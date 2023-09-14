@@ -411,16 +411,112 @@ export const resolvers = {
       }
     },
     updateProgression: async (parent, args, context) => {
-      if (context.user && context.user.role === "admin") {
-        return await Progression.findOneAndUpdate(
-          { _id: args._id },
-          { numerals: args.numerals, is_major: args.is_major }
-        );
-      } else {
-        throw new GraphQLError(
-          "You do not have permission to perform this request!"
-        );
+      // if (context.user && context.user.role === "admin") {
+      let allKeys = [];
+
+      async function updateAllKeysData(data) {
+        const loopThroughKeys = await data.forEach((key) => {
+          allKeys.push({
+            key: key.key,
+            progression_in_key: key.numerals.join(" "),
+          });
+        });
       }
+      let numeralsToNumbers = [];
+      const splitNumerals = args.numerals.split(" ");
+      const getChordIndexes = await splitNumerals.forEach(
+        (numeral, index, array) => {
+          // Check to see if it's a major key or a minor key
+          if (args.is_major) {
+            switch (numeral) {
+              case "I":
+                numeralsToNumbers.push(1);
+                break;
+              case "ii":
+                numeralsToNumbers.push(2);
+                break;
+              case "iii":
+                numeralsToNumbers.push(3);
+                break;
+              case "IV":
+                numeralsToNumbers.push(4);
+                break;
+              case "V":
+                numeralsToNumbers.push(5);
+                break;
+              case "vi":
+                numeralsToNumbers.push(6);
+                break;
+              case "vii":
+                numeralsToNumbers.push(7);
+                break;
+              default:
+                console.log(false);
+            }
+            if (index === array.length - 1) {
+              const results = returnMajorKey(numeralsToNumbers).then((data) =>
+                updateAllKeysData(data)
+              );
+            }
+          } else {
+            switch (numeral) {
+              case "i":
+                numeralsToNumbers.push(1);
+                break;
+              case "ii":
+                numeralsToNumbers.push(2);
+                break;
+              case "bIII":
+                numeralsToNumbers.push(3);
+                break;
+              case "iv":
+                numeralsToNumbers.push(4);
+                break;
+              case "v":
+                numeralsToNumbers.push(5);
+                break;
+              case "bVI":
+                numeralsToNumbers.push(6);
+                break;
+              case "bVII":
+                numeralsToNumbers.push(7);
+                break;
+              default:
+                console.log(false);
+            }
+            if (index === array.length - 1) {
+              const results = returnMinorKey(numeralsToNumbers).then((data) =>
+                updateAllKeysData(data)
+              );
+            }
+          }
+        }
+      );
+      const removeOldAllKeys = await Progression.findOneAndUpdate(
+        { _id: args._id },
+        {
+          numerals: args.numerals,
+          is_major: args.is_major,
+          $set: { all_keys: [] },
+        }
+      );
+      const updateWithNewAllKeys = await Progression.findByIdAndUpdate(
+        {
+          _id: args._id,
+        },
+        {
+          $push: { all_keys: allKeys },
+        },
+        {
+          new: true,
+        }
+      );
+      return updateWithNewAllKeys;
+      // } else {
+      //   throw new GraphQLError(
+      //     "You do not have permission to perform this request!"
+      //   );
+      // }
     },
     deleteProgression: async (parent, args, context) => {
       if (context.user && context.user.role === "admin") {

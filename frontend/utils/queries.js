@@ -23,7 +23,6 @@ export const PROGRESSION_BY_ID = gql`
         _id
         key
         progression_in_key
-        midi_file
       }
     }
   }
