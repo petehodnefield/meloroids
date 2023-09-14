@@ -32,7 +32,7 @@ const HamburgerMenu = ({ setIsOpen }) => {
         icon="material-symbols:close-rounded"
       />
       {/* Meloroids small logo */}
-      <div className=" mt-4 mb-6 h-12 w-8 ml-8">
+      <div className=" mt-4 mb-6 h-12 w-12 ml-8">
         <Image
           src={logoSmall}
           alt="The Meloroids logo consisting of an eight note and a syringe."
