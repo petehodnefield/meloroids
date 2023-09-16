@@ -36,7 +36,7 @@ const MobileHeader = ({ isOpen, setIsOpen }) => {
         icon="ic:twotone-menu"
         onClick={() => setIsOpen(!isOpen)}
       />
-      <div className="h-12 w-8">
+      <div className="h-12 w-12">
         <Link
           className="h-full w-full"
           href="/"

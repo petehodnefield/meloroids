@@ -34,10 +34,7 @@ const onLimit = (resource, directiveArgs, source, args, context, info) => {
 const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
   rateLimitDirective({ onLimit });
 
-const db = await mongoose.connect(
-  process.env.MONGO_DB_URI
-  // "mongodb://localhost:27017/meloroids"
-);
+const db = await mongoose.connect(process.env.MONGO_DB_URI);
 // const seed = await seedDB();
 console.info("connected to db!");
 
@@ -107,14 +104,24 @@ let schema = makeExecutableSchema({
     is_major: Boolean!,
   }
 
+  type PremiumSchema {
+    _id: ID!,
+    accountType: String,
+    isActive: Boolean,
+    subscriptionStartDate: String,
+    subscriptionEndDate: String,
+  }
+
   type User {
     _id: ID!,
     username: String!,
     password: String!,
     email: String!,
-    instagramHandle: String,
+    instagramHandle: String!,
+    profilePicture: String,
     bio: String,
-    role: String!
+    role: String!,
+    premiumAccount: [PremiumSchema]
   }
 
   type Query @rateLimit(limit: 200, duration: 60)  {
@@ -131,6 +138,7 @@ let schema = makeExecutableSchema({
 
     progressions: [Progression]
     progression(id: ID!): Progression
+    progressionByNumerals(numerals: String!): Progression
 
     genres: [Genre]
     genre(id: ID!): Genre
@@ -168,7 +176,7 @@ let schema = makeExecutableSchema({
     deleteSong(_id: ID!): Song
 
     createProgression(numerals: String!, is_major: Boolean, all_keys: AllHelloKeys): Progression
-    updateProgression(_id: ID!, numerals: String, is_major: Boolean): Progression
+    updateProgression(_id: ID!, numerals: String!, is_major: Boolean, all_keys: AllHelloKeys): Progression
     deleteProgression(_id: ID!): Progression
 
     createAllKey(progression_id: ID!, progression_in_key: String!, key: String!, midi_file: String): Progression

@@ -23,8 +23,17 @@ export const PROGRESSION_BY_ID = gql`
         _id
         key
         progression_in_key
-        midi_file
       }
+    }
+  }
+`;
+
+export const PROGRESSION_BY_NUMERALS = gql`
+  query ProgressionByNumerals($numerals: String!) {
+    progressionByNumerals(numerals: $numerals) {
+      _id
+      numerals
+      is_major
     }
   }
 `;

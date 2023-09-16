@@ -52,3 +52,28 @@ export const DELETE_ARTIST = gql`
     }
   }
 `;
+export const UPDATE_PROGRESSION = gql`
+  mutation UpdateProgression($id: ID!, $numerals: String!, $isMajor: Boolean) {
+    updateProgression(_id: $id, numerals: $numerals, is_major: $isMajor) {
+      _id
+      numerals
+
+      is_major
+      all_keys {
+        _id
+        key
+        progression_in_key
+      }
+    }
+  }
+`;
+export const DELETE_PROGRESSION = gql`
+  mutation Mutation($id: ID!) {
+    deleteProgression(_id: $id) {
+      _id
+      numerals
+
+      is_major
+    }
+  }
+`;

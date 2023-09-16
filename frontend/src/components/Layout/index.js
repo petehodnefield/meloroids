@@ -7,7 +7,7 @@ import Footer from "../Footer";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Auth from "utils/auth";
 const plus_jakarta_sans = Plus_Jakarta_Sans({ subsets: ["latin"] });
-
+import Script from "next/script";
 export default function Layout({ children, pageProps }) {
   const [navigationSelected, setNavigationSelected] =
     useContext(NavigationContext);
@@ -26,11 +26,6 @@ export default function Layout({ children, pageProps }) {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-adsense-account" content="ca-pub-3182044043571875" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3182044043571875"
-          crossorigin="anonymous"
-        ></script>
       </Head>
       <Header isOpen={isOpen} setIsOpen={setIsOpen} />
       <main

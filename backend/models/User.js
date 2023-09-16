@@ -4,47 +4,65 @@ import bcrypt from "bcrypt";
 
 const saltRounds = 10;
 
-const userSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-    min: 1,
-    max: 20,
-  },
-  password: {
-    type: String,
-    required: true,
-    validate:
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-    min: 5,
-    max: 20,
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    lowercase: true,
-    validate:
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    min: 4,
-    max: 30,
-  },
-  instagramHandle: {
-    type: String,
-    min: 2,
-    max: 30,
-  },
-  bio: {
-    type: String,
-    max: 280,
-  },
-  role: {
-    type: String,
-    required: true,
-    default: "user",
-  },
+const premiumSchema = new Schema({
+  accountType: { type: String, default: "free" },
+  isActive: { type: Boolean },
+  subscriptionStartDate: { type: Date },
+  subscriptionEndDate: { type: Date },
 });
+
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      min: 1,
+      max: 20,
+    },
+    password: {
+      type: String,
+      required: true,
+      validate:
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      min: 5,
+      max: 20,
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      lowercase: true,
+      validate:
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      min: 4,
+      max: 30,
+    },
+    instagramHandle: {
+      type: String,
+      required: true,
+      min: 2,
+      max: 30,
+    },
+    profilePicture: {
+      type: String,
+      max: 80,
+    },
+    bio: {
+      type: String,
+      max: 280,
+    },
+    role: {
+      type: String,
+      required: true,
+      default: "user",
+    },
+    premiumAccount: [premiumSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 userSchema.pre("save", function (next) {
   const user = this;

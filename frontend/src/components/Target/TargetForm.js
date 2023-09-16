@@ -73,7 +73,14 @@ const TargetForm = ({ handleChange, checkboxChecked }) => {
         </Link>
       ) : (
         <Link
-          href={`/target/${melodyParams.genreId}/${melodyParams.progressionId}/${melodyParams.keyId}/${melodyParams.tempo}`}
+          href={`${
+            melodyParams.genreId &&
+            melodyParams.progressionId &&
+            melodyParams.keyId &&
+            melodyParams.tempo
+              ? `/target/${melodyParams.genreId}/${melodyParams.progressionId}/${melodyParams.keyId}/${melodyParams.tempo}`
+              : ""
+          }`}
           className={`${
             !melodyParams.genreId ||
             !melodyParams.keyId ||
