@@ -107,14 +107,24 @@ let schema = makeExecutableSchema({
     is_major: Boolean!,
   }
 
+  type PremiumSchema {
+    _id: ID!,
+    accountType: String,
+    isActive: Boolean,
+    subscriptionStartDate: String,
+    subscriptionEndDate: String,
+  }
+
   type User {
     _id: ID!,
     username: String!,
     password: String!,
     email: String!,
-    instagramHandle: String,
+    instagramHandle: String!,
+    profilePicture: String,
     bio: String,
-    role: String!
+    role: String!,
+    premiumAccount: [PremiumSchema]
   }
 
   type Query @rateLimit(limit: 200, duration: 60)  {
@@ -131,6 +141,7 @@ let schema = makeExecutableSchema({
 
     progressions: [Progression]
     progression(id: ID!): Progression
+    progressionByNumerals(numerals: String!): Progression
 
     genres: [Genre]
     genre(id: ID!): Genre

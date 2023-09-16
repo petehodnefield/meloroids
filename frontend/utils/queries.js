@@ -28,6 +28,16 @@ export const PROGRESSION_BY_ID = gql`
   }
 `;
 
+export const PROGRESSION_BY_NUMERALS = gql`
+  query ProgressionByNumerals($numerals: String!) {
+    progressionByNumerals(numerals: $numerals) {
+      _id
+      numerals
+      is_major
+    }
+  }
+`;
+
 export const ALL_PROGRESSIONS = gql`
   query Query {
     progressions {

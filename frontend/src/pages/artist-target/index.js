@@ -180,7 +180,11 @@ const ArtistTarget = () => {
             )}
           </div>
           <Link
-            href={`/artist-target/${selectedArtist.name}/${selectedArtist.selectedAlbumId}`}
+            href={`${
+              selectedArtist.name && selectedArtist.selectedAlbumId
+                ? `/artist-target/${selectedArtist.name}/${selectedArtist.selectedAlbumId}`
+                : ""
+            }`}
             className={`flex items-center  justify-center rounded h-12 w-48 bg-primary text-1 font-semibold text-white ${
               !selectedArtist.name || !selectedArtist.selectedAlbum
                 ? "pointer-events-none bg-medium opacity-40"
