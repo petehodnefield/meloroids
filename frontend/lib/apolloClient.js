@@ -11,7 +11,6 @@ import { setContext } from "@apollo/client/link/context";
 
 function createApolloClient() {
   const httpLink = createHttpLink({
-    // uri: "http://localhost:4000/",
     uri: process.env.NEXT_PUBLIC_API_URL,
   });
 

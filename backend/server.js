@@ -34,10 +34,7 @@ const onLimit = (resource, directiveArgs, source, args, context, info) => {
 const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
   rateLimitDirective({ onLimit });
 
-const db = await mongoose.connect(
-  process.env.MONGO_DB_URI
-  // "mongodb://localhost:27017/meloroids"
-);
+const db = await mongoose.connect(process.env.MONGO_DB_URI);
 // const seed = await seedDB();
 console.info("connected to db!");
 
