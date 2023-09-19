@@ -6,7 +6,7 @@ const ParamsToggle = ({ includeParams, setIncludeParams }) => {
   const toggleInnerSelected = "bg-white ";
   const toggleInnerUnselected = "bg-primary ";
   return (
-    <div className="flex w-full items-center gap-1 relative right-2 mb-4 md:mb-2 flex-nowrap">
+    <div className="flex w-full items-center gap-1  mb-2 ">
       <div
         className={`toggle__outer 	items-center h-6 w-12  rounded-full	flex
         ${includeParams ? toggleOuterSelected : toggleOuterUnselected}`}
@@ -17,7 +17,7 @@ const ParamsToggle = ({ includeParams, setIncludeParams }) => {
         ${includeParams ? toggleInnerSelected : toggleInnerUnselected}`}
         ></div>
       </div>
-      <p className="text-1 font-semibold">Include parameters</p>
+      <p className="text-1 font-semibold">Include params</p>
     </div>
   );
 };

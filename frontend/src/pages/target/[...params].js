@@ -50,23 +50,6 @@ const TargetDetails = ({ queryID }) => {
   const { loading: meLoading, data: meData, error: meError } = useQuery(ME);
 
   useEffect(() => {
-    if (includeDate && includeParams) {
-      setLoopName(
-        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} ${formattedToday}`
-      );
-    } else if (!includeDate && includeParams) {
-      setLoopName(
-        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} `
-      );
-    } else if (includeDate && !includeParams) {
-      setLoopName(
-        `${loopNameParams.randomWord} @${loopNameParams.producer} ${formattedToday}`
-      );
-    } else if (!includeDate && !includeParams) {
-      setLoopName(`${loopNameParams.randomWord} @${loopNameParams.producer}`);
-    }
-  }, [includeDate, includeParams]);
-  useEffect(() => {
     if (
       progressionData === undefined ||
       progressionData.progressions === null ||
@@ -98,9 +81,39 @@ const TargetDetails = ({ queryID }) => {
   }, [progressionData, keyData, meData]);
 
   useEffect(() => {
-    setLoopName(
-      `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer}`
-    );
+    if (includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} `
+      );
+    } else if (includeDate && !includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && !includeParams) {
+      setLoopName(`${loopNameParams.randomWord} @${loopNameParams.producer}`);
+    }
+  }, [includeDate, includeParams]);
+
+  useEffect(() => {
+    if (includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} `
+      );
+    } else if (includeDate && !includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && !includeParams) {
+      setLoopName(`${loopNameParams.randomWord} @${loopNameParams.producer}`);
+    }
   }, [loopNameParams]);
 
   if (progressionLoading || keyLoading || meLoading)

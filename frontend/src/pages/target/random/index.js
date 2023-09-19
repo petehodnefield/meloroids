@@ -75,9 +75,21 @@ const RandomTrain = () => {
     }
   }, [includeDate, includeParams]);
   useEffect(() => {
-    setLoopName(
-      `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer}`
-    );
+    if (includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} `
+      );
+    } else if (includeDate && !includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && !includeParams) {
+      setLoopName(`${loopNameParams.randomWord} @${loopNameParams.producer}`);
+    }
   }, [loopNameParams]);
 
   useEffect(() => {
@@ -138,14 +150,6 @@ const RandomTrain = () => {
         className="absolute w-full h-full object-cover"
         src={studioImage}
       />{" "}
-      <button
-        onClick={() => {
-          window.location.reload();
-        }}
-        className="relative bg-primary text-white h-12 rounded"
-      >
-        Refresh
-      </button>
       <LoopParamsTarget
         splitChords={splitChords}
         splitNumerals={splitNumerals}
@@ -158,6 +162,14 @@ const RandomTrain = () => {
         includeParams={includeParams}
         setIncludeParams={setIncludeParams}
       />
+      <button
+        onClick={() => {
+          window.location.reload();
+        }}
+        className="relative bg-primary text-white h-12 rounded w-44 mb-8 mt-4"
+      >
+        New Parameters
+      </button>
     </div>
   );
 };
