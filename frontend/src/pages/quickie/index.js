@@ -2,7 +2,7 @@ import LoopFileName from "@/components/Target/LoopFileName";
 import React, { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../_app";
 import { randomWord } from "../../../utils/data/words";
-import { DateToggle } from "../../components/Quickie/DateToggle";
+import { DateToggle } from "../../components/Toggles/DateToggle";
 import { useQuery } from "@apollo/client";
 import { ME } from "../../../utils/queries";
 import { words } from "../../../utils/data/words";

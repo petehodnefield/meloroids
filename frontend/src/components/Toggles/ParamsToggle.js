@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 
-export const DateToggle = ({ includeDate, setIncludeDate }) => {
-  // Styles to handle toggle switch
+const ParamsToggle = ({ includeParams, setIncludeParams }) => {
   const toggleOuterSelected = "justify-end  bg-primary";
   const toggleOuterUnselected = "justify-start  bg-light";
   const toggleInnerSelected = "bg-white ";
   const toggleInnerUnselected = "bg-primary ";
   return (
-    <div className="flex items-center gap-1 relative right-2 mb-4 md:mb-2">
+    <div className="flex w-full items-center gap-1 relative right-2 mb-4 md:mb-2 flex-nowrap">
       <div
         className={`toggle__outer 	items-center h-6 w-12  rounded-full	flex
-            ${includeDate ? toggleOuterSelected : toggleOuterUnselected}`}
-        onClick={() => setIncludeDate(!includeDate)}
+        ${includeParams ? toggleOuterSelected : toggleOuterUnselected}`}
+        onClick={() => setIncludeParams(!includeParams)}
       >
         <div
           className={`toggle__inner h-full w-6 rounded-full cursor-pointer border-solid border-1 border-neutral-800		
-            ${includeDate ? toggleInnerSelected : toggleInnerUnselected}`}
+        ${includeParams ? toggleInnerSelected : toggleInnerUnselected}`}
         ></div>
       </div>
-      <p className="text-1 font-semibold">Include date</p>
+      <p className="text-1 font-semibold">Include parameters</p>
     </div>
   );
 };
+
+export default ParamsToggle;
