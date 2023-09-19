@@ -1,11 +1,8 @@
 import Link from "next/link";
-import React, { useState, useEffect, useContext } from "react";
-import { useQuery } from "@apollo/client";
-import { ME } from "utils/queries";
+import React, { useState, useContext } from "react";
+
 import { LoginContext, NavigationContext } from "@/pages/_app";
 import Auth from "utils/auth";
-import Loading from "../Loading/LoadingWhiteText";
-import Error from "../Error/Error";
 
 const Nav = () => {
   const liStyle = "text-0.875 font-semibold hover:text-dark duration-200 ";
@@ -21,16 +18,6 @@ const Nav = () => {
 
   const [navigationSelected, setNavigationSelected] =
     useContext(NavigationContext);
-  const { client, loading, data, error } = useQuery(ME);
-  useEffect(() => {
-    if (loggedIn) {
-      const username = data.me.username;
-      const firstLetterFromUsername = username.split("")[0];
-      setUsername(firstLetterFromUsername);
-    }
-  }, [data]);
-  if (loading) return <Loading />;
-  if (error) return <Error />;
 
   const logout = async (e) => {
     e.preventDefault();
@@ -113,19 +100,6 @@ const Nav = () => {
             </Link>
           )}
         </li>
-        {loggedIn ? (
-          <li className={`${liCircleStyle} `}>
-            <Link
-              className="h-full w-full flex items-center justify-center relative bottom-0.5"
-              onClick={() => setNavigationSelected("home")}
-              href={`/`}
-            >
-              {username}
-            </Link>
-          </li>
-        ) : (
-          ""
-        )}
       </ul>
     </nav>
   );
