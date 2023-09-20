@@ -7,12 +7,12 @@ const songSchema = new Schema({
 
     type: String,
     minLength: 1,
-    maxLength: 40,
+    maxLength: 100,
   },
   tempo: {
     required: true,
     type: Number,
-    max: 220,
+    max: 300,
   },
   popularity: {
     type: Number,
