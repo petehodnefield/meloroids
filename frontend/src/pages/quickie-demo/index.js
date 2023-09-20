@@ -2,7 +2,7 @@ import LoopFileName from "@/components/Target/LoopFileName";
 import React, { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../_app";
 import { randomWord } from "../../../utils/data/words";
-import { DateToggle } from "../../components/Quickie/DateToggle";
+import DateToggle from "../../components/Toggles/DateToggle";
 import { useQuery } from "@apollo/client";
 import { ME } from "../../../utils/queries";
 import { words } from "../../../utils/data/words";
@@ -12,7 +12,7 @@ import background from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
 import Auth from "utils/auth";
 import Login from "../login";
-import Loading from "../../components/Loading/LoadingWhiteText";
+import Loading from "../../components/Loading/LoadingSimpleText";
 const QuickieDemo = () => {
   const [loopName, setLoopName] = useState(randomWord);
   const [includeDate, setIncludeDate] = useState(false);
