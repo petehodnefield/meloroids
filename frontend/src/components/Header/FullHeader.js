@@ -16,7 +16,12 @@ const FullHeader = () => {
           className="w-full h-full"
           href="/"
         >
-          <Image src={logoFull} alt="Meloroids" className="h-full w-full" />
+          <Image
+            priority={false}
+            src={logoFull}
+            alt="Meloroids"
+            className="h-full w-full"
+          />
         </Link>
       </div>
       <Nav />

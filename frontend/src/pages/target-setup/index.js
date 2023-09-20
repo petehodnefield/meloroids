@@ -99,6 +99,7 @@ const Target = () => {
   return (
     <section className="bg-cover min-h-screen px-6 py-12 flex justify-center relative">
       <Image
+        priority={true}
         alt="A music studio desk with guitars and an imac"
         src={backgroundImage}
         className="bg__quickie absolute top-0 h-full object-cover z-0 w-full"

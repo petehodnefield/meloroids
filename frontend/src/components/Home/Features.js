@@ -20,7 +20,7 @@ const Features = () => {
 
         <div className="flex-col lg:flex-row flex justify-center gap-8 xl:gap-12 md:w-4/5 lg:w-full flex-wrap">
           {/* Artist Target */}
-          <Link
+          {/* <Link
             href={"/artist-target"}
             className="hover:opacity-90 duration-200"
           >
@@ -45,7 +45,7 @@ const Features = () => {
                 />
               </div>
             </div>
-          </Link>
+          </Link> */}
           {/* Target */}
           <Link
             href={"/target-setup"}
@@ -70,6 +70,7 @@ const Features = () => {
               </p>
               <div>
                 <Image
+                  priority={false}
                   src={targetImage}
                   alt="A snapshot of Target by Meloroids"
                   className="rounded-2xl features__img"
@@ -98,6 +99,7 @@ const Features = () => {
               </p>
               <div className="w-full h-full">
                 <Image
+                  priority={false}
                   src={quickieImage}
                   alt="A snapshot of Quickie by Meloroids"
                   className="rounded-2xl features__img"

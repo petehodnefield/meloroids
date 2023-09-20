@@ -7,11 +7,12 @@ import { PROGRESSION_BY_ID, KEY_BY_ID, ME } from "../../../utils/queries";
 import LoopFileName from "../../components/Target/LoopFileName";
 import studioImage from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
-import LoadingWhiteText from "../../components/Loading/LoadingWhiteText";
+import LoadingWhiteText from "../../components/Loading/LoadingFullScreen";
 import Login from "../login";
 import Error from "../../components/Error/Error";
 import TargetCard from "../../components/Target/TargetCard";
 import LoopParamsTarget from "../../components/LoopCard/LoopParamsTarget";
+import { formattedToday } from "../../../utils/dates";
 const TargetDetails = ({ queryID }) => {
   const [loopNameParams, setLoopNameParams] = useState({
     tempo: queryID.params[3],
@@ -27,6 +28,8 @@ const TargetDetails = ({ queryID }) => {
   const progressionId = queryID.params[1];
   const keyId = queryID.params[2];
   const tempo = queryID.params[3];
+  const [includeDate, setIncludeDate] = useState(false);
+  const [includeParams, setIncludeParams] = useState(true);
 
   const {
     data: progressionData,
@@ -47,27 +50,19 @@ const TargetDetails = ({ queryID }) => {
   const { loading: meLoading, data: meData, error: meError } = useQuery(ME);
 
   useEffect(() => {
-    if (meData === undefined || meData.me === null) {
-      return;
-    } else if (meData.me.username) {
-      const me = meData.me.instagramHandle;
-      setLoopNameParams({
-        ...loopNameParams,
-        producer: me,
-      });
-    }
-  }, [meData]);
-
-  useEffect(() => {
     if (
       progressionData === undefined ||
       progressionData.progressions === null ||
       keyData === undefined ||
-      keyData.keys === null
+      keyData.keys === null ||
+      meData === undefined ||
+      meData.me === null ||
+      meData.me === undefined
     ) {
       return;
     }
     const keyName = keyData.key.key;
+    const me = meData.me.instagramHandle;
 
     const progressionKey = progressionData.progression.all_keys.filter(
       (progression) => progression.key === keyName
@@ -81,14 +76,44 @@ const TargetDetails = ({ queryID }) => {
       key: `${keyData.key.key.toLowerCase()} ${
         keyData.key.is_major ? "major" : "minor"
       }`,
-      producer: meData.me.instagramHandle,
+      producer: me,
     });
-  }, [progressionData, keyData]);
+  }, [progressionData, keyData, meData]);
 
   useEffect(() => {
-    setLoopName(
-      `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer}`
-    );
+    if (includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} `
+      );
+    } else if (includeDate && !includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && !includeParams) {
+      setLoopName(`${loopNameParams.randomWord} @${loopNameParams.producer}`);
+    }
+  }, [includeDate, includeParams]);
+
+  useEffect(() => {
+    if (includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} `
+      );
+    } else if (includeDate && !includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && !includeParams) {
+      setLoopName(`${loopNameParams.randomWord} @${loopNameParams.producer}`);
+    }
   }, [loopNameParams]);
 
   if (progressionLoading || keyLoading || meLoading)
@@ -117,6 +142,12 @@ const TargetDetails = ({ queryID }) => {
         splitNumerals={splitNumerals}
         loopName={loopName}
         songParams={loopNameParams}
+        loopNameParams={loopNameParams}
+        setLoopNameParams={setLoopNameParams}
+        includeDate={includeDate}
+        setIncludeDate={setIncludeDate}
+        includeParams={includeParams}
+        setIncludeParams={setIncludeParams}
       />
     </div>
   );

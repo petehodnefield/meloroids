@@ -9,12 +9,12 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Image from "next/image";
 import studioImage from "../../../../public/assets/images/music-studio.png";
-import LoadingWhiteText from "../../../components/Loading/LoadingWhiteText";
+import LoadingWhiteText from "../../../components/Loading/LoadingFullScreen";
 import Error from "../../../components/Error/Error";
 import TargetCard from "../../../components/Target/TargetCard";
 import LoopParamsData from "../../../components/LoopCard/LoopParamsData";
 import LoopParamsTarget from "../../../components/LoopCard/LoopParamsTarget";
-
+import { formattedToday } from "../../../../utils/dates";
 const RandomTrain = () => {
   const randomTempo = Math.floor(Math.random() * (200 - 60) + 60);
   const [loopNameParams, setLoopNameParams] = useState({
@@ -27,6 +27,8 @@ const RandomTrain = () => {
   });
   const [loopName, setLoopName] = useState("");
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
+  const [includeDate, setIncludeDate] = useState(false);
+  const [includeParams, setIncludeParams] = useState(true);
 
   const { loading: meLoading, data: meData, error: meError } = useQuery(ME);
 
@@ -34,12 +36,14 @@ const RandomTrain = () => {
     loading: progressionLoading,
     data: progressionData,
     error: progressionError,
+    refetch: refetchProgressions,
   } = useQuery(ALL_PROGRESSIONS);
 
   const {
     loading: keyLoading,
     data: keyData,
     error: keyError,
+    refetch: refetchKeys,
   } = useQuery(ALL_KEYS);
 
   useEffect(() => {
@@ -53,11 +57,39 @@ const RandomTrain = () => {
       });
     }
   }, [meData]);
-
   useEffect(() => {
-    setLoopName(
-      `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer}`
-    );
+    if (includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} `
+      );
+    } else if (includeDate && !includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && !includeParams) {
+      setLoopName(`${loopNameParams.randomWord} @${loopNameParams.producer}`);
+    }
+  }, [includeDate, includeParams]);
+  useEffect(() => {
+    if (includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} ${loopNameParams.tempo} bpm ${loopNameParams.key} @${loopNameParams.producer} `
+      );
+    } else if (includeDate && !includeParams) {
+      setLoopName(
+        `${loopNameParams.randomWord} @${loopNameParams.producer} ${formattedToday}`
+      );
+    } else if (!includeDate && !includeParams) {
+      setLoopName(`${loopNameParams.randomWord} @${loopNameParams.producer}`);
+    }
   }, [loopNameParams]);
 
   useEffect(() => {
@@ -123,7 +155,21 @@ const RandomTrain = () => {
         splitNumerals={splitNumerals}
         loopName={loopName}
         songParams={loopNameParams}
+        loopNameParams={loopNameParams}
+        setLoopNameParams={setLoopNameParams}
+        includeDate={includeDate}
+        setIncludeDate={setIncludeDate}
+        includeParams={includeParams}
+        setIncludeParams={setIncludeParams}
       />
+      <button
+        onClick={() => {
+          window.location.reload();
+        }}
+        className="relative bg-primary text-white h-12 rounded w-44 mb-8 mt-4"
+      >
+        New Parameters
+      </button>
     </div>
   );
 };

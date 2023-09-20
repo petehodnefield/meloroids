@@ -34,6 +34,7 @@ const HamburgerMenu = ({ setIsOpen }) => {
       {/* Meloroids small logo */}
       <div className=" mt-4 mb-6 h-12 w-12 ml-8">
         <Image
+          priority={false}
           src={logoSmall}
           alt="The Meloroids logo consisting of an eight note and a syringe."
           className="h-full w-full"
@@ -54,7 +55,7 @@ const HamburgerMenu = ({ setIsOpen }) => {
             {loggedIn ? "Dashboard" : "Home"}
           </Link>
         </li>
-        <li className={`${liStyle}`}>
+        {/* <li className={`${liStyle}`}>
           <Link
             className={linkStyle}
             href={loggedIn ? "/artist-target" : "login"}
@@ -65,7 +66,7 @@ const HamburgerMenu = ({ setIsOpen }) => {
           >
             Artist Target
           </Link>
-        </li>
+        </li> */}
         <li className={`${liStyle}`}>
           <Link
             className={linkStyle}

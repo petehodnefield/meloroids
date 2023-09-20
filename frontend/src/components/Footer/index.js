@@ -55,7 +55,7 @@ const Footer = () => {
                 href="/"
               >
                 <Image
-                  priority="false"
+                  priority={false}
                   className="h-full w-full  object-contain "
                   src={logoFull}
                   alt="Logo for meloroids"
@@ -85,7 +85,7 @@ const Footer = () => {
                   Quickie
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   onClick={() =>
                     setNavigationSelected(loggedIn ? "artist target" : "login")
@@ -95,7 +95,7 @@ const Footer = () => {
                 >
                   Artist Target
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   onClick={() =>

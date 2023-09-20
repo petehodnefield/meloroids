@@ -8,7 +8,7 @@ import artistTargetImage from "../../../public/assets/images/artist-target.png";
 import targetImage from "../../../public/assets/images/target.png";
 import { ME } from "../../../utils/queries";
 import { useQuery } from "@apollo/client";
-import Loading from "../Loading/LoadingWhiteText";
+import Loading from "../Loading/LoadingFullScreen";
 import Error from "../Error/Error";
 const AuthHome = () => {
   const [username, setUsername] = useState();
@@ -30,6 +30,7 @@ const AuthHome = () => {
     <div className="relative flex py-12 px-6 flex-col items-center h-full lg:min-h-screen lg:h-500">
       {/* Background Image */}
       <Image
+        priority
         src={heroImage}
         alt="A guitar and keyboard floating in space"
         className="absolute top-0 left-0 h-full w-full object-cover z-0 hero__img"
@@ -44,25 +45,23 @@ const AuthHome = () => {
       </div>
       <div className="relative flex flex-col justify-center lg:flex-row gap-4 items-center flex-wrap">
         {/* Artist Target */}
-        <Link
-          href={"/artist-target"}
-          className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
-        >
-          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
-            <h4 className="text-2.5 font-semibold text-primary mb-2">
-              Artist Target
-            </h4>
-
-            <div className="w-full h-full">
-              <Image
-                src={artistTargetImage}
-                alt="A snapshot of Artist Target by Meloroids"
-                className="rounded-2xl features__img"
-              />
+        {/* <Link
+            href={"/artist-target"}
+            className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
+          >
+            <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
+              <h4 className="text-2.5 font-semibold text-primary mb-2">
+                Artist Target
+              </h4>
+              <div className="w-full h-full">
+                <Image
+                  src={artistTargetImage}
+                  alt="A snapshot of Artist Target by Meloroids"
+                  className="rounded-2xl features__img"
+                />
+              </div>
             </div>
-          </div>
-        </Link>
-
+          </Link> */}
         {/* Target */}
         <Link
           href={"/target-setup"}
@@ -70,9 +69,9 @@ const AuthHome = () => {
         >
           <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
             <h4 className="text-2.5 font-semibold text-primary mb-2">Target</h4>
-
             <div className="w-full h-full">
               <Image
+                priority={false}
                 src={targetImage}
                 alt="A snapshot of Target by Meloroids"
                 className="rounded-2xl features__img"
@@ -89,9 +88,9 @@ const AuthHome = () => {
             <h4 className="text-2.5 font-semibold text-primary mb-2">
               Quickie
             </h4>
-
             <div className="w-full h-full">
               <Image
+                priority={false}
                 src={quickieImage}
                 alt="A snapshot of Quickie by Meloroids"
                 className="rounded-2xl features__img"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { ALL_GENRES } from "../../../utils/queries";
-import Loading from "../Loading/LoadingWhiteText";
+import LoadingSimpleText from "../Loading/LoadingSimpleText";
 
 const StyleInput = ({
   setMelodyParams,
@@ -18,23 +18,13 @@ const StyleInput = ({
     data: genreData,
   } = useQuery(ALL_GENRES);
 
-  if (genreLoading) return <Loading />;
+  if (genreLoading) return <LoadingSimpleText />;
 
   return (
     // Style Input
     <div className="w-full relative mb-6">
       <div className="flex justify-between items-center w-full">
         <label className="text-0.875 font-semibold">Style</label>
-        {/* Custom Checkbox */}
-        {/* <div className='checkbox-container'>
-                    <input
-                        type='checkbox'
-                        id='styleCheckbox'
-                        checked={checkboxChecked.styleRandom ? true : false}
-                        onChange={(e) => handleChange(e)}
-                    />
-                    <label htmlFor='styleCheckbox'>Randomize</label>
-                </div> */}
       </div>
       <div
         className={`h-12 w-full border-2 rounded-lg flex justify-between items-center  

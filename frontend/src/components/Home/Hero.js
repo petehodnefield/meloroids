@@ -14,6 +14,7 @@ const Hero = () => {
       {/* Background Image */}
       <Image
         src={heroImage}
+        priority={true}
         alt="A guitar and keyboard floating in space"
         className="absolute top-0 left-0 h-full w-full object-cover z-0 hero__img"
       />

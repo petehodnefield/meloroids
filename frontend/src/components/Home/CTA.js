@@ -13,6 +13,7 @@ const CTA = () => {
   return (
     <section className="py-12 px-6 md:py-16 relative lg:h-400 flex justify-center">
       <Image
+        priority={false}
         src={ctaImage}
         alt="A music studio"
         className="absolute top-0 left-0 w-full h-full object-cover z-0 cta__img"

@@ -10,6 +10,8 @@ const LoopParamsArtistTarget = ({
   splitNumerals,
   songParams,
   loopName,
+  loopNameParams,
+  setLoopNameParams,
 }) => {
   return (
     <div className="flex flex-col w-full items-center px-6 gap-8  lg:flex-row lg:items-start justify-center ">
@@ -19,6 +21,8 @@ const LoopParamsArtistTarget = ({
         splitNumerals={splitNumerals}
         songParams={songParams}
         loopName={loopName}
+        loopNameParams={loopNameParams}
+        setLoopNameParams={setLoopNameParams}
       />{" "}
     </div>
   );
