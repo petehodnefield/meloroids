@@ -54,7 +54,7 @@ const HamburgerMenu = ({ setIsOpen }) => {
             {loggedIn ? "Dashboard" : "Home"}
           </Link>
         </li>
-        <li className={`${liStyle}`}>
+        {/* <li className={`${liStyle}`}>
           <Link
             className={linkStyle}
             href={loggedIn ? "/artist-target" : "login"}
@@ -65,7 +65,7 @@ const HamburgerMenu = ({ setIsOpen }) => {
           >
             Artist Target
           </Link>
-        </li>
+        </li> */}
         <li className={`${liStyle}`}>
           <Link
             className={linkStyle}

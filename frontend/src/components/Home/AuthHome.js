@@ -44,7 +44,7 @@ const AuthHome = () => {
       </div>
       <div className="relative flex flex-col justify-center lg:flex-row gap-4 items-center flex-wrap">
         {/* Artist Target */}
-        <Link
+        {/* <Link
           href={"/artist-target"}
           className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
         >
@@ -61,7 +61,7 @@ const AuthHome = () => {
               />
             </div>
           </div>
-        </Link>
+        </Link> */}
 
         {/* Target */}
         <Link

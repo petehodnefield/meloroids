@@ -85,7 +85,7 @@ const Footer = () => {
                   Quickie
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   onClick={() =>
                     setNavigationSelected(loggedIn ? "artist target" : "login")
@@ -95,7 +95,7 @@ const Footer = () => {
                 >
                   Artist Target
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   onClick={() =>
