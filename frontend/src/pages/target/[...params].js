@@ -7,7 +7,7 @@ import { PROGRESSION_BY_ID, KEY_BY_ID, ME } from "../../../utils/queries";
 import LoopFileName from "../../components/Target/LoopFileName";
 import studioImage from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
-import LoadingWhiteText from "../../components/Loading/LoadingWhiteText";
+import LoadingWhiteText from "../../components/Loading/LoadingFullScreen";
 import Login from "../login";
 import Error from "../../components/Error/Error";
 import TargetCard from "../../components/Target/TargetCard";

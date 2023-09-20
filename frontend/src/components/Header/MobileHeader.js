@@ -29,6 +29,7 @@ const MobileHeader = ({ isOpen, setIsOpen }) => {
           onClick={() => setNavigationSelected("home")}
         >
           <Image
+            priority={false}
             src={logoSmall}
             alt="Meloroids logo"
             className="h-full w-full "

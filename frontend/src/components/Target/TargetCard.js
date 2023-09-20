@@ -15,6 +15,7 @@ const TargetCard = ({
         alt="a music studio background"
         className="absolute w-full h-full object-cover"
         src={studioImage}
+        priority
       />
       <div className="flex flex-col items-center w-full md:py-12  lg:max-w-48 lg:justify-between  py-8">
         {/* White bg for content */}

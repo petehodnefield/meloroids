@@ -12,7 +12,7 @@ import background from "../../../public/assets/images/music-studio.png";
 import Image from "next/image";
 import Auth from "utils/auth";
 import Login from "../login";
-import Loading from "@/components/Loading/LoadingWhiteText";
+import Loading from "@/components/Loading/LoadingFullScreen";
 import Error from "@/components/Error/Error";
 const Quickie = () => {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
@@ -22,10 +22,6 @@ const Quickie = () => {
   const [getRandomWord, setGetRandomWord] = useState(randomWord);
   const [date, setDate] = useState();
   const { loading, error, data } = useQuery(ME);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
 
   useEffect(() => {
     if (data) {
@@ -55,8 +51,6 @@ const Quickie = () => {
 
   if (loading) return <Loading />;
   if (error) return <Error />;
-
-  if (!hydrated) return null;
 
   return (
     <div className="quickie h-screen flex flex-col items-center py-12 px-6 md:px-0 relative">

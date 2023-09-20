@@ -9,7 +9,7 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Image from "next/image";
 import studioImage from "../../../../public/assets/images/music-studio.png";
-import LoadingWhiteText from "../../../components/Loading/LoadingWhiteText";
+import LoadingWhiteText from "../../../components/Loading/LoadingFullScreen";
 import Error from "../../../components/Error/Error";
 import TargetCard from "../../../components/Target/TargetCard";
 import LoopParamsData from "../../../components/LoopCard/LoopParamsData";

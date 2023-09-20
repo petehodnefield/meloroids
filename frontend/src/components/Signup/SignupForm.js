@@ -4,7 +4,7 @@ import { SIGNUP } from "utils/mutations";
 import { USERNAME, USER_EMAIL } from "utils/queries";
 import Auth from "utils/auth";
 import { Icon } from "@iconify/react";
-import LoadingWhiteText from "../Loading/LoadingWhiteText";
+import LoadingWhiteText from "../Loading/LoadingFullScreen";
 import Error from "../Error/Error";
 import Link from "next/link";
 const SignupForm = () => {

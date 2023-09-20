@@ -70,6 +70,7 @@ const Features = () => {
               </p>
               <div>
                 <Image
+                  priority={false}
                   src={targetImage}
                   alt="A snapshot of Target by Meloroids"
                   className="rounded-2xl features__img"
@@ -98,6 +99,7 @@ const Features = () => {
               </p>
               <div className="w-full h-full">
                 <Image
+                  priority={false}
                   src={quickieImage}
                   alt="A snapshot of Quickie by Meloroids"
                   className="rounded-2xl features__img"
