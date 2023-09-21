@@ -10,6 +10,12 @@ const keySchema = new Schema({
     required: true,
     type: Boolean,
   },
+  songs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Song",
+    },
+  ],
 });
 const Key = mongoose.model("Key", keySchema);
 

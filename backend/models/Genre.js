@@ -12,6 +12,12 @@ const genreSchema = new Schema({
       ref: "Progression",
     },
   ],
+  songs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Song",
+    },
+  ],
 });
 const Genre = mongoose.model("Genre", genreSchema);
 

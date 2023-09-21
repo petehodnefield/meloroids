@@ -24,6 +24,10 @@ export const PROGRESSION_BY_ID = gql`
         key
         progression_in_key
       }
+      songs {
+        _id
+        song_name
+      }
     }
   }
 `;
@@ -34,6 +38,10 @@ export const PROGRESSION_BY_NUMERALS = gql`
       _id
       numerals
       is_major
+      songs {
+        _id
+        song_name
+      }
     }
   }
 `;

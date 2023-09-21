@@ -8,15 +8,6 @@ import User from "../models/User.js";
 import { returnMajorKey, returnMinorKey } from "../text.js";
 import auth from "../utils/auth.js";
 import { GraphQLError } from "graphql";
-import dotenv from "dotenv";
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-dotenv.config();
-const bucketName = process.env.AWS_BUCKET_NAME;
-const bucketRegion = process.env.AWS_BUCKET_REGION;
-const accessKey = process.env.AWS_ACCESS_KEY;
-const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
-
-const client = new S3Client({});
 
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
@@ -54,40 +45,50 @@ export const resolvers = {
       return await Song.find()
         .populate("progression")
         .populate("album")
-        .populate("key");
+        .populate("key")
+        .populate("genre");
     },
     song: async (parent, { song_name }) => {
       return Song.findOne({ song_name })
         .populate("progression")
         .populate("album")
-        .populate("key");
+        .populate("key")
+        .populate("genre");
     },
 
     // Progressions
     progressions: async () => {
-      return await Progression.find();
+      return await Progression.find().populate("songs");
     },
     progression: async (parent, args) => {
       const progression = await Progression.findOne({
         _id: args.id,
-      });
+      }).populate("songs");
 
       return progression;
     },
     progressionByNumerals: async (parent, args) => {
       const progression = await Progression.findOne({
         numerals: args.numerals,
-      });
+      }).populate("songs");
 
       return progression;
     },
 
     // Genre
     genres: async () => {
-      return await Genre.find().populate("progressions");
+      return await Genre.find()
+        .populate("progressions")
+        .populate({
+          path: "songs",
+          populate: { path: "album", model: "Album" },
+          populate: { path: "progression", model: "Progression" },
+        });
     },
     genre: async (parent, { id }) => {
-      return Genre.findOne({ _id: id }).populate("progressions");
+      return Genre.findOne({ _id: id })
+        .populate("progressions")
+        .populate("songs");
     },
     genreprogressions: async (parent, { id }) => {
       return Genre.findOne({ _id: id }).populate("progressions");
@@ -98,20 +99,20 @@ export const resolvers = {
 
     // Key
     keys: async () => {
-      return await Key.find();
+      return await Key.find().populate("songs");
     },
     key: async (parent, { id }) => {
-      return Key.findOne({ _id: id });
+      return Key.findOne({ _id: id }).populate("songs");
     },
     majorkeys: async () => {
       return Key.find({
         is_major: true,
-      });
+      }).populate("songs");
     },
     minorkeys: async () => {
       return Key.find({
         is_major: false,
-      });
+      }).populate("songs");
     },
 
     // Users
@@ -254,26 +255,59 @@ export const resolvers = {
 
     // Songs
     createSong: async (parent, args, context) => {
-      if (context.user && context.user.role === "admin") {
-        const createSong = await Song.create(args);
+      // Push song_id to genre
+      // Push song_id to progression
+      // Push genre_id to song
+      // if (context.user && context.user.role === "admin") {
+      const createSong = await Song.create(args);
 
-        const addProgression = await Song.findOneAndUpdate(
-          { _id: createSong._id },
-          { $push: { progression: args.progression_id, key: args.key_id } },
-          { new: true }
-        );
+      const addProgression = await Song.findOneAndUpdate(
+        { _id: createSong._id },
+        {
+          $push: {
+            progression: args.progression_id,
+            key: args.key_id,
+            genre: args.genre_id,
+            album: args.album_id,
+          },
+        },
+        { new: true }
+      );
 
-        const updateAlbum = await Album.findOneAndUpdate(
-          { _id: args.album_id },
-          { $push: { songs: createSong } },
-          { new: true }
-        );
-        return createSong;
-      } else {
-        throw new GraphQLError(
-          "You do not have permission to perform this request!"
-        );
-      }
+      const updateGenre = await Genre.findOneAndUpdate(
+        {
+          _id: args.genre_id,
+        },
+        { $push: { songs: createSong } },
+        { new: true }
+      );
+      const updateKey = await Key.findOneAndUpdate(
+        {
+          _id: args.key_id,
+        },
+        { $push: { songs: createSong } },
+        { new: true }
+      );
+
+      const updateProgression = await Progression.findOneAndUpdate(
+        {
+          _id: args.progression_id,
+        },
+        { $push: { songs: createSong } },
+        { new: true }
+      );
+
+      const updateAlbum = await Album.findOneAndUpdate(
+        { _id: args.album_id },
+        { $push: { songs: createSong } },
+        { new: true }
+      );
+      return createSong;
+      // } else {
+      //   throw new GraphQLError(
+      //     "You do not have permission to perform this request!"
+      //   );
+      // }
     },
     updateSong: async (parent, args, context) => {
       if (context.user && context.user.role === "admin") {
@@ -298,12 +332,37 @@ export const resolvers = {
             $push: {
               progression: args.new_progression_id,
               key: args.new_key_id,
+              genre: args.genre_id,
+              album: args.album_id,
             },
           },
           {
             new: true,
           }
         );
+        const updateGenre = await Genre.findOneAndUpdate(
+          {
+            _id: args.genre_id,
+          },
+          { $push: { songs: addNewData } },
+          { new: true }
+        );
+        const updateKey = await Key.findOneAndUpdate(
+          {
+            _id: args.new_key_id,
+          },
+          { $push: { songs: addNewData } },
+          { new: true }
+        );
+
+        const updateProgression = await Progression.findOneAndUpdate(
+          {
+            _id: args.new_progression_id,
+          },
+          { $push: { songs: addNewData } },
+          { new: true }
+        );
+
         return addNewData;
       } else {
         throw new GraphQLError(
