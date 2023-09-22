@@ -34,9 +34,322 @@ const minorKeys = [
   { key: "G", notesInKey: ["G", "A", "Bb", "C", "D", "Eb", "F"] },
   { key: "G#", notesInKey: ["G#", "A#", "B", "C#", "D#", "E", "F#"] },
 ];
+
+const chromaticKeys = [
+  {
+    key: "Ab",
+    notesInKey: [
+      "Ab",
+      "A",
+      "Bb",
+      "B",
+      "C",
+      "Db",
+      "D",
+      "Eb",
+      "E",
+      "F",
+      "F#",
+      "G",
+    ],
+  },
+  {
+    key: "A",
+    notesInKey: [
+      "A",
+      "A#",
+      "B",
+      "B#",
+      "C#",
+      "D",
+      "D#",
+      "E",
+      "E#",
+      "F#",
+      "F",
+      "G#",
+    ],
+  },
+  {
+    key: "A#",
+    notesInKey: [
+      "A#",
+      "B",
+      "C",
+      "C#",
+      "D",
+      "D#",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "G#",
+      "A",
+    ],
+  },
+  {
+    key: "Bb",
+    notesInKey: [
+      "Bb",
+      "B",
+      "C",
+      "C#",
+      "D",
+      "Eb",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "G#",
+      "A",
+    ],
+  },
+  {
+    key: "B",
+    notesInKey: [
+      "B",
+      "B#",
+      "C#",
+      "C",
+      "D#",
+      "E",
+      "E#",
+      "F#",
+      "F",
+      "G#",
+      "G",
+      "A#",
+    ],
+  },
+  {
+    key: "Cb",
+    notesInKey: [
+      "Cb",
+      "C",
+      "Db",
+      "D",
+      "Eb",
+      "E",
+      "F",
+      "Gb",
+      "G",
+      "Ab",
+      "A",
+      "Bb",
+    ],
+  },
+  {
+    key: "C",
+    notesInKey: [
+      "C",
+      "C#",
+      "D",
+      "D#",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "G#",
+      "A",
+      "A#",
+      "B",
+    ],
+  },
+  {
+    key: "C#",
+    notesInKey: [
+      "C#",
+      "D",
+      "D#",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "G#",
+      "A",
+      "A#",
+      "B",
+      "C",
+    ],
+  },
+  {
+    key: "Db",
+    notesInKey: [
+      "Db",
+      "D",
+      "Eb",
+      "E",
+      "F",
+      "Gb",
+      "G",
+      "Ab",
+      "A",
+      "Bb",
+      "B",
+      "C",
+    ],
+  },
+  {
+    key: "D",
+    notesInKey: [
+      "D",
+      "D#",
+      "E",
+      "E#",
+      "F#",
+      "G",
+      "G#",
+      "A",
+      "A#",
+      "B",
+      "B#",
+      "C#",
+    ],
+  },
+  {
+    key: "D#",
+    notesInKey: [
+      "D#",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "G#",
+      "A",
+      "A#",
+      "B",
+      "C",
+      "C#",
+      "D",
+    ],
+  },
+  {
+    key: "Eb",
+    notesInKey: [
+      "Eb",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "Ab",
+      "A",
+      "Bb",
+      "B",
+      "C",
+      "C#",
+      "D",
+    ],
+  },
+
+  {
+    key: "E",
+    notesInKey: [
+      "E",
+      "E#",
+      "F#",
+      "F",
+      "G#",
+      "A",
+      "A#",
+      "B",
+      "B#",
+      "C#",
+      "C",
+      "D#",
+    ],
+  },
+
+  {
+    key: "F",
+    notesInKey: [
+      "F",
+      "F#",
+      "G",
+      "G#",
+      "A",
+      "Bb",
+      "B",
+      "C",
+      "C#",
+      "D",
+      "D#",
+      "E",
+    ],
+  },
+  {
+    key: "F#",
+    notesInKey: [
+      "F#",
+      "F",
+      "G#",
+      "G",
+      "A#",
+      "B",
+      "B#",
+      "C#",
+      "C",
+      "D#",
+      "D",
+      "E#",
+    ],
+  },
+  {
+    key: "Gb",
+    notesInKey: [
+      "Gb",
+      "G",
+      "Ab",
+      "A",
+      "Bb",
+      "B",
+      "C",
+      "Db",
+      "D",
+      "Eb",
+      "E",
+      "F",
+    ],
+  },
+  {
+    key: "G",
+    notesInKey: [
+      "G",
+      "G#",
+      "A",
+      "A#",
+      "B",
+      "C",
+      "C#",
+      "D",
+      "D#",
+      "E",
+      "E#",
+      "F#",
+    ],
+  },
+  {
+    key: "G#",
+    notesInKey: [
+      "G#",
+      "A",
+      "A#",
+      "B",
+      "C",
+      "C#",
+      "D",
+      "D#",
+      "E",
+      "F",
+      "F#",
+      "G",
+    ],
+  },
+];
+// How do we account for chords that aren't in the key?
+// Boolean that says diatonic?
 export const returnMajorKey = async ([...numbers]) => {
   let keyNumeralsData = [];
-
+  console.log(`numbers ${JSON.stringify(numbers)}`);
   const loopThroughAllKeys = majorKeys.forEach((keyObject) => {
     let individualKeyData = [];
     //   Get the notes from the filtered key
@@ -44,25 +357,34 @@ export const returnMajorKey = async ([...numbers]) => {
     //   Loop through the indexes to return the proper chords in the progression
     const getNumerals = numbers.forEach((number) => {
       let majorMinor;
-      const progressions = chordsInKey[number - 1];
+      const progressions = chordsInKey[number.index - 1];
       // Checks the index to see if it's a major or minor chord
-      switch (number) {
-        case 1:
+      switch ((number.index, number.numeral)) {
+        case (1, "I"):
           majorMinor = "";
           break;
-        case 2:
+        case (2, "ii"):
           majorMinor = "-";
           break;
-        case 3:
+        case (3, "iii"):
           majorMinor = "-";
           break;
-        case 4:
+        case (4, "IV"):
           majorMinor = "";
           break;
-        case 5:
+        case (4, "iv"):
+          majorMinor = "-";
+          break;
+        case (5, "V"):
           majorMinor = "";
           break;
-        case 6:
+        case (6, "vi"):
+          majorMinor = "-";
+          break;
+        case (7, "bVII"):
+          majorMinor = "";
+          break;
+        case (7, "vii"):
           majorMinor = "-";
           break;
       }
@@ -123,3 +445,102 @@ export const returnMinorKey = async ([...numbers]) => {
   });
   return await keyNumeralsData;
 };
+
+async function helloWorld(oogaBooga) {
+  async function createProgression(data) {
+    let allKeys = [];
+    const loopThroughKeys = await data.forEach((key) => {
+      allKeys.push({
+        key: key.key,
+        progression_in_key: key.numerals.join(" "),
+      });
+    });
+  }
+  let numeralsToNumbers = [];
+  const splitNumerals = oogaBooga.numerals.split(" ");
+  const getChordIndexes = await splitNumerals.forEach(
+    (numeral, index, array) => {
+      // Check to see if it's a major key or a minor key
+      if (oogaBooga.is_major) {
+        switch (numeral) {
+          case "I":
+            numeralsToNumbers.push({ index: 1, numeral: "I" });
+            break;
+          case "ii":
+            numeralsToNumbers.push({ index: 2, numeral: "ii" });
+            break;
+          case "iii":
+            numeralsToNumbers.push({ index: 3, numeral: "iii" });
+            break;
+          case "IV":
+            numeralsToNumbers.push({ index: 4, numeral: "IV" });
+            break;
+          // Minor 4 Chord
+          case "iv":
+            numeralsToNumbers.push({ index: 4, numeral: "iv" });
+            break;
+          case "V":
+            numeralsToNumbers.push({ index: 5, numeral: "V" });
+            break;
+          case "vi":
+            numeralsToNumbers.push({ index: 6, numeral: "vi" });
+            break;
+          // Flat 7 Chord (Mixolydian)
+          case "bVII":
+            numeralsToNumbers.push({ index: 7, numeral: "bVII" });
+            break;
+          case "vii":
+            numeralsToNumbers.push({ index: 7, numeral: "vii" });
+            break;
+          default:
+            console.log(false);
+        }
+        if (index === array.length - 1) {
+          const results = returnMajorKey(numeralsToNumbers).then((data) =>
+            console.log(data)
+          );
+        }
+      } else {
+        switch (numeral) {
+          case "i":
+            numeralsToNumbers.push(1);
+            break;
+          case "ii":
+            numeralsToNumbers.push(2);
+            break;
+          case "bIII":
+            numeralsToNumbers.push(3);
+            break;
+          case "iv":
+            numeralsToNumbers.push(4);
+            break;
+          case "v":
+            numeralsToNumbers.push(5);
+            break;
+          case "bVI":
+            numeralsToNumbers.push(6);
+            break;
+          case "bVII":
+            numeralsToNumbers.push(7);
+            break;
+          default:
+            console.log(false);
+        }
+        if (index === array.length - 1) {
+          const results = returnMinorKey(numeralsToNumbers).then((data) =>
+            createProgression(data)
+          );
+        }
+      }
+    }
+  );
+}
+
+helloWorld({ numerals: "I IV iv bVII", is_major: true });
+
+// const test = [];
+// const push = test.push({ index: 1, numeral: "I" });
+// const pushAgain = test.push({ index: 2, numeral: "ii" });
+// console.log(test);
+
+const getChromaticChords = () => {};
