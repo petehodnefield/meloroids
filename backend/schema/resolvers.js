@@ -37,6 +37,10 @@ export const resolvers = {
           path: "songs",
           populate: { path: "progression", model: "Progression" },
         })
+        .populate({
+          path: "songs",
+          populate: { path: "genre", model: "Genre" },
+        })
         .populate("artist");
     },
 
@@ -88,7 +92,11 @@ export const resolvers = {
     genre: async (parent, { id }) => {
       return Genre.findOne({ _id: id })
         .populate("progressions")
-        .populate("songs");
+        .populate({
+          path: "songs",
+          populate: { path: "album", model: "Album" },
+          populate: { path: "progression", model: "Progression" },
+        });
     },
     genreprogressions: async (parent, { id }) => {
       return Genre.findOne({ _id: id }).populate("progressions");
