@@ -44,25 +44,29 @@ const StyleInput = ({
       {/* Style dropdown */}
       {styleOpen ? (
         <div className="border-2 rounded-lg absolute w-full mt-3 menu-dropdown bg-white z-40 max-h-14 overflow-scroll">
-          {genreData.genres.map((genre) => (
-            <div
-              key={genre.genre}
-              className={`h-12  text-dark  flex justify-between items-center rounded-lg ${hoverStyle}`}
-              onClick={() => {
-                setMelodyParams({
-                  ...melodyParams,
-                  genre: genre.genre,
-                  genreId: genre._id,
-                });
-                setStyleOpen(!styleOpen);
-              }}
-            >
-              <div className="w-12 text-center">🎶</div>
-              <p className="text-left w-full text-0.875 font-semibold">
-                {genre.genre}
-              </p>
-            </div>
-          ))}
+          {genreData.genres.map((genre) =>
+            genre.progressions.length === 0 ? (
+              ""
+            ) : (
+              <div
+                key={genre.genre}
+                className={`h-12  text-dark  flex justify-between items-center rounded-lg ${hoverStyle}`}
+                onClick={() => {
+                  setMelodyParams({
+                    ...melodyParams,
+                    genre: genre.genre,
+                    genreId: genre._id,
+                  });
+                  setStyleOpen(!styleOpen);
+                }}
+              >
+                <div className="w-12 text-center">🎶</div>
+                <p className="text-left w-full text-0.875 font-semibold">
+                  {genre.genre}
+                </p>
+              </div>
+            )
+          )}
         </div>
       ) : (
         ""

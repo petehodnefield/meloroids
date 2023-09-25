@@ -5,8 +5,7 @@ import Key from "../models/Key.js";
 import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
 import User from "../models/User.js";
-import { returnMajorKey } from "../utils/chord-algorithm/return-major-key.js";
-import { returnMinorKey } from "../utils/chord-algorithm/return-minor-key.js";
+import { returnKey } from "../utils/chord-algorithm/return-key.js";
 import auth from "../utils/auth.js";
 import { GraphQLError } from "graphql";
 
@@ -439,7 +438,7 @@ export const resolvers = {
                 console.log(false);
             }
             if (index === array.length - 1) {
-              const results = returnMajorKey(numeralsToNumbers).then((data) =>
+              const results = returnKey(numeralsToNumbers).then((data) =>
                 createProgression(data)
               );
             }
@@ -470,7 +469,7 @@ export const resolvers = {
                 console.log(false);
             }
             if (index === array.length - 1) {
-              const results = returnMinorKey(numeralsToNumbers).then((data) =>
+              const results = returnKey(numeralsToNumbers).then((data) =>
                 createProgression(data)
               );
             }
@@ -529,7 +528,7 @@ export const resolvers = {
                 console.log(false);
             }
             if (index === array.length - 1) {
-              const results = returnMajorKey(numeralsToNumbers).then((data) =>
+              const results = returnKey(numeralsToNumbers).then((data) =>
                 updateAllKeysData(data)
               );
             }
@@ -560,7 +559,7 @@ export const resolvers = {
                 console.log(false);
             }
             if (index === array.length - 1) {
-              const results = returnMinorKey(numeralsToNumbers).then((data) =>
+              const results = returnKey(numeralsToNumbers).then((data) =>
                 updateAllKeysData(data)
               );
             }
