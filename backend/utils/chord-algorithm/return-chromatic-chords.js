@@ -1,12 +1,17 @@
 import { chromaticKeys } from "./notes-in-keys.js";
-export const getChromaticChords = (number) => {
-  // This function needs to return the proper index from the chromatic scales
-  let keyNumeralsData = [];
+export const getChromaticChords = (number, key) => {
+  // console.log(`key ${key}`);
+  // console.log(`number ${JSON.stringify(number)}`);
+
+  // Array that holds the chord symbols for each key
   let progression;
   let majorMinor;
+  let individualKeyData = [];
 
   const loopThroughAllKeys = chromaticKeys.forEach((keyObject) => {
-    let individualKeyData = [];
+    if (keyObject.key !== key) {
+      return;
+    }
     const chordsInKey = keyObject.notesInKey;
     // Grab the appropriate index
     progression = chordsInKey[number.index];
@@ -20,8 +25,13 @@ export const getChromaticChords = (number) => {
     }
 
     const combine = `${progression}${majorMinor}`;
-    keyNumeralsData.push(combine);
+
+    individualKeyData.push(combine);
   });
 
-  return [progression, majorMinor];
+  // console.log({ key: key, numerals: individualKeyData });
+
+  return [individualKeyData];
 };
+
+// Return what the exact chord would be for each key

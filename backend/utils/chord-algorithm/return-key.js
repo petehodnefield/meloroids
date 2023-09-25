@@ -5,16 +5,21 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
   let keyNumeralsData = [];
   // Loop through numbers first, decide if it's diatonic or not
   const loopThroughNumbers = numbers.forEach((number) => {
-    if (!number.is_diatonic) {
-      getChromaticChords(number).join("");
-    }
+    // if (!number.is_diatonic) {
+    //   getChromaticChords(number).join("");
+    //   // We need to return an array with key and numerals properties
+    //   // Push this array to keyNumeralsData array
+    // }
     // Check if progression is in a Major or Minor Key
-    else if (enteredChordProgression.is_major) {
+    if (enteredChordProgression.is_major) {
       const loopThroughAllKeys = majorKeys.forEach((keyObject) => {
         let individualKeyData = [];
 
         //   Get the notes from the filtered key
         const chordsInKey = keyObject.notesInKey;
+
+        // Get the key of the filtered key
+        const key = keyObject.key;
 
         //   Loop through the indexes to return the proper chords in the progression
         const getNumerals = numbers.forEach((number) => {
@@ -30,7 +35,7 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
           if (!number.is_diatonic) {
             // If the chord ISN'T diatonic, we need to run the
             // chromatic function to figure out the proper index + chord
-            combine = getChromaticChords(number).join("");
+            combine = getChromaticChords(number, key).join("");
           } else {
             progressions = chordsInKey[number.index - 1];
             // Checks the index to see if it's a major or minor chord
@@ -71,10 +76,11 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
 
         // Push the individual keys to the array that holds all keys
         keyNumeralsData.push({
-          key: keyObject.key,
+          key: key,
           numerals: individualKeyData,
         });
       });
+      console.log(`keysNumeralsData ${JSON.stringify(keyNumeralsData)}`);
     }
     // If progression is Minor
     else {
@@ -83,6 +89,9 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
 
         //   Get the notes from the filtered key
         const chordsInKey = keyObject.notesInKey;
+
+        // Get the key of the filtered key
+        const key = keyObject.key;
 
         //   Loop through the indexes to return the proper chords in the progression
         const getNumerals = numbers.forEach((number) => {
@@ -94,11 +103,11 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
           // Variable to store our combined progression + majorMinor
           let combine;
 
-          // Check whether the chord is diatonic or not
           if (!number.is_diatonic) {
+            console.log("hello");
             // If the chord ISN'T diatonic, we need to run the
             // chromatic function to figure out the proper index + chord
-            combine = getChromaticChords(number).join("");
+            combine = getChromaticChords(number, key).join("");
           } else {
             progressions = chordsInKey[number.index - 1];
             // Checks the index to see if it's a major or minor chord
@@ -136,12 +145,13 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
 
         // Push the individual keys to the array that holds all keys
         keyNumeralsData.push({
-          key: keyObject.key,
+          key: key,
           numerals: individualKeyData,
         });
       });
+      console.log(`keysNumeralsData ${JSON.stringify(keyNumeralsData)}`);
     }
   });
-  console.log(`keyNumeralsData ${JSON.stringify(keyNumeralsData)}`);
+  // console.log(`keyNumeralsData ${JSON.stringify(keyNumeralsData)}`);
   return keyNumeralsData;
 };
