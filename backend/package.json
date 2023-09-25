@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "chords": "nodemon utils/chord-algorithm/generate-chords.js",
     "devStart": "nodemon server.js",
     "monger": "nodemon text.js"
   },

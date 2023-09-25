@@ -24,6 +24,10 @@ export const PROGRESSION_BY_ID = gql`
         key
         progression_in_key
       }
+      songs {
+        _id
+        song_name
+      }
     }
   }
 `;
@@ -34,6 +38,10 @@ export const PROGRESSION_BY_NUMERALS = gql`
       _id
       numerals
       is_major
+      songs {
+        _id
+        song_name
+      }
     }
   }
 `;
@@ -186,6 +194,15 @@ export const ALBUM = gql`
         _id
         song_name
         tempo
+        key {
+          is_major
+          key
+          _id
+        }
+        genre {
+          _id
+          genre
+        }
         progression {
           _id
           numerals
@@ -194,12 +211,8 @@ export const ALBUM = gql`
             _id
             key
             progression_in_key
+            midi_file
           }
-        }
-        key {
-          is_major
-          _id
-          key
         }
       }
     }

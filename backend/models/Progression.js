@@ -25,6 +25,12 @@ const progressionSchema = new Schema({
     type: Boolean,
   },
   all_keys: [allKeysSchema],
+  songs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Song",
+    },
+  ],
 });
 const Progression = mongoose.model("Progression", progressionSchema);
 

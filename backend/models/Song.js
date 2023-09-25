@@ -17,6 +17,12 @@ const songSchema = new Schema({
   popularity: {
     type: Number,
   },
+  artist: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Artist",
+    },
+  ],
   progression: [
     {
       type: Schema.Types.ObjectId,
@@ -33,6 +39,12 @@ const songSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Key",
+    },
+  ],
+  genre: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Genre",
     },
   ],
 });

@@ -35,6 +35,7 @@ export const typeDefsTypes = `#graphql
     popularity: Int,
     progression: [Progression]
     album: [Album]
+    genre: [Genre]
   }
 
   type AllKeys {
@@ -55,13 +56,15 @@ export const typeDefsTypes = `#graphql
     _id: ID,
     numerals: String,
     is_major: Boolean,
-    all_keys: [AllKeys]
+    all_keys: [AllKeys],
+    songs: [Song]
   }
 
   type Genre {
     _id: ID!
     genre: String!
     progressions: [Progression]
+    songs: [Song]
   }
 
   type Key {

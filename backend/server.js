@@ -67,8 +67,10 @@ let schema = makeExecutableSchema({
     tempo: Int,
     key: [Key],
     popularity: Int,
-    progression: [Progression]
-    album: [Album]
+    progression: [Progression],
+    album: [Album],
+    genre: [Genre],
+    artist: [Artist]
   }
 
   type AllKeys {
@@ -89,19 +91,22 @@ let schema = makeExecutableSchema({
     _id: ID,
     numerals: String,
     is_major: Boolean,
-    all_keys: [AllKeys]
+    all_keys: [AllKeys],
+    songs: [Song]
   }
 
   type Genre {
     _id: ID!
-    genre: String!
-    progressions: [Progression]
+    genre: String
+    progressions: [Progression],
+    songs: [Song]
   }
 
   type Key {
     _id: ID!,
     key: String!,
     is_major: Boolean!,
+    songs: [Song]
   }
 
   type PremiumSchema {
@@ -171,8 +176,8 @@ let schema = makeExecutableSchema({
     addSongToArtist(_id: ID!, song_id: ID!): Artist
 
 
-    createSong(song_name: String!, tempo: Int!, progression_id: ID!, key_id: ID!, album_id: ID!): Song
-    updateSong(song_id: ID!, song_name: String, tempo: Int, old_progression_id: ID, new_progression_id: ID, old_key_id: ID, new_key_id: ID): Song
+    createSong(song_name: String!, tempo: Int!, progression_id: ID!, key_id: ID!, genre_id: ID!, album_id: ID!): Song
+    updateSong(song_id: ID!, song_name: String, tempo: Int, genre_id: ID!, album_id: ID!, old_progression_id: ID, new_progression_id: ID, old_key_id: ID, new_key_id: ID): Song
     deleteSong(_id: ID!): Song
 
     createProgression(numerals: String!, is_major: Boolean, all_keys: AllHelloKeys): Progression
