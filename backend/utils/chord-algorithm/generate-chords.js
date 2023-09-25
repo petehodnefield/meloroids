@@ -1,15 +1,8 @@
-import {
-  majorKeys,
-  minorKeys,
-  chromaticKeys,
-} from "./utils/chord-algorithm/notes-in-keys.js";
-import { returnMinorKey } from "./utils/chord-algorithm/return-minor-key.js";
-import { returnMajorKey } from "./utils/chord-algorithm/return-major-key.js";
-
+import { returnKey } from "./return-key.js";
 // How do we account for chords that aren't in the key?
 // Boolean that says diatonic?
 
-async function generateProgressionsInAllKeys(oogaBooga) {
+async function generateProgressionsInAllKeys(enteredChordProgression) {
   async function createProgression(data) {
     let allKeys = [];
     const loopThroughKeys = await data.forEach((key) => {
@@ -18,14 +11,15 @@ async function generateProgressionsInAllKeys(oogaBooga) {
         progression_in_key: key.numerals.join(" "),
       });
     });
-    console.log("allKeys", allKeys);
+    // Logs all the data
+    // console.log(`allKeys  ${JSON.stringify(allKeys)}`);
   }
   let numeralsToNumbers = [];
-  const splitNumerals = oogaBooga.numerals.split(" ");
+  const splitNumerals = enteredChordProgression.numerals.split(" ");
   const getChordIndexes = await splitNumerals.forEach(
     (numeral, index, array) => {
       // Check to see if it's a major key or a minor key
-      if (oogaBooga.is_major) {
+      if (enteredChordProgression.is_major) {
         switch (numeral) {
           case "I":
             numeralsToNumbers.push({
@@ -96,7 +90,10 @@ async function generateProgressionsInAllKeys(oogaBooga) {
             console.log(false);
         }
         if (index === array.length - 1) {
-          const results = returnMajorKey(numeralsToNumbers).then((data) => {
+          const results = returnKey(
+            numeralsToNumbers,
+            enteredChordProgression
+          ).then((data) => {
             createProgression(data);
             return data;
           });
@@ -104,33 +101,69 @@ async function generateProgressionsInAllKeys(oogaBooga) {
       } else {
         switch (numeral) {
           case "i":
-            numeralsToNumbers.push(1);
+            numeralsToNumbers.push({
+              index: 1,
+              numeral: "i",
+              is_diatonic: true,
+            });
             break;
           case "ii":
-            numeralsToNumbers.push(2);
+            numeralsToNumbers.push({
+              index: 2,
+              numeral: "ii",
+              is_diatonic: true,
+            });
             break;
           case "bIII":
-            numeralsToNumbers.push(3);
+            numeralsToNumbers.push({
+              index: 3,
+              numeral: "bIII",
+              is_diatonic: true,
+            });
             break;
           case "iv":
-            numeralsToNumbers.push(4);
+            numeralsToNumbers.push({
+              index: 4,
+              numeral: "iv",
+              is_diatonic: true,
+            });
             break;
           case "v":
-            numeralsToNumbers.push(5);
+            numeralsToNumbers.push({
+              index: 5,
+              numeral: "v",
+              is_diatonic: true,
+            });
+            break;
+          case "V":
+            numeralsToNumbers.push({
+              index: 7,
+              numeral: "V",
+              is_diatonic: false,
+            });
             break;
           case "bVI":
-            numeralsToNumbers.push(6);
+            numeralsToNumbers.push({
+              index: 6,
+              numeral: "bVI",
+              is_diatonic: true,
+            });
             break;
           case "bVII":
-            numeralsToNumbers.push(7);
+            numeralsToNumbers.push({
+              index: 7,
+              numeral: "bVII",
+              is_diatonic: true,
+            });
             break;
           default:
             console.log(false);
         }
         if (index === array.length - 1) {
-          const results = returnMinorKey(numeralsToNumbers).then((data) =>
-            createProgression(data)
-          );
+          const results = returnKey(
+            numeralsToNumbers,
+            enteredChordProgression
+          ).then((data) => createProgression(data));
         }
       }
     }
@@ -138,6 +171,6 @@ async function generateProgressionsInAllKeys(oogaBooga) {
 }
 
 generateProgressionsInAllKeys({
-  numerals: "I bVII IV iv bVII",
-  is_major: true,
+  numerals: "i iv V",
+  is_major: false,
 });

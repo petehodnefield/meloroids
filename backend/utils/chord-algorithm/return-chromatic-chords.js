@@ -20,6 +20,8 @@ export const getChromaticChords = (number) => {
     }
 
     const combine = `${progression}${majorMinor}`;
+    keyNumeralsData.push(combine);
   });
+
   return [progression, majorMinor];
 };

@@ -1,8 +1,8 @@
 import { majorKeys, minorKeys, chromaticKeys } from "./notes-in-keys.js";
 import { getChromaticChords } from "./return-chromatic-chords.js";
-export const returnMinorKey = async ([...numbers]) => {
+export const returnMinorKey = async ([...numbers], oogaBooga) => {
   let keyNumeralsData = [];
-
+  console.log(`ooga ${JSON.stringify(oogaBooga)}`);
   const loopThroughAllKeys = minorKeys.forEach((keyObject) => {
     let individualKeyData = [];
     //   Get the notes from the filtered key
