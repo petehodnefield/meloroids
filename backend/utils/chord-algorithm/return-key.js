@@ -104,7 +104,6 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
           let combine;
 
           if (!number.is_diatonic) {
-            console.log("hello");
             // If the chord ISN'T diatonic, we need to run the
             // chromatic function to figure out the proper index + chord
             combine = getChromaticChords(number, key).join("");
