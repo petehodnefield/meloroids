@@ -10,29 +10,29 @@ import { resolvers } from "./schema/resolvers.js";
 import { seedDB } from "./seeds/seeds.js";
 import auth from "./utils/auth.js";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import { rateLimitDirective } from "graphql-rate-limit-directive";
+// import { rateLimitDirective } from "graphql-rate-limit-directive";
 
-class RateLimitError extends Error {
-  constructor(msBeforeNextReset) {
-    super("Too many requests, please try again shortly.");
+// class RateLimitError extends Error {
+//   constructor(msBeforeNextReset) {
+//     super("Too many requests, please try again shortly.");
 
-    // Determine when the rate limit will be reset so the client can try again
-    const resetAt = new Date();
-    resetAt.setTime(resetAt.getTime() + msBeforeNextReset);
+//     // Determine when the rate limit will be reset so the client can try again
+//     const resetAt = new Date();
+//     resetAt.setTime(resetAt.getTime() + msBeforeNextReset);
 
-    // GraphQL will automatically use this field to return extensions data in the GraphQLError
-    // See https://github.com/graphql/graphql-js/pull/928
-    this.extensions = {
-      code: "RATE_LIMITED",
-      resetAt,
-    };
-  }
-}
-const onLimit = (resource, directiveArgs, source, args, context, info) => {
-  throw new RateLimitError(resource.msBeforeNext);
-};
-const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
-  rateLimitDirective({ onLimit });
+//     // GraphQL will automatically use this field to return extensions data in the GraphQLError
+//     // See https://github.com/graphql/graphql-js/pull/928
+//     this.extensions = {
+//       code: "RATE_LIMITED",
+//       resetAt,
+//     };
+//   }
+// }
+// const onLimit = (resource, directiveArgs, source, args, context, info) => {
+//   throw new RateLimitError(resource.msBeforeNext);
+// };
+// const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
+//   rateLimitDirective({ onLimit });
 
 const db = await mongoose.connect(process.env.MONGO_DB_URI);
 // const seed = await seedDB();
@@ -40,7 +40,7 @@ console.info("connected to db!");
 
 let schema = makeExecutableSchema({
   typeDefs: [
-    rateLimitDirectiveTypeDefs,
+    // rateLimitDirectiveTypeDefs,
     `#graphql
   type Artist {
     _id: ID
@@ -129,7 +129,7 @@ let schema = makeExecutableSchema({
     premiumAccount: [PremiumSchema]
   }
 
-  type Query @rateLimit(limit: 200, duration: 60)  {
+  type Query {
     artists: [Artist]
     artist(name: String!): Artist
     artistallsongs(name: String!): Artist
@@ -162,7 +162,7 @@ let schema = makeExecutableSchema({
     userEmail(email: String!): User
   }
 
-  type Mutation  @rateLimit(limit: 20, duration: 60)   {
+  type Mutation {
     createArtist(name: String!, age: Int, image: String!): Artist
     updateArtist(name: String, _id: ID!, image: String): Artist
     deleteArtist(_id: ID!): Artist
@@ -195,11 +195,11 @@ let schema = makeExecutableSchema({
     updateKey(_id: ID!, is_major: Boolean, key: String): Key
     deleteKey(_id: ID!): Key
 
-    createUser(username: String!, password: String!, role: String, email: String!, instagramHandle: String!): Auth @rateLimit(limit: 3, duration: 1440) 
-    login(username: String!, password: String!): Auth @rateLimit(limit: 5, duration: 15) 
-    changeUserPassword(password: String!): User @rateLimit(limit: 3, duration: 43200) 
-    changeUserInfo(username: String, bio: String, instagramHandle: String): User @rateLimit(limit: 5, duration: 1440) 
-    deleteUser: User @rateLimit(limit: 30, duration: 1440) 
+    createUser(username: String!, password: String!, role: String, email: String!, instagramHandle: String!): Auth 
+    login(username: String!, password: String!): Auth 
+    changeUserPassword(password: String!): User 
+    changeUserInfo(username: String, bio: String, instagramHandle: String): User 
+    deleteUser: User 
   }
 
   type Auth {
@@ -210,7 +210,7 @@ let schema = makeExecutableSchema({
   ],
   resolvers,
 });
-schema = rateLimitDirectiveTransformer(schema);
+// schema = rateLimitDirectiveTransformer(schema);
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
