@@ -2,18 +2,8 @@ import { returnKey } from "./return-key.js";
 // How do we account for chords that aren't in the key?
 // Boolean that says diatonic?
 
-async function generateProgressionsInAllKeys(enteredChordProgression) {
-  async function createProgression(data) {
-    let allKeys = [];
-    const loopThroughKeys = await data.forEach((key) => {
-      allKeys.push({
-        key: key.key,
-        progression_in_key: key.numerals.join(" "),
-      });
-    });
-    // Logs all the data
-    // console.log(`allKeys  ${JSON.stringify(allKeys)}`);
-  }
+export async function generateProgressionsInAllKeys(enteredChordProgression) {
+  let returnArray = [];
   let numeralsToNumbers = [];
   const splitNumerals = enteredChordProgression.numerals.split(" ");
   const getChordIndexes = await splitNumerals.forEach(
@@ -141,7 +131,7 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
             numeralsToNumbers,
             enteredChordProgression
           ).then((data) => {
-            createProgression(data);
+            returnArray.push(data);
             return data;
           });
         }
@@ -282,11 +272,15 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
           const results = returnKey(
             numeralsToNumbers,
             enteredChordProgression
-          ).then((data) => createProgression(data));
+          ).then((data) => {
+            returnArray.push(data);
+            return data;
+          });
         }
       }
     }
   );
+  return returnArray;
 }
 
 generateProgressionsInAllKeys({
