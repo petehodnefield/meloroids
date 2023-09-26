@@ -5,34 +5,10 @@ dotenv.config();
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
-import { typeDefsTypes } from "./schema/typeDefs.js";
 import { resolvers } from "./schema/resolvers.js";
 import { seedDB } from "./seeds/seeds.js";
 import auth from "./utils/auth.js";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-// import { rateLimitDirective } from "graphql-rate-limit-directive";
-
-// class RateLimitError extends Error {
-//   constructor(msBeforeNextReset) {
-//     super("Too many requests, please try again shortly.");
-
-//     // Determine when the rate limit will be reset so the client can try again
-//     const resetAt = new Date();
-//     resetAt.setTime(resetAt.getTime() + msBeforeNextReset);
-
-//     // GraphQL will automatically use this field to return extensions data in the GraphQLError
-//     // See https://github.com/graphql/graphql-js/pull/928
-//     this.extensions = {
-//       code: "RATE_LIMITED",
-//       resetAt,
-//     };
-//   }
-// }
-// const onLimit = (resource, directiveArgs, source, args, context, info) => {
-//   throw new RateLimitError(resource.msBeforeNext);
-// };
-// const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } =
-//   rateLimitDirective({ onLimit });
 
 const db = await mongoose.connect(process.env.MONGO_DB_URI);
 // const seed = await seedDB();
@@ -40,7 +16,6 @@ console.info("connected to db!");
 
 let schema = makeExecutableSchema({
   typeDefs: [
-    // rateLimitDirectiveTypeDefs,
     `#graphql
   type Artist {
     _id: ID
@@ -210,7 +185,6 @@ let schema = makeExecutableSchema({
   ],
   resolvers,
 });
-// schema = rateLimitDirectiveTransformer(schema);
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
