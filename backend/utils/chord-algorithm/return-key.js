@@ -64,8 +64,8 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
               case (7, "bVII"):
                 majorMinor = "";
                 break;
-              case (7, "vii"):
-                majorMinor = "-";
+              case (7, "vii°"):
+                majorMinor = "°";
                 break;
             }
             combine = `${progressions}${majorMinor}`;
@@ -115,8 +115,8 @@ export const returnKey = async ([...numbers], enteredChordProgression) => {
               case (1, "i"):
                 majorMinor = "-";
                 break;
-              case (2, "ii"):
-                majorMinor = "-";
+              case (2, "ii°"):
+                majorMinor = "°";
                 break;
               case (3, "iii"):
                 majorMinor = "";

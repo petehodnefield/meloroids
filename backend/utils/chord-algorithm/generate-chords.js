@@ -79,10 +79,10 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: false,
             });
             break;
-          case "vii":
+          case "vii°":
             numeralsToNumbers.push({
               index: 7,
-              numeral: "vii",
+              numeral: "vii°",
               is_diatonic: true,
             });
             break;
@@ -107,10 +107,10 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: true,
             });
             break;
-          case "ii":
+          case "ii°":
             numeralsToNumbers.push({
               index: 2,
-              numeral: "ii",
+              numeral: "ii°",
               is_diatonic: true,
             });
             break;
@@ -171,6 +171,6 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
 }
 
 generateProgressionsInAllKeys({
-  numerals: "i iv V",
-  is_major: false,
+  numerals: "I vii° V",
+  is_major: true,
 });
