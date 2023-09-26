@@ -162,7 +162,7 @@ let schema = makeExecutableSchema({
     userEmail(email: String!): User
   }
 
-  type Mutation  @rateLimit(limit: 20, duration: 60)   {
+  type Mutation  @rateLimit(limit: 1000, duration: 60)   {
     createArtist(name: String!, age: Int, image: String!): Artist
     updateArtist(name: String, _id: ID!, image: String): Artist
     deleteArtist(_id: ID!): Artist
@@ -175,8 +175,8 @@ let schema = makeExecutableSchema({
     addAlbumToArtist(_id: ID!, album_id: ID!): Artist
     addSongToArtist(_id: ID!, song_id: ID!): Artist
 
-
-    createSong(song_name: String!, tempo: Int!, progression_id: ID!, key_id: ID!, genre_id: ID!, album_id: ID!): Song
+    pushArtistToSong(song_id: ID!, artist_id: ID!): Song
+    createSong(song_name: String!, tempo: Int!, progression_id: ID!, key_id: ID!, genre_id: ID!, album_id: ID!, artist_id: ID!): Song
     updateSong(song_id: ID!, song_name: String, tempo: Int, genre_id: ID!, album_id: ID!, old_progression_id: ID, new_progression_id: ID, old_key_id: ID, new_key_id: ID): Song
     deleteSong(_id: ID!): Song
 

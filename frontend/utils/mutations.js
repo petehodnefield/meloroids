@@ -77,3 +77,17 @@ export const DELETE_PROGRESSION = gql`
     }
   }
 `;
+
+export const PUSH_ARTIST_TO_SONG = gql`
+  mutation Mutation($songId: ID!, $artistId: ID!) {
+    pushArtistToSong(song_id: $songId, artist_id: $artistId) {
+      _id
+      song_name
+      tempo
+      artist {
+        _id
+        name
+      }
+    }
+  }
+`;

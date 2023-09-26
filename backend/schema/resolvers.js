@@ -6,6 +6,7 @@ import Progression from "../models/Progression.js";
 import Song from "../models/Song.js";
 import User from "../models/User.js";
 import { returnKey } from "../utils/chord-algorithm/return-key.js";
+import { generateProgressionsInAllKeys } from "../utils/chord-algorithm/generate-chords.js";
 import auth from "../utils/auth.js";
 import { GraphQLError } from "graphql";
 
@@ -14,13 +15,26 @@ export const resolvers = {
   Query: {
     // Artists
     artists: async () => {
-      return await Artist.find().populate("albums").populate("songs");
+      return await Artist.find()
+        .populate("albums")
+        .populate({
+          path: "songs",
+          populate: { path: "album", model: "Album" },
+        });
     },
     artist: async (parent, { name }) => {
-      return Artist.findOne({ name }).populate("albums").populate("songs");
+      return Artist.findOne({ name })
+        .populate("albums")
+        .populate({
+          path: "songs",
+          populate: { path: "album", model: "Album" },
+        });
     },
     artistallsongs: async (parent, { name }) => {
-      return Artist.findOne({ name }).populate("songs");
+      return Artist.findOne({ name }).populate({
+        path: "songs",
+        populate: { path: "album", model: "Album" },
+      });
     },
 
     // Albums
@@ -50,14 +64,16 @@ export const resolvers = {
         .populate("progression")
         .populate("album")
         .populate("key")
-        .populate("genre");
+        .populate("genre")
+        .populate("artist");
     },
     song: async (parent, { song_name }) => {
       return Song.findOne({ song_name })
         .populate("progression")
         .populate("album")
         .populate("key")
-        .populate("genre");
+        .populate("genre")
+        .populate("artist");
     },
 
     // Progressions
@@ -263,9 +279,6 @@ export const resolvers = {
 
     // Songs
     createSong: async (parent, args, context) => {
-      // Push song_id to genre
-      // Push song_id to progression
-      // Push genre_id to song
       // if (context.user && context.user.role === "admin") {
       const createSong = await Song.create(args);
 
@@ -277,10 +290,13 @@ export const resolvers = {
             key: args.key_id,
             genre: args.genre_id,
             album: args.album_id,
+            artist: args.artist_id,
           },
         },
         { new: true }
-      );
+      )
+        .populate("album")
+        .populate("artist");
 
       const updateGenre = await Genre.findOneAndUpdate(
         {
@@ -310,12 +326,53 @@ export const resolvers = {
         { $push: { songs: createSong } },
         { new: true }
       );
-      return createSong;
+
+      const updateArtist = await Artist.findOneAndUpdate(
+        {
+          _id: args.artist_id,
+        },
+        { $push: { songs: createSong } },
+        { new: true }
+      );
+      return addProgression;
       // } else {
       //   throw new GraphQLError(
       //     "You do not have permission to perform this request!"
       //   );
       // }
+    },
+    pushArtistToSong: async (parent, args, context) => {
+      // Reset relationships
+      // const resetArtistSongs = await Artist.findOneAndUpdate(
+      //   { _id: args.artist_id },
+      //   {
+      //     $set: { songs: [] },
+      //   }
+      // ).populate("songs");
+      // const resetSongArtist = await Song.findOneAndUpdate(
+      //   { _id: args.song_id },
+      //   {
+      //     $set: { artist: [] },
+      //   }
+      // ).populate("artist");
+      // return resetArtistSongs, resetSongArtist;
+
+      const artist = await Artist.findOne({ _id: args.artist_id });
+      const updateSong = await Song.findOneAndUpdate(
+        { _id: args.song_id },
+        {
+          $push: { artist: artist },
+        },
+        { new: true }
+      ).populate("artist");
+      const updateArtist = await Artist.findOneAndUpdate(
+        { _id: args.artist_id },
+        {
+          $push: { songs: updateSong },
+        },
+        { new: true }
+      ).populate("songs");
+      return `${updateSong}, ${updateArtist}`;
     },
     updateSong: async (parent, args, context) => {
       if (context.user && context.user.role === "admin") {
@@ -390,207 +447,74 @@ export const resolvers = {
 
     // Progressions
     createProgression: async (parent, args, context) => {
-      // if (context.user && context.user.role === "admin") {
-      async function createProgression(data) {
-        let allKeys = [];
-        const loopThroughKeys = await data.forEach((key) => {
-          allKeys.push({
-            key: key.key,
-            progression_in_key: key.numerals.join(" "),
+      if (context.user && context.user.role === "admin") {
+        async function createProgression(data) {
+          let allKeys = [];
+          const loopThroughKeys = await data.forEach((key) => {
+            // console.log("key", key);
+            allKeys.push({
+              key: key.key,
+              progression_in_key: key.numerals.join(" "),
+            });
           });
-        });
-
-        return await Progression.create({
-          is_major: args.is_major,
-          numerals: args.numerals,
-          all_keys: allKeys,
-        });
-      }
-      let numeralsToNumbers = [];
-      const splitNumerals = args.numerals.split(" ");
-      const getChordIndexes = await splitNumerals.forEach(
-        (numeral, index, array) => {
-          // Check to see if it's a major key or a minor key
-          if (args.is_major) {
-            switch (numeral) {
-              case "I":
-                numeralsToNumbers.push(1);
-                break;
-              case "ii":
-                numeralsToNumbers.push(2);
-                break;
-              case "iii":
-                numeralsToNumbers.push(3);
-                break;
-              case "IV":
-                numeralsToNumbers.push(4);
-                break;
-              case "V":
-                numeralsToNumbers.push(5);
-                break;
-              case "vi":
-                numeralsToNumbers.push(6);
-                break;
-              case "vii":
-                numeralsToNumbers.push(7);
-                break;
-              default:
-                console.log(false);
-            }
-            if (index === array.length - 1) {
-              const results = returnKey(numeralsToNumbers).then((data) =>
-                createProgression(data)
-              );
-            }
-          } else {
-            switch (numeral) {
-              case "i":
-                numeralsToNumbers.push(1);
-                break;
-              case "ii":
-                numeralsToNumbers.push(2);
-                break;
-              case "bIII":
-                numeralsToNumbers.push(3);
-                break;
-              case "iv":
-                numeralsToNumbers.push(4);
-                break;
-              case "v":
-                numeralsToNumbers.push(5);
-                break;
-              case "bVI":
-                numeralsToNumbers.push(6);
-                break;
-              case "bVII":
-                numeralsToNumbers.push(7);
-                break;
-              default:
-                console.log(false);
-            }
-            if (index === array.length - 1) {
-              const results = returnKey(numeralsToNumbers).then((data) =>
-                createProgression(data)
-              );
-            }
-          }
+          return await Progression.create({
+            is_major: args.is_major,
+            numerals: args.numerals,
+            all_keys: allKeys,
+          });
         }
-      );
+        const data = await generateProgressionsInAllKeys(args);
 
-      // return await Progression.create(args);
-      // } else {
-      //   throw new GraphQLError(
-      //     "You do not have permission to perform this request!"
-      //   );
-      // }
+        const createNewProgression = await createProgression(data[0]);
+
+        return createNewProgression;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     updateProgression: async (parent, args, context) => {
-      // if (context.user && context.user.role === "admin") {
-      let allKeys = [];
+      if (context.user && context.user.role === "admin") {
+        let allKeys = [];
 
-      async function updateAllKeysData(data) {
-        const loopThroughKeys = await data.forEach((key) => {
-          allKeys.push({
-            key: key.key,
-            progression_in_key: key.numerals.join(" "),
+        async function updateAllKeysData(data) {
+          const loopThroughKeys = await data.forEach((key) => {
+            allKeys.push({
+              key: key.key,
+              progression_in_key: key.numerals.join(" "),
+            });
           });
-        });
-      }
-      let numeralsToNumbers = [];
-      const splitNumerals = args.numerals.split(" ");
-      const getChordIndexes = await splitNumerals.forEach(
-        (numeral, index, array) => {
-          // Check to see if it's a major key or a minor key
-          if (args.is_major) {
-            switch (numeral) {
-              case "I":
-                numeralsToNumbers.push(1);
-                break;
-              case "ii":
-                numeralsToNumbers.push(2);
-                break;
-              case "iii":
-                numeralsToNumbers.push(3);
-                break;
-              case "IV":
-                numeralsToNumbers.push(4);
-                break;
-              case "V":
-                numeralsToNumbers.push(5);
-                break;
-              case "vi":
-                numeralsToNumbers.push(6);
-                break;
-              case "vii":
-                numeralsToNumbers.push(7);
-                break;
-              default:
-                console.log(false);
-            }
-            if (index === array.length - 1) {
-              const results = returnKey(numeralsToNumbers).then((data) =>
-                updateAllKeysData(data)
-              );
-            }
-          } else {
-            switch (numeral) {
-              case "i":
-                numeralsToNumbers.push(1);
-                break;
-              case "ii":
-                numeralsToNumbers.push(2);
-                break;
-              case "bIII":
-                numeralsToNumbers.push(3);
-                break;
-              case "iv":
-                numeralsToNumbers.push(4);
-                break;
-              case "v":
-                numeralsToNumbers.push(5);
-                break;
-              case "bVI":
-                numeralsToNumbers.push(6);
-                break;
-              case "bVII":
-                numeralsToNumbers.push(7);
-                break;
-              default:
-                console.log(false);
-            }
-            if (index === array.length - 1) {
-              const results = returnKey(numeralsToNumbers).then((data) =>
-                updateAllKeysData(data)
-              );
-            }
+        }
+        const data = await generateProgressionsInAllKeys(args);
+
+        const updateAllKeys = await updateAllKeysData(data[0]);
+
+        const removeOldAllKeys = await Progression.findOneAndUpdate(
+          { _id: args._id },
+          {
+            numerals: args.numerals,
+            is_major: args.is_major,
+            $set: { all_keys: [] },
           }
-        }
-      );
-      const removeOldAllKeys = await Progression.findOneAndUpdate(
-        { _id: args._id },
-        {
-          numerals: args.numerals,
-          is_major: args.is_major,
-          $set: { all_keys: [] },
-        }
-      );
-      const updateWithNewAllKeys = await Progression.findByIdAndUpdate(
-        {
-          _id: args._id,
-        },
-        {
-          $push: { all_keys: allKeys },
-        },
-        {
-          new: true,
-        }
-      );
-      return updateWithNewAllKeys;
-      // } else {
-      //   throw new GraphQLError(
-      //     "You do not have permission to perform this request!"
-      //   );
-      // }
+        );
+        const updateWithNewAllKeys = await Progression.findByIdAndUpdate(
+          {
+            _id: args._id,
+          },
+          {
+            $push: { all_keys: allKeys },
+          },
+          {
+            new: true,
+          }
+        );
+        return updateWithNewAllKeys;
+      } else {
+        throw new GraphQLError(
+          "You do not have permission to perform this request!"
+        );
+      }
     },
     deleteProgression: async (parent, args, context) => {
       if (context.user && context.user.role === "admin") {

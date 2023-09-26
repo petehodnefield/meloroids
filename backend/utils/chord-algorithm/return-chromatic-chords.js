@@ -16,10 +16,12 @@ export const getChromaticChords = (number, key) => {
     // Grab the appropriate index
     progression = chordsInKey[number.index];
 
-    // Check if number.numeral is major or minor
+    // Check if number.numeral is major, minor, or diminished
     const numeralToLowerCase = number.numeral.toLowerCase();
     if (numeralToLowerCase !== number.numeral) {
       majorMinor = "";
+    } else if (number.numeral.includes("°")) {
+      majorMinor = "°";
     } else {
       majorMinor = "-";
     }

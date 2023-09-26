@@ -2,18 +2,8 @@ import { returnKey } from "./return-key.js";
 // How do we account for chords that aren't in the key?
 // Boolean that says diatonic?
 
-async function generateProgressionsInAllKeys(enteredChordProgression) {
-  async function createProgression(data) {
-    let allKeys = [];
-    const loopThroughKeys = await data.forEach((key) => {
-      allKeys.push({
-        key: key.key,
-        progression_in_key: key.numerals.join(" "),
-      });
-    });
-    // Logs all the data
-    // console.log(`allKeys  ${JSON.stringify(allKeys)}`);
-  }
+export async function generateProgressionsInAllKeys(enteredChordProgression) {
+  let returnArray = [];
   let numeralsToNumbers = [];
   const splitNumerals = enteredChordProgression.numerals.split(" ");
   const getChordIndexes = await splitNumerals.forEach(
@@ -35,11 +25,35 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: true,
             });
             break;
+          // Major 2 (Lydian)
+          case "II":
+            numeralsToNumbers.push({
+              index: 2,
+              numeral: "II",
+              is_diatonic: false,
+            });
+            break;
           case "iii":
             numeralsToNumbers.push({
               index: 3,
               numeral: "iii",
               is_diatonic: true,
+            });
+            break;
+          // Major 3
+          case "III":
+            numeralsToNumbers.push({
+              index: 4,
+              numeral: "III",
+              is_diatonic: false,
+            });
+            break;
+          // Diminished 3 (Mixolydian)
+          case "iii°":
+            numeralsToNumbers.push({
+              index: 4,
+              numeral: "iii°",
+              is_diatonic: false,
             });
             break;
           case "IV":
@@ -57,6 +71,14 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: false,
             });
             break;
+          // Diminished 4 (Lydian)
+          case "iv°":
+            numeralsToNumbers.push({
+              index: 6,
+              numeral: "iv°",
+              is_diatonic: false,
+            });
+            break;
           case "V":
             numeralsToNumbers.push({
               index: 5,
@@ -64,6 +86,13 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: true,
             });
             break;
+          // Minor 5 (Mixolydian)
+          case "v":
+            numeralsToNumbers.push({
+              index: 7,
+              numeral: "v",
+              is_diatonic: false,
+            });
           case "vi":
             numeralsToNumbers.push({
               index: 6,
@@ -79,11 +108,19 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: false,
             });
             break;
-          case "vii":
+          case "vii°":
             numeralsToNumbers.push({
               index: 7,
-              numeral: "vii",
+              numeral: "vii°",
               is_diatonic: true,
+            });
+            break;
+          // Minor 7 (Lydian)
+          case "vii":
+            numeralsToNumbers.push({
+              index: 10,
+              numeral: "vii",
+              is_diatonic: false,
             });
             break;
           default:
@@ -94,7 +131,7 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
             numeralsToNumbers,
             enteredChordProgression
           ).then((data) => {
-            createProgression(data);
+            returnArray.push(data);
             return data;
           });
         }
@@ -107,11 +144,34 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: true,
             });
             break;
-          case "ii":
+          case "ii°":
             numeralsToNumbers.push({
               index: 2,
-              numeral: "ii",
+              numeral: "ii°",
               is_diatonic: true,
+            });
+            break;
+          // Flat 2 (Phrygian)
+          case "bII":
+            numeralsToNumbers.push({
+              index: 1,
+              numeral: "bII",
+              is_diatonic: false,
+            });
+            break;
+          case "bIII":
+            numeralsToNumbers.push({
+              index: 3,
+              numeral: "bIII",
+              is_diatonic: true,
+            });
+            break;
+          // Major 3 (Dorian + Phrygian)
+          case "III":
+            numeralsToNumbers.push({
+              index: 3,
+              numeral: "III",
+              is_diatonic: false,
             });
             break;
           case "bIII":
@@ -128,6 +188,14 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: true,
             });
             break;
+          // Major 4 (Dorian)
+          case "IV":
+            numeralsToNumbers.push({
+              index: 5,
+              numeral: "IV",
+              is_diatonic: false,
+            });
+            break;
           case "v":
             numeralsToNumbers.push({
               index: 5,
@@ -135,10 +203,19 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: true,
             });
             break;
+          // Major 5 (harmonic minor)
           case "V":
             numeralsToNumbers.push({
               index: 7,
               numeral: "V",
+              is_diatonic: false,
+            });
+            break;
+          // Diminished 5 (Phrygian)
+          case "v°":
+            numeralsToNumbers.push({
+              index: 7,
+              numeral: "v°",
               is_diatonic: false,
             });
             break;
@@ -149,11 +226,43 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
               is_diatonic: true,
             });
             break;
+          // Diminished 6 (Dorian)
+          case "vi°":
+            numeralsToNumbers.push({
+              index: 9,
+              numeral: "vi°",
+              is_diatonic: false,
+            });
+            break;
           case "bVII":
             numeralsToNumbers.push({
               index: 7,
               numeral: "bVII",
               is_diatonic: true,
+            });
+            break;
+          // Minor 7 (Phrygian)
+          case "bvii":
+            numeralsToNumbers.push({
+              index: 10,
+              numeral: "vii",
+              is_diatonic: false,
+            });
+            break;
+          // Diminished 7
+          case "vii°":
+            numeralsToNumbers.push({
+              index: 11,
+              numeral: "vii°",
+              is_diatonic: false,
+            });
+            break;
+          // Major 7 (Dorian)
+          case "VII":
+            numeralsToNumbers.push({
+              index: 11,
+              numeral: "VII",
+              is_diatonic: false,
             });
             break;
           default:
@@ -163,14 +272,18 @@ async function generateProgressionsInAllKeys(enteredChordProgression) {
           const results = returnKey(
             numeralsToNumbers,
             enteredChordProgression
-          ).then((data) => createProgression(data));
+          ).then((data) => {
+            returnArray.push(data);
+            return data;
+          });
         }
       }
     }
   );
+  return returnArray;
 }
 
 generateProgressionsInAllKeys({
-  numerals: "i iv V",
-  is_major: false,
+  numerals: "I v",
+  is_major: true,
 });
