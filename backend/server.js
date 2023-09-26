@@ -162,7 +162,7 @@ let schema = makeExecutableSchema({
     userEmail(email: String!): User
   }
 
-  type Mutation  @rateLimit(limit: 1000, duration: 60)   {
+  type Mutation  @rateLimit(limit: 20, duration: 60)   {
     createArtist(name: String!, age: Int, image: String!): Artist
     updateArtist(name: String, _id: ID!, image: String): Artist
     deleteArtist(_id: ID!): Artist
