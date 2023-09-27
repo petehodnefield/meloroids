@@ -36,8 +36,11 @@ const AuthHome = () => {
         className="absolute top-0 left-0 h-full w-full object-cover z-0 hero__img"
       />{" "}
       <div className="relative flex justify-center  w-full xl:w-64 mb-4">
-        <div className=" flex  flex-col gap-2 xl:absolute xl:top-4 xl:left-4 text-white">
+        <div className="z-20 flex  flex-col items-center xl:items-start gap-2 xl:absolute xl:top-2 xl:left-4 text-white">
           <h3 className="text-1.5 font-medium">Hi, {username}!</h3>
+          <Link className="mb-" href={`/edit-profile`}>
+            Edit profile
+          </Link>
         </div>
       </div>
       <div className="z-2 relative w-full max-w-70 mb-4 flex justify-center">

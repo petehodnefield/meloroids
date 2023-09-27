@@ -295,7 +295,7 @@ const SignupForm = () => {
               <ul className="sublist	pl-4">
                 <li>1 uppercase letter</li>
                 <li>1 lowercase letter</li>
-                <li>1 number letter</li>
+                <li>1 number</li>
                 <li>1 special character</li>
               </ul>
             </ul>

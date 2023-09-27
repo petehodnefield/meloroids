@@ -28,6 +28,7 @@ module.exports = {
         light: "#E1E1E1",
         medium: "#7D7D7D",
         dark: "#2c2c2c",
+        darkScreen: "rgba(44,44,44,0.6)",
         darklight: "rgba(44,44,44,0.85)",
         black: "#111111",
         light: "#e1e1e1",
