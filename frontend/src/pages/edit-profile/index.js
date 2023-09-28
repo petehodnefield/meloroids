@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { LoginContext } from "../_app";
 import Link from "next/link";
 import {
+  btn,
   errorText,
   formInput,
   formInputLabelWrapper,
@@ -14,6 +15,7 @@ import { CHANGE_USER_INFO } from "../../../utils/mutations";
 import Login from "../login";
 import ChangePasswordModal from "../../components/Modals/ChangePasswordModal";
 import ChangeEmailModal from "../../components/Modals/ChangeEmailModal";
+import DeleteAccountModal from "../../components/Modals/DeleteAccountModal";
 const EditProfile = () => {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   // Data obtained from me query
@@ -32,6 +34,7 @@ const EditProfile = () => {
   });
   const [changePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
   const [changeEmailModalOpen, setChangeEmailModalOpen] = useState(false);
+  const [deleteAccountModalOpen, setDeleteAccountModalOpen] = useState(false);
 
   const { data: meData, refetch } = useQuery(ME);
   const { data: usernameData, refetch: usernameRefetch } = useQuery(USERNAME, {
@@ -88,7 +91,7 @@ const EditProfile = () => {
   if (!loggedIn) return <Login />;
   else
     return (
-      <div className="relative w-full flex justify-center">
+      <div className="relative w-full flex flex-col items-center justify-center">
         {changePasswordModalOpen ? (
           <ChangePasswordModal
             setChangePasswordModalOpen={setChangePasswordModalOpen}
@@ -100,6 +103,13 @@ const EditProfile = () => {
           <ChangeEmailModal
             currentEmail={meDetails.email}
             setChangeEmailModalOpen={setChangeEmailModalOpen}
+          />
+        ) : (
+          ""
+        )}
+        {deleteAccountModalOpen ? (
+          <DeleteAccountModal
+            setDeleteAccountModalOpen={setDeleteAccountModalOpen}
           />
         ) : (
           ""
@@ -338,6 +348,12 @@ const EditProfile = () => {
             </div>
           </div>
         </div>
+        <button
+          onClick={() => setDeleteAccountModalOpen(true)}
+          className={`${btn} bg-red text-white mb-12`}
+        >
+          Delete account
+        </button>
       </div>
     );
 };

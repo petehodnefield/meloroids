@@ -65,6 +65,19 @@ export const CHANGE_USER_INFO = gql`
   }
 `;
 
+export const DELETE_USER = gql`
+  mutation DeleteUser {
+    deleteUser {
+      _id
+      username
+      password
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;
+
 export const DELETE_ARTIST = gql`
   mutation Mutation($id: ID!) {
     deleteArtist(_id: $id) {
