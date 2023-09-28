@@ -31,7 +31,7 @@ const DeleteAccountModal = ({ setDeleteAccountModalOpen }) => {
     }
   };
   return (
-    <div className="absolute top-0 h-screen w-full bg-darkScreen flex items-start py-12 justify-center">
+    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start py-12 justify-center">
       <div className="w-96 relative border-dark border-1 bg-white shadow-3xl flex flex-col items-center pt-12 px-8 rounded">
         <Icon
           className="absolute top-4 right-4 text-1.5 cursor-pointer"

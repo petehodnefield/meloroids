@@ -335,13 +335,19 @@ const EditProfile = () => {
             </form>
             <div className="flex flex-col gap-1">
               <p
-                onClick={() => setChangePasswordModalOpen(true)}
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  setChangePasswordModalOpen(true);
+                }}
                 className="font-semibold text-1.125 underline cursor-pointer"
               >
                 Change password
               </p>
               <p
-                onClick={() => setChangeEmailModalOpen(true)}
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  setChangeEmailModalOpen(true);
+                }}
                 className="font-semibold text-1.125 underline cursor-pointer"
               >
                 Change email
@@ -350,7 +356,10 @@ const EditProfile = () => {
           </div>
         </div>
         <button
-          onClick={() => setDeleteAccountModalOpen(true)}
+          onClick={() => {
+            window.scrollTo(0, 0);
+            setDeleteAccountModalOpen(true);
+          }}
           className={`${btn} bg-red text-white mb-12`}
         >
           Delete account

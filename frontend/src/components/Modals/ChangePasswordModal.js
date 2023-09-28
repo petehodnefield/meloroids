@@ -18,7 +18,7 @@ const ChangePasswordModal = ({ setChangePasswordModalOpen }) => {
     setChangePasswordModalOpen(false);
   };
   return (
-    <div className="absolute h-screen w-full bg-darkScreen flex items-start py-12 justify-center">
+    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start py-12 justify-center">
       <div className="relative border-dark border-1 bg-white shadow-3xl flex gap-12 p-12 rounded">
         <Icon
           className="absolute top-4 right-4 text-1.5 cursor-pointer"

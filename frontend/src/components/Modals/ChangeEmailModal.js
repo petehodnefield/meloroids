@@ -83,8 +83,8 @@ const ChangeEmailModal = ({
     // setChangeEmailModalOpen(false);
   };
   return (
-    <div className="absolute top-0 h-screen w-full bg-darkScreen flex items-start py-12 justify-center">
-      <div className="relative border-dark border-1 bg-white shadow-3xl flex flex-col items-center p-12 rounded">
+    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start py-12 justify-center">
+      <div className="relative w-full max-w-30 border-dark border-1 bg-white shadow-3xl flex flex-col items-center p-12 rounded">
         <Icon
           className="absolute top-4 right-4 text-1.5 cursor-pointer"
           icon="octicon:x-12"
@@ -94,7 +94,7 @@ const ChangeEmailModal = ({
         <h2 className="text-1.5 font-semibold mb-6">Change email</h2>
         <form
           id="changeEmailForm"
-          className="flex flex-col items-center"
+          className="flex flex-col items-center w-full"
           onSubmit={(e) => handleFormSubmit(e)}
         >
           <div className={`${formInputLabelWrapper} mb-8`}>
