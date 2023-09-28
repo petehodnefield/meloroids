@@ -42,6 +42,29 @@ export const SIGNUP = gql`
   }
 `;
 
+export const CHANGE_USER_INFO = gql`
+  mutation Mutation(
+    $username: String
+    $bio: String
+    $instagramHandle: String
+    $email: String
+  ) {
+    changeUserInfo(
+      username: $username
+      bio: $bio
+      instagramHandle: $instagramHandle
+      email: $email
+    ) {
+      _id
+      username
+      password
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;
+
 export const DELETE_ARTIST = gql`
   mutation Mutation($id: ID!) {
     deleteArtist(_id: $id) {

@@ -672,6 +672,7 @@ export const resolvers = {
             username: args.username,
             bio: args.bio,
             instagramHandle: args.instagramHandle,
+            email: args.email,
           }
         );
         return changeUser;
