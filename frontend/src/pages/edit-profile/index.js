@@ -103,6 +103,7 @@ const EditProfile = () => {
           <ChangeEmailModal
             currentEmail={meDetails.email}
             setChangeEmailModalOpen={setChangeEmailModalOpen}
+            refetch={refetch}
           />
         ) : (
           ""
