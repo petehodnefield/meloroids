@@ -172,8 +172,8 @@ let schema = makeExecutableSchema({
 
     createUser(username: String!, password: String!, role: String, email: String!, instagramHandle: String!): Auth 
     login(username: String!, password: String!): Auth 
-    changeUserPassword(password: String!): User 
-    changeUserInfo(username: String, bio: String, instagramHandle: String): User 
+    changeUserPassword(currentPassword: String!, newPassword: String!): User 
+    changeUserInfo(username: String, bio: String, instagramHandle: String, email: String): User 
     deleteUser: User 
   }
 

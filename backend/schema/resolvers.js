@@ -653,15 +653,29 @@ export const resolvers = {
       const token = auth.signToken(user);
       return { token, user };
     },
-    changeUserPassword: async (parent, { password }, context) => {
-      if (context.user) {
-        const updateUser = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { password: password },
-          { new: true }
-        );
-        return updateUser;
+    changeUserPassword: async (
+      parent,
+      { currentPassword, newPassword },
+      context
+    ) => {
+      // console.log(`context ${context.user._id}`);
+      if (context.user._id) {
+        const user = await User.findOne({ _id: context.user._id });
+
+        const correctPw = await user.isCorrectPassword(currentPassword);
+
+        if (!correctPw) {
+          throw new GraphQLError("Password is incorrect. Please try again.");
+        } else {
+          const updateUser = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { password: newPassword },
+            { new: true }
+          );
+          return updateUser;
+        }
       }
+
       throw new GraphQLError("You need to be logged in!");
     },
     changeUserInfo: async (parent, args, context) => {
@@ -672,6 +686,7 @@ export const resolvers = {
             username: args.username,
             bio: args.bio,
             instagramHandle: args.instagramHandle,
+            email: args.email,
           }
         );
         return changeUser;

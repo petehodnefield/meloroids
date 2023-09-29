@@ -42,6 +42,55 @@ export const SIGNUP = gql`
   }
 `;
 
+export const CHANGE_USER_PASSWORD = gql`
+  mutation UpdateUser($newPassword: String!, $currentPassword: String!) {
+    changeUserPassword(
+      newPassword: $newPassword
+      currentPassword: $currentPassword
+    ) {
+      _id
+      username
+      role
+    }
+  }
+`;
+
+export const CHANGE_USER_INFO = gql`
+  mutation Mutation(
+    $username: String
+    $bio: String
+    $instagramHandle: String
+    $email: String
+  ) {
+    changeUserInfo(
+      username: $username
+      bio: $bio
+      instagramHandle: $instagramHandle
+      email: $email
+    ) {
+      _id
+      username
+      password
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;
+
+export const DELETE_USER = gql`
+  mutation DeleteUser {
+    deleteUser {
+      _id
+      username
+      password
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;
+
 export const DELETE_ARTIST = gql`
   mutation Mutation($id: ID!) {
     deleteArtist(_id: $id) {

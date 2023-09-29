@@ -17,6 +17,7 @@ import LoopParamsTarget from "../../../components/LoopCard/LoopParamsTarget";
 import { formattedToday } from "../../../../utils/dates";
 const RandomTrain = () => {
   const randomTempo = Math.floor(Math.random() * (200 - 60) + 60);
+  const [reloadPage, setReloadPage] = useState(true);
   const [loopNameParams, setLoopNameParams] = useState({
     randomWord: randomWord,
     tempo: randomTempo,
@@ -50,6 +51,8 @@ const RandomTrain = () => {
     if (meData === undefined || meData.me === null) {
       return;
     } else if (meData.me.username) {
+      window.scrollTo(0, 0);
+
       const me = meData.me.instagramHandle;
       setLoopNameParams({
         ...loopNameParams,
@@ -101,6 +104,7 @@ const RandomTrain = () => {
     ) {
       return;
     }
+
     // Pull a random key from ALL_KEYS query
     const randomKeyIndex = Math.floor(Math.random() * keyData.keys.length);
     const randomKey = keyData.keys[randomKeyIndex];
@@ -126,8 +130,9 @@ const RandomTrain = () => {
       chordsLiteral: allKeysMatch[0].progression_in_key,
       chordsNumerals: randomProgression.numerals,
       producer: meData.me.instagramHandle,
+      tempo: Math.floor(Math.random() * (200 - 60) + 60),
     });
-  }, [keyData, progressionData]);
+  }, [keyData, progressionData, reloadPage]);
 
   if (progressionLoading || keyLoading || meLoading)
     return <LoadingWhiteText />;
@@ -164,7 +169,7 @@ const RandomTrain = () => {
       />
       <button
         onClick={() => {
-          window.location.reload();
+          setReloadPage(!reloadPage);
         }}
         className="relative bg-primary text-white h-12 rounded w-44 mb-8 mt-4"
       >
