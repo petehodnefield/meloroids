@@ -95,6 +95,7 @@ const EditProfile = () => {
         {changePasswordModalOpen ? (
           <ChangePasswordModal
             setChangePasswordModalOpen={setChangePasswordModalOpen}
+            refetch={refetch}
           />
         ) : (
           ""

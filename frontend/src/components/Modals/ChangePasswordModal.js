@@ -1,21 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   formInputLabelWrapper,
   formLabel,
   formInput,
   btn,
+  inputStyle,
+  successInputStyle,
+  failureInputStyle,
+  errorMessage,
+  errorText,
+  successText,
 } from "../../../utils/styles";
 import { Icon } from "@iconify/react";
-const ChangePasswordModal = ({ setChangePasswordModalOpen }) => {
+import { useMutation } from "@apollo/client";
+import { CHANGE_USER_PASSWORD } from "../../../utils/mutations";
+const ChangePasswordModal = ({ setChangePasswordModalOpen, refetch }) => {
   const [passwords, setPasswords] = useState({
     currentPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-  //   console.log(`passwords ${JSON.stringify(passwords)}`);
+
+  const [originalPasswordMatch, setOriginalPasswordMatch] = useState("");
+  const [passwordValidated, setPasswordValidated] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const [changeUserPassword] = useMutation(CHANGE_USER_PASSWORD);
+
+  // Validate password
+  useEffect(() => {
+    const passwordFormat =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (passwords.newPassword.match(passwordFormat)) {
+      setPasswordValidated(true);
+    } else {
+      setPasswordValidated(false);
+    }
+  }, [passwords.newPassword]);
+
+  // Compare password and passwordConfirm
+  useEffect(() => {
+    if (
+      passwords.newPassword === passwords.confirmNewPassword &&
+      passwords.newPassword.length > 1
+    ) {
+      setPasswordMatch(true);
+    } else {
+      setPasswordMatch(false);
+    }
+  }, [passwords.newPassword, passwords.confirmNewPassword]);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setChangePasswordModalOpen(false);
+
+    if (!passwordMatch || !passwordValidated) {
+      return;
+    } else {
+      try {
+        await changeUserPassword({
+          variables: {
+            currentPassword: passwords.currentPassword,
+            newPassword: passwords.newPassword,
+          },
+        });
+        setSuccessMessage("Password successfully reset!");
+        setOriginalPasswordMatch("");
+        await refetch();
+        setTimeout(() => {
+          setChangePasswordModalOpen(false);
+        }, 1500);
+      } catch (e) {
+        setOriginalPasswordMatch(e.message);
+      }
+    }
   };
   return (
     <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start py-12 justify-center">
@@ -43,8 +101,16 @@ const ChangePasswordModal = ({ setChangePasswordModalOpen }) => {
                 type="password"
                 name="currentPassword"
                 id="currentPassword"
-                className={`${formInput} flex items-center justify-between bg-white border-1 border-light rounded`}
+                minLength={8}
+                maxLength={20}
+                required
+                className={`${inputStyle}`}
               />
+              {!originalPasswordMatch ? (
+                ""
+              ) : (
+                <p className={`${errorText}`}>{originalPasswordMatch}</p>
+              )}
             </div>
             <div className={`${formInputLabelWrapper}`}>
               <label htmlFor="newPassword" className={`${formLabel}`}>
@@ -57,11 +123,28 @@ const ChangePasswordModal = ({ setChangePasswordModalOpen }) => {
                     newPassword: e.target.value,
                   })
                 }
+                minLength={8}
+                maxLength={20}
+                required
                 type="password"
                 name="newPassword"
                 id="newPassword"
-                className={`${formInput} flex items-center justify-between bg-white border-1 border-light rounded`}
+                className={`${inputStyle}  ${
+                  passwordValidated ? successInputStyle : ""
+                }     
+                ${
+                  !passwordValidated && passwords.newPassword.length >= 1
+                    ? failureInputStyle
+                    : ""
+                }  `}
               />
+              {!passwordValidated && passwords.newPassword.length >= 1 ? (
+                <p className={errorText}>
+                  Please enter a password that meets the criteria
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <div className={`${formInputLabelWrapper} mb-10`}>
               <label htmlFor="confirmNewPassword" className={`${formLabel}`}>
@@ -74,13 +157,36 @@ const ChangePasswordModal = ({ setChangePasswordModalOpen }) => {
                     confirmNewPassword: e.target.value,
                   })
                 }
+                minLength={8}
+                maxLength={20}
+                required
                 type="password"
                 name="confirmNewPassword"
                 id="confirmNewPassword"
-                className={`${formInput} flex items-center justify-between bg-white border-1 border-light rounded`}
+                className={`${inputStyle}    ${
+                  passwordMatch && passwordValidated ? successInputStyle : ""
+                }
+                ${
+                  (!passwordMatch &&
+                    passwords.confirmNewPassword.length >= 1) ||
+                  (!passwordValidated &&
+                    passwords.confirmNewPassword.length >= 1)
+                    ? failureInputStyle
+                    : ""
+                }`}
               />
+              {!passwordMatch && passwords.confirmNewPassword.length >= 1 ? (
+                <p className={errorText}>Passwords do not match</p>
+              ) : (
+                ""
+              )}
+              {successMessage ? (
+                <p className={`${successText}`}>{successMessage}</p>
+              ) : (
+                ""
+              )}
             </div>
-            <button type="submit" className={`${btn} bg-dark text-white `}>
+            <button type="submit" className={`${btn} mt-4 bg-dark text-white `}>
               Save
             </button>
           </form>
