@@ -31,15 +31,15 @@ const DeleteAccountModal = ({ setDeleteAccountModalOpen }) => {
     }
   };
   return (
-    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start py-12 justify-center">
-      <div className="w-96 relative border-dark border-1 bg-white shadow-3xl flex flex-col items-center pt-12 px-8 rounded">
+    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start px-6 py-12 justify-center">
+      <div className="w-full md:w-96 relative border-dark border-1 bg-white shadow-3xl flex flex-col items-center pt-12 px-8 rounded">
         <Icon
           className="absolute top-4 right-4 text-1.5 cursor-pointer"
           icon="octicon:x-12"
           onClick={() => setDeleteAccountModalOpen(false)}
         />
         <h2 className="text-1.5 font-semibold mb-6">Delete account</h2>
-        <p className="font-semibold mb-8 text-center">
+        <p className="font-semibold mb-8 text-center max-w-660">
           Account deletions are final, and your account cannot be recovered once
           deleted. If you’re sure you want to delete your account, please enter
           <span className="font-bold text-primary"> delete my account </span> in
@@ -56,6 +56,9 @@ const DeleteAccountModal = ({ setDeleteAccountModalOpen }) => {
               Confirm account deletion
             </label>
             <input
+              required
+              minLength={1}
+              maxLength={20}
               onChange={(e) => setDeleteConfirmMessage(e.target.value)}
               placeholder="delete my account"
               className={`${formInput}  flex items-start py-4 justify-between bg-white border-1 border-light rounded`}

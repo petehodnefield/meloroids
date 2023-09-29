@@ -76,17 +76,17 @@ const ChangePasswordModal = ({ setChangePasswordModalOpen, refetch }) => {
     }
   };
   return (
-    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start py-12 justify-center">
-      <div className="relative border-dark border-1 bg-white shadow-3xl flex gap-12 p-12 rounded">
+    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start px-6 md:py-12 justify-center">
+      <div className="relative w-full md:max-w-48 border-dark border-1 bg-white shadow-3xl flex flex-col md:flex-row md:items-start items-center gap-8 md:gap-12 my-8 px-6 pt-12 pb-8 md:p-12 rounded">
         <Icon
           className="absolute top-4 right-4 text-1.5 cursor-pointer"
           icon="octicon:x-12"
           onClick={() => setChangePasswordModalOpen(false)}
         />
 
-        <div className="w-80">
+        <div className="w-full md:w-80 text-center md:text-left">
           <h2 className="text-1.5 font-semibold mb-6">Change password</h2>
-          <form onSubmit={(e) => handleFormSubmit(e)}>
+          <form onSubmit={(e) => handleFormSubmit(e)} className="">
             <div className={`${formInputLabelWrapper}  mb-8`}>
               <label htmlFor="currentPassword" className={`${formLabel}`}>
                 Current password:

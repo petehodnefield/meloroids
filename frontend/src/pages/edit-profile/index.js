@@ -124,7 +124,7 @@ const EditProfile = () => {
             </Link>
           </div>
           {/* Edit profile card */}
-          <div className="flex flex-col bg-white shadow-3xl rounded p-10">
+          <div className="flex w-full flex-col bg-white md:shadow-3xl rounded py-4 md:p-10">
             <h1 className="text-2 mb-8">Edit profile</h1>
             <form>
               {/* Username */}

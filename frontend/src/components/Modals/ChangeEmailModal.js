@@ -83,8 +83,8 @@ const ChangeEmailModal = ({
     // setChangeEmailModalOpen(false);
   };
   return (
-    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start py-12 justify-center">
-      <div className="relative w-full max-w-30 border-dark border-1 bg-white shadow-3xl flex flex-col items-center p-12 rounded">
+    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start py-12 px-6 justify-center">
+      <div className="relative w-full md:max-w-30 border-dark border-1 bg-white shadow-3xl flex flex-col items-center py-8 px-6 md:p-12 rounded">
         <Icon
           className="absolute top-4 right-4 text-1.5 cursor-pointer"
           icon="octicon:x-12"
@@ -100,7 +100,7 @@ const ChangeEmailModal = ({
           <div className={`${formInputLabelWrapper} mb-8`}>
             <p className={`${formLabel}`}>Current email:</p>
             <div
-              className={`${formInput} flex items-center justify-between bg-white border-1 border-light rounded`}
+              className={`${formInput} overflow-scroll flex items-center justify-between bg-white border-1 border-light rounded`}
             >
               {currentEmail}
             </div>
