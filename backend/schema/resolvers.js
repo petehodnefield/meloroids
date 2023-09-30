@@ -149,6 +149,16 @@ export const resolvers = {
         return userData;
       }
     },
+    verifyToken: async (parent, args, context) => {
+      const findUser = await User.findOne({ _id: args.user_id });
+
+      const token = args.token;
+      const verify = auth.verifyToken(token);
+
+      if (!verify) {
+        throw new GraphQLError("This is an invalid token!");
+      } else return { token, findUser };
+    },
     users: async () => {
       return await User.find();
     },
@@ -677,6 +687,16 @@ export const resolvers = {
       }
 
       throw new GraphQLError("You need to be logged in!");
+    },
+    resetUserPassword: async (parent, { email }, context) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new GraphQLError("Email does not exist in our database.");
+      }
+
+      const token = await auth.signToken(user);
+      return { token, user };
     },
     changeUserInfo: async (parent, args, context) => {
       if (context.user) {

@@ -131,6 +131,7 @@ let schema = makeExecutableSchema({
     minorkeys: [Key]
 
     me: User
+    verifyToken(user_id: ID!, token: String!): Auth
     users: [User]
     user(id: ID!): User
     username(username: String!): User
@@ -173,6 +174,7 @@ let schema = makeExecutableSchema({
     createUser(username: String!, password: String!, role: String, email: String!, instagramHandle: String!): Auth 
     login(username: String!, password: String!): Auth 
     changeUserPassword(currentPassword: String!, newPassword: String!): User 
+    resetUserPassword(email: String!): Auth
     changeUserInfo(username: String, bio: String, instagramHandle: String, email: String): User 
     deleteUser: User 
   }

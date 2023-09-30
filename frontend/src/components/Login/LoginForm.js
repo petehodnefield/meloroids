@@ -73,7 +73,12 @@ const LoginForm = () => {
             setUserInfo({ ...userInfo, password: e.target.value })
           }
         />
-
+        <Link
+          href={`/reset-password`}
+          className="text-0.875 font-semibold text-primary mt-4 text-center md:text-left"
+        >
+          Forgot password?{" "}
+        </Link>
         {errorMessage ? (
           <p className="text-red font-semibold mt-3">{errorMessage}</p>
         ) : (

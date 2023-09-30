@@ -153,6 +153,18 @@ export const USERNAME = gql`
   }
 `;
 
+export const USER = gql`
+  query User($userId: ID!) {
+    user(id: $userId) {
+      _id
+      username
+      password
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;
 export const USER_EMAIL = gql`
   query UserEmail($email: String!) {
     userEmail(email: $email) {

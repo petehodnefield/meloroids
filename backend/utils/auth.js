@@ -11,6 +11,20 @@ const auth = {
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
+  resetPassword: function () {
+    const payload = { username, email, _id };
+
+    return jwt.sign({ data: payload }, `${secret}`, { expiresIn: "15m" });
+  },
+  verifyToken: function (token) {
+    try {
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      console.log("data", data);
+      return data;
+    } catch (error) {
+      console.log("Invalid Token!");
+    }
+  },
   authMiddleware: function ({ req }) {
     // allows token to be sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
