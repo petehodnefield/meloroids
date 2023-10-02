@@ -7,7 +7,7 @@ import {
   formInputLabelWrapper,
   formLabel,
 } from "../../../utils/styles";
-import { RESET_USER_PASSWORD } from "../../../utils/mutations";
+import { GENERATE_RESET_TOKEN } from "../../../utils/mutations";
 
 const ResetPassword = () => {
   // See if user email exists
@@ -18,20 +18,22 @@ const ResetPassword = () => {
       email: email,
     },
   });
-  const [resetUserPassword] = useMutation(RESET_USER_PASSWORD);
+  const [generateResetToken] = useMutation(GENERATE_RESET_TOKEN);
   //   console.log(`data ${JSON.stringify(data)}`);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!data || !data.userEmail) return;
-    else {
+    if (!data || !data.userEmail) {
+      console.log("User does not exist!");
+      return;
+    } else {
       try {
-        const { data } = await resetUserPassword({
+        const { data } = await generateResetToken({
           variables: { email: email },
         });
-        const { token, user } = await data.resetUserPassword;
-        console.log("token", token);
-        console.log("user", user);
+        const { token, user } = await data.generateResetToken;
+        // console.log("token", token);
+        // console.log("user", user);
         // window.location.replace(`/reset-password/${user._id}/${token}`);
       } catch (e) {
         console.log(e.message);

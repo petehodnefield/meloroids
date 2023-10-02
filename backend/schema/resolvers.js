@@ -9,6 +9,12 @@ import { returnKey } from "../utils/chord-algorithm/return-key.js";
 import { generateProgressionsInAllKeys } from "../utils/chord-algorithm/generate-chords.js";
 import auth from "../utils/auth.js";
 import { GraphQLError } from "graphql";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+import sgMail from "@sendgrid/mail";
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
@@ -149,15 +155,14 @@ export const resolvers = {
         return userData;
       }
     },
-    verifyToken: async (parent, args, context) => {
-      const findUser = await User.findOne({ _id: args.user_id });
+    verifyToken: async (parent, { user_id, token }, context) => {
+      const user = await User.findOne({ _id: user_id });
 
-      const token = args.token;
-      const verify = auth.verifyToken(token);
+      const verify = await auth.verifyToken(token);
 
       if (!verify) {
         throw new GraphQLError("This is an invalid token!");
-      } else return { token, findUser };
+      } else return { token, user };
     },
     users: async () => {
       return await User.find();
@@ -688,7 +693,16 @@ export const resolvers = {
 
       throw new GraphQLError("You need to be logged in!");
     },
-    resetUserPassword: async (parent, { email }, context) => {
+    resetPassword: async (parent, { newPassword, user_id }, context) => {
+      const updateUser = await User.findOneAndUpdate(
+        { _id: user_id },
+        { password: newPassword },
+        { new: true }
+      );
+      return updateUser;
+    },
+
+    generateResetToken: async (parent, { email }, context) => {
       const user = await User.findOne({ email });
 
       if (!user) {
@@ -696,8 +710,28 @@ export const resolvers = {
       }
 
       const token = await auth.signToken(user);
+
+      const msg = {
+        to: email,
+        from: "mongamonga@meloroids.io",
+        subject: "Reset Password Link",
+        text: `Please click this link to reset your password. This link will expire in 15 minutes. DO NOT SHARE WITH ANYONE ELSE!
+       https://meloroids.io/reset-password/${user._id}/${token}`,
+        // text: `Please click this link to reset your password. Do not share with anybody else!`,
+        // html: `<a href="http://localhost:3000/reset-password/${user._id}/${token}"></a>`,
+      };
+      await sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email successfully sent");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
       return { token, user };
     },
+
     changeUserInfo: async (parent, args, context) => {
       if (context.user) {
         const changeUser = await User.findOneAndUpdate(

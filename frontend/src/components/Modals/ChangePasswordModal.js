@@ -14,6 +14,7 @@ import {
 import { Icon } from "@iconify/react";
 import { useMutation } from "@apollo/client";
 import { CHANGE_USER_PASSWORD } from "../../../utils/mutations";
+
 const ChangePasswordModal = ({ setChangePasswordModalOpen, refetch }) => {
   const [passwords, setPasswords] = useState({
     currentPassword: "",

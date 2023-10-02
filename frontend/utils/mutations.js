@@ -16,9 +16,9 @@ export const LOGIN = gql`
   }
 `;
 
-export const RESET_USER_PASSWORD = gql`
-  mutation ResetUserPassword($email: String!) {
-    resetUserPassword(email: $email) {
+export const GENERATE_RESET_TOKEN = gql`
+  mutation GenerateResetToken($email: String!) {
+    generateResetToken(email: $email) {
       token
       user {
         _id

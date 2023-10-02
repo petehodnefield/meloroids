@@ -178,6 +178,19 @@ export const USER_EMAIL = gql`
   }
 `;
 
+export const VERIFY_TOKEN = gql`
+  query VerifyToken($token: String!, $userId: ID!) {
+    verifyToken(token: $token, user_id: $userId) {
+      token
+      user {
+        _id
+        email
+        username
+      }
+    }
+  }
+`;
+
 export const ALL_ARTISTS = gql`
   query Query {
     artists {

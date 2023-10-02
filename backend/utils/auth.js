@@ -18,11 +18,10 @@ const auth = {
   },
   verifyToken: function (token) {
     try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      console.log("data", data);
+      const { data } = jwt.verify(token, secret, { maxAge: "25m" });
       return data;
     } catch (error) {
-      console.log("Invalid Token!");
+      console.log("This token has either expired or is invalid.");
     }
   },
   authMiddleware: function ({ req }) {
