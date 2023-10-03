@@ -20,6 +20,7 @@ const Footer = () => {
 
   const columnStyle =
     "flex flex-col items-center justify-center lg:items-start lg:justify-start 	";
+  const columnMarginStyle = `mt-6`;
 
   useEffect(() => {
     const emailFormat =
@@ -44,7 +45,7 @@ const Footer = () => {
   };
   return (
     <footer className="flex lg:h-325  py-10 items-center text-white justify-center  bg-primary ">
-      <div className="w-full lg:w-60 xl:w-70 h-full flex flex-col lg:flex-row items-center justify-center">
+      <div className="w-full lg:w-60 xl:w-70 h-full flex flex-col lg:flex-row items-center lg:items-start justify-center">
         {/* Column 1 */}
         <div className={`${columnStyle} flex-1.33`}>
           <div className="flex flex-col items-center lg:items-start mb-6 lg:mb-20">
@@ -70,7 +71,9 @@ const Footer = () => {
           <PrivacyPolicy displayClass={"hidden lg:flex"} />
         </div>
         {/* Column 2 */}
-        <div className={` ${columnStyle} hidden lg:block lg:flex-1 `}>
+        <div
+          className={` ${columnStyle} ${columnMarginStyle}   hidden lg:block lg:flex-1 `}
+        >
           <div className="flex flex-col items-start">
             <h3 className="text-1.5 font-bold mb-4">Resources</h3>
             <ul className="flex flex-col p-0 gap-3">
@@ -131,59 +134,7 @@ const Footer = () => {
           </div>
         </div>
         {/* Column 3 */}
-        <div className={`mt-6 ${columnStyle} gap-8 flex-1`}>
-          <div className="flex flex-col items-center lg:items-start">
-            <h3 className="text-1.5 font-bold mb-2">Join us</h3>
-            <h4 className="text-1 font-medium mb-2">
-              Enter your email to get free stuff
-            </h4>
-            {/* Form to capture emails */}
-            <form
-              action="https://meloroids.us21.list-manage.com/subscribe/post"
-              method="POST"
-              onSubmit={handleFormSubmit}
-              id="newsletterForm"
-              className="border-solid border-b-2 border-white py-1 gap-2 flex"
-            >
-              {/* Hidden Inputs */}
-              <input
-                type="hidden"
-                name="u"
-                value="74ca7fc92cb84f6ac5e3867ab"
-                minLength={5}
-                maxLength={30}
-              />
-              <input
-                type="hidden"
-                name="id"
-                value="7005dd4ba1"
-                minLength={5}
-                maxLength={30}
-              />
-              {/* Email Input */}
-              <label htmlFor="MERGE0" hidden className="w-40">
-                Email Address <span className="req asterisk">*</span>
-              </label>
-              <input
-                className="bg-transparent text-light text-1 font-400 focus:outline-none placeholder-light"
-                placeholder="Your Email"
-                type="email"
-                name="MERGE0"
-                id="MERGE0"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-                minLength={5}
-                maxLength={30}
-              />
-              <button
-                type={emailValidated ? "submit" : ""}
-                className="font-bold"
-              >
-                SUBMIT
-              </button>{" "}
-            </form>{" "}
-            {emailErrorMessage ? emailErrorMessage : ""}
-          </div>
+        <div className={` ${columnStyle} ${columnMarginStyle} flex-1`}>
           <div className="flex flex-col items-start">
             <h3 className="text-1.5 font-bold mb-4">Follow us</h3>
             {/* Social Icons */}
@@ -208,7 +159,7 @@ const Footer = () => {
               </Link>
             </div>
           </div>
-          <PrivacyPolicy displayClass={"flex lg:hidden"} />
+          <PrivacyPolicy displayClass={"flex mt-12 lg:hidden"} />
         </div>
       </div>
     </footer>

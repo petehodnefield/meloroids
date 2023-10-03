@@ -163,3 +163,18 @@ export const PUSH_ARTIST_TO_SONG = gql`
     }
   }
 `;
+
+// Contact form email handling
+export const CONTACT_SUBMISSION = gql`
+  mutation ContactSubmission(
+    $userEmail: String!
+    $subject: String!
+    $message: String!
+  ) {
+    contactSubmission(
+      user_email: $userEmail
+      subject: $subject
+      message: $message
+    )
+  }
+`;

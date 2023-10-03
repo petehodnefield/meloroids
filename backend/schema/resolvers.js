@@ -22,6 +22,7 @@ export const resolvers = {
     // Artists
     artists: async () => {
       return await Artist.find()
+        .sort({ name: 1 })
         .populate("albums")
         .populate({
           path: "songs",
@@ -104,6 +105,7 @@ export const resolvers = {
     // Genre
     genres: async () => {
       return await Genre.find()
+        .sort({ genre: 1 })
         .populate("progressions")
         .populate({
           path: "songs",
@@ -752,6 +754,29 @@ export const resolvers = {
           _id: context.user._id,
         });
         return deleteUser;
+      }
+    },
+
+    // Support mutations
+    contactSubmission: async (parent, args, context) => {
+      try {
+        const msg = {
+          to: `support@meloroids.io`,
+          from: `support@meloroids.io`,
+          subject: args.subject,
+          text: `${args.message} sent by ${args.user_email}`,
+        };
+        await sgMail
+          .send(msg)
+          .then(() => {
+            console.log("Email successfully sent");
+            return `Email successfully sent!`;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } catch (error) {
+        console.log(e);
       }
     },
   },

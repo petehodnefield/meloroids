@@ -20,7 +20,6 @@ let schema = makeExecutableSchema({
   type Artist {
     _id: ID
     name: String
-    age: Int
     image: String
     albums: [Album]
     songs: [Song]
@@ -178,6 +177,8 @@ let schema = makeExecutableSchema({
     generateResetToken(email: String!): Auth
     changeUserInfo(username: String, bio: String, instagramHandle: String, email: String): User 
     deleteUser: User 
+
+    contactSubmission(user_email: String!, subject: String!, message: String!): String
   }
 
   type Auth {
