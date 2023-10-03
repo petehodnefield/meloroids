@@ -202,5 +202,5 @@ const { url } = await startStandaloneServer(server, {
   context: auth.authMiddleware,
   listen: { port: 4000 },
 });
-
+console.log(url);
 console.log(`🚀  Server ready at: ${url}`);

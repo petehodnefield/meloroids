@@ -716,7 +716,7 @@ export const resolvers = {
         from: "mongamonga@meloroids.io",
         subject: "Reset Password Link",
         text: `Please click this link to reset your password. This link will expire in 15 minutes. DO NOT SHARE WITH ANYONE ELSE!
-       https://meloroids.io/reset-password/${user._id}/${token}`,
+       ${process.env.SENDGRID_REDIRECT_LINK}/reset-password/${user._id}/${token}`,
         // text: `Please click this link to reset your password. Do not share with anybody else!`,
         // html: `<a href="http://localhost:3000/reset-password/${user._id}/${token}"></a>`,
       };
