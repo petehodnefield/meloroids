@@ -27,7 +27,9 @@ const ResetPassword = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!data || !data.userEmail) {
-      setErrorMessage("User does not exist!");
+      setErrorMessage(
+        "There is not a user associated with this email address."
+      );
       return;
     } else {
       try {

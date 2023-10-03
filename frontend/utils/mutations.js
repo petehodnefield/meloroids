@@ -68,6 +68,16 @@ export const CHANGE_USER_PASSWORD = gql`
   }
 `;
 
+export const RESET_PASSWORD = gql`
+  mutation ResetPassword($userId: ID!, $newPassword: String!) {
+    resetPassword(user_id: $userId, newPassword: $newPassword) {
+      _id
+      username
+      email
+    }
+  }
+`;
+
 export const CHANGE_USER_INFO = gql`
   mutation Mutation(
     $username: String

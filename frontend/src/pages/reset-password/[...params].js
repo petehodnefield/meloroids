@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { initializeApollo } from "../../../lib/apollo";
 import { useQuery, useMutation } from "@apollo/client";
-import { CHANGE_USER_PASSWORD } from "../../../utils/mutations";
+import { RESET_PASSWORD } from "../../../utils/mutations";
 import { USER, VERIFY_TOKEN } from "../../../utils/queries";
 import Auth from "../../../utils/auth";
 import {
@@ -15,16 +15,17 @@ import {
   btn,
   errorText,
 } from "../../../utils/styles";
+import Link from "next/link";
 
 const ResetPasswordParams = ({ queryID }) => {
   const [passwords, setPasswords] = useState({
     newPassword: "",
     confirmNewPassword: "",
   });
-  console.log(passwords);
   const [passwordValidated, setPasswordValidated] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [passwordReset, setPasswordReset] = useState(false);
 
   const userID = queryID.params[0];
   const token = queryID.params[1];
@@ -36,7 +37,7 @@ const ResetPasswordParams = ({ queryID }) => {
     },
   });
 
-  const [changeUserPassword] = useMutation(CHANGE_USER_PASSWORD);
+  const [resetPassword] = useMutation(RESET_PASSWORD);
 
   // Validate password
   useEffect(() => {
@@ -68,12 +69,13 @@ const ResetPasswordParams = ({ queryID }) => {
       return;
     } else {
       try {
-        await changeUserPassword({
+        await resetPassword({
           variables: {
-            currentPassword: passwords.currentPassword,
+            userId: userID,
             newPassword: passwords.newPassword,
           },
         });
+        setPasswordReset(true);
       } catch (e) {
         console.log(e);
       }
@@ -86,63 +88,64 @@ const ResetPasswordParams = ({ queryID }) => {
 
   return (
     <div className="relative w-full  flex justify-center items-center  my-8  pt-12 pb-8 md:py-12 rounded">
-      <div className="w-full max-w-24   bg-white shadow-3xl rounded py-12 px-8">
-        <h1 className="text-1.5 font-semibold mb-6">Reset Password</h1>
-        <form
-          onSubmit={(e) => handleFormSubmit(e)}
-          className="flex flex-col items-center"
-        >
-          <div className={`${formInputLabelWrapper}`}>
-            <label htmlFor="newPassword" className={`${formLabel}`}>
-              New password:
-            </label>
-            <input
-              onChange={(e) =>
-                setPasswords({ ...passwords, newPassword: e.target.value })
-              }
-              minLength={8}
-              maxLength={20}
-              required
-              type="password"
-              name="newPassword"
-              id="newPassword"
-              className={`${inputStyle}  ${
-                passwordValidated ? successInputStyle : ""
-              }     
+      {!passwordReset ? (
+        <div className="w-full max-w-24   bg-white shadow-3xl rounded py-12 px-8">
+          <h1 className="text-1.5 font-semibold mb-6">Reset Password</h1>
+          <form
+            onSubmit={(e) => handleFormSubmit(e)}
+            className="flex flex-col items-center"
+          >
+            <div className={`${formInputLabelWrapper}`}>
+              <label htmlFor="newPassword" className={`${formLabel}`}>
+                New password:
+              </label>
+              <input
+                onChange={(e) =>
+                  setPasswords({ ...passwords, newPassword: e.target.value })
+                }
+                minLength={8}
+                maxLength={20}
+                required
+                type="password"
+                name="newPassword"
+                id="newPassword"
+                className={`${inputStyle}  ${
+                  passwordValidated ? successInputStyle : ""
+                }     
                 ${
                   !passwordValidated && passwords.newPassword.length >= 1
                     ? failureInputStyle
                     : ""
                 }  `}
-            />
-            {!passwordValidated && passwords.newPassword.length >= 1 ? (
-              <p className={errorText}>
-                Please enter a password that meets the criteria
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className={`${formInputLabelWrapper} mb-10`}>
-            <label htmlFor="confirmNewPassword" className={`${formLabel}`}>
-              Confirm new password:
-            </label>
-            <input
-              onChange={(e) =>
-                setPasswords({
-                  ...passwords,
-                  confirmNewPassword: e.target.value,
-                })
-              }
-              minLength={8}
-              maxLength={20}
-              required
-              type="password"
-              name="confirmNewPassword"
-              id="confirmNewPassword"
-              className={`${inputStyle}    ${
-                passwordMatch && passwordValidated ? successInputStyle : ""
-              }
+              />
+              {!passwordValidated && passwords.newPassword.length >= 1 ? (
+                <p className={errorText}>
+                  Please enter a password that meets the criteria
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className={`${formInputLabelWrapper} mb-10`}>
+              <label htmlFor="confirmNewPassword" className={`${formLabel}`}>
+                Confirm new password:
+              </label>
+              <input
+                onChange={(e) =>
+                  setPasswords({
+                    ...passwords,
+                    confirmNewPassword: e.target.value,
+                  })
+                }
+                minLength={8}
+                maxLength={20}
+                required
+                type="password"
+                name="confirmNewPassword"
+                id="confirmNewPassword"
+                className={`${inputStyle}    ${
+                  passwordMatch && passwordValidated ? successInputStyle : ""
+                }
                 ${
                   (!passwordMatch &&
                     passwords.confirmNewPassword.length >= 1) ||
@@ -151,38 +154,49 @@ const ResetPasswordParams = ({ queryID }) => {
                     ? failureInputStyle
                     : ""
                 }`}
-            />
-            {!passwordMatch && passwords.confirmNewPassword.length >= 1 ? (
-              <p className={errorText}>Passwords do not match</p>
-            ) : (
-              ""
-            )}
-            {successMessage ? (
-              <p className={`${successText}`}>{successMessage}</p>
-            ) : (
-              ""
-            )}
-          </div>
-          <button type="submit" className={`${btn} mt-4 bg-dark text-white `}>
-            Save
-          </button>
-        </form>{" "}
-        <div className="flex flex-col mt-8 items-start">
-          <div className=" flex flex-col  items-start mb-1 py-2">
-            <h3 className="font-semibold mb-2">Password requirements:</h3>
-            <ul className="list-disc	text-1 pl-5 mb-2 font-medium">
-              <li>8-20 characters</li>
-              <li>Include all of the following:</li>
-              <ul className="sublist	pl-4">
-                <li>1 uppercase letter</li>
-                <li>1 lowercase letter</li>
-                <li>1 number</li>
-                <li>1 special character</li>
+              />
+              {!passwordMatch && passwords.confirmNewPassword.length >= 1 ? (
+                <p className={errorText}>Passwords do not match</p>
+              ) : (
+                ""
+              )}
+              {successMessage ? (
+                <p className={`${successText}`}>{successMessage}</p>
+              ) : (
+                ""
+              )}
+            </div>
+            <button type="submit" className={`${btn} mt-4 bg-dark text-white `}>
+              Save
+            </button>
+          </form>{" "}
+          <div className="flex flex-col mt-8 items-start">
+            <div className=" flex flex-col  items-start mb-1 py-2">
+              <h3 className="font-semibold mb-2">Password requirements:</h3>
+              <ul className="list-disc	text-1 pl-5 mb-2 font-medium">
+                <li>8-20 characters</li>
+                <li>Include all of the following:</li>
+                <ul className="sublist	pl-4">
+                  <li>1 uppercase letter</li>
+                  <li>1 lowercase letter</li>
+                  <li>1 number</li>
+                  <li>1 special character</li>
+                </ul>
               </ul>
-            </ul>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="w-full max-w-24 text-center  bg-white shadow-3xl rounded py-12 px-8">
+          {" "}
+          <h2 className="text-1.5 font-semibold mb-6">
+            Password successfully reset
+          </h2>
+          <Link className="text-primary font-medium" href={`/login`}>
+            Back to login
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
