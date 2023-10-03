@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { USER_EMAIL } from "../../../utils/queries";
 import {
@@ -9,8 +9,9 @@ import {
   formLabel,
 } from "../../../utils/styles";
 import { GENERATE_RESET_TOKEN } from "../../../utils/mutations";
-
+import { LoginContext } from "../_app";
 const ResetPassword = () => {
+  const [loggedIn] = useContext(LoginContext);
   // See if user email exists
   const [email, setEmail] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -43,7 +44,9 @@ const ResetPassword = () => {
       }
     }
   };
-
+  if (loggedIn) {
+    const goHome = window.location.replace("/");
+  }
   return (
     <div className={`flex justify-center w-full px-6 py-12`}>
       {!formSubmitted ? (

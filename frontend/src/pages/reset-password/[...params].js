@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { initializeApollo } from "../../../lib/apollo";
 import { useQuery, useMutation } from "@apollo/client";
 import { RESET_PASSWORD } from "../../../utils/mutations";
 import { USER, VERIFY_TOKEN } from "../../../utils/queries";
 import Auth from "../../../utils/auth";
+import Home from "../index";
 import {
   successText,
   formLabel,
@@ -16,8 +17,9 @@ import {
   errorText,
 } from "../../../utils/styles";
 import Link from "next/link";
-
+import { LoginContext } from "../_app";
 const ResetPasswordParams = ({ queryID }) => {
+  const [loggedIn] = useContext(LoginContext);
   const [passwords, setPasswords] = useState({
     newPassword: "",
     confirmNewPassword: "",
@@ -82,9 +84,28 @@ const ResetPasswordParams = ({ queryID }) => {
     }
   };
 
+  if (loggedIn) {
+    const goHome = window.location.replace("/");
+  }
+
   if (loading) return <div>Loading...</div>;
 
-  if (!loading && !data) return <div>This token has expired!</div>;
+  if (!loading && !data)
+    return (
+      <div className="relative w-full  flex justify-center items-center px-6 my-8  pt-12 pb-8 md:py-12 rounded">
+        <div className="w-full md:max-w-24  text-center bg-white shadow-3xl rounded py-12 px-8">
+          <h2 className="text-1.5 font-semibold mb-6">
+            This link has expired!
+          </h2>
+          <Link
+            href={`/reset-password`}
+            className={`underline font-medium text-primary`}
+          >
+            Get a new link
+          </Link>
+        </div>
+      </div>
+    );
 
   return (
     <div className="relative w-full  flex justify-center items-center  my-8  pt-12 pb-8 md:py-12 rounded">
