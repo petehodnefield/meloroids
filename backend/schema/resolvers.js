@@ -13,8 +13,10 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import sgMail from "@sendgrid/mail";
+import client from "@sendgrid/client";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+client.setApiKey(process.env.SENDGRID_MARKETING_API_KEY);
 
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
@@ -177,6 +179,33 @@ export const resolvers = {
     },
     userEmail: async (parent, { email }) => {
       return await User.findOne({ email: email });
+    },
+    getAllLists: async (parent, args, context) => {
+      let response;
+      const queryParams = {
+        page_size: 100,
+      };
+
+      const request = {
+        url: `/v3/marketing/lists`,
+        method: "GET",
+        qs: queryParams,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${process.env.SENDGRID_MARKETING_API_KEY}`,
+        },
+      };
+
+      await client
+        .request(request)
+        .then(([response, body]) => {
+          console.log(response.statusCode);
+          console.log(response.body);
+          return response.body;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
   Mutation: {
@@ -778,6 +807,73 @@ export const resolvers = {
       } catch (error) {
         console.log(e);
       }
+    },
+    // Add contacts to User base using SendGrid
+    addContactToSendgrid: async (
+      parent,
+      { user_email, instagramHandle },
+      context
+    ) => {
+      const data = {
+        contacts: [
+          {
+            email: user_email,
+            unique_name: instagramHandle,
+            custom_fields: {
+              group: "Meloroids User",
+            },
+          },
+        ],
+        list_ids: ["f99ca597-c803-4553-a845-ec4f82a22f12"],
+      };
+
+      const request = {
+        url: `/v3/marketing/contacts`,
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${process.env.SENDGRID_MARKETING_API_KEY}`,
+        },
+      };
+
+      client
+        .request(request)
+        .then(([response, body]) => {
+          console.log(response.statusCode);
+          console.log(response.body);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // Create a custom field (SendGrid)
+    createCustomField: async (parent, args, context) => {
+      const data = {
+        name: "group",
+        field_type: "Text",
+      };
+
+      const request = {
+        url: `/v3/marketing/field_definitions`,
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${process.env.SENDGRID_MARKETING_API_KEY}`,
+        },
+      };
+
+      client
+        .request(request)
+        .then(([response, body]) => {
+          console.log(response.statusCode);
+          console.log(response.body);
+          return response.body;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };

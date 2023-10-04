@@ -5,7 +5,7 @@ import Link from "next/link";
 const Contact = () => {
   const formInputLabelWrapper = "flex flex-col mb-4";
   const formInput =
-    "h-12 w-full rounded-lg pl-4 border-1 border-medium text-1 font-bold focus:outline-primary";
+    "h-12 w-full rounded-lg pl-4 border-1 border-medium text-1  focus:outline-primary";
   const formTextArea =
     "h-36 w-full rounded p-4 border-1 border-medium text-1 font-regular focus:outline-primary";
   const formLabel = "font-bold text-0.875 mb-1";

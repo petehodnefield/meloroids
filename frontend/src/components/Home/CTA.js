@@ -22,7 +22,7 @@ const CTA = () => {
         <h2 className="text-3 font-semibold mb-4">Become a better producer!</h2>
         <h3 className="max-w-660 text-1.25 font-medium mb-8">
           Join the growing community of producers that are focusing on what
-          truly matters. Ignite your creativity through minimalism.
+          truly matters. Ignite your creativity through contraints!
         </h3>
         <div className="flex flex-col items-center justify-center md:flex-row w-full gap-4 xl:gap-8">
           <Link

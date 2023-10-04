@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { SIGNUP } from "utils/mutations";
+import { SIGNUP, ADD_CONTACT_TO_SENDGRID } from "utils/mutations";
 import { USERNAME, USER_EMAIL } from "utils/queries";
 import Auth from "utils/auth";
 import { Icon } from "@iconify/react";
@@ -38,6 +38,7 @@ const SignupForm = () => {
   const [termsCheckedError, setTermsCheckedError] = useState("");
 
   const [signUp, { loading, data, error }] = useMutation(SIGNUP);
+  const [addContactToSendgrid] = useMutation(ADD_CONTACT_TO_SENDGRID);
   const {
     loading: usernameLoading,
     data: usernameData,
@@ -132,6 +133,12 @@ const SignupForm = () => {
             username: userInfo.username,
             password: userInfo.password,
             email: userInfo.email,
+            instagramHandle: userInfo.instagramHandle,
+          },
+        });
+        const addToSendgrid = await addContactToSendgrid({
+          variables: {
+            userEmail: userInfo.email,
             instagramHandle: userInfo.instagramHandle,
           },
         });

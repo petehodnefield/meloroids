@@ -178,3 +178,12 @@ export const CONTACT_SUBMISSION = gql`
     )
   }
 `;
+
+export const ADD_CONTACT_TO_SENDGRID = gql`
+  mutation Mutation($userEmail: String!, $instagramHandle: String!) {
+    addContactToSendgrid(
+      user_email: $userEmail
+      instagramHandle: $instagramHandle
+    )
+  }
+`;

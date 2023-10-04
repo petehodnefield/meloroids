@@ -135,6 +135,8 @@ let schema = makeExecutableSchema({
     user(id: ID!): User
     username(username: String!): User
     userEmail(email: String!): User
+
+    getAllLists: String
   }
 
   type Mutation {
@@ -179,6 +181,8 @@ let schema = makeExecutableSchema({
     deleteUser: User 
 
     contactSubmission(user_email: String!, subject: String!, message: String!): String
+    addContactToSendgrid(user_email: String!, instagramHandle: String!): String
+    createCustomField: String
   }
 
   type Auth {
