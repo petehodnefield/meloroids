@@ -39,7 +39,7 @@ const RandomTrain = () => {
     error: progressionError,
     refetch: refetchProgressions,
   } = useQuery(ALL_PROGRESSIONS);
-
+  console.log(`progressionsData ${JSON.stringify(progressionData)}`);
   const {
     loading: keyLoading,
     data: keyData,
@@ -95,12 +95,42 @@ const RandomTrain = () => {
     }
   }, [loopNameParams]);
 
+  const newParams = async () => {
+    // Pull a random key from ALL_KEYS query
+    const randomKeyIndex = Math.floor(Math.random() * keyData.keys.length);
+    const randomKey = keyData.keys[randomKeyIndex];
+
+    //   Pull a random progression from the ALL_PROGRESSIONS query
+    const allMatchingKeyProgressions = progressionData.progressions.filter(
+      (progression) => progression.is_major === randomKey.is_major
+    );
+    const randomIndex = Math.floor(
+      Math.random() * allMatchingKeyProgressions.length
+    );
+    const randomProgression = allMatchingKeyProgressions[randomIndex];
+    //   Match the chosen progression to display the correct key
+    const allKeysMatch = randomProgression.all_keys.filter(
+      (all_keys) => all_keys.key === randomKey.key
+    );
+
+    setLoopNameParams({
+      ...loopNameParams,
+      key: `${allKeysMatch[0].key.toLowerCase()} ${
+        randomKey.is_major ? "major" : "minor"
+      }`,
+      chordsLiteral: allKeysMatch[0].progression_in_key,
+      chordsNumerals: randomProgression.numerals,
+      producer: meData.me.instagramHandle,
+      tempo: Math.floor(Math.random() * (200 - 60) + 60),
+    });
+  };
+
   useEffect(() => {
     if (
-      keyData === undefined ||
-      keyData.keys === null ||
-      progressionData === undefined ||
-      progressionData.progressions === null
+      !keyData ||
+      !keyData.keys ||
+      !progressionData ||
+      !progressionData.progressions
     ) {
       return;
     }
@@ -132,7 +162,19 @@ const RandomTrain = () => {
       producer: meData.me.instagramHandle,
       tempo: Math.floor(Math.random() * (200 - 60) + 60),
     });
-  }, [keyData, progressionData, reloadPage]);
+  }, [keyData, progressionData]);
+
+  useEffect(() => {
+    if (
+      !keyData ||
+      !keyData.keys ||
+      !progressionData ||
+      !progressionData.progressions
+    ) {
+      return;
+    }
+    newParams();
+  }, [reloadPage]);
 
   if (progressionLoading || keyLoading || meLoading)
     return <LoadingWhiteText />;
@@ -148,13 +190,21 @@ const RandomTrain = () => {
   const splitNumerals = loopNameParams.chordsNumerals.split(" ");
 
   return (
-    <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start  ">
+    <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start py-12 ">
       <Image
         priority
         alt="a music studio background"
-        className="absolute w-full h-full object-cover"
+        className="absolute top-0 w-full h-full object-cover"
         src={studioImage}
       />{" "}
+      <button
+        onClick={() => {
+          setReloadPage(!reloadPage);
+        }}
+        className="relative bg-primary text-white h-12 rounded w-44 "
+      >
+        New Parameters
+      </button>
       <LoopParamsTarget
         splitChords={splitChords}
         splitNumerals={splitNumerals}
@@ -167,14 +217,6 @@ const RandomTrain = () => {
         includeParams={includeParams}
         setIncludeParams={setIncludeParams}
       />
-      <button
-        onClick={() => {
-          setReloadPage(!reloadPage);
-        }}
-        className="relative bg-primary text-white h-12 rounded w-44 mb-8 mt-4"
-      >
-        New Parameters
-      </button>
     </div>
   );
 };

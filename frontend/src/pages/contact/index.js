@@ -19,6 +19,7 @@ const Contact = () => {
   const [contactSubmission] = useMutation(CONTACT_SUBMISSION);
 
   const handleFormSubmit = async (e) => {
+    e.preventDefault();
     try {
       await contactSubmission({
         variables: {
@@ -28,6 +29,7 @@ const Contact = () => {
         },
       });
       const displayConfirmation = window.location.replace(`/contact/thank-you`);
+      displayConfirmation();
     } catch (error) {
       console.log(error);
     }
