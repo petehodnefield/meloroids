@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { LoginContext } from "../../_app";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { ALL_PROGRESSIONS, ALL_KEYS, ME } from "../../../../utils/queries";
-import { randomWord } from "../../../../utils/data/words";
-import Login from "../../login/index";
-
+import { ALL_PROGRESSIONS, ALL_KEYS } from "../../../utils/queries";
+import { randomWord } from "../../../utils/data/words";
+import { formattedToday } from "../../../utils/dates";
+import studioImage from "../../../public/assets/images/music-studio.jpg";
 import Image from "next/image";
-import studioImage from "../../../../public/assets/images/music-studio.png";
-import LoadingWhiteText from "../../../components/Loading/LoadingFullScreen";
-import Error from "../../../components/Error/Error";
+import LoopParamsTarget from "../../components/LoopCard/LoopParamsTarget";
 
-import LoopParamsTarget from "../../../components/LoopCard/LoopParamsTarget";
-import { formattedToday } from "../../../../utils/dates";
-const RandomTrain = () => {
+const TargetDemo = () => {
+  const [isHyrdrated, setIsHydrated] = useState(false);
   const randomTempo = Math.floor(Math.random() * (200 - 60) + 60);
   const [reloadPage, setReloadPage] = useState(true);
   const [loopNameParams, setLoopNameParams] = useState({
@@ -24,11 +20,8 @@ const RandomTrain = () => {
     chordsNumerals: "",
   });
   const [loopName, setLoopName] = useState("");
-  const [loggedIn, setLoggedIn] = useContext(LoginContext);
   const [includeDate, setIncludeDate] = useState(false);
   const [includeParams, setIncludeParams] = useState(true);
-
-  const { loading: meLoading, data: meData, error: meError } = useQuery(ME);
 
   const {
     loading: progressionLoading,
@@ -43,19 +36,11 @@ const RandomTrain = () => {
     refetch: refetchKeys,
   } = useQuery(ALL_KEYS);
 
+  //   Set hydration
   useEffect(() => {
-    if (meData === undefined || meData.me === null) {
-      return;
-    } else if (meData.me.username) {
-      window.scrollTo(0, 0);
+    setIsHydrated(true);
+  }, []);
 
-      const me = meData.me.instagramHandle;
-      setLoopNameParams({
-        ...loopNameParams,
-        producer: me,
-      });
-    }
-  }, [meData]);
   useEffect(() => {
     if (includeDate && includeParams) {
       setLoopName(
@@ -155,52 +140,23 @@ const RandomTrain = () => {
       }`,
       chordsLiteral: allKeysMatch[0].progression_in_key,
       chordsNumerals: randomProgression.numerals,
-      producer: meData.me.instagramHandle,
+      producer: "YOURINSTAGRAMHANDLE",
       tempo: Math.floor(Math.random() * (200 - 60) + 60),
     });
   }, [keyData, progressionData]);
 
-  useEffect(() => {
-    if (
-      !keyData ||
-      !keyData.keys ||
-      !progressionData ||
-      !progressionData.progressions
-    ) {
-      return;
-    }
-    newParams();
-  }, [reloadPage]);
-
-  if (progressionLoading || keyLoading || meLoading)
-    return <LoadingWhiteText />;
-  if (progressionError || keyError || meError)
-    return (
-      <div>
-        <Error />
-      </div>
-    );
-  if (!loggedIn) return <Login />;
-
   const splitChords = loopNameParams.chordsLiteral.split(" ");
   const splitNumerals = loopNameParams.chordsNumerals.split(" ");
 
+  if (!isHyrdrated) return <div>Loading...</div>;
   return (
-    <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start py-8 lg:py-12 ">
+    <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start  py-12">
       <Image
         priority
         alt="a music studio background"
         className="absolute top-0 w-full h-full object-cover"
         src={studioImage}
       />{" "}
-      <button
-        onClick={() => {
-          setReloadPage(!reloadPage);
-        }}
-        className="relative bg-primary text-white h-12 rounded w-44 mb-6 lg:mb-8"
-      >
-        New Parameters
-      </button>
       <LoopParamsTarget
         splitChords={splitChords}
         splitNumerals={splitNumerals}
@@ -217,4 +173,4 @@ const RandomTrain = () => {
   );
 };
 
-export default RandomTrain;
+export default TargetDemo;
