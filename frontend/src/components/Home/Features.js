@@ -8,7 +8,10 @@ import Link from "next/link";
 const Features = () => {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
   return (
-    <section className="min-h-screen w-full flex items-center justify-center features__bg">
+    <section
+      className="min-h-screen w-full flex items-center justify-center features__bg"
+      id="features"
+    >
       <div className="px-6 py-12 md:py-16 xl:max-w-70 flex flex-col items-center text-center">
         <h2 className="text-1.25 font-semibold text-darklight tracking-widest uppercase mb-2">
           Features

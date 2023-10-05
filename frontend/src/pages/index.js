@@ -6,6 +6,7 @@ import Hero from "@/components/Home/Hero";
 import AuthHome from "@/components/Home/AuthHome";
 import Features from "../components/Home/Features";
 import CTA from "../components/Home/CTA";
+import ThisIsMeloroids from "../components/Home/ThisIsMeloroids";
 export default function Home() {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
@@ -17,6 +18,8 @@ export default function Home() {
         <div>
           {/* Hero section */}
           <Hero />
+          {/* This is Meloroids */}
+          <ThisIsMeloroids />
           {/* Features section */}
           <Features />
           {/* CTA Section */}

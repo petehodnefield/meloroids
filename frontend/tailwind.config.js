@@ -21,6 +21,7 @@ module.exports = {
       },
       colors: {
         primary: "#b525f8",
+        primaryFaded: "rgba(202, 108, 248, 0.15)",
         secondary: "#C9ABD9",
         tertiary: "#EFECF0",
         quad: "#423D47",
@@ -39,6 +40,10 @@ module.exports = {
         denyLight: "rgba(238, 21, 21, 0.1)",
         confirm: "#177055",
         confirmLight: "#7CD7BC",
+      },
+      minHeight: {
+        600: "600px",
+        800: "800px",
       },
       maxHeight: {
         14: "14rem",

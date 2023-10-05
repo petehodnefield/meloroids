@@ -156,7 +156,7 @@ p {
 .features__bg {
   background: rgb(255, 255, 255);
   background: linear-gradient(
-    180deg,
+    360deg,
     rgba(255, 255, 255, 1) 0%,
     rgba(211, 181, 225, 0.3575805322128851) 100%
   );
