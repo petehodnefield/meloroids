@@ -1,5 +1,5 @@
 import decode from "jwt-decode";
-
+import jwt from "jsonwebtoken";
 class AuthService {
   // check if the user is still logged in
   loggedIn() {
@@ -9,6 +9,10 @@ class AuthService {
       // use type coersion to check if token is NOT undefined and the token is NOT expired
       return !!token && !this.isTokenExpired(token);
     }
+  }
+
+  verifyToken(token) {
+    const { data } = jwt.verify(token);
   }
 
   // Check if the token has expired

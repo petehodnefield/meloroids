@@ -9,6 +9,14 @@ import { returnKey } from "../utils/chord-algorithm/return-key.js";
 import { generateProgressionsInAllKeys } from "../utils/chord-algorithm/generate-chords.js";
 import auth from "../utils/auth.js";
 import { GraphQLError } from "graphql";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+import sgMail from "@sendgrid/mail";
+import client from "@sendgrid/client";
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+client.setApiKey(process.env.SENDGRID_MARKETING_API_KEY);
 
 // Resolvers define how to fetch the types defined in your schema.
 export const resolvers = {
@@ -16,6 +24,7 @@ export const resolvers = {
     // Artists
     artists: async () => {
       return await Artist.find()
+        .sort({ name: 1 })
         .populate("albums")
         .populate({
           path: "songs",
@@ -98,6 +107,7 @@ export const resolvers = {
     // Genre
     genres: async () => {
       return await Genre.find()
+        .sort({ genre: 1 })
         .populate("progressions")
         .populate({
           path: "songs",
@@ -149,6 +159,15 @@ export const resolvers = {
         return userData;
       }
     },
+    verifyToken: async (parent, { user_id, token }, context) => {
+      const user = await User.findOne({ _id: user_id });
+
+      const verify = await auth.verifyToken(token);
+
+      if (!verify) {
+        throw new GraphQLError("This is an invalid token!");
+      } else return { token, user };
+    },
     users: async () => {
       return await User.find();
     },
@@ -160,6 +179,33 @@ export const resolvers = {
     },
     userEmail: async (parent, { email }) => {
       return await User.findOne({ email: email });
+    },
+    getAllLists: async (parent, args, context) => {
+      let response;
+      const queryParams = {
+        page_size: 100,
+      };
+
+      const request = {
+        url: `/v3/marketing/lists`,
+        method: "GET",
+        qs: queryParams,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${process.env.SENDGRID_MARKETING_API_KEY}`,
+        },
+      };
+
+      await client
+        .request(request)
+        .then(([response, body]) => {
+          console.log(response.statusCode);
+          console.log(response.body);
+          return response.body;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
   Mutation: {
@@ -678,6 +724,45 @@ export const resolvers = {
 
       throw new GraphQLError("You need to be logged in!");
     },
+    resetPassword: async (parent, { newPassword, user_id }, context) => {
+      const updateUser = await User.findOneAndUpdate(
+        { _id: user_id },
+        { password: newPassword },
+        { new: true }
+      );
+      return updateUser;
+    },
+
+    generateResetToken: async (parent, { email }, context) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new GraphQLError("Email does not exist in our database.");
+      }
+
+      const token = await auth.signToken(user);
+
+      const msg = {
+        to: email,
+        from: "mongamonga@meloroids.io",
+        subject: "Reset Password Link",
+        text: `Please click this link to reset your password. This link will expire in 15 minutes. DO NOT SHARE WITH ANYONE ELSE!
+       ${process.env.SENDGRID_REDIRECT_LINK}/reset-password/${user._id}/${token}`,
+        // text: `Please click this link to reset your password. Do not share with anybody else!`,
+        // html: `<a href="http://localhost:3000/reset-password/${user._id}/${token}"></a>`,
+      };
+      await sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email successfully sent");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      return { token, user };
+    },
+
     changeUserInfo: async (parent, args, context) => {
       if (context.user) {
         const changeUser = await User.findOneAndUpdate(
@@ -699,6 +784,96 @@ export const resolvers = {
         });
         return deleteUser;
       }
+    },
+
+    // Support mutations
+    contactSubmission: async (parent, args, context) => {
+      try {
+        const msg = {
+          to: `support@meloroids.io`,
+          from: `support@meloroids.io`,
+          subject: args.subject,
+          text: `${args.message} sent by ${args.user_email}`,
+        };
+        await sgMail
+          .send(msg)
+          .then(() => {
+            console.log("Email successfully sent");
+            return `Email successfully sent!`;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } catch (error) {
+        console.log(e);
+      }
+    },
+    // Add contacts to User base using SendGrid
+    addContactToSendgrid: async (
+      parent,
+      { user_email, instagramHandle },
+      context
+    ) => {
+      const data = {
+        contacts: [
+          {
+            email: user_email,
+            unique_name: instagramHandle,
+            custom_fields: {
+              group: "Meloroids User",
+            },
+          },
+        ],
+        list_ids: ["f99ca597-c803-4553-a845-ec4f82a22f12"],
+      };
+
+      const request = {
+        url: `/v3/marketing/contacts`,
+        method: "PUT",
+        body: data,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${process.env.SENDGRID_MARKETING_API_KEY}`,
+        },
+      };
+
+      client
+        .request(request)
+        .then(([response, body]) => {
+          console.log(response.statusCode);
+          console.log(response.body);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // Create a custom field (SendGrid)
+    createCustomField: async (parent, args, context) => {
+      const data = {
+        name: "group",
+        field_type: "Text",
+      };
+
+      const request = {
+        url: `/v3/marketing/field_definitions`,
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${process.env.SENDGRID_MARKETING_API_KEY}`,
+        },
+      };
+
+      client
+        .request(request)
+        .then(([response, body]) => {
+          console.log(response.statusCode);
+          console.log(response.body);
+          return response.body;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };

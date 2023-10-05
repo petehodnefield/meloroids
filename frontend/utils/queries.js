@@ -153,6 +153,18 @@ export const USERNAME = gql`
   }
 `;
 
+export const USER = gql`
+  query User($userId: ID!) {
+    user(id: $userId) {
+      _id
+      username
+      password
+      email
+      instagramHandle
+      bio
+    }
+  }
+`;
 export const USER_EMAIL = gql`
   query UserEmail($email: String!) {
     userEmail(email: $email) {
@@ -162,6 +174,19 @@ export const USER_EMAIL = gql`
       email
       instagramHandle
       bio
+    }
+  }
+`;
+
+export const VERIFY_TOKEN = gql`
+  query VerifyToken($token: String!, $userId: ID!) {
+    verifyToken(token: $token, user_id: $userId) {
+      token
+      user {
+        _id
+        email
+        username
+      }
     }
   }
 `;

@@ -9,9 +9,7 @@ const artistSchema = new Schema({
     maxLength: 30,
     unique: true,
   },
-  age: {
-    type: Number,
-  },
+
   image: {
     required: true,
     type: String,

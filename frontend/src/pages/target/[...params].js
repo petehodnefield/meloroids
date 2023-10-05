@@ -130,10 +130,10 @@ const TargetDetails = ({ queryID }) => {
   const splitNumerals = loopNameParams.chordsNumerals.split(" ");
 
   return (
-    <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start  ">
+    <div className=" relative bg-cover min-h-screen  flex flex-col items-center justify-start  py-12">
       <Image
         alt="a music studio background"
-        className="absolute w-full h-full object-cover"
+        className="absolute top-0 w-full h-full object-cover"
         src={studioImage}
         priority
       />{" "}

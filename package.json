@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"cd ./frontend && npm run dev\" \"cd ./backend && npm run devStart\" ",
+    "dev": "concurrently \"cd ./frontend && npm run dev\" \"cd ./backend && npm run devStart\"  ",
     "dataApp": "concurrently \"cd ./backend && npm run devStart\" \"cd ./meloroids-data-app && npm run dev\" "
   },
   "repository": {

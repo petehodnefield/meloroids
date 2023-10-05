@@ -16,6 +16,19 @@ export const LOGIN = gql`
   }
 `;
 
+export const GENERATE_RESET_TOKEN = gql`
+  mutation GenerateResetToken($email: String!) {
+    generateResetToken(email: $email) {
+      token
+      user {
+        _id
+        email
+        username
+      }
+    }
+  }
+`;
+
 export const SIGNUP = gql`
   mutation Mutation(
     $username: String!
@@ -51,6 +64,16 @@ export const CHANGE_USER_PASSWORD = gql`
       _id
       username
       role
+    }
+  }
+`;
+
+export const RESET_PASSWORD = gql`
+  mutation ResetPassword($userId: ID!, $newPassword: String!) {
+    resetPassword(user_id: $userId, newPassword: $newPassword) {
+      _id
+      username
+      email
     }
   }
 `;
@@ -138,5 +161,29 @@ export const PUSH_ARTIST_TO_SONG = gql`
         name
       }
     }
+  }
+`;
+
+// Contact form email handling
+export const CONTACT_SUBMISSION = gql`
+  mutation ContactSubmission(
+    $userEmail: String!
+    $subject: String!
+    $message: String!
+  ) {
+    contactSubmission(
+      user_email: $userEmail
+      subject: $subject
+      message: $message
+    )
+  }
+`;
+
+export const ADD_CONTACT_TO_SENDGRID = gql`
+  mutation Mutation($userEmail: String!, $instagramHandle: String!) {
+    addContactToSendgrid(
+      user_email: $userEmail
+      instagramHandle: $instagramHandle
+    )
   }
 `;

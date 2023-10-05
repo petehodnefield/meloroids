@@ -25,17 +25,19 @@ const Hero = () => {
             Music Production Simplified
           </h1>
           <h2 className="text-1.5 font-medium mb-8">
-            Taking the guess work out of making beats.{" "}
+            Taking the guess work out of making music.{" "}
           </h2>
-          <h3 className="text-1.125 font-medium mb-8 lg:max-w-660">
-            Meloroids is the{" "}
-            <span className="font-bold ">antidote to beat block</span>, allowing
-            producers to be able to focus on producing their highest quality
-            work.
+          <h3 className="text-1.125 font-medium mb-10 lg:max-w-660">
+            Meloroids is the&nbsp;
+            <span className="font-bold md:bg-primary md:rounded-full md:px-2 md:py-0.25">
+              workflow antidote to beat block
+            </span>
+            , allowing producers to be able to focus on producing their highest
+            quality work.
           </h3>
           <Link
             href={`${loggedIn ? "/quickie" : "/signup"}`}
-            className={`${btn} ${btnPrimary}`}
+            className={`${btn} bg-primary`}
           >
             Get started
           </Link>

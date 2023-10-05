@@ -1,15 +1,38 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { CONTACT_SUBMISSION } from "../../../utils/mutations";
 import Link from "next/link";
 const Contact = () => {
   const formInputLabelWrapper = "flex flex-col mb-4";
   const formInput =
-    "h-12 w-full rounded-lg pl-4 border-1 border-medium text-1 font-bold focus:outline-primary";
+    "h-12 w-full rounded-lg pl-4 border-1 border-medium text-1  focus:outline-primary";
   const formTextArea =
     "h-36 w-full rounded p-4 border-1 border-medium text-1 font-regular focus:outline-primary";
   const formLabel = "font-bold text-0.875 mb-1";
 
-  const handleFormSubmit = (e) => {
+  const [contactDetails, setContactDetails] = useState({
+    user_email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [contactSubmission] = useMutation(CONTACT_SUBMISSION);
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await contactSubmission({
+        variables: {
+          userEmail: contactDetails.user_email,
+          subject: contactDetails.subject,
+          message: contactDetails.message,
+        },
+      });
+      const displayConfirmation = window.location.replace(`/contact/thank-you`);
+      displayConfirmation();
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="w-full flex justify-center">
@@ -22,18 +45,7 @@ const Contact = () => {
         </div>
         <div>
           <h2 className="text-2 mb-5">Get in touch</h2>
-          <form
-            id="contactForm"
-            className=""
-            action="https://formsubmit.co/support@meloroids.io"
-            method="POST"
-            // onSubmit={handleFormSubmit}
-          >
-            <input
-              type="hidden"
-              name="_next"
-              value={"https://meloroids.io/contact/thank-you"}
-            />
+          <form id="contactForm" className="" onSubmit={handleFormSubmit}>
             <div className={formInputLabelWrapper}>
               <label htmlFor="email" className={formLabel}>
                 Your email*
@@ -44,6 +56,12 @@ const Contact = () => {
                 type="email"
                 required
                 className={formInput}
+                onChange={(e) =>
+                  setContactDetails({
+                    ...contactDetails,
+                    user_email: e.target.value,
+                  })
+                }
               />
             </div>
             <div className={formInputLabelWrapper}>
@@ -56,6 +74,12 @@ const Contact = () => {
                 type="text"
                 required
                 className={formInput}
+                onChange={(e) =>
+                  setContactDetails({
+                    ...contactDetails,
+                    subject: e.target.value,
+                  })
+                }
               />
             </div>
             <div className={`${formInputLabelWrapper} mb-8`}>
@@ -68,6 +92,12 @@ const Contact = () => {
                 type="text"
                 required
                 className={formTextArea}
+                onChange={(e) =>
+                  setContactDetails({
+                    ...contactDetails,
+                    message: e.target.value,
+                  })
+                }
               />
             </div>
             <button

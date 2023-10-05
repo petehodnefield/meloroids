@@ -20,7 +20,6 @@ let schema = makeExecutableSchema({
   type Artist {
     _id: ID
     name: String
-    age: Int
     image: String
     albums: [Album]
     songs: [Song]
@@ -131,10 +130,13 @@ let schema = makeExecutableSchema({
     minorkeys: [Key]
 
     me: User
+    verifyToken(user_id: ID!, token: String!): Auth
     users: [User]
     user(id: ID!): User
     username(username: String!): User
     userEmail(email: String!): User
+
+    getAllLists: String
   }
 
   type Mutation {
@@ -173,8 +175,14 @@ let schema = makeExecutableSchema({
     createUser(username: String!, password: String!, role: String, email: String!, instagramHandle: String!): Auth 
     login(username: String!, password: String!): Auth 
     changeUserPassword(currentPassword: String!, newPassword: String!): User 
+    resetPassword(user_id: ID!, newPassword: String!): User
+    generateResetToken(email: String!): Auth
     changeUserInfo(username: String, bio: String, instagramHandle: String, email: String): User 
     deleteUser: User 
+
+    contactSubmission(user_email: String!, subject: String!, message: String!): String
+    addContactToSendgrid(user_email: String!, instagramHandle: String!): String
+    createCustomField: String
   }
 
   type Auth {
@@ -199,5 +207,5 @@ const { url } = await startStandaloneServer(server, {
   context: auth.authMiddleware,
   listen: { port: 4000 },
 });
-
+console.log(url);
 console.log(`🚀  Server ready at: ${url}`);

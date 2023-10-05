@@ -1,33 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { initializeApollo } from "../../../lib/apollo";
+import { useQuery, useMutation } from "@apollo/client";
+import { RESET_PASSWORD } from "../../../utils/mutations";
+import { USER, VERIFY_TOKEN } from "../../../utils/queries";
+import Auth from "../../../utils/auth";
+import Home from "../index";
 import {
-  formInputLabelWrapper,
+  successText,
   formLabel,
   formInput,
-  btn,
   inputStyle,
-  successInputStyle,
+  formInputLabelWrapper,
   failureInputStyle,
-  errorMessage,
+  successInputStyle,
+  btn,
   errorText,
-  successText,
 } from "../../../utils/styles";
-import { Icon } from "@iconify/react";
-import { useMutation } from "@apollo/client";
-import { CHANGE_USER_PASSWORD } from "../../../utils/mutations";
-
-const ChangePasswordModal = ({ setChangePasswordModalOpen, refetch }) => {
+import Link from "next/link";
+import { LoginContext } from "../_app";
+const ResetPasswordParams = ({ queryID }) => {
+  const [loggedIn] = useContext(LoginContext);
   const [passwords, setPasswords] = useState({
-    currentPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-
-  const [originalPasswordMatch, setOriginalPasswordMatch] = useState("");
   const [passwordValidated, setPasswordValidated] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [passwordReset, setPasswordReset] = useState(false);
 
-  const [changeUserPassword] = useMutation(CHANGE_USER_PASSWORD);
+  const userID = queryID.params[0];
+  const token = queryID.params[1];
+
+  const { data, loading } = useQuery(VERIFY_TOKEN, {
+    variables: {
+      token: token,
+      userId: userID,
+    },
+  });
+
+  const [resetPassword] = useMutation(RESET_PASSWORD);
 
   // Validate password
   useEffect(() => {
@@ -59,70 +71,58 @@ const ChangePasswordModal = ({ setChangePasswordModalOpen, refetch }) => {
       return;
     } else {
       try {
-        await changeUserPassword({
+        await resetPassword({
           variables: {
-            currentPassword: passwords.currentPassword,
+            userId: userID,
             newPassword: passwords.newPassword,
           },
         });
-        setSuccessMessage("Password successfully reset!");
-        setOriginalPasswordMatch("");
-        await refetch();
-        setTimeout(() => {
-          setChangePasswordModalOpen(false);
-        }, 1500);
+        setPasswordReset(true);
       } catch (e) {
-        setOriginalPasswordMatch(e.message);
+        console.log(e);
       }
     }
   };
-  return (
-    <div className="absolute top-0 h-full w-full bg-darkScreen flex items-start px-6 md:py-12 justify-center">
-      <div className="relative w-full md:max-w-48 border-dark border-1 bg-white shadow-3xl flex flex-col md:flex-row md:items-start items-center gap-8 md:gap-12 my-8 px-6 pt-12 pb-8 md:p-12 rounded">
-        <Icon
-          className="absolute top-4 right-4 text-1.5 cursor-pointer"
-          icon="octicon:x-12"
-          onClick={() => setChangePasswordModalOpen(false)}
-        />
 
-        <div className="w-full md:w-80 text-center md:text-left">
-          <h2 className="text-1.5 font-semibold mb-6">Change password</h2>
-          <form onSubmit={(e) => handleFormSubmit(e)} className="">
-            <div className={`${formInputLabelWrapper}  mb-8`}>
-              <label htmlFor="currentPassword" className={`${formLabel}`}>
-                Current password:
-              </label>
-              <input
-                onChange={(e) =>
-                  setPasswords({
-                    ...passwords,
-                    currentPassword: e.target.value,
-                  })
-                }
-                type="password"
-                name="currentPassword"
-                id="currentPassword"
-                minLength={8}
-                maxLength={20}
-                required
-                className={`${inputStyle}`}
-              />
-              {!originalPasswordMatch ? (
-                ""
-              ) : (
-                <p className={`${errorText}`}>{originalPasswordMatch}</p>
-              )}
-            </div>
+  if (loggedIn) {
+    const goHome = window.location.replace("/");
+  }
+
+  if (loading) return <div>Loading...</div>;
+
+  if (!loading && !data)
+    return (
+      <div className="relative w-full  flex justify-center items-center px-6 my-8  pt-12 pb-8 md:py-12 rounded">
+        <div className="w-full md:max-w-24  text-center bg-white shadow-3xl rounded py-12 px-8">
+          <h2 className="text-1.5 font-semibold mb-6">
+            This link has expired!
+          </h2>
+          <Link
+            href={`/reset-password`}
+            className={`underline font-medium text-primary`}
+          >
+            Get a new link
+          </Link>
+        </div>
+      </div>
+    );
+
+  return (
+    <div className="relative w-full  flex justify-center items-center  my-8  pt-12 pb-8 md:py-12 rounded">
+      {!passwordReset ? (
+        <div className="w-full max-w-24   bg-white shadow-3xl rounded py-12 px-8">
+          <h1 className="text-1.5 font-semibold mb-6">Reset Password</h1>
+          <form
+            onSubmit={(e) => handleFormSubmit(e)}
+            className="flex flex-col items-center"
+          >
             <div className={`${formInputLabelWrapper}`}>
               <label htmlFor="newPassword" className={`${formLabel}`}>
                 New password:
               </label>
               <input
                 onChange={(e) =>
-                  setPasswords({
-                    ...passwords,
-                    newPassword: e.target.value,
-                  })
+                  setPasswords({ ...passwords, newPassword: e.target.value })
                 }
                 minLength={8}
                 maxLength={20}
@@ -190,26 +190,55 @@ const ChangePasswordModal = ({ setChangePasswordModalOpen, refetch }) => {
             <button type="submit" className={`${btn} mt-4 bg-dark text-white `}>
               Save
             </button>
-          </form>
-        </div>
-        <div className="flex flex-col">
-          <div className=" flex flex-col  items-start mb-1 py-2">
-            <h3 className="font-semibold mb-2">Password requirements:</h3>
-            <ul className="list-disc	text-1 pl-5 mb-2 font-medium">
-              <li>8-20 characters</li>
-              <li>Include all of the following:</li>
-              <ul className="sublist	pl-4">
-                <li>1 uppercase letter</li>
-                <li>1 lowercase letter</li>
-                <li>1 number</li>
-                <li>1 special character</li>
+          </form>{" "}
+          <div className="flex flex-col mt-8 items-start">
+            <div className=" flex flex-col  items-start mb-1 py-2">
+              <h3 className="font-semibold mb-2">Password requirements:</h3>
+              <ul className="list-disc	text-1 pl-5 mb-2 font-medium">
+                <li>8-20 characters</li>
+                <li>Include all of the following:</li>
+                <ul className="sublist	pl-4">
+                  <li>1 uppercase letter</li>
+                  <li>1 lowercase letter</li>
+                  <li>1 number</li>
+                  <li>1 special character</li>
+                </ul>
               </ul>
-            </ul>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="w-full max-w-24 text-center  bg-white shadow-3xl rounded py-12 px-8">
+          {" "}
+          <h2 className="text-1.5 font-semibold mb-6">
+            Password successfully reset
+          </h2>
+          <Link className="text-primary font-medium" href={`/login`}>
+            Back to login
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
 
-export default ChangePasswordModal;
+export default ResetPasswordParams;
+
+export const getServerSideProps = async ({ query }) => {
+  const queryID = query;
+
+  const apolloClient = initializeApollo();
+
+  const data = await apolloClient.query({
+    query: USER,
+    variables: { userId: queryID.params[0] },
+  });
+
+  return {
+    props: {
+      data,
+      initializeApolloState: apolloClient.cache.extract(),
+      queryID,
+    },
+  };
+};

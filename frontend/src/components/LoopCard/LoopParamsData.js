@@ -11,6 +11,7 @@ const LoopParamsData = ({
   loopNameParams,
   setLoopNameParams,
 }) => {
+  let index = 0;
   return (
     <div className="relative w-full max-w-24 md:w-96 flex flex-col items-start pt-10 mb-12   bg-white rounded-lg md:mb-6">
       <Icon
@@ -35,7 +36,7 @@ const LoopParamsData = ({
             <div className="flex gap-3 flex-wrap">
               {splitChords.map((chord) => (
                 <div
-                  key={chord}
+                  key={`${chord} ${index++}`}
                   className="flex items-center justify-center bg-primary rounded-full w-16 h-16 border-1 border-dark text-white "
                 >
                   <p className="text-1.5 font-semibold">{chord}</p>
@@ -50,7 +51,7 @@ const LoopParamsData = ({
             <div className="flex gap-3 flex-wrap">
               {splitNumerals.map((numeral) => (
                 <div
-                  key={numeral}
+                  key={`${numeral} ${index++}`}
                   className="flex items-center justify-center bg-dark rounded-full w-16 h-16 text-white "
                 >
                   <p className="text-1.5 font-semibold">{numeral}</p>

@@ -21,6 +21,7 @@ module.exports = {
       },
       colors: {
         primary: "#b525f8",
+        primaryFaded: "rgba(202, 108, 248, 0.15)",
         secondary: "#C9ABD9",
         tertiary: "#EFECF0",
         quad: "#423D47",
@@ -39,6 +40,12 @@ module.exports = {
         denyLight: "rgba(238, 21, 21, 0.1)",
         confirm: "#177055",
         confirmLight: "#7CD7BC",
+      },
+      minHeight: {
+        350: "350px",
+        400: "400px",
+        600: "600px",
+        800: "800px",
       },
       maxHeight: {
         14: "14rem",
@@ -62,6 +69,7 @@ module.exports = {
         xxs: ["16rem"],
         660: "660px",
         16: "16rem",
+        21: "21rem",
         24: "24rem",
         26: "26rem",
         30: "30rem",
@@ -86,6 +94,9 @@ module.exports = {
       flex: {
         1.33: "1.3 1.3 0",
         2: "2 1 0",
+      },
+      aspectRatio: {
+        "4/3": "4 / 3",
       },
     },
   },
