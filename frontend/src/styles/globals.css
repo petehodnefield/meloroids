@@ -33,6 +33,11 @@ h3 {
 p {
   line-height: 150%;
 }
+button:hover,
+a:hover {
+  opacity: 0.85;
+  transition: 200ms linear;
+}
 
 .checkbox-container {
   display: flex;

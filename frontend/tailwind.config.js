@@ -42,6 +42,8 @@ module.exports = {
         confirmLight: "#7CD7BC",
       },
       minHeight: {
+        350: "350px",
+        400: "400px",
         600: "600px",
         800: "800px",
       },
@@ -67,6 +69,7 @@ module.exports = {
         xxs: ["16rem"],
         660: "660px",
         16: "16rem",
+        21: "21rem",
         24: "24rem",
         26: "26rem",
         30: "30rem",
@@ -91,6 +94,9 @@ module.exports = {
       flex: {
         1.33: "1.3 1.3 0",
         2: "2 1 0",
+      },
+      aspectRatio: {
+        "4/3": "4 / 3",
       },
     },
   },
