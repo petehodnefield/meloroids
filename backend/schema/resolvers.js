@@ -837,7 +837,7 @@ export const resolvers = {
         },
       };
 
-      client
+      await client
         .request(request)
         .then(([response, body]) => {
           console.log(response.statusCode);

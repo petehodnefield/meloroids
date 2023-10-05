@@ -128,6 +128,12 @@ const SignupForm = () => {
       setTermsCheckedError("Please check the terms and conditions!");
     } else {
       try {
+        await addContactToSendgrid({
+          variables: {
+            userEmail: userInfo.email,
+            instagramHandle: userInfo.instagramHandle,
+          },
+        });
         const { data } = await signUp({
           variables: {
             username: userInfo.username,
@@ -136,12 +142,7 @@ const SignupForm = () => {
             instagramHandle: userInfo.instagramHandle,
           },
         });
-        const addToSendgrid = await addContactToSendgrid({
-          variables: {
-            userEmail: userInfo.email,
-            instagramHandle: userInfo.instagramHandle,
-          },
-        });
+
         Auth.login(data.createUser.token);
       } catch (e) {
         console.log(e);
