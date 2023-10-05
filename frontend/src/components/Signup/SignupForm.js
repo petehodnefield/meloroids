@@ -150,16 +150,7 @@ const SignupForm = () => {
     }
   };
   return (
-    <form
-      id="signupForm"
-      action="https://meloroids.us21.list-manage.com/subscribe/post"
-      method="POST"
-      onSubmit={(e) => handleFormSubmit(e)}
-    >
-      {/* Hidden Inputs */}
-      <input type="hidden" name="u" value="74ca7fc92cb84f6ac5e3867ab" />
-      <input type="hidden" name="id" value="7005dd4ba1" />
-
+    <form id="signupForm" onSubmit={(e) => handleFormSubmit(e)}>
       {/* Username Input Field */}
       <div className={`${formInputWrapperStyle} mb-8`}>
         <label htmlFor="username" className={`${labelStyle}`}>
@@ -196,15 +187,15 @@ const SignupForm = () => {
 
       {/* Email Address Input Field */}
       <div className={`${formInputWrapperStyle} mb-4`}>
-        <label htmlFor="MERGE0" className={`${labelStyle}`}>
+        <label htmlFor="email" className={`${labelStyle}`}>
           Email Address*
         </label>
         <div className="relative">
           <input
             minLength={6}
             maxLength={30}
-            name="MERGE0"
-            id="MERGE0"
+            name="email"
+            id="email"
             type="email"
             required
             className={`${inputStyle} 
@@ -355,14 +346,14 @@ const SignupForm = () => {
 
       {/* Instagram Handle */}
       <div className={`${formInputWrapperStyle} mb-6`}>
-        <label htmlFor="MERGE1" className={`${labelStyle}`}>
+        <label htmlFor="instagramHandle" className={`${labelStyle}`}>
           Instagram Handle
         </label>
         <input
           minLength={2}
           maxLength={20}
-          id="MERGE1"
-          name="MERGE1"
+          id="instagramHandle"
+          name="instagramHandle"
           type="text"
           className={`${inputStyle}
           ${userInfo.instagramHandle.length >= 1 ? successInputStyle : ""}`}
