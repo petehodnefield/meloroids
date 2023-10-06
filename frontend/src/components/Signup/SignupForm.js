@@ -246,7 +246,10 @@ const SignupForm = () => {
             }
             `}
             onChange={(e) => {
-              setUserInfo({ ...userInfo, emailConfirm: e.target.value });
+              setUserInfo({
+                ...userInfo,
+                emailConfirm: e.target.value.toLowerCase(),
+              });
             }}
           />
         </div>

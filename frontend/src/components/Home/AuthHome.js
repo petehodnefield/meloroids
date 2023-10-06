@@ -48,23 +48,23 @@ const AuthHome = () => {
       </div>
       <div className="relative flex flex-col justify-center lg:flex-row gap-4 items-center flex-wrap">
         {/* Artist Target */}
-        {/* <Link
-            href={"/artist-target"}
-            className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
-          >
-            <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
-              <h4 className="text-2.5 font-semibold text-primary mb-2">
-                Artist Target
-              </h4>
-              <div className="w-full h-full">
-                <Image
-                  src={artistTargetImage}
-                  alt="A snapshot of Artist Target by Meloroids"
-                  className="rounded-2xl features__img"
-                />
-              </div>
+        <Link
+          href={"/artist-target"}
+          className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
+        >
+          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
+            <h4 className="text-2.5 font-semibold text-primary mb-2">
+              Artist Target
+            </h4>
+            <div className="w-full h-full">
+              <Image
+                src={artistTargetImage}
+                alt="A snapshot of Artist Target by Meloroids"
+                className="rounded-2xl features__img"
+              />
             </div>
-          </Link> */}
+          </div>
+        </Link>
         {/* Target */}
         <Link
           href={"/target-setup"}

@@ -48,7 +48,12 @@ export const resolvers = {
 
     // Albums
     albums: async () => {
-      return await Album.find().populate("songs").populate("artist");
+      return await Album.find()
+        .populate({
+          path: "songs",
+          populate: { path: "progression", model: "Progression" },
+        })
+        .populate("artist");
     },
     album: async (parent, { id }) => {
       return Album.findOne({ _id: id })
