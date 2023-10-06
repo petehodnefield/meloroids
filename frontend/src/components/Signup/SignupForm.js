@@ -113,6 +113,7 @@ const SignupForm = () => {
   }, [userInfo.password, userInfo.passwordConfirm]);
 
   const handleFormSubmit = async (e, form) => {
+    e.preventDefault();
     if (
       !emailAvailable ||
       !emailValidated ||
@@ -125,15 +126,10 @@ const SignupForm = () => {
       window.alert("Please fix your errors on the form and try again.");
       return;
     } else if (!userInfo.checked) {
+      e.preventDefault();
       setTermsCheckedError("Please check the terms and conditions!");
     } else {
       try {
-        await addContactToSendgrid({
-          variables: {
-            userEmail: userInfo.email,
-            instagramHandle: userInfo.instagramHandle,
-          },
-        });
         const { data } = await signUp({
           variables: {
             username: userInfo.username,
@@ -142,7 +138,12 @@ const SignupForm = () => {
             instagramHandle: userInfo.instagramHandle,
           },
         });
-
+        await addContactToSendgrid({
+          variables: {
+            userEmail: userInfo.email,
+            instagramHandle: userInfo.instagramHandle,
+          },
+        });
         Auth.login(data.createUser.token);
       } catch (e) {
         console.log(e);
