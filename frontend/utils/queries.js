@@ -196,8 +196,11 @@ export const ALL_ARTISTS = gql`
     artists {
       _id
       name
-      age
       image
+      songs {
+        _id
+        song_name
+      }
       albums {
         _id
         album_name

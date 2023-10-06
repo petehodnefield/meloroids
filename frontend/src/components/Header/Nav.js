@@ -39,7 +39,7 @@ const Nav = () => {
             {loggedIn ? "Dashboard" : "Home"}
           </Link>
         </li>{" "}
-        {/* <li
+        <li
           className={`${liStyle}  ${
             navigationSelected === "artist-target" ? selectedNavItem : ""
           }`}
@@ -52,7 +52,7 @@ const Nav = () => {
           >
             Artist Target
           </Link>
-        </li> */}
+        </li>
         <li
           className={`${liStyle}  ${
             navigationSelected === "target" ? selectedNavItem : ""

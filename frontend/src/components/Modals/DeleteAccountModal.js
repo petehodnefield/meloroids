@@ -59,7 +59,9 @@ const DeleteAccountModal = ({ setDeleteAccountModalOpen }) => {
               required
               minLength={1}
               maxLength={20}
-              onChange={(e) => setDeleteConfirmMessage(e.target.value)}
+              onChange={(e) =>
+                setDeleteConfirmMessage(e.target.value.toLowerCase())
+              }
               placeholder="delete my account"
               className={`${formInput}  flex items-start py-4 justify-between bg-white border-1 border-light rounded`}
             />
