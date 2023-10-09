@@ -45,6 +45,18 @@ const Nav = () => {
           }`}
         >
           <Link
+            onClick={() => setNavigationSelected(loggedIn ? "data" : "login")}
+            href={`${loggedIn ? "/data" : "/login"}`}
+          >
+            Data{" "}
+          </Link>
+        </li>
+        <li
+          className={`${liStyle}  ${
+            navigationSelected === "artist-target" ? selectedNavItem : ""
+          }`}
+        >
+          <Link
             onClick={() =>
               setNavigationSelected(loggedIn ? "artist-target" : "login")
             }

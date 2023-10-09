@@ -25,7 +25,7 @@ const Features = () => {
 
   return (
     <section
-      className="min-h-800 w-full flex items-center justify-center "
+      className="min-h-600 w-full flex items-center justify-center "
       id="features"
     >
       <div className="px-6 py-12 md:py-16 md:max-w-70 w-full flex flex-col lg:items-start text-center">

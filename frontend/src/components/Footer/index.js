@@ -77,15 +77,15 @@ const Footer = () => {
           <div className="flex flex-col items-start">
             <h3 className="text-1.5 font-bold mb-4">Resources</h3>
             <ul className="flex flex-col p-0 gap-3">
-              <li className="mg-0 p-0">
+              <li>
                 <Link
                   onClick={() =>
-                    setNavigationSelected(loggedIn ? "quickie" : "login")
+                    setNavigationSelected(loggedIn ? "data" : "login")
                   }
-                  href={loggedIn ? "/quickie" : "/login"}
+                  href={loggedIn ? "/data" : "/login"}
                   className="font-1.125 font-medium"
                 >
-                  Quickie
+                  Data
                 </Link>
               </li>
               <li>
@@ -108,6 +108,17 @@ const Footer = () => {
                   className="font-1.125 font-medium"
                 >
                   Target
+                </Link>
+              </li>{" "}
+              <li className="mg-0 p-0">
+                <Link
+                  onClick={() =>
+                    setNavigationSelected(loggedIn ? "quickie" : "login")
+                  }
+                  href={loggedIn ? "/quickie" : "/login"}
+                  className="font-1.125 font-medium"
+                >
+                  Quickie
                 </Link>
               </li>
               <li>

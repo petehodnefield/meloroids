@@ -58,6 +58,18 @@ const HamburgerMenu = ({ setIsOpen }) => {
         <li className={`${liStyle}`}>
           <Link
             className={linkStyle}
+            href={loggedIn ? "/data" : "login"}
+            onClick={() => {
+              setIsOpen(false);
+              setNavigationSelected(loggedIn ? "data" : "login");
+            }}
+          >
+            Data
+          </Link>
+        </li>
+        <li className={`${liStyle}`}>
+          <Link
+            className={linkStyle}
             href={loggedIn ? "/artist-target" : "login"}
             onClick={() => {
               setIsOpen(false);
