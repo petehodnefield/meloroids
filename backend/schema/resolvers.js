@@ -49,6 +49,8 @@ export const resolvers = {
     // Albums
     albums: async () => {
       return await Album.find()
+        .sort({ album_name: 1 })
+
         .populate({
           path: "songs",
           populate: { path: "progression", model: "Progression" },

@@ -246,3 +246,28 @@ export const ALBUM = gql`
     }
   }
 `;
+
+export const ALL_ALBUMS = gql`
+  query Query {
+    albums {
+      _id
+      album_name
+      artwork
+      year
+      popularity
+      songs {
+        _id
+        song_name
+        tempo
+        progression {
+          _id
+          numerals
+        }
+        genre {
+          _id
+          genre
+        }
+      }
+    }
+  }
+`;
