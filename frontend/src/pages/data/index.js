@@ -10,13 +10,14 @@ const Data = () => {
 
   if (loading) return <div>Loading...</div>;
   return (
-    <section className="relative flex items-start justify-center py-12 px-6 min-h-screen w-full">
+    <section className="relative flex flex-col  items-center justify-start py-12 px-6 min-h-screen w-full">
       <Image
         className="z-0 absolute top-0 h-full w-full object-cover"
         src={bgImage}
         alt="a music producer's table"
         priority
       />
+
       <div className="w-full  md:w-fit relative flex flex-col items-center bg-dark rounded-xl pt-12 pb-10 px-8 text-white">
         <h2 className="text-2 font-semibold mb-5">Albums</h2>
         {/* Map out albums */}

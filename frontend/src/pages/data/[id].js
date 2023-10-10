@@ -11,14 +11,22 @@ const DataAlbum = ({ album }) => {
   console.log(`hi ${JSON.stringify(albumData.songs[0].key[0].key)}`);
   if (!album) return <LoadingFullScreen></LoadingFullScreen>;
   return (
-    <section className="relative flex items-start justify-center py-12  min-h-screen w-full">
+    <section className="relative flex flex-col items-center justify-start py-6  min-h-screen w-full">
       <Image
         className="z-0 absolute top-0 h-full w-full object-cover"
         src={bgImage}
         alt="a music producer's table"
         priority
       />{" "}
-      <div className="w-full  relative flex flex-col items-center bg-dark rounded-xl pt-12 pb-10 px-8 text-white">
+      <div className="text-white relative mb-6 text-1.125 bg-dark h-12 flex items-center justify-center px-12 rounded-full">
+        <Link className=" " href={`/data`}>
+          Data /
+        </Link>
+        <Link className="font-semibold ml-1" href={albumData._id}>
+          {albumData.album_name}
+        </Link>
+      </div>
+      <div className="w-full lg:w-fit  relative flex flex-col items-center bg-dark rounded-xl pt-12 pb-10 px-8 text-white">
         <div className="flex flex-col items-start w-full mb-5">
           <div className="mb-7">
             <h1 className="text-2.5 font-semibold mb-5">
@@ -52,11 +60,12 @@ const DataAlbum = ({ album }) => {
                 className="border-b-1  border-dark flex justify-between w-full bg-white text-dark rounded px-4 h-10 items-center"
               >
                 <p className="text-1 font-semibold">{song.song_name}</p>
-                <p className="text-1 font-semibold">{song.key[0].key}</p>
-                <p className="text-1 font-semibold">{song.tempo}</p>
                 <p className="text-1 font-semibold">
-                  {song.progression[0].numerals}
+                  {song.key[0].is_major
+                    ? `${song.key[0].key}`
+                    : `${song.key[0].key}-`}
                 </p>
+                <p className="text-1 font-semibold">{song.tempo}</p>
                 <p className="text-1 font-semibold">
                   {song.progression[0].numerals}
                 </p>
