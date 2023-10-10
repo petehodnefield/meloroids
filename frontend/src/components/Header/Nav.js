@@ -23,7 +23,6 @@ const Nav = () => {
     e.preventDefault();
     setNavigationSelected("home");
     Auth.logout();
-    await client.resetStore();
   };
   return (
     <nav>

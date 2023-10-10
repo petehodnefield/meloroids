@@ -72,6 +72,16 @@ export const GENRES_PROGRESSIONS = gql`
     }
   }
 `;
+export const PROGRESSION_IN_SPECIFIC_KEY = gql`
+  query ProgressionInSpecificKey($numerals: String!, $key: String) {
+    progressionInSpecificKey(numerals: $numerals, key: $key) {
+      _id
+
+      key
+      progression_in_key
+    }
+  }
+`;
 
 export const GENRE_BY_ID = gql`
   query Genre($genreId: ID!) {

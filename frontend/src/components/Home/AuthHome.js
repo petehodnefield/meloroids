@@ -6,6 +6,7 @@ import heroImage from "../../../public/assets/images/hero-img.png";
 import quickieImage from "../../../public/assets/images/quickie.png";
 import artistTargetImage from "../../../public/assets/images/artist-target.png";
 import targetImage from "../../../public/assets/images/target.png";
+import dataImage from "../../../public/assets/images/data.png";
 import { ME } from "../../../utils/queries";
 import { useQuery } from "@apollo/client";
 import Loading from "../Loading/LoadingFullScreen";
@@ -43,10 +44,26 @@ const AuthHome = () => {
           </Link>
         </div>
       </div>
-      <div className="z-2 relative w-full max-w-70 mb-4 flex justify-center">
+      <div className="z-2 relative w-full max-w-70 mb-4 lg:mb-6 flex justify-center">
         <h2 className="text-white text-3 ">Dashboard</h2>
       </div>
-      <div className="relative flex flex-col justify-center lg:flex-row gap-4 items-center flex-wrap">
+      <div className="relative flex flex-col justify-center lg:flex-row gap-4 items-center flex-wrap w-full max-w-70">
+        {/* Data */}
+        <Link
+          href={"/data"}
+          className="hover:opacity-80 duration-200	md:w-1/2 lg:max-w-30"
+        >
+          <div className="flex flex-col items-center bg-white shadow-3xl rounded-4xl   px-4 py-4 md:p-10 ">
+            <h4 className="text-2.5 font-semibold text-primary mb-2">Data</h4>
+            <div className="w-full h-full">
+              <Image
+                src={dataImage}
+                alt="A snapshot of Data by Meloroids"
+                className="rounded-2xl features__img"
+              />
+            </div>
+          </div>
+        </Link>
         {/* Artist Target */}
         <Link
           href={"/artist-target"}

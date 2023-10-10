@@ -33,7 +33,6 @@ const LoginForm = () => {
         variables: { username: userInfo.username, password: userInfo.password },
       });
       Auth.login(data.login.token);
-      await client.resetStore();
     } catch (e) {
       setErrorMessage(e.message);
     }

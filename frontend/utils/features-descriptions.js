@@ -3,6 +3,13 @@ import artistTargetImage from "../public/assets/images/artist-target.png";
 import targetImage from "../public/assets/images/target.png";
 export const featuresDescriptions = [
   {
+    name: "Data",
+    description: [
+      `To accurately target a style, you must know what parameters to use. Data by Meloroids solves this issue by displaying the key, tempo, and chords used in actual songs.`,
+    ],
+    image: quickieImage,
+  },
+  {
     name: "Quickie",
     description: [
       `We all know how annoying it is to come up with a name for our beat every time we sit down to make music.`,

@@ -21,7 +21,6 @@ const HamburgerMenu = ({ setIsOpen }) => {
 
   const logout = async () => {
     Auth.logout();
-    await client.resetStore();
   };
 
   return (
