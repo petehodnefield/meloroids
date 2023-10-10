@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import bgImage from "../../../public/assets/images/producer-table.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,9 +6,11 @@ import { initializeApollo } from "../../../lib/apollo";
 import { useQuery } from "@apollo/client";
 import { ALBUM } from "../../../utils/queries";
 import LoadingFullScreen from "../../components/Loading/LoadingFullScreen";
+import SongDetailsModal from "../../components/Modals/SongDetailsModal";
 const DataAlbum = ({ album }) => {
+  const [songModalOpen, setSongModalOpen] = useState(false);
+  const [selectedSong, setSelectedSong] = useState({});
   const albumData = album.data.album;
-  console.log(`hi ${JSON.stringify(albumData.songs[0].key[0].key)}`);
   if (!album) return <LoadingFullScreen></LoadingFullScreen>;
   return (
     <section className="relative flex flex-col items-center justify-start py-6  min-h-screen w-full">
@@ -18,6 +20,14 @@ const DataAlbum = ({ album }) => {
         alt="a music producer's table"
         priority
       />{" "}
+      {songModalOpen ? (
+        <SongDetailsModal
+          setSongModalOpen={setSongModalOpen}
+          selectedSong={selectedSong}
+        />
+      ) : (
+        ""
+      )}
       <div className="text-white relative mb-6 text-1.125 bg-dark h-12 flex items-center justify-center px-12 rounded-full">
         <Link className=" " href={`/data`}>
           Data /
@@ -56,8 +66,13 @@ const DataAlbum = ({ album }) => {
           <div className=" w-full">
             {albumData.songs.map((song) => (
               <div
+                onClick={() => {
+                  setSelectedSong(song);
+                  setSongModalOpen(true);
+                  window.scrollTo(0, 0);
+                }}
                 key={song._id}
-                className="border-b-1  border-dark flex justify-between w-full bg-white text-dark rounded px-4 h-10 items-center"
+                className="border-b-1  border-dark flex justify-between w-full bg-white text-dark rounded px-4 h-10 items-center cursor-pointer"
               >
                 <p className="text-1 font-semibold">{song.song_name}</p>
                 <p className="text-1 font-semibold">

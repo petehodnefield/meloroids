@@ -110,6 +110,17 @@ export const resolvers = {
 
       return progression;
     },
+    progressionInSpecificKey: async (parent, args) => {
+      let exactProgression;
+      const progression = await Progression.findOne({
+        numerals: args.numerals,
+      }).populate("songs");
+
+      const mapThroughAllKeys = await progression.all_keys.filter(
+        (key) => key.key === args.key
+      );
+      return mapThroughAllKeys[0];
+    },
 
     // Genre
     genres: async () => {
