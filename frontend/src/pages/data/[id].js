@@ -34,15 +34,15 @@ const DataAlbum = ({ album }) => {
       ) : (
         ""
       )}
-      <div className="text-white relative mb-6 text-1.125 bg-dark h-12 flex items-center justify-center px-12 rounded-full">
+      <div className="text-white text-center relative mb-6 text-1.125 bg-dark  py-2 md:h-12 flex flex-col md:flex-row items-center justify-center px-12 rounded-full">
         <Link className=" " href={`/data`}>
           Data /
         </Link>
-        <Link className="font-semibold ml-1" href={albumData._id}>
+        <Link className="font-semibold ml-1 " href={albumData._id}>
           {albumData.album_name}
         </Link>
       </div>
-      <div className="w-full md:max-w-46 relative flex flex-col md:items-center bg-dark rounded-xl pt-12 pb-10 px-8 text-white">
+      <div className="w-full md:max-w-46 relative flex flex-col md:items-center bg-dark md:rounded-xl pt-12 pb-10 px-8 text-white">
         <div className="flex flex-col md:flex-row justify-between items-start w-full mb-5">
           <div className="mb-7  md:basis-1/2 ">
             <h1 className="text-2.5 font-semibold mb-5">
