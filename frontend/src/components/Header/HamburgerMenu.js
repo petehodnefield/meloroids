@@ -21,7 +21,6 @@ const HamburgerMenu = ({ setIsOpen }) => {
 
   const logout = async () => {
     Auth.logout();
-    await client.resetStore();
   };
 
   return (
@@ -53,6 +52,18 @@ const HamburgerMenu = ({ setIsOpen }) => {
             }}
           >
             {loggedIn ? "Dashboard" : "Home"}
+          </Link>
+        </li>
+        <li className={`${liStyle}`}>
+          <Link
+            className={linkStyle}
+            href={loggedIn ? "/data" : "login"}
+            onClick={() => {
+              setIsOpen(false);
+              setNavigationSelected(loggedIn ? "data" : "login");
+            }}
+          >
+            Data
           </Link>
         </li>
         <li className={`${liStyle}`}>

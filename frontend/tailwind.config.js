@@ -59,10 +59,12 @@ module.exports = {
         1000: "1000px",
       },
       width: {
+        15: "15rem",
         70: "70rem",
         64: "64rem",
         60: "60rem",
         62: "16rem",
+        40: "40rem",
       },
       maxWidth: {
         xxxs: ["12rem"],
@@ -73,6 +75,7 @@ module.exports = {
         24: "24rem",
         26: "26rem",
         30: "30rem",
+        46: "46rem",
         48: "48rem",
         58: "58rem",
         70: "70rem",
@@ -97,6 +100,9 @@ module.exports = {
       },
       aspectRatio: {
         "4/3": "4 / 3",
+      },
+      flexBasis: {
+        "1/10": "10%",
       },
     },
   },

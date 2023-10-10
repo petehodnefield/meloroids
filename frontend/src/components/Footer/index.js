@@ -38,11 +38,6 @@ const Footer = () => {
     }
   };
 
-  const logout = async (e) => {
-    e.preventDefault();
-    Auth.logout();
-    await client.resetStore();
-  };
   return (
     <footer className="flex lg:h-325  py-10 items-center text-white justify-center  bg-primary ">
       <div className="w-full lg:w-60 xl:w-70 h-full flex flex-col lg:flex-row items-center lg:items-start justify-center">
@@ -77,15 +72,15 @@ const Footer = () => {
           <div className="flex flex-col items-start">
             <h3 className="text-1.5 font-bold mb-4">Resources</h3>
             <ul className="flex flex-col p-0 gap-3">
-              <li className="mg-0 p-0">
+              <li>
                 <Link
                   onClick={() =>
-                    setNavigationSelected(loggedIn ? "quickie" : "login")
+                    setNavigationSelected(loggedIn ? "data" : "login")
                   }
-                  href={loggedIn ? "/quickie" : "/login"}
+                  href={loggedIn ? "/data" : "/login"}
                   className="font-1.125 font-medium"
                 >
-                  Quickie
+                  Data
                 </Link>
               </li>
               <li>
@@ -109,21 +104,17 @@ const Footer = () => {
                 >
                   Target
                 </Link>
-              </li>
-              <li>
-                {loggedIn ? (
-                  <p className="cursor-pointer font-medium" onClick={logout}>
-                    Logout
-                  </p>
-                ) : (
-                  <Link
-                    onClick={() => setNavigationSelected("login")}
-                    href={"/login"}
-                    className=" font-medium"
-                  >
-                    {loggedIn ? "Logout" : "Login"}
-                  </Link>
-                )}
+              </li>{" "}
+              <li className="mg-0 p-0">
+                <Link
+                  onClick={() =>
+                    setNavigationSelected(loggedIn ? "quickie" : "login")
+                  }
+                  href={loggedIn ? "/quickie" : "/login"}
+                  className="font-1.125 font-medium"
+                >
+                  Quickie
+                </Link>
               </li>
               <li>
                 <Link href={"/contact"} className="font-1.125 font-medium">

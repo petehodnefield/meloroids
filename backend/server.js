@@ -118,6 +118,7 @@ let schema = makeExecutableSchema({
     progressions: [Progression]
     progression(id: ID!): Progression
     progressionByNumerals(numerals: String!): Progression
+    progressionInSpecificKey(numerals: String!, key: String): AllKeys
 
     genres: [Genre]
     genre(id: ID!): Genre

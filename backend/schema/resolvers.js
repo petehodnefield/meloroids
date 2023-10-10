@@ -49,6 +49,8 @@ export const resolvers = {
     // Albums
     albums: async () => {
       return await Album.find()
+        .sort({ album_name: 1 })
+
         .populate({
           path: "songs",
           populate: { path: "progression", model: "Progression" },
@@ -107,6 +109,17 @@ export const resolvers = {
       }).populate("songs");
 
       return progression;
+    },
+    progressionInSpecificKey: async (parent, args) => {
+      let exactProgression;
+      const progression = await Progression.findOne({
+        numerals: args.numerals,
+      }).populate("songs");
+
+      const mapThroughAllKeys = await progression.all_keys.filter(
+        (key) => key.key === args.key
+      );
+      return mapThroughAllKeys[0];
     },
 
     // Genre

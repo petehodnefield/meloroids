@@ -24,7 +24,6 @@ const DeleteAccountModal = ({ setDeleteAccountModalOpen }) => {
       try {
         await deleteUser();
         Auth.logout();
-        await client.resetStore();
       } catch (e) {
         console.log(e);
       }
