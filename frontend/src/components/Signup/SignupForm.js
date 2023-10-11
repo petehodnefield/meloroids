@@ -92,7 +92,7 @@ const SignupForm = () => {
   // Validate password
   useEffect(() => {
     const passwordFormat =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()?><])[A-Za-z\d!@#$%^&*()?><]{8,}$/;
     if (userInfo.password.match(passwordFormat)) {
       setPasswordValidated(true);
     } else {
@@ -351,7 +351,7 @@ const SignupForm = () => {
       {/* Instagram Handle */}
       <div className={`${formInputWrapperStyle} mb-6`}>
         <label htmlFor="instagramHandle" className={`${labelStyle}`}>
-          Instagram Handle
+          Instagram Handle*
         </label>
         <input
           minLength={2}
